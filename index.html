@@ -130,6 +130,43 @@
             pointer-events: auto;
         }
 
+        .micro-nav {
+            position: absolute;
+            top: -48px;
+            right: 120px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            z-index: 1800;
+        }
+
+        .micro-pill {
+            border: none;
+            background: transparent;
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: 0.2s;
+            touch-action: manipulation;
+        }
+
+        .micro-pill:hover,
+        .micro-pill:focus-visible {
+            background: var(--accent-tech);
+            color: var(--text-inv);
+            outline: none;
+        }
+
         .btn-aka {
             background: var(--text-main);
             color: var(--bg-void);
@@ -1114,6 +1151,48 @@
             pointer-events: auto;
         }
 
+        .scroll-hint {
+            position: absolute;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.08);
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 5;
+            animation: float-hint 2s ease-in-out infinite alternate;
+        }
+
+        .scroll-hint .chevron {
+            display: inline-block;
+            transform: translateY(2px);
+        }
+
+        .scroll-hint.hidden {
+            opacity: 0;
+            transform: translate(-50%, 8px);
+            animation: none;
+        }
+
+        @keyframes float-hint {
+            from {
+                transform: translate(-50%, 0);
+            }
+
+            to {
+                transform: translate(-50%, -4px);
+            }
+        }
+
         /*
          * =========================================
          * 8. MEDIA QUERIES
@@ -1131,6 +1210,11 @@
                 width: 95vw;
                 height: 80vh;
                 margin-top: 40px;
+            }
+
+            .micro-nav {
+                top: -40px;
+                right: 140px;
             }
 
             .layer-1 {
@@ -1180,6 +1264,16 @@
                 width: 100%;
                 height: auto;
                 max-height: none;
+            }
+
+            .micro-nav {
+                position: fixed;
+                top: 20px;
+                right: 90px;
+                left: 20px;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+                gap: 6px;
             }
 
             .layer-1 {
@@ -1245,6 +1339,12 @@
     <canvas id="cursor-canvas"></canvas>
 
     <div class="stage-container">
+        <div class="micro-nav">
+            <button id="nav-works" class="micro-pill">Works</button>
+            <button id="nav-about" class="micro-pill">About</button>
+            <button id="nav-exp" class="micro-pill">Experience</button>
+            <button id="nav-contact" class="micro-pill">Contact</button>
+        </div>
         <div class="control-cluster">
             <div class="btn-aka" onclick="goHome()">AKA.</div>
             <div id="btn-back" class="btn-back" onclick="goBack()">← BACK</div>
@@ -1460,6 +1560,43 @@
         const backBtn = document.getElementById('btn-back');
         const hub = document.getElementById('layer-1');
 
+        // --- MICRO NAV (touch-friendly) ---
+        function setupMicroNav() {
+            const destinations = {
+                'nav-works': () => goTo('folder-works'),
+                'nav-about': () => goTo('read-about'),
+                'nav-exp': () => goTo('read-exp'),
+                'nav-contact': () => goTo('read-contact'),
+            };
+
+            Object.entries(destinations).forEach(([id, action]) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('pointerup', (evt) => {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    action();
+                });
+                el.addEventListener('keydown', (evt) => {
+                    if (evt.key === 'Enter' || evt.key === ' ') {
+                        evt.preventDefault();
+                        action();
+                    }
+                });
+            });
+        }
+
+        function goTo(targetId) {
+            goHome();
+            requestAnimationFrame(() => {
+                if (targetId === 'folder-works') {
+                    openFolder(targetId);
+                } else {
+                    openReader(targetId);
+                }
+            });
+        }
+
         // --- NAVIGATION ---
         function openFolder(id) {
             // No reset here, as openFolder is entering for the first time
@@ -1483,6 +1620,7 @@
 
             currentL3 = el;
             el.classList.add('active');
+            revealScrollHint(el);
 
             if (currentL2) {
                 currentL2.classList.add('blurred');
@@ -1552,6 +1690,41 @@
             }
         }
 
+        // --- READER HINTS ---
+        function attachScrollHints() {
+            document.querySelectorAll('.l3-panel').forEach(panel => {
+                if (panel.querySelector('.scroll-hint')) return;
+                const hint = document.createElement('div');
+                hint.className = 'scroll-hint';
+                hint.innerHTML = '<span>Scroll to read</span><span class="chevron">v</span>';
+                panel.appendChild(hint);
+            });
+
+            document.querySelectorAll('.l3-scroll').forEach(scroller => {
+                scroller.addEventListener('scroll', () => handleReaderScroll(scroller));
+                scroller.addEventListener('pointerdown', () => handleReaderScroll(scroller));
+                scroller.addEventListener('pointerup', () => handleReaderScroll(scroller));
+            });
+        }
+
+        function handleReaderScroll(el) {
+            const panel = el.closest('.l3-panel');
+            hideScrollHint(panel);
+            checkScroll(el);
+        }
+
+        function revealScrollHint(layerEl) {
+            const hint = layerEl ? layerEl.querySelector('.scroll-hint') : null;
+            if (!hint) return;
+            hint.classList.remove('hidden');
+        }
+
+        function hideScrollHint(layerEl) {
+            const hint = layerEl ? layerEl.querySelector('.scroll-hint') : null;
+            if (!hint) return;
+            hint.classList.add('hidden');
+        }
+
         // --- FILTERING ---
         function filterWork(tag) {
             const items = document.querySelectorAll('.tag-game, .tag-tech, .tag-ai');
@@ -1583,6 +1756,7 @@
 
         function checkScroll(el) {
             const btn = el.querySelector('.scroll-top');
+            if (!btn) return;
             if (el.scrollTop > 300) btn.classList.add('visible');
             else btn.classList.remove('visible');
         }
@@ -1603,6 +1777,43 @@
                 layer1.scrollLeft += evt.deltaY;
             }
         });
+
+        // Touch/pen drag for cinematic grid
+        function setupLayer1Pan() {
+            let panning = false;
+            let startX = 0;
+            let startScroll = 0;
+
+            layer1.addEventListener('pointerdown', (evt) => {
+                if (evt.pointerType === 'mouse') return;
+                if (currentL2 || currentL3) return;
+                if (layer1.scrollWidth <= layer1.clientWidth) return;
+                panning = true;
+                startX = evt.clientX;
+                startScroll = layer1.scrollLeft;
+                try { layer1.setPointerCapture(evt.pointerId); } catch (err) { }
+            });
+
+            layer1.addEventListener('pointermove', (evt) => {
+                if (!panning) return;
+                const dx = startX - evt.clientX;
+                if (Math.abs(dx) > 2) {
+                    layer1.scrollLeft = startScroll + dx;
+                }
+            });
+
+            ['pointerup', 'pointercancel'].forEach(type => {
+                layer1.addEventListener(type, (evt) => {
+                    if (!panning) return;
+                    panning = false;
+                    try { layer1.releasePointerCapture(evt.pointerId); } catch (err) { }
+                });
+            });
+        }
+
+        setupMicroNav();
+        attachScrollHints();
+        setupLayer1Pan();
 
         // --- CANVAS PARTICLES ---
         const canvas = document.getElementById('cursor-canvas');

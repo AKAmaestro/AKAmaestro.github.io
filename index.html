@@ -96,11 +96,12 @@
         .dashboard-grid {
             display: grid; width: 100%; height: auto;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto auto auto auto;
+            grid-template-rows: auto auto auto auto auto auto;
             gap: 4px; background: var(--hatch); border: 4px solid transparent; 
             grid-template-areas:
                 "header header header header"
                 "hero   hero   hero   hero"
+                "portfolio portfolio portfolio portfolio"
                 "works  works  works  works"
                 "exp    awards rsch   skills"
                 "contact contact contact contact";
@@ -144,6 +145,8 @@
         .hero-name { font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; line-height: 0.8; letter-spacing: -2px; margin-bottom: 10px; }
         .typewriter-text { font-family: var(--font-code); color: var(--accent); font-size: 1.1rem; height: 1.5em;}
         
+        .area-portfolio { grid-area: portfolio; }
+
         .area-works { 
             grid-area: works; padding: 0; background: var(--line); gap: 1px; display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -272,6 +275,16 @@
                     <button class="theme-btn hover-trigger" onclick="toggleTheme()" id="theme-btn">☀</button>
                 </div>
             </header>
+
+            <div class="panel area-portfolio hover-trigger" onclick="openModal('portfolio-pdf')" style="background:#1f1400;">
+                <div class="corner-deco"></div>
+                <span class="label" style="color:#ffb347; border-bottom:1px solid rgba(255,179,71,0.3);">PORTFOLIO_PDF</span>
+                <div>
+                    <h2 class="h-title" style="color:#ffb347;">PDF REEL</h2>
+                    <span class="h-sub" style="color:#ffd27f;">Clickable // full deck</span>
+                    <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">Open inline // links active</p>
+                </div>
+            </div>
 
             <div class="panel area-hero hover-trigger" onclick="openModal('bio')">
                 <div class="corner-deco"></div>
@@ -565,6 +578,14 @@
                         </div>
                     </div>
                 ` 
+            },
+
+            'portfolio-pdf': {
+                title: "PORTFOLIO PDF",
+                body: `<div class="video-container" style="height:80vh; background:#111; border:1px solid var(--line);">
+                            <iframe src="projects/Ankit Kumar portfolio_MDE.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Portfolio PDF"></iframe>
+                        </div>
+                        <p style="font-family:var(--font-code); color:var(--text-dim); margin-top:10px;">PDF is fully clickable. Use toolbar to zoom/download.</p>`
             },
 
             'keybound': { 

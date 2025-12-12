@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKA | SYSTEM_V6.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. THEME ENGINE --- */
+        :root {
+            --bg-void: #050505;
+            --bg-panel: #0b0b0b;
+            --bg-hover: #141414;
+            --bg-modal: #0a0a0a;
+            
+            --line: #333333;
+            --line-dim: #1a1a1a;
+            
+            --text-main: #e6e6e6;
+            --text-dim: #888888;
+            
+            --accent: #00ff41; 
+            --alert: #ff3300;
+
+            --font-ui: 'Manrope', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+            
+            /* HATCH PATTERN */
+            --hatch: repeating-linear-gradient(
+                45deg,
+                var(--line),
+                var(--line) 1px,
+                var(--bg-void) 1px,
+                var(--bg-void) 4px
+            );
+        }
+
+        body.light-mode {
+            --bg-void: #e0e0e0;
+            --bg-panel: #f4f4f4;
+            --bg-hover: #ffffff;
+            --bg-modal: #f8f8f8;
+            --line: #bbbbbb;
+            --line-dim: #d4d4d4;
+            --text-main: #111111;
+            --text-dim: #666666;
+            --accent: #0055ff; 
+            --hatch: repeating-linear-gradient(
+                45deg,
+                var(--line),
+                var(--line) 1px,
+                var(--bg-void) 1px,
+                var(--bg-void) 4px
+            );
+        }
+
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-panel); }
+        ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            width: 100vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2vh 2vw; 
+            transition: background 0.3s;
+            cursor: none;
+        }
+
+        /* --- 2. CURSOR --- */
+        #cursor-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; mix-blend-mode: exclusion; }
+        
+        .custom-cursor {
+            width: 20px; height: 20px; border: 1px solid var(--accent);
+            position: fixed; pointer-events: none; 
+            z-index: 99999;
+            transform: translate(-50%, -50%); 
+            transition: width 0.2s, height 0.2s;
+            mix-blend-mode: difference;
+        }
+        
+        body.hover-active .custom-cursor { background: var(--accent); opacity: 0.4; width: 50px; height: 50px; }
+
+        /* --- 3. GRID SYSTEM --- */
+        .system-frame {
+            width: 100%; max-width: 1800px; height: 96vh;
+            border: 1px solid var(--line);
+            background: var(--bg-void);
+            display: flex; flex-direction: column;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            width: 100%; height: 100%;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 60px 280px minmax(300px, 1fr) 220px 60px;
+            gap: 4px; 
+            background: var(--hatch);
+            border: 4px solid transparent; 
+            grid-template-areas:
+                "header header header header"
+                "hero   hero   hero   hero"
+                "works  works  works  works"
+                "exp    awards rsch   skills"
+                "contact contact contact contact";
+            overflow-y: auto; 
+        }
+
+        /* --- 4. PANELS --- */
+        .panel {
+            background: var(--bg-panel);
+            padding: 25px;
+            position: relative;
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: background 0.2s;
+            overflow: hidden;
+            cursor: none;
+        }
+        .panel:hover { background: var(--bg-hover); }
+        .panel:active { transform: scale(0.995); filter: brightness(0.9); }
+
+        /* Decorators */
+        .corner-deco {
+            position: absolute; top: 0; right: 0;
+            width: 20px; height: 20px;
+            border-top: 1px solid var(--accent);
+            border-right: 1px solid var(--accent);
+            opacity: 0; transition: 0.3s;
+        }
+        .panel:hover .corner-deco { opacity: 1; }
+
+        .label { 
+            font-family: var(--font-code); font-size: 0.65rem; color: var(--text-dim); 
+            text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between;
+            border-bottom: 1px solid var(--line-dim); padding-bottom: 8px; margin-bottom: 10px;
+        }
+        
+        .h-title { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; line-height: 0.9; color: var(--text-main); }
+        .h-sub { font-family: var(--font-code); font-size: 0.75rem; color: var(--accent); margin-top: 5px; display: block;}
+
+        /* AREAS */
+        .area-header { grid-area: header; flex-direction: row; align-items: center; padding: 0 20px; background: var(--bg-panel); }
+        .logo { font-weight: 900; letter-spacing: -1px; }
+        .theme-btn { background: transparent; border: 1px solid var(--line); color: var(--text-main); width: 30px; height: 30px; display: grid; place-items: center; cursor: pointer; transition:0.3s; }
+        .theme-btn:hover { background: var(--accent); color: #000; }
+
+        .area-hero { 
+            grid-area: hero; align-items: center; justify-content: center; text-align: center;
+            background-image: radial-gradient(var(--line) 1px, transparent 1px); background-size: 20px 20px;
+        }
+        .hero-name { font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; line-height: 0.8; letter-spacing: -2px; margin-bottom: 10px; }
+        .typewriter-text { font-family: var(--font-code); color: var(--accent); font-size: 1.1rem; height: 1.5em;}
+        
+        /* WORKS */
+        .area-works { 
+            grid-area: works; 
+            padding: 0; background: var(--line); gap: 1px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .work-item {
+            background: var(--bg-panel);
+            padding: 25px;
+            position: relative;
+            cursor: none;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            transition: 0.3s;
+            min-height: 350px;
+        }
+        .work-item:hover { background: var(--bg-hover); }
+        .work-bg { 
+            position: absolute; top:0; left:0; width:100%; height:100%; 
+            object-fit: cover; opacity: 0.15; filter: grayscale(100%); transition: 0.5s; 
+        }
+        .work-item:hover .work-bg { opacity: 0.4; filter: grayscale(0%); transform: scale(1.02); }
+        .work-content { position: relative; z-index: 2; pointer-events: none; }
+
+        /* INFO SECTIONS */
+        .list-item { font-family: var(--font-code); font-size: 0.75rem; padding: 8px 0; border-bottom: 1px dashed var(--line); color: var(--text-dim); }
+        .list-item strong { color: var(--text-main); display: block; font-size: 0.85rem; margin-bottom: 2px; }
+        
+        .area-exp { grid-area: exp; }
+        .area-awards { grid-area: awards; }
+        .area-rsch { grid-area: rsch; }
+        .area-skills { grid-area: skills; }
+
+        .area-contact { grid-area: contact; align-items: center; justify-content: center; background: var(--bg-hover); border-top: 4px solid var(--bg-void); }
+
+        /* --- 5. RESPONSIVE FIXES --- */
+        @media (max-width: 1024px) {
+            body { 
+                padding: 0; display: block; overflow-y: auto; 
+                cursor: auto; 
+            }
+            .custom-cursor, #cursor-canvas { display: none; }
+            * { cursor: auto; }
+
+            .system-frame { height: auto; border: none; }
+            
+            .dashboard-grid {
+                display: flex; flex-direction: column; 
+                gap: 1px; background: var(--line); border: none;
+                height: auto;
+            }
+            .panel { min-height: auto; padding: 30px 20px; }
+            .area-hero { padding: 80px 20px; }
+            .area-works { display: grid; grid-template-columns: 1fr; gap: 1px; }
+            .work-item { height: 300px; }
+            .modal-overlay { height: 100dvh; }
+        }
+
+        /* --- 6. MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--bg-modal); z-index: 20000;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .modal-overlay.active { transform: translateY(0); }
+
+        .modal-nav {
+            height: 60px; border-bottom: 1px solid var(--line);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+            background: var(--bg-panel); flex-shrink: 0;
+        }
+        .modal-scroll { flex: 1; overflow-y: auto; padding: 40px 20px; display: flex; justify-content: center; }
+        .modal-wrapper { max-width: 800px; width: 100%; padding-bottom: 100px; }
+        
+        .close-btn { 
+            background: transparent; border: 1px solid var(--line); color: var(--text-main);
+            padding: 8px 16px; font-family: var(--font-code); cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:hover { background: var(--alert); color: #000; border-color: var(--alert); }
+
+        .m-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1; margin-bottom: 20px; text-transform: uppercase; }
+        .m-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+        .m-body p { margin-bottom: 20px; line-height: 1.7; color: var(--text-dim); font-size: 1.05rem; }
+        .m-body strong { color: var(--text-main); }
+        .m-body ul { margin-bottom: 20px; padding-left: 20px; color: var(--text-dim); }
+        .m-body li { margin-bottom: 10px; }
+        .m-img { width: 100%; height: auto; margin: 30px 0; border: 1px solid var(--line); filter: grayscale(100%); }
+        
+        .section-h { 
+            font-family: var(--font-code); color: var(--accent); font-size: 1.1rem; 
+            margin: 40px 0 15px; display: block; border-left: 2px solid var(--accent); padding-left: 15px; text-transform: uppercase;
+        }
+
+        .action-btn {
+            display: inline-block; padding: 12px 24px; background: var(--bg-void); 
+            border: 1px solid var(--accent); color: var(--accent); 
+            font-family: var(--font-code); text-decoration: none; margin-top: 20px;
+            transition: 0.3s; cursor: pointer;
+        }
+        .action-btn:hover { background: var(--accent); color: #000; }
+
+        @media (max-width: 768px) {
+            .m-meta { grid-template-columns: 1fr; gap: 10px; }
+            .modal-scroll { padding: 20px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <canvas id="cursor-canvas"></canvas>
+
+    <div class="system-frame">
+        <div class="dashboard-grid">
+            
+            <!-- HEADER -->
+            <header class="panel area-header">
+                <div class="logo">AKA_SYSTEM_V6.2</div>
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <span class="label" style="border:none; margin:0; width:auto;">SYS_READY</span>
+                    <button class="theme-btn hover-trigger" onclick="toggleTheme()" id="theme-btn">☀</button>
+                </div>
+            </header>
+
+            <!-- HERO -->
+            <div class="panel area-hero hover-trigger" onclick="openModal('bio')">
+                <div class="corner-deco"></div>
+                <span class="label" style="justify-content:center; border:none;">BIO_DIGITAL INTERFACE</span>
+                <h1 class="hero-name">ANKIT KUMAR</h1>
+                <div class="typewriter-text">
+                    > <span id="typewriter"></span><span style="animation:blink 1s infinite">_</span>
+                </div>
+                <p style="margin-top:20px; max-width:600px; color:var(--text-dim); font-size:0.9rem;">
+                    Design Engineer // CEO Amnesea Studios // Former Xbox UXR
+                </p>
+                <div style="margin-top:20px; font-family:var(--font-code); font-size:0.7rem; color:var(--accent);">
+                    [CLICK TO READ BIO]
+                </div>
+            </div>
+
+            <!-- WORKS SUPER GRID (8 MAIN PROJECTS) -->
+            <div class="area-works">
+                
+                <!-- P1: KeyBound -->
+                <div class="work-item hover-trigger" onclick="openModal('keybound')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/1a0b2e/bd00ff?text=KeyBound" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_01: GAME</span>
+                        <h2 class="h-title">KeyBound</h2>
+                        <span class="h-sub">NARRATIVE PUZZLE</span>
+                    </div>
+                </div>
+
+                <!-- P2: TimeBound -->
+                <div class="work-item hover-trigger" onclick="openModal('timebound')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/002200/00ff41?text=TimeLoop" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_02: SYSTEMS</span>
+                        <h2 class="h-title">TimeBound</h2>
+                        <span class="h-sub">TIME LOOP RPG</span>
+                    </div>
+                </div>
+
+                <!-- P3: NeuraNode -->
+                <div class="work-item hover-trigger" onclick="openModal('neura')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/440044/ff00ff?text=NeuraNode" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_03: BLOCKCHAIN</span>
+                        <h2 class="h-title">NeuraNode</h2>
+                        <span class="h-sub">JAM WINNER</span>
+                    </div>
+                </div>
+
+                <!-- P4: Xbox -->
+                <div class="work-item hover-trigger" onclick="openModal('xbox')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/107C10/fff?text=Xbox" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_04: UXR LEAD</span>
+                        <h2 class="h-title">Xbox Camp</h2>
+                        <span class="h-sub">STRATEGY & DESIGN</span>
+                    </div>
+                </div>
+
+                <!-- P5: Mocking Bot -->
+                <div class="work-item hover-trigger" onclick="openModal('mocking')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/222/00ff41?text=Robot" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_05: ROBOTICS</span>
+                        <h2 class="h-title">Mocking Bot</h2>
+                        <span class="h-sub">BIO-MIMETIC AUDIO</span>
+                    </div>
+                </div>
+
+                <!-- P6: Balance Bot -->
+                <div class="work-item hover-trigger" onclick="openModal('balance')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/333/fff?text=Pendulum" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_06: CONTROL</span>
+                        <h2 class="h-title">Balance Bot</h2>
+                        <span class="h-sub">INVERTED PENDULUM</span>
+                    </div>
+                </div>
+
+                <!-- P7: Retinopathy -->
+                <div class="work-item hover-trigger" onclick="openModal('retina')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/001133/00f3ff?text=AI+Eye" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_07: MED-TECH</span>
+                        <h2 class="h-title">Retina AI</h2>
+                        <span class="h-sub">DEEP LEARNING</span>
+                    </div>
+                </div>
+
+                <!-- P8: TEQIP -->
+                <div class="work-item hover-trigger" onclick="openModal('teqip')">
+                    <div class="corner-deco"></div>
+                    <img src="https://placehold.co/800x600/333/00f3ff?text=CT+Scan" class="work-bg">
+                    <div class="work-content">
+                        <span class="label">FIG_08: GRANT</span>
+                        <h2 class="h-title">Covid CT</h2>
+                        <span class="h-sub">VOLUMETRIC AI</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- INFO: EXP & EDU -->
+            <div class="panel area-exp hover-trigger" onclick="openModal('exp')">
+                <span class="label">JOURNEY_LOG <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Timeline</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
+                        <div class="list-item"><strong>Xbox</strong>Apprentice Team Lead</div>
+                        <div class="list-item"><strong>Brillio</strong>Sr. Data Engineer</div>
+                        <div class="list-item"><strong>VTU-NMIT</strong>Research Student</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO: AWARDS -->
+            <div class="panel area-awards hover-trigger" onclick="openModal('awards')">
+                <span class="label">HONORS_DB <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Awards</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
+                        <div class="list-item"><strong>Xbox Camp</strong>Top 16 Asia</div>
+                        <div class="list-item"><strong>TEQIP</strong>Innovation Grant</div>
+                        <div class="list-item"><strong>EYRC</strong>4th National</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO: RESEARCH -->
+            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
+                <span class="label">ARCHIVE <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Research</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>IJETER</strong>First Author</div>
+                        <div class="list-item"><strong>Diabetes Care</strong>Co-Author</div>
+                        <div class="list-item"><strong>TEQIP</strong>Grant Recipient</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO: SKILLS -->
+            <div class="panel area-skills hover-trigger" onclick="openModal('skills')">
+                <span class="label">ARSENAL <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Skills</h2>
+                    <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;">
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">UNITY</span>
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">C#</span>
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">PYTHON</span>
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">OPENCV</span>
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">ARDUINO</span>
+                        <span style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">FIGMA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div class="panel area-contact hover-trigger" onclick="window.location.href='mailto:akamaestro@outlook.com'">
+                <h2 class="h-title" style="color:var(--accent); font-size:1.5rem;">akamaestro@outlook.com</h2>
+                <span class="label" style="justify-content:center; margin:0;">INITIALIZE_COMMS_PROTOCOL</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal-overlay">
+        <nav class="modal-nav">
+            <div style="font-family:var(--font-code);">SYSTEM / <span style="color:var(--accent);" id="m-crumb">LOG</span></div>
+            <button class="close-btn hover-trigger" onclick="closeModal()">CLOSE [ESC]</button>
+        </nav>
+        <div class="modal-scroll">
+            <div class="modal-wrapper">
+                <h1 id="m-title" class="m-title">TITLE</h1>
+                <div id="m-content" class="m-body"></div>
+                <div id="m-action-container" style="margin-top:30px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TYPEWRITER
+        const roles = ["Visual Engineer", "Systems Architect", "Game Designer", "Roboticist"];
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        const typeTarget = document.getElementById('typewriter');
+
+        function typeLoop() {
+            const current = roles[roleIndex];
+            typeTarget.innerText = isDeleting ? current.substring(0, charIndex - 1) : current.substring(0, charIndex + 1);
+            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+            
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === current.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; speed = 500; }
+            setTimeout(typeLoop, speed);
+        }
+        document.addEventListener('DOMContentLoaded', typeLoop);
+
+        // THEME
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.getElementById('theme-btn').innerText = document.body.classList.contains('light-mode') ? '☾' : '☀';
+        }
+
+        // --- CONTENT DATABASE (FROM PROVIDED FILES) ---
+        const db = {
+            'bio': { 
+                title: "ANKIT KUMAR AGRAWAL (AKA)", 
+                body: `<p>I am a designer–technologist working at the intersection of indie games, healthcare AI, and robotics. I build interactive systems that are rigorous enough for research labs and expressive enough for game worlds.</p>
+                       <p>Currently, I run <strong>Amnesea</strong>, an indie studio where I lead creative direction and operations. My background spans Data Engineering at Brillio and research in computer vision at VTU-NMIT.</p>` 
+            },
+            
+            'keybound': { 
+                title: "KEYBOUND", 
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Founder & Design Lead</strong></div><div><span class="label">TIMELINE</span><strong>2024 - Present</strong></div><div><span class="label">STACK</span><strong>Unity, C#, Figma</strong></div></div>
+                       <span class="section-h">CONTEXT</span>
+                       <p>KeyBound began as a question: Can we gamify memory loss without frustrating the player? We needed to design a system where 'forgetting' was a mechanic, not a punishment.</p>
+                       <span class="section-h">DESIGN PROCESS</span>
+                       <ul>
+                           <li><strong>Core Loop:</strong> Mapped out exploration, puzzle solving, and narrative reveals.</li>
+                           <li><strong>Mechanics:</strong> Prototyped a 'Melody Echo' system where the environment reacts to auditory cues.</li>
+                           <li><strong>Level Design:</strong> Created tilemaps for modular layouts enabling linear progress and exploration.</li>
+                       </ul>
+                       <span class="section-h">IMPACT</span>
+                       <p>Selected for Xbox Game Camp Asia (Top 4 India). Showcased at IGDC. Pitched to major publishers with a focus on scalable production pipelines.</p>`,
+                link: "https://amnesea.com"
+            },
+
+            'timebound': {
+                title: "TIMEBOUND",
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Systems Designer</strong></div><div><span class="label">CATEGORY</span><strong>RPG / Narrative</strong></div><div><span class="label">STATUS</span><strong>In Development</strong></div></div>
+                       <span class="section-h">CONTEXT</span>
+                       <p>TimeBound is an experimental follow-up to KeyBound. It explores time loops in interactive fiction, challenging players to navigate recursive mechanics while making impactful decisions.</p>
+                       <span class="section-h">CHALLENGES</span>
+                       <ul>
+                           <li>Building a time loop mechanic that feels rewarding, not repetitive.</li>
+                           <li>Structuring a branching narrative that maintains coherence across world resets.</li>
+                           <li>Persisting world states between loops without overwhelming the player.</li>
+                       </ul>
+                       <span class="section-h">OUTCOME</span>
+                       <p>Early prototypes were met with enthusiasm from playtesters. Xbox mentors encouraged further development of the branching narrative system.</p>`
+            },
+
+            'neura': {
+                title: "NEURANODE",
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Game Jam</strong></div><div><span class="label">RESULT</span><strong>Winner</strong></div></div>
+                       <span class="section-h">OVERVIEW</span>
+                       <p>Led a small team to create two game prototypes experimenting with blockchain mechanics. Our objective was to test how on-chain mechanics could enhance player agency.</p>
+                       <span class="section-h">APPROACH</span>
+                       <p>We developed a rogue-lite where players mint unique characters and a strategy game using community-governed land plots. We used the Avalanche SDK to implement core loops and smart contracts within 36 hours.</p>
+                       <span class="section-h">IMPACT</span>
+                       <p>Awarded First Place for creative mechanics and technical execution.</p>`
+            },
+
+            'xbox': { 
+                title: "XBOX GAME CAMP", 
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Apprentice Team Lead (UXR)</strong></div><div><span class="label">REGION</span><strong>Asia (Top 16)</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
+                       <span class="section-h">RESPONSIBILITIES</span>
+                       <ul>
+                           <li>Collaborated with Xbox mentors to brainstorm game mechanics and player experience goals.</li>
+                           <li>Developed user flows and onboarding sequences to improve clarity.</li>
+                           <li>Co-led investor presentations at industry events.</li>
+                       </ul>
+                       <span class="section-h">KEY LEARNINGS</span>
+                       <p>Learned how to translate messy prototypes into marketable pitches. Gained hands-on experience with console certification requirements and production planning.</p>`
+            },
+
+            'mocking': { 
+                title: "MOCKING BOT", 
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Designer</strong></div><div><span class="label">TECH</span><strong>Python, Arduino, OpenCV</strong></div><div><span class="label">AWARD</span><strong>4th National (EYRC)</strong></div></div>
+                       <span class="section-h">THE CHALLENGE</span>
+                       <p>Create a robot capable of listening to music, detecting instruments/patterns, and replicating them in real-time. Standard servos were too slow (200ms).</p>
+                       <span class="section-h">SOLUTION</span>
+                       <p>I custom-wound solenoids to achieve a striking speed of 40ms. We used Python for FFT audio analysis to isolate frequencies and classify instruments (piano, drums) using a lightweight neural network.</p>
+                       <span class="section-h">RESULT</span>
+                       <p>Performed live demos at IIT Bombay, accurately mimicking musicians with low latency. Ranked 4th among ~7,000 teams.</p>`
+            },
+
+            'balance': {
+                title: "BALANCE BOT",
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Control Designer</strong></div><div><span class="label">TECH</span><strong>PID, IMU, C++</strong></div><div><span class="label">TYPE</span><strong>Robotics</strong></div></div>
+                       <span class="section-h">CONTEXT</span>
+                       <p>An inverted pendulum control system. The goal was to build a prototype capable of maintaining upright posture while moving.</p>
+                       <span class="section-h">ENGINEERING</span>
+                       <ul>
+                           <li><strong>Chassis:</strong> Modeled in CAD to ensure proper center of gravity.</li>
+                           <li><strong>Algorithm:</strong> Programmed a PID loop on a microcontroller to compute corrective motor torque based on tilt angle from an IMU.</li>
+                           <li><strong>Tuning:</strong> Iteratively adjusted gains to handle non-linearities like motor friction.</li>
+                       </ul>`
+            },
+
+            'retina': { 
+                title: "RETINOPATHY AI", 
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>First Author</strong></div><div><span class="label">TECH</span><strong>PyTorch, CNNs</strong></div><div><span class="label">PUBLICATION</span><strong>IJETER 2020</strong></div></div>
+                       <span class="section-h">MOTIVATION</span>
+                       <p>Diabetic Retinopathy (DR) is a leading cause of blindness. Manual screening is time-consuming. We aimed to automate screening using Deep Learning.</p>
+                       <span class="section-h">METHODOLOGY</span>
+                       <p>We curated retinal image datasets, applied contrast enhancement (CLAHE), and trained multiple CNN architectures (ResNet, Inception). We explored multi-task learning for both binary detection and severity grading.</p>
+                       <span class="section-h">RESULTS</span>
+                       <p>Achieved 97.4% accuracy in detection and strong performance in severity grading. Published in the International Journal of Emerging Trends in Engineering Research.</p>`
+            },
+
+            'teqip': { 
+                title: "COVID-19 CT SCREENING", 
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Researcher</strong></div><div><span class="label">FUNDING</span><strong>TEQIP Grant (INR 25k)</strong></div><div><span class="label">YEAR</span><strong>2020</strong></div></div>
+                       <span class="section-h">PROJECT</span>
+                       <p>Developed an AI-based system to screen chest CT scans for COVID-19 and estimate disease severity during the pandemic.</p>
+                       <span class="section-h">APPROACH</span>
+                       <ul>
+                           <li>Assembled a dataset of anonymized CT slices.</li>
+                           <li>Experimented with 3D CNNs for volumetric analysis and heatmap localization.</li>
+                           <li>Created a proof-of-concept web interface for clinicians.</li>
+                       </ul>
+                       <span class="section-h">IMPACT</span>
+                       <p>Demonstrated how AI could assist in triage during surges. Strengthened collaborations between engineering and medical faculty.</p>`
+            },
+
+            'exp': { 
+                title: "PROFESSIONAL TIMELINE", 
+                body: `<span class="section-h">2023 - PRESENT: AMNESEA STUDIOS</span>
+                       <p><strong>Co-Founder & CEO.</strong> Leading creative direction and systems design for indie titles. Secured partnerships with Xbox & PlayStation. Managing operations and legal coordination.</p>
+                       <span class="section-h">2024: MICROSOFT XBOX</span>
+                       <p><strong>Apprentice Team Lead (UXR).</strong> Coordinated design streams for Game Camp Asia. Co-created pitches for console-ready titles.</p>
+                       <span class="section-h">2020 - 2023: BRILLIO</span>
+                       <p><strong>Senior Data Engineer.</strong> Rebuilt cloud pipelines and automated ETL workflows. Founded corporate Toastmasters club.</p>
+                       <span class="section-h">2019 - 2020: VTU-NMIT</span>
+                       <p><strong>Research Student.</strong> Computer vision and robotics research under Dr. Jharna Majumdar.</p>`
+            },
+
+            'awards': { 
+                title: "HONORS & AWARDS", 
+                body: `<ul>
+                        <li><strong>Winner, Neuranode + Avalanche Game Jam (2025):</strong> Top honors for design and execution.</li>
+                        <li><strong>Xbox Sponsored Exhibitor (2024):</strong> Full sponsorship to exhibit at IGDC.</li>
+                        <li><strong>Top 16 Asia, Xbox Game Camp (2024):</strong> Selected among top 4 Indian studios.</li>
+                        <li><strong>TEQIP Innovation Grant (2020):</strong> Funding for COVID-19 AI research.</li>
+                        <li><strong>National Finalist, EYRC (2019):</strong> 4th place nationwide for Mocking Robot.</li>
+                        <li><strong>Brillio Excellence Award (2022):</strong> Recognized for contributions to data engineering.</li>
+                       </ul>` 
+            },
+
+            'rsch': { 
+                title: "RESEARCH PUBLICATIONS", 
+                body: `<ul>
+                        <li><strong>Screening of Diabetic Retinopathy using Deep Neural Networks:</strong> International Journal of Emerging Trends in Engineering Research (2020). First Author.</li>
+                        <li><strong>Analysis & Optimization of DNNs for DR Screening:</strong> Journal of Diabetes Medication & Care (2020). Co-Author.</li>
+                        <li><strong>AI-based COVID-19 CT Screening:</strong> TEQIP Funded Project. Prototype development.</li>
+                       </ul>` 
+            },
+
+            'skills': { 
+                title: "TECHNICAL ARSENAL", 
+                body: `<span class="section-h">CORE</span>
+                       <p>Unity 6, C#, Python, C++.</p>
+                       <span class="section-h">DATA & AI</span>
+                       <p>PyTorch, OpenCV, SQL, Azure Data Factory, Databricks.</p>
+                       <span class="section-h">ROBOTICS</span>
+                       <p>Arduino, Embedded C, Sensor Fusion (IMU), PID Control.</p>
+                       <span class="section-h">DESIGN</span>
+                       <p>Figma, System Design, Level Design, User Research.</p>` 
+            }
+        };
+
+        // MODAL LOGIC
+        function openModal(id) {
+            const d = db[id];
+            if(!d) return;
+            document.getElementById('m-title').innerText = d.title;
+            document.getElementById('m-content').innerHTML = d.body;
+            document.getElementById('m-crumb').innerText = id.toUpperCase();
+            
+            // Link Button
+            const actionContainer = document.getElementById('m-action-container');
+            actionContainer.innerHTML = ''; 
+            if(d.link) {
+                actionContainer.innerHTML = `<a href="${d.link}" target="_blank" class="action-btn">VISIT EXTERNAL LINK ↗</a>`;
+            }
+
+            document.getElementById('modal').classList.add('active');
+        }
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+        document.addEventListener('keydown', e => { if(e.key === "Escape") closeModal(); });
+
+        // CURSOR
+        const cursor = document.getElementById('cursor');
+        // Only active on non-touch
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => { 
+                cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; 
+            });
+            document.querySelectorAll('.hover-trigger').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+            });
+        }
+
+        // PARTICLES
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = window.innerWidth; let height = window.innerHeight;
+        canvas.width = width; canvas.height = height;
+        let particles = []; let mouse = {x: -100, y: -100};
+        
+        window.addEventListener('resize', () => { width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; });
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y; this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 2 - 1; this.speedY = Math.random() * 2 - 1;
+                this.life = 1; 
+                this.color = document.body.classList.contains('light-mode') ? '#0055ff' : '#00ff41';
+            }
+            update() { this.x+=this.speedX; this.y+=this.speedY; this.life-=0.05; }
+            draw() { ctx.fillStyle=this.color; ctx.globalAlpha=this.life; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,width,height);
+            if(mouse.x>0 && window.matchMedia("(pointer: fine)").matches) particles.push(new Particle(mouse.x, mouse.y));
+            for(let i=0; i<particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                if(particles[i].life<=0) { particles.splice(i,1); i--; }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

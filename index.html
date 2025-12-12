@@ -130,27 +130,17 @@
          */
 
         body {
-
             background-color: var(--bg-void);
-
             color: var(--text-main);
-
             font-family: var(--font-ui);
-
             height: 100vh;
-
             width: 100vw;
-
             overflow: hidden;
-
             display: flex;
-
             justify-content: center;
-
-            align-items: center;
-
+            align-items: flex-start;
+            padding-top: 160px;
             transition: background 0.5s;
-
         }
 
         #cursor-canvas {
@@ -174,11 +164,14 @@
         }
 
         .stage-container {
-            width: 78.6vw;
-            height: 78.6vh;
+            width: 52.8vw;
+            /* leave ~23.6% whitespace each side */
             max-width: 1800px;
+            min-width: 780px;
+            height: calc(100vh - 220px);
             position: relative;
-            padding-top: 64px;
+            padding-top: 24px;
+            margin-top: 0;
         }
 
         /*
@@ -192,15 +185,15 @@
          */
 
         .top-bar {
-            position: absolute;
-            top: 8px;
-            left: 0;
-            right: 0;
+            position: relative;
+            top: 0px;
+            left: 20px;
+            right: 20px;
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 12px;
-            padding: 0 12px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0 px;
+            padding: 0;
             z-index: 2000;
             pointer-events: none;
         }
@@ -216,6 +209,20 @@
             align-items: center;
             gap: 8px;
             position: relative;
+        }
+
+        .top-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            pointer-events: auto;
+        }
+
+        .nav-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: auto;
         }
 
         .aka-row {
@@ -243,11 +250,12 @@
             align-items: center;
             gap: 8px;
             height: var(--control-height);
-            padding: 0 10px;
+            padding: 0 14px;
             border-radius: 999px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             background: var(--bg-panel);
             z-index: 1800;
+            border: 1px solid var(--border);
         }
 
         .micro-trigger {
@@ -259,9 +267,11 @@
             background: var(--bg-panel);
             color: var(--text-main);
             cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
+            display: grid;
+            grid-template-columns: repeat(2, 10px);
+            grid-template-rows: repeat(2, 10px);
+            place-items: center;
+            gap: 4px;
             transition: 0.2s;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
@@ -269,7 +279,7 @@
         .micro-trigger .dot {
             width: 8px;
             height: 8px;
-            border-radius: 10px;
+            border-radius: 50%;
             background: currentColor;
         }
 
@@ -288,7 +298,7 @@
 
             font-family: var(--font-code);
 
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
 
             text-transform: uppercase;
 
@@ -328,7 +338,7 @@
 
             font-weight: 900;
 
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
 
             padding: 6px 12px;
 
@@ -362,7 +372,7 @@
 
             font-family: var(--font-code);
 
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
 
             font-weight: bold;
 
@@ -416,7 +426,7 @@
 
             align-items: center;
 
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
 
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 
@@ -1706,7 +1716,7 @@
 
         .bio-text {
 
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
 
             line-height: 1.6;
 
@@ -2062,7 +2072,7 @@
 
             font-family: var(--font-code);
 
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
 
             letter-spacing: 1px;
 
@@ -2126,28 +2136,28 @@
 
             body {
 
-                align-items: flex-end;
+                align-items: flex-start;
 
-                padding-bottom: 20px;
+                padding-top: 140px;
 
             }
 
             .stage-container {
 
-                width: 95vw;
-
-                height: 80vh;
-
-                margin-top: 20px;
-                padding-top: 64px;
+                width: 70vw;
+                max-width: 1200px;
+                height: calc(100vh - 200px);
+                margin-top: 0;
+                padding-top: 24px;
 
             }
 
             .top-bar {
-                top: 8px;
-                right: 0;
-                left: 0;
-                justify-content: space-between;
+                top: 16px;
+                right: 16px;
+                left: 16px;
+                align-items: flex-start;
+                gap: 10px;
             }
 
             .layer-1 {
@@ -2220,7 +2230,7 @@
 
                 overflow-y: auto;
 
-                padding: 20px;
+                padding: 140px 20px 20px 20px;
 
             }
 
@@ -2319,21 +2329,19 @@
 
             .top-bar {
                 position: fixed;
-                top: 20px;
-                right: 20px;
-                left: 20px;
-                justify-content: flex-end;
-                flex-wrap: wrap;
+                top: 16px;
+                right: 16px;
+                left: 16px;
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 10px;
             }
 
-            .micro-nav {
-                order: 1;
-            }
         }
 
         /* COMPACT / PHONE NAV */
-        @media (max-width: 900px), (max-height: 720px) {
+        @media (max-width: 900px),
+        (max-height: 720px) {
             .micro-trigger {
                 display: inline-flex;
             }
@@ -2343,15 +2351,16 @@
                 top: calc(var(--control-height) + 8px);
                 right: 0;
                 display: none;
-                flex-wrap: wrap;
-                padding: 10px 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 14px;
                 background: var(--bg-glass);
                 backdrop-filter: blur(12px);
                 box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
                 gap: 6px;
                 border-radius: 16px;
                 border: 1px solid var(--border);
-                min-width: 220px;
+                min-width: 200px;
                 z-index: 2200;
             }
 
@@ -2375,41 +2384,40 @@
 
         <div class="top-bar">
 
-            <div class="micro-wrap">
-                <button class="micro-trigger" aria-label="Open navigation" aria-expanded="false" aria-controls="micro-nav">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                </button>
-
-                <div class="micro-nav" id="micro-nav">
-
-                    <button id="nav-about" class="micro-pill">About</button>
-
-                    <button id="nav-awards" class="micro-pill">Awards</button>
-
-                    <button id="nav-contact" class="micro-pill">Contact</button>
-
-                    <button id="nav-edu" class="micro-pill">Education</button>
-
-                    <button id="nav-exp" class="micro-pill">Experience</button>
-
-                    <button id="nav-media" class="micro-pill">Media</button>
-
-                    <button id="nav-research" class="micro-pill">Research</button>
-
-                    <button id="nav-works" class="micro-pill">Works</button>
-
-                </div>
+            <div class="aka-row">
+                <div class="btn-aka" onclick="goHome()">AKA.</div>
+                <div class="btn-theme" onclick="toggleTheme()">☀</div>
             </div>
 
-            <div class="control-cluster">
-
-                <div class="aka-row">
-                    <div class="btn-aka" onclick="goHome()">AKA.</div>
-                    <div class="btn-theme" onclick="toggleTheme()">☀</div>
-                </div>
-
+            <div class="nav-row">
                 <div id="btn-back" class="btn-back" onclick="goBack()">← BACK</div>
+                <div class="micro-wrap">
+                    <button class="micro-trigger" aria-label="Open navigation" aria-expanded="false"
+                        aria-controls="micro-nav">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span>
+                    </button>
 
+                    <div class="micro-nav" id="micro-nav">
+
+                        <button id="nav-about" class="micro-pill">About</button>
+
+                        <button id="nav-awards" class="micro-pill">Awards</button>
+
+                        <button id="nav-contact" class="micro-pill">Contact</button>
+
+                        <button id="nav-edu" class="micro-pill">Education</button>
+
+                        <button id="nav-exp" class="micro-pill">Experience</button>
+
+                        <button id="nav-media" class="micro-pill">Media</button>
+
+                        <button id="nav-research" class="micro-pill">Research</button>
+
+                        <button id="nav-works" class="micro-pill">Works</button>
+
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -2669,9 +2677,9 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onscroll="checkScroll(this)">
-<div class="case-hero">
+                <div class="case-hero">
                     <!-- image: projects/keybound/cover.svg -->
-                        <img src="projects/keybound/cover.svg">
+                    <img src="projects/keybound/cover.svg">
                     <div class="hero-overlay">
                         <div class="case-subtitle">Design Lead • 2024 • Amnesea Studios</div>
                         <div class="case-title">KeyBound</div>
@@ -2699,8 +2707,7 @@
                         <section>
                             <div class="section-header">Design Process</div>
                             <!-- image: projects/keybound/process.svg -->
-                        <img src="projects/keybound/process.svg"
-                                class="img-wide">
+                            <img src="projects/keybound/process.svg" class="img-wide">
                             <span class="caption"
                                 style="display:block; margin-top:10px; color:var(--text-sub); font-family:var(--font-code); font-size:0.75rem;">Fig
                                 1. Core Loop Architecture</span>
@@ -2721,7 +2728,7 @@
                     </div>
                 </div>
                 <div class="scroll-top" onclick="scrollTopReader(this)">↑</div>
-</div>
+            </div>
 
         </div>
 
@@ -2734,8 +2741,8 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
-                                        <div class="layout-bio">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
+                    <div class="layout-bio">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000"
                             class="bio-img">
                         <div>
@@ -2754,7 +2761,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2767,7 +2774,7 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <div class="layout-timeline">
                         <h1
                             style="margin-bottom:60px; font-size:3rem; text-transform:uppercase; color:var(--text-main);">
@@ -2790,7 +2797,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2803,7 +2810,7 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <div class="layout-timeline">
                         <h1 style="font-size:3rem; margin-bottom:50px; color:var(--text-main);">Education</h1>
                         <div class="timeline-item">
@@ -2814,7 +2821,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2827,7 +2834,7 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <h1
                         style="margin-bottom:50px; font-size:3rem; text-transform:uppercase; color:var(--text-main); text-align:center;">
                         Honors & Achievements</h1>
@@ -2852,7 +2859,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2865,7 +2872,7 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <div class="layout-grid">
                         <div class="grid-card">
                             <h3 class="grid-title">Retinopathy AI</h3><span class="grid-date">IJETER 2020</span>
@@ -2875,7 +2882,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2888,12 +2895,12 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <div class="layout-center">
                         <h1>Media Coverage Coming Soon</h1>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2906,7 +2913,7 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll" onclick="goBack()">
-<div class="content-wrapper" onclick="event.stopPropagation()">
+                <div class="content-wrapper" onclick="event.stopPropagation()">
                     <div class="layout-center">
                         <span style="font-family:var(--font-code); color:var(--accent-tech); margin-bottom:20px;">GET IN
                             TOUCH</span>
@@ -2918,7 +2925,7 @@
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2933,14 +2940,13 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll">
-<div class="case-hero"><!-- image: projects/mocking-bot/cover.svg -->
-                        <img
-                        src="projects/mocking-bot/cover.svg">
+                <div class="case-hero"><!-- image: projects/mocking-bot/cover.svg -->
+                    <img src="projects/mocking-bot/cover.svg">
                     <div class="hero-overlay">
                         <div class="case-title">Mocking Bot</div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -2953,14 +2959,13 @@
             <div class="l3-close" onclick="goBack()">X</div>
 
             <div class="l3-scroll">
-<div class="case-hero"><!-- image: projects/retina-ai/cover.svg -->
-                        <img
-                        src="projects/retina-ai/cover.svg">
+                <div class="case-hero"><!-- image: projects/retina-ai/cover.svg -->
+                    <img src="projects/retina-ai/cover.svg">
                     <div class="hero-overlay">
                         <div class="case-title">Retinopathy</div>
                     </div>
                 </div>
-</div>
+            </div>
 
         </div>
 
@@ -3197,7 +3202,6 @@
             }
 
         }
-
 
         // --- READER HINTS ---
 

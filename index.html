@@ -174,8 +174,8 @@
         }
 
         .stage-container {
-            width: 88vw;
-            height: 88vh;
+            width: 78.6vw;
+            height: 78.6vh;
             max-width: 1800px;
             position: relative;
             padding-top: 64px;
@@ -198,7 +198,7 @@
             right: 0;
             display: flex;
             justify-content: flex-end;
-            align-items: flex-start;
+            align-items: center;
             gap: 12px;
             padding: 0 12px;
             z-index: 2000;
@@ -209,6 +209,19 @@
 
             pointer-events: auto;
 
+        }
+
+        .micro-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .aka-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .control-cluster {
@@ -226,25 +239,43 @@
         }
 
         .micro-nav {
-
             display: inline-flex;
-
             align-items: center;
-
             gap: 8px;
-
-            padding: 4px 8px;
-
+            height: var(--control-height);
+            padding: 0 10px;
+            border-radius: 999px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             background: var(--bg-panel);
-
-            /* border:01px solid var(--border); */
-
-            /* border-radius: 999px; */
-
-            /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); */
-
             z-index: 1800;
+        }
 
+        .micro-trigger {
+            display: none;
+            width: var(--control-height);
+            height: var(--control-height);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-panel);
+            color: var(--text-main);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            transition: 0.2s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .micro-trigger .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 10px;
+            background: currentColor;
+        }
+
+        .micro-trigger:hover {
+            background: var(--accent-tech);
+            color: var(--text-inv);
         }
 
         .micro-pill {
@@ -265,7 +296,7 @@
 
             padding: 4px 8px;
 
-            /* border-radius: 999px; */
+            border-radius: 999px;
 
             cursor: pointer;
 
@@ -307,7 +338,7 @@
 
             transition: 0.3s;
 
-            margin-bottom: 5px;
+            margin-bottom: 0;
 
         }
 
@@ -363,19 +394,15 @@
 
         .btn-theme {
 
-            position: absolute;
-
-            top: 5px;
-
-            right: -50px;
+            position: relative;
 
             width: 42px;
 
             height: 42px;
 
-            border-radius: 50%;
+            border-radius: 10px;
 
-            border: 1px solid var(--border);
+            /* border: 1px solid var(--border); */
 
             background: linear-gradient(135deg, #ff9f1c, #ff5f6d 55%, #2c2c54 100%);
 
@@ -409,13 +436,13 @@
 
             position: absolute;
 
-            inset: 8px 10px 6px 10px;
+            /* inset: 118px 10px 6px 10px; */
 
-            border-radius: 20px;
+            /* border-radius: 20px; */
 
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08));
 
-            opacity: 0.9;
+            /* opacity: 0.9; */
 
             z-index: 0;
 
@@ -431,17 +458,17 @@
 
             height: 14px;
 
-            border-radius: 50%;
+            border-radius: 10px;
 
-            background: #ffe066;
+            /* background: #ffe066; */
 
-            box-shadow: 0 0 18px rgba(255, 224, 102, 0.95);
+            /* box-shadow: 0 0 18px rgba(255, 224, 102, 0.95); */
 
-            top: 12px;
+            /* top: 12px; */
 
-            left: 17px;
+            /* left: 17px; */
 
-            animation: float-sun 2.8s ease-in-out infinite alternate;
+            /* animation: float-sun 2.8s ease-in-out infinite alternate; */
 
             z-index: 1;
 
@@ -451,7 +478,7 @@
 
             transform: translateY(-2px) scale(1.05);
 
-            box-shadow: 0 15px 35px rgba(255, 95, 109, 0.5), 0 0 30px rgba(44, 44, 84, 0.45);
+            /* box-shadow: 0 15px 35px rgba(255, 95, 109, 0.5), 0 0 30px rgba(44, 44, 84, 0.45); */
 
             background: linear-gradient(135deg, #ffd166, #ff7e67 55%, #2c2c54 100%);
 
@@ -459,7 +486,7 @@
 
         .btn-theme:active {
 
-            transform: scale(0.95);
+            transform: scale(0.75);
 
         }
 
@@ -1089,9 +1116,9 @@
 
             padding: 3px 6px;
 
-            display: inline-block;
+            display: inline-flex;
 
-            margin-bottom: 5px;
+            margin-bottom: 0;
 
             font-weight: 800;
 
@@ -1487,7 +1514,7 @@
 
         .btn-link {
 
-            display: inline-block;
+            display: inline-flex;
 
             padding: 12px 20px;
 
@@ -2051,7 +2078,7 @@
 
         .scroll-hint .chevron {
 
-            display: inline-block;
+            display: inline-flex;
 
             transform: translateY(2px);
 
@@ -2175,7 +2202,7 @@
 
                 background: var(--accent-tech);
 
-                border-radius: 3px;
+                /* border-radius: 3px; */
 
             }
 
@@ -2304,6 +2331,38 @@
                 order: 1;
             }
         }
+
+        /* COMPACT / PHONE NAV */
+        @media (max-width: 900px), (max-height: 720px) {
+            .micro-trigger {
+                display: inline-flex;
+            }
+
+            .micro-nav {
+                position: absolute;
+                top: calc(var(--control-height) + 8px);
+                right: 0;
+                display: none;
+                flex-wrap: wrap;
+                padding: 10px 12px;
+                background: var(--bg-glass);
+                backdrop-filter: blur(12px);
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+                gap: 6px;
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                min-width: 220px;
+                z-index: 2200;
+            }
+
+            .micro-nav.open {
+                display: flex;
+            }
+
+            .top-bar {
+                align-items: center;
+            }
+        }
     </style>
 
 </head>
@@ -2316,33 +2375,40 @@
 
         <div class="top-bar">
 
-            <div class="micro-nav">
+            <div class="micro-wrap">
+                <button class="micro-trigger" aria-label="Open navigation" aria-expanded="false" aria-controls="micro-nav">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </button>
 
-                <button id="nav-about" class="micro-pill">About</button>
+                <div class="micro-nav" id="micro-nav">
 
-                <button id="nav-awards" class="micro-pill">Awards</button>
+                    <button id="nav-about" class="micro-pill">About</button>
 
-                <button id="nav-contact" class="micro-pill">Contact</button>
+                    <button id="nav-awards" class="micro-pill">Awards</button>
 
-                <button id="nav-edu" class="micro-pill">Education</button>
+                    <button id="nav-contact" class="micro-pill">Contact</button>
 
-                <button id="nav-exp" class="micro-pill">Experience</button>
+                    <button id="nav-edu" class="micro-pill">Education</button>
 
-                <button id="nav-media" class="micro-pill">Media</button>
+                    <button id="nav-exp" class="micro-pill">Experience</button>
 
-                <button id="nav-research" class="micro-pill">Research</button>
+                    <button id="nav-media" class="micro-pill">Media</button>
 
-                <button id="nav-works" class="micro-pill">Works</button>
+                    <button id="nav-research" class="micro-pill">Research</button>
 
+                    <button id="nav-works" class="micro-pill">Works</button>
+
+                </div>
             </div>
 
             <div class="control-cluster">
 
-                <div class="btn-aka" onclick="goHome()">AKA.</div>
+                <div class="aka-row">
+                    <div class="btn-aka" onclick="goHome()">AKA.</div>
+                    <div class="btn-theme" onclick="toggleTheme()">☀</div>
+                </div>
 
                 <div id="btn-back" class="btn-back" onclick="goBack()">← BACK</div>
-
-                <div class="btn-theme" onclick="toggleTheme()">☀</div>
 
             </div>
 
@@ -2915,6 +2981,26 @@
         // --- MICRO NAV (touch-friendly) ---
 
         function setupMicroNav() {
+            const menu = document.getElementById('micro-nav');
+            const trigger = document.querySelector('.micro-trigger');
+            const closeMenu = () => {
+                if (menu) menu.classList.remove('open');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            };
+            const toggleMenu = () => {
+                if (!menu || !trigger) return;
+                const isOpen = menu.classList.toggle('open');
+                trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            };
+
+            if (trigger) {
+                trigger.addEventListener('pointerup', (evt) => {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    toggleMenu();
+                });
+            }
+
             const destinations = {
                 'nav-about': () => goTo('read-about'),
                 'nav-awards': () => goTo('read-awards'),
@@ -2939,6 +3025,7 @@
                     evt.stopPropagation();
 
                     action();
+                    closeMenu();
 
                 });
 
@@ -2949,11 +3036,18 @@
                         evt.preventDefault();
 
                         action();
+                        closeMenu();
 
                     }
 
                 });
 
+            });
+
+            document.addEventListener('click', (evt) => {
+                if (!menu || !trigger) return;
+                if (menu.contains(evt.target) || trigger.contains(evt.target)) return;
+                closeMenu();
             });
 
         }
@@ -3104,7 +3198,7 @@
 
         }
 
-        
+
         // --- READER HINTS ---
 
         function attachScrollHints() {

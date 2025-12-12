@@ -88,17 +88,15 @@
 
         /* --- 3. GRID SYSTEM --- */
         .system-frame {
-            width: 100%; max-width: 1800px; height: 96vh;
+            width: 100%; max-width: 1800px; min-height: 100vh;
             border: 1px solid var(--line); background: var(--bg-void);
-            display: flex; flex-direction: column;
+            display: flex; flex-direction: column; padding-bottom: 20px;
         }
 
         .dashboard-grid {
-            display: grid; width: 100%; height: 100%;
-            /* 4 Columns */
+            display: grid; width: 100%; height: auto;
             grid-template-columns: repeat(4, 1fr);
-            /* Rows: Header, Hero, Works, Info Row, Footer */
-            grid-template-rows: 60px 280px minmax(300px, 1fr) 220px 60px;
+            grid-template-rows: auto auto auto auto auto;
             gap: 4px; background: var(--hatch); border: 4px solid transparent; 
             grid-template-areas:
                 "header header header header"
@@ -106,7 +104,6 @@
                 "works  works  works  works"
                 "exp    awards rsch   skills"
                 "contact contact contact contact";
-            overflow-y: auto; 
         }
 
         /* --- 4. PANELS --- */
@@ -269,8 +266,9 @@
             
             <header class="panel area-header">
                 <div class="logo">AKA_SYSTEM_V7</div>
-                <div style="display:flex; gap:15px; align-items:center;">
+                <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
                     <span class="label" style="border:none; margin:0; width:auto;">SYS_READY</span>
+                    <span class="label" style="border:none; margin:0; width:auto; color:var(--accent); letter-spacing:0.5px;">12 PROJECTS // 6 AWARDS // 4 YRS</span>
                     <button class="theme-btn hover-trigger" onclick="toggleTheme()" id="theme-btn">☀</button>
                 </div>
             </header>
@@ -283,7 +281,7 @@
                     > <span id="typewriter"></span><span style="animation:blink 1s infinite">_</span>
                 </div>
                 <p style="margin-top:20px; max-width:600px; color:var(--text-dim); font-size:0.9rem;">
-                    Design Engineer // CEO Amnesea Studios // Former Xbox UXR
+                    Games x Robotics x AI — 12 builds • 6 awards • 4 yrs
                 </p>
                 <div style="margin-top:20px; font-family:var(--font-code); font-size:0.7rem; color:var(--accent);">
                     [CLICK TO READ BIO]
@@ -573,7 +571,7 @@
                 title: "KEYBOUND", 
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Founder & Design Lead</strong></div><div><span class="label">TIMELINE</span><strong>2024 - Present</strong></div><div><span class="label">STACK</span><strong>Unity, C#, Figma</strong></div></div>
                        <span class="section-h">CONTEXT & MOTIVATION</span>
-                       <p>KeyBound began as an experimental prototype exploring how music and memory could intertwine in a game. In my role at Amnesea, I set out to craft a narrative puzzle game that invites players to reconstruct a world through fragments of melodies.</p>
+                       <p>Memory-as-mechanic puzzle game: rebuild the world via fragments of melody.</p>
                        
                        <span class="section-h">DESIGN PROCESS</span>
                        <ul>
@@ -593,7 +591,7 @@
                 title: "MOCKING BOT", 
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Designer</strong></div><div><span class="label">TECH</span><strong>Python, Arduino</strong></div><div><span class="label">AWARD</span><strong>4th National</strong></div></div>
                        <span class="section-h">THE CHALLENGE</span>
-                       <p>Create a "mocking" bot capable of listening to musical input, identifying instruments, and replicating them in real-time. The challenge combined signal processing, ML, and mechanical actuation.</p>
+                       <p>Music-listening bot that mirrors instruments in real time.</p>
 
                        <span class="section-h">IMPLEMENTATION</span>
                        <ul>
@@ -625,7 +623,7 @@
                 title: "RETINOPATHY AI", 
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>First Author</strong></div><div><span class="label">TECH</span><strong>Deep Learning, CNN</strong></div><div><span class="label">DOMAIN</span><strong>Healthcare</strong></div></div>
                        <span class="section-h">BACKGROUND</span>
-                       <p>Diabetic retinopathy (DR) is a leading cause of blindness. Early detection is critical. I aimed to apply deep learning to automate DR screening.</p>
+                       <p>Automated DR screening with lightweight CNNs.</p>
                        <span class="section-h">APPROACH</span>
                        <ul>
                            <li><strong>Dataset:</strong> Curated and pre-processed retinal images, balancing class distributions.</li>
@@ -640,7 +638,7 @@
                 title: "COVID-19 CT SCREENING",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Researcher</strong></div><div><span class="label">GRANT</span><strong>TEQIP Innovation</strong></div><div><span class="label">YEAR</span><strong>2020</strong></div></div>
                        <span class="section-h">MOTIVATION</span>
-                       <p>Healthcare systems needed tools to triage patients quickly. Chest CT scans emerged as a vital modality. We developed an automated pipeline to flag positive cases.</p>
+                       <p>Rapid COVID-19 CT triage: fast flagging pipeline for clinicians.</p>
                        <span class="section-h">METHODOLOGY</span>
                        <ul>
                            <li><strong>Data Curation:</strong> Assembled dataset of anonymised CT slices.</li>
@@ -653,7 +651,7 @@
                 title: "NEURANODE",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Jam</strong></div><div><span class="label">RESULT</span><strong>Winner</strong></div></div>
                        <span class="section-h">CONTEXT</span>
-                       <p>Rapid prototyping of novel game mechanics on blockchain infrastructure. Our objective was to test how on-chain mechanics could enhance player agency.</p>
+                       <p>Game-jam prototypes testing on-chain player agency.</p>
                        <span class="section-h">APPROACH</span>
                        <p>We divided our work into discovery, design, and implementation. Used game engine templates and Avalanche’s dev tools to implement core loops within 36 hours.</p>
                        <span class="section-h">OUTCOME</span>
@@ -664,7 +662,7 @@
                 title: "TIMEBOUND",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>System Designer</strong></div><div><span class="label">GENRE</span><strong>RPG / Narrative</strong></div><div><span class="label">STATUS</span><strong>In Dev</strong></div></div>
                        <span class="section-h">CONTEXT</span>
-                       <p>TimeBound explores time loops in interactive fiction. The goal: craft a game where players experiment with cause and effect, learning from past loops.</p>
+                       <p>Time-loop fiction: experiment, reset, learn.</p>
                        <span class="section-h">CHALLENGES</span>
                        <ul>
                            <li>Building a time loop mechanic that felt intuitive rather than repetitive.</li>
@@ -678,7 +676,7 @@
                 title: "BALANCE BOT",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Control Designer</strong></div><div><span class="label">TECH</span><strong>PID, C++</strong></div><div><span class="label">TYPE</span><strong>Robotics</strong></div></div>
                        <span class="section-h">CONTEXT</span>
-                       <p>The balancing robot originated as a personal exploration into control systems. The challenge: keeping a body upright on two wheels.</p>
+                       <p>Two-wheel inverted pendulum for hands-on control theory.</p>
                        <span class="section-h">DESIGN</span>
                        <ul>
                            <li><strong>Chassis:</strong> Modeled frame using CAD to ensure weight distribution.</li>

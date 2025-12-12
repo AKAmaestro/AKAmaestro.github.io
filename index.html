@@ -69,6 +69,8 @@
 
             --gap-lg: 60px;
 
+            --control-height: 42px;
+
             --ease: cubic-bezier(0.19, 1, 0.22, 1);
 
             --font-ui: 'Manrope', sans-serif;
@@ -81,31 +83,31 @@
 
         body.dark-mode {
 
-            --bg-void: #020202;
+            --bg-void: #0a0a0d;
 
-            --bg-panel: #0a0a0a;
+            --bg-panel: #0f1015;
 
-            --bg-glass: rgba(10, 10, 10, 0.97);
+            --bg-glass: rgba(8, 10, 14, 0.9);
 
-            --bg-overlay: rgba(0, 0, 0, 0.96);
+            --bg-overlay: rgba(0, 0, 0, 0.82);
 
-            --border: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
 
-            --border-light: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.04);
 
-            --text-main: #ffffff;
+            --text-main: #f4f7fb;
 
-            --text-sub: #888888;
+            --text-sub: #7b8796;
 
-            --text-inv: #000000;
+            --text-inv: #050505;
 
-            --accent-game: #bd00ff;
+            --accent-game: #2aa0ff;
 
-            --accent-tech: #00ff41;
+            --accent-tech: #2dff7a;
 
-            --accent-rsch: #00f3ff;
+            --accent-rsch: #6de0ff;
 
-            --accent-award: #ff5500;
+            --accent-award: #f7c654;
 
         }
 
@@ -130,17 +132,17 @@
          */
 
         body {
-            background-color: var(--bg-void);
+            background: linear-gradient(135deg, #74e2de 0%, #5ecfd3 55%, #51c2cb 100%);
             color: var(--text-main);
             font-family: var(--font-ui);
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding-top: 160px;
-            transition: background 0.5s;
+            align-items: center;
+            padding: 24px;
+            transition: background 0.5s, color 0.3s;
         }
 
         #cursor-canvas {
@@ -164,14 +166,19 @@
         }
 
         .stage-container {
-            width: 52.8vw;
-            /* leave ~23.6% whitespace each side */
-            max-width: 1800px;
-            min-width: 780px;
-            height: calc(100vh - 220px);
+            width: min(1400px, calc(100vw - 48px));
+            max-width: 100%;
+            height: calc(100vh - 72px);
             position: relative;
-            padding-top: 24px;
-            margin-top: 0;
+            padding: 18px 18px 22px;
+            background: #060607;
+            border: 2px solid #0f1115;
+            border-radius: 14px;
+            box-shadow: 0 30px 120px rgba(0, 0, 0, 0.45);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow: hidden;
         }
 
         /*
@@ -186,14 +193,11 @@
 
         .top-bar {
             position: relative;
-            top: 0px;
-            left: 20px;
-            right: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0 px;
-            padding: 0;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 4px 4px 0 4px;
             z-index: 2000;
             pointer-events: none;
         }
@@ -209,26 +213,77 @@
             align-items: center;
             gap: 8px;
             position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #151821;
+            border-radius: 999px;
+            padding: 4px 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
         }
 
         .top-row {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             pointer-events: auto;
+            width: 100%;
+            justify-content: space-between;
         }
 
         .nav-row {
             display: inline-flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 10px;
             pointer-events: auto;
+            width: 100%;
         }
 
         .aka-row {
             display: inline-flex;
             align-items: center;
             gap: 6px;
+        }
+
+        /* Mobile dock (glass) */
+        .mobile-dock {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 10px 12px;
+            background: rgba(15, 17, 24, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid #1c1f2c;
+            border-radius: 16px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+            z-index: 2200;
+        }
+
+        .dock-btn {
+            border: 1px solid #1c1f2c;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            padding: 10px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dock-btn:hover,
+        .dock-btn:focus-visible {
+            background: var(--accent-tech);
+            color: var(--text-inv);
+            outline: none;
+        }
+
+        .dock-btn.inactive {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .control-cluster {
@@ -250,12 +305,12 @@
             align-items: center;
             gap: 8px;
             height: var(--control-height);
-            padding: 0 14px;
+            padding: 2px 6px;
             border-radius: 999px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            background: var(--bg-panel);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: rgba(16, 18, 24, 0.9);
             z-index: 1800;
-            border: 1px solid var(--border);
+            border: 1px solid #151821;
         }
 
         .micro-trigger {
@@ -263,9 +318,9 @@
             width: var(--control-height);
             height: var(--control-height);
             border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-panel);
-            color: var(--text-main);
+            border: 1px solid #1c1f2c;
+            background: #0f1118;
+            color: var(--accent-tech);
             cursor: pointer;
             display: grid;
             grid-template-columns: repeat(2, 10px);
@@ -284,8 +339,8 @@
         }
 
         .micro-trigger:hover {
-            background: var(--accent-tech);
-            color: var(--text-inv);
+            background: rgba(45, 255, 122, 0.14);
+            color: #0f1118;
         }
 
         .micro-pill {
@@ -294,7 +349,7 @@
 
             background: transparent;
 
-            color: var(--text-main);
+            color: var(--text-sub);
 
             font-family: var(--font-code);
 
@@ -320,9 +375,9 @@
 
         .micro-pill:focus-visible {
 
-            background: var(--accent-tech);
+            background: rgba(45, 255, 122, 0.08);
 
-            color: var(--text-inv);
+            color: var(--accent-tech);
 
             outline: none;
 
@@ -330,9 +385,9 @@
 
         .btn-aka {
 
-            background: var(--text-main);
+            background: transparent;
 
-            color: var(--bg-void);
+            color: var(--accent-tech);
 
             font-family: var(--font-ui);
 
@@ -342,7 +397,9 @@
 
             padding: 6px 12px;
 
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            border: 1px solid #1a1d27;
+
+            border-radius: 8px;
 
             cursor: pointer;
 
@@ -356,17 +413,17 @@
 
             padding-right: 25px;
 
-            background: var(--accent-tech);
+            background: rgba(45, 255, 122, 0.12);
 
-            color: black;
+            color: white;
 
         }
 
         .btn-back {
 
-            background: var(--bg-panel);
+            background: rgba(16, 18, 24, 0.9);
 
-            border: 1px solid var(--border);
+            border: 1px solid #1c1f2c;
 
             color: var(--text-main);
 
@@ -412,11 +469,11 @@
 
             border-radius: 10px;
 
-            /* border: 1px solid var(--border); */
+            border: 1px solid #1c1f2c;
 
-            background: linear-gradient(135deg, #ff9f1c, #ff5f6d 55%, #2c2c54 100%);
+            background: radial-gradient(circle at 30% 30%, rgba(45, 255, 122, 0.18), transparent 45%), #0f1118;
 
-            color: #ffffff;
+            color: var(--accent-tech);
 
             cursor: pointer;
 
@@ -428,11 +485,11 @@
 
             font-size: clamp(1.1rem, 2vw, 1.4rem);
 
-            text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 0 8px rgba(45, 255, 122, 0.3);
 
             transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
 
-            box-shadow: 0 10px 25px rgba(255, 95, 109, 0.45), 0 0 30px rgba(44, 44, 84, 0.35);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
 
             overflow: hidden;
 
@@ -488,9 +545,9 @@
 
             transform: translateY(-2px) scale(1.05);
 
-            /* box-shadow: 0 15px 35px rgba(255, 95, 109, 0.5), 0 0 30px rgba(44, 44, 84, 0.45); */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45), 0 0 18px rgba(45, 255, 122, 0.2);
 
-            background: linear-gradient(135deg, #ffd166, #ff7e67 55%, #2c2c54 100%);
+            background: radial-gradient(circle at 30% 30%, rgba(45, 255, 122, 0.28), transparent 45%), #131521;
 
         }
 
@@ -532,13 +589,17 @@
 
             height: 100%;
 
+            flex: 1;
+
+            min-height: 0;
+
             display: grid;
 
-            grid-template-columns: repeat(10, 1fr);
+            grid-template-columns: repeat(12, 1fr);
 
-            grid-template-rows: repeat(7, 1fr);
+            grid-template-rows: repeat(9, 1fr);
 
-            gap: var(--gap-xs);
+            gap: 12px;
 
             transition: 0.6s var(--ease);
 
@@ -560,9 +621,9 @@
 
         .area-works {
 
-            grid-column: 1 / 6;
+            grid-column: 3 / 11;
 
-            grid-row: 1 / 8;
+            grid-row: 1 / 4;
 
             --glow-color: var(--accent-game);
 
@@ -570,9 +631,9 @@
 
         .area-about {
 
-            grid-column: 6 / 11;
+            grid-column: 1 / 3;
 
-            grid-row: 1 / 4;
+            grid-row: 1 / 5;
 
             --glow-color: var(--accent-rsch);
 
@@ -580,9 +641,9 @@
 
         .area-exp {
 
-            grid-column: 6 / 9;
+            grid-column: 11 / 13;
 
-            grid-row: 4 / 6;
+            grid-row: 1 / 4;
 
             --glow-color: var(--accent-tech);
 
@@ -590,9 +651,9 @@
 
         .area-edu {
 
-            grid-column: 9 / 11;
+            grid-column: 1 / 7;
 
-            grid-row: 4 / 6;
+            grid-row: 4 / 7;
 
             --glow-color: var(--accent-award);
 
@@ -600,9 +661,9 @@
 
         .area-awards {
 
-            grid-column: 6 / 8;
+            grid-column: 7 / 13;
 
-            grid-row: 6 / 8;
+            grid-row: 4 / 7;
 
             --glow-color: var(--accent-award);
 
@@ -610,9 +671,9 @@
 
         .area-papers {
 
-            grid-column: 8 / 9;
+            grid-column: 1 / 7;
 
-            grid-row: 6 / 8;
+            grid-row: 7 / 9;
 
             --glow-color: var(--accent-rsch);
 
@@ -620,9 +681,9 @@
 
         .area-media {
 
-            grid-column: 9 / 11;
+            grid-column: 7 / 13;
 
-            grid-row: 6 / 7;
+            grid-row: 7 / 9;
 
             --glow-color: var(--accent-game);
 
@@ -630,9 +691,9 @@
 
         .area-contact {
 
-            grid-column: 9 / 11;
+            grid-column: 1 / 13;
 
-            grid-row: 7 / 8;
+            grid-row: 9 / 10;
 
             --glow-color: var(--text-main);
 
@@ -640,9 +701,11 @@
 
         .hud-box {
 
-            background: var(--bg-panel);
+            background: linear-gradient(135deg, #0c0d12 0%, #09090d 100%);
 
-            border: 1px solid var(--border);
+            border: 1px solid #14161d;
+
+            border-radius: 10px;
 
             position: relative;
 
@@ -656,21 +719,49 @@
 
             justify-content: flex-end;
 
-            transition: all 0.2s ease-out;
+            transition: all 0.25s ease-out;
+
+        }
+
+        .hud-box::after {
+
+            content: attr(data-ghost);
+
+            position: absolute;
+
+            inset: 0;
+
+            padding-left: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            font-family: var(--font-ui);
+
+            font-weight: 800;
+
+            letter-spacing: -0.04em;
+
+            font-size: clamp(3rem, 9vw, 10rem);
+
+            color: rgba(255, 255, 255, 0.035);
+
+            pointer-events: none;
+
+            mix-blend-mode: screen;
 
         }
 
         .hud-box:hover {
 
-            border-width: 3px;
-
             border-color: var(--glow-color) !important;
 
             z-index: 10;
 
-            transform: scale(1.005);
+            transform: translateY(-2px);
 
-            box-shadow: 0 0 40px var(--glow-color);
+            box-shadow: 0 0 0 1px rgba(45, 255, 122, 0.5), 0 18px 50px rgba(0, 0, 0, 0.45);
 
         }
 
@@ -678,9 +769,7 @@
 
             position: absolute;
 
-            top: 0;
-
-            left: 0;
+            inset: 0;
 
             width: 100%;
 
@@ -688,15 +777,19 @@
 
             object-fit: cover;
 
-            transition: 0.5s ease;
+            transition: 0.6s ease;
 
-            filter: brightness(1) saturate(1);
+            filter: saturate(0.4) brightness(0.75);
+
+            opacity: 0.35;
+
+            mix-blend-mode: screen;
 
         }
 
         .hud-box:hover .hud-img {
 
-            filter: brightness(1.15) saturate(1.1);
+            filter: saturate(0.85) brightness(0.95);
 
             transform: scale(1.03);
 
@@ -708,11 +801,19 @@
 
             z-index: 2;
 
-            padding: var(--gap-xs);
+            padding: 22px;
 
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.68) 100%);
 
             pointer-events: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-end;
+
+            gap: 6px;
 
             width: 100%;
 
@@ -722,15 +823,15 @@
 
             font-family: var(--font-code);
 
-            font-size: 0.65rem;
+            font-size: 0.68rem;
 
-            color: var(--accent-tech);
+            color: var(--text-sub);
 
             display: block;
 
-            margin-bottom: 2px;
+            letter-spacing: 2px;
 
-            letter-spacing: 1px;
+            text-transform: uppercase;
 
         }
 
@@ -740,7 +841,7 @@
 
             font-weight: 800;
 
-            font-size: 1.4rem;
+            font-size: 1.6rem;
 
             line-height: 0.9;
 
@@ -750,21 +851,94 @@
 
         }
 
+        .h-sub {
+
+            font-family: var(--font-code);
+
+            color: var(--accent-tech);
+
+            font-size: 0.85rem;
+
+            letter-spacing: 0.5px;
+
+        }
+
         .area-works .h-title {
 
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 6vw, 4.6rem);
 
         }
 
         .area-about .h-title {
 
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
 
         }
 
         .area-exp .h-title {
 
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+
+        }
+
+        .area-works .hud-content {
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            background: radial-gradient(circle at 50% 40%, rgba(45, 255, 122, 0.08), transparent 55%),
+                linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.82) 100%);
+
+        }
+
+        .hud-meta {
+
+            font-family: var(--font-code);
+
+            color: var(--text-sub);
+
+            font-size: 0.85rem;
+
+            line-height: 1.6;
+
+        }
+
+        .hud-meta .accent {
+
+            color: var(--accent-tech);
+
+        }
+
+        .area-contact .hud-content {
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.85) 100%);
+
+        }
+
+        .area-contact .h-title {
+
+            letter-spacing: 1px;
+
+            font-size: clamp(1.3rem, 2.6vw, 2rem);
+
+            color: var(--accent-tech);
+
+        }
+
+        .area-contact .h-sub {
+
+            letter-spacing: 2px;
+
+            color: var(--accent-tech);
 
         }
 
@@ -2265,6 +2439,10 @@
 
             }
 
+            .m-empty {
+                display: none;
+            }
+
             .col-1,
 
             .col-2,
@@ -2307,6 +2485,51 @@
 
                 padding-bottom: 30px;
 
+            }
+
+            /* Safe zones for readers */
+            .l3-panel {
+                padding-top: 80px;
+            }
+
+            /* Contact centering */
+            .layout-center {
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Mobile dock visible */
+            .mobile-dock {
+                display: grid;
+                width: 90vw;
+                max-width: 520px;
+            }
+
+            /* Micro-nav becomes a popover sheet */
+            .micro-nav {
+                position: fixed;
+                bottom: 90px;
+                right: 5vw;
+                left: 5vw;
+                width: auto;
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 14px;
+                gap: 8px;
+                background: var(--bg-glass);
+                backdrop-filter: blur(14px);
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .micro-nav.open {
+                display: flex;
+            }
+
+            .nav-row {
+                display: none;
             }
 
             .layout-timeline {
@@ -2376,7 +2599,7 @@
 
 </head>
 
-<body>
+<body class="dark-mode neon-shell">
 
     <canvas id="cursor-canvas"></canvas>
 
@@ -2384,13 +2607,7 @@
 
         <div class="top-bar">
 
-            <div class="aka-row">
-                <div class="btn-aka" onclick="goHome()">AKA.</div>
-                <div class="btn-theme" onclick="toggleTheme()">☀</div>
-            </div>
-
-            <div class="nav-row">
-                <div id="btn-back" class="btn-back" onclick="goBack()">← BACK</div>
+            <div class="top-row">
                 <div class="micro-wrap">
                     <button class="micro-trigger" aria-label="Open navigation" aria-expanded="false"
                         aria-controls="micro-nav">
@@ -2418,106 +2635,125 @@
 
                     </div>
                 </div>
+
+                <div class="aka-row">
+                    <div class="btn-aka" onclick="goHome()">AKA.</div>
+                    <div class="btn-theme" onclick="toggleTheme()">☀</div>
+                </div>
             </div>
 
+            <div class="nav-row">
+                <div id="btn-back" class="btn-back" onclick="goBack()">← BACK</div>
+            </div>
+
+        </div>
+
+        <!-- Mobile bottom dock -->
+        <div class="mobile-dock">
+            <button id="dock-home" class="dock-btn" aria-label="Home">Home</button>
+            <button id="dock-menu" class="dock-btn" aria-label="Menu" aria-expanded="false">Menu</button>
+            <button id="dock-back" class="dock-btn inactive" aria-label="Back">Back</button>
+            <button id="dock-top" class="dock-btn" aria-label="Top">Top</button>
         </div>
 
         <!-- LEVEL 1: DASHBOARD -->
 
         <div id="layer-1" class="layer-1">
 
-            <div class="hud-box area-works" onclick="openFolder('folder-works')">
+            <div class="hud-box area-works" data-ghost="SYSTEMS" onclick="openFolder('folder-works')">
 
                 <img src="https://images.unsplash.com/photo-1618193139062-2c5bf4f935b7?q=80&w=2000" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">01 // INDEX</span>
-
-                    <div class="h-title">Works</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">AKA_SYSTEMS // MODE</span>
+                    <div class="h-title">Visual Engineer</div>
+                    <div class="h-sub">Game design // robotics // bio interfaces</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-about" onclick="openReader('read-about')">
+            <div class="hud-box area-about" data-ghost="ANKIT" onclick="openReader('read-about')">
 
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">02 // BIO</span>
-
-                    <div class="h-title">About</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Identity</span>
+                    <div class="h-title">Ankit Kumar</div>
+                    <div class="h-sub">CEO // Amnesea Studios</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-exp" onclick="openReader('read-exp')">
+            <div class="hud-box area-exp" data-ghost="STATUS" onclick="openReader('read-exp')">
 
                 <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2000" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">03 // TIME</span>
-
-                    <div class="h-title">Experience</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Status</span>
+                    <div class="h-title">V3.8 ONLINE</div>
+                    <div class="hud-meta">
+                        <div>&gt; Works: <span class="accent">12</span></div>
+                        <div>&gt; Awards: <span class="accent">06</span></div>
+                        <div>&gt; XP: <span class="accent">4 Years</span></div>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-edu" onclick="openReader('read-edu')">
+            <div class="hud-box area-edu" data-ghost="KeyBound" onclick="openReader('read-keybound')">
 
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2000" class="hud-img">
+                <img src="projects/keybound/cover.svg" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">04 // EDU</span>
-
-                    <div class="h-title">Education</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Game Design</span>
+                    <div class="h-title">KeyBound</div>
+                    <div class="h-sub">Narrative Puzzle System</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-awards" onclick="openReader('read-awards')">
+            <div class="hud-box area-awards" data-ghost="MockingBot" onclick="openReader('read-mocking')">
 
-                <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?q=80&w=2000" class="hud-img">
+                <img src="projects/mocking-bot/cover.svg" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">05 // WIN</span>
-
-                    <div class="h-title">Awards</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Robotics</span>
+                    <div class="h-title">Mocking Bot</div>
+                    <div class="h-sub">Bio-mimetic Audio System</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-papers" onclick="openReader('read-papers')">
+            <div class="hud-box area-papers" data-ghost="Xbox Camp" onclick="openReader('read-keybound')">
 
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000" class="hud-img">
+                <img src="projects/xbox-camp/cover.svg" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">06 // DATA</span>
-
-                    <div class="h-title">Research</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">UX Research</span>
+                    <div class="h-title">Xbox Camp</div>
+                    <div class="h-sub">Top 16 Asia // UXR Lead</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-media" onclick="openReader('read-media')">
+            <div class="hud-box area-media" data-ghost="Retina AI" onclick="openReader('read-dr')">
 
-                <img src="https://images.unsplash.com/photo-1585241936939-be05368a5e29?q=80&w=2000" class="hud-img">
+                <img src="projects/retina-ai/cover.svg" class="hud-img">
 
-                <div class="hud-content"><span class="h-tag">07 // NEWS</span>
-
-                    <div class="h-title">Media</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Healthcare AI</span>
+                    <div class="h-title">Retinopathy</div>
+                    <div class="h-sub">Deep Learning Screening</div>
                 </div>
 
             </div>
 
-            <div class="hud-box area-contact" onclick="openReader('read-contact')">
+            <div class="hud-box area-contact" data-ghost="COMMS" onclick="openReader('read-contact')">
 
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000" class="hud-img">
-
-                <div class="hud-content"><span class="h-tag">08 // LINK</span>
-
-                    <div class="h-title">Contact</div>
-
+                <div class="hud-content">
+                    <span class="h-tag">Initialize Comms</span>
+                    <div class="h-title">akamaestro@outlook.com</div>
+                    <div class="h-sub">return to main menu</div>
                 </div>
 
             </div>
@@ -2525,8 +2761,7 @@
         </div>
 
     </div>
-
-    <!-- LEVEL 2: WORKS FOLDER -->
+<!-- LEVEL 2: WORKS FOLDER -->
 
     <div id="folder-works" class="layer-2" onclick="goBack()">
 
@@ -3201,6 +3436,12 @@
 
             }
 
+            const dockBack = document.getElementById('dock-back');
+            if (dockBack) {
+                if (currentL2 || currentL3) dockBack.classList.remove('inactive');
+                else dockBack.classList.add('inactive');
+            }
+
         }
 
         // --- READER HINTS ---
@@ -3313,6 +3554,38 @@
 
         function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
+        // --- MOBILE DOCK ---
+        function setupMobileDock() {
+            const dockHome = document.getElementById('dock-home');
+            const dockMenu = document.getElementById('dock-menu');
+            const dockBack = document.getElementById('dock-back');
+            const dockTop = document.getElementById('dock-top');
+            const menu = document.getElementById('micro-nav');
+
+            if (dockHome) dockHome.addEventListener('click', () => goHome());
+
+            if (dockMenu && menu) {
+                dockMenu.addEventListener('click', (evt) => {
+                    evt.stopPropagation();
+                    const isOpen = menu.classList.toggle('open');
+                    dockMenu.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            }
+
+            if (dockBack) dockBack.addEventListener('click', () => goBack());
+
+            if (dockTop) dockTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.addEventListener('click', (evt) => {
+                if (!menu || !dockMenu) return;
+                if (menu.contains(evt.target) || dockMenu.contains(evt.target)) return;
+                menu.classList.remove('open');
+                dockMenu.setAttribute('aria-expanded', 'false');
+            });
+        }
+
         function checkScroll(el) {
 
             const btn = el.querySelector('.scroll-top');
@@ -3418,6 +3691,8 @@
         attachScrollHints();
 
         setupLayer1Pan();
+
+        setupMobileDock();
 
         // --- CANVAS PARTICLES ---
 

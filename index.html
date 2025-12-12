@@ -191,6 +191,21 @@
             opacity: 1;
         }
 
+        .panel.hover-trigger:not(.area-header)::after,
+        .work-item.hover-trigger::after {
+            content: "↗";
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 6px;
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--line);
+            pointer-events: none;
+        }
+
         .label {
             font-family: var(--font-code);
             font-size: 0.65rem;

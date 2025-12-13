@@ -1388,9 +1388,13 @@
                             <p>I’m a design engineer who loves building strange intersections: games that learn from players, robots that play music, AI that stays humane. I move between concept and code, shipping ideas fast and keeping the craft visible.</p>
                             <p>Today I lead <strong>Amnesea</strong>, an indie lab making narrative-driven experiences. Before that: Xbox Game Camp (Top 16), healthcare AI research, and embedded audio robots.</p>
                             <p>What I bring: systems thinking, prototyping speed, and the ability to rally teams across design, engineering, and production. Always open to collaborations that bend mediums.</p>
-                            <p style="margin-top:12px;">
-                                <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">Email</a>
-                            </p>
+                            <div class="embed-actions" style="margin-top:12px;">
+                                <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
+                                <a href="https://github.com/AKAmaestro" target="_blank" class="action-btn" style="margin-top:0;"> GitHub</a>
+                                <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
+                                <a href="https://www.behance.net/akamaestro" target="_blank" class="action-btn" style="margin-top:0;"> Behance</a>
+                                <a href="https://www.instagram.com/akamaestro" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
+                            </div>
                         </div>
                     </div>`
             },
@@ -1849,8 +1853,6 @@
             if (d.link) {
                 actionContainer.innerHTML = `<a href="${d.link}" target="_blank" class="action-btn">VISIT EXTERNAL LINK ↗</a>`;
             }
-            const embedContainer = document.getElementById('m-embed');
-            if (embedContainer) embedContainer.innerHTML = '';
 
             document.getElementById('modal').classList.add('active');
             const modalScroll = document.querySelector('.modal-scroll');
@@ -1883,20 +1885,6 @@
         const canvas = document.getElementById('cursor-canvas');
         if (canvas) {
             canvas.style.display = 'none';
-        }
-
-        // Simple YouTube embed helper
-        function promptEmbed() {
-            const url = prompt('Paste a YouTube link or embed URL');
-            if (!url) return;
-            const embedContainer = document.getElementById('m-embed');
-            if (!embedContainer) return;
-            let embedUrl = url;
-            if (url.includes('watch?v=')) {
-                const id = url.split('watch?v=')[1].split('&')[0];
-                embedUrl = `https://www.youtube.com/embed/${id}`;
-            }
-            embedContainer.innerHTML = `<iframe src="${embedUrl}" allowfullscreen loading="lazy"></iframe>`;
         }
     </script>
 </body>

@@ -84,6 +84,10 @@
 
         body {
             background-color: var(--bg-void);
+            background-image: url("projects/website background.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
             color: var(--text-main);
             font-family: var(--font-ui);
             width: 100vw;
@@ -454,8 +458,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-image: radial-gradient(var(--line) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: url("projects/hero-bg.png"), radial-gradient(var(--line) 1px, transparent 1px);
+            background-size: cover, 20px 20px;
+            background-blend-mode: multiply;
             position: relative;
         }
 

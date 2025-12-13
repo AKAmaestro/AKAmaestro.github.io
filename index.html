@@ -1994,6 +1994,13 @@
             document.getElementById('m-crumb').innerText = id.toUpperCase();
             document.body.classList.add('modal-open');
 
+            // make all reader images zoomable
+            const contentEl = document.getElementById('m-content');
+            contentEl.querySelectorAll('img').forEach(img => {
+                img.classList.add('zoomable');
+                img.onclick = () => openImage(img.getAttribute('src'), img.getAttribute('alt') || d.title);
+            });
+
             // Link Button
             const actionContainer = document.getElementById('m-action-container');
             actionContainer.innerHTML = '';

@@ -117,14 +117,15 @@
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
-            transition: width 0.12s ease, height 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+            transition: width 0.12s ease, height 0.12s ease, border-color 0.12s ease, background 0.12s ease, opacity 0.12s ease;
             mix-blend-mode: difference;
+            opacity: 0.5;
         }
 
         body.hover-active .custom-cursor {
-            background: transparent;
-            border-color: rgba(255, 255, 255, 0.5);
-            opacity: 1;
+            background: var(--accent);
+            border-color: var(--accent);
+            opacity: 0.9;
         }
 
         /* --- 3. GRID SYSTEM --- */
@@ -1781,6 +1782,8 @@
             }
 
             document.getElementById('modal').classList.add('active');
+            const modalScroll = document.querySelector('.modal-scroll');
+            if (modalScroll) modalScroll.scrollTop = 0;
         }
         function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.classList.remove('modal-open'); }
         document.addEventListener('keydown', e => { if (e.key === "Escape") closeModal(); });

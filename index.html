@@ -117,15 +117,14 @@
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s;
+            transition: width 0.12s ease, height 0.12s ease, border-color 0.12s ease, background 0.12s ease;
             mix-blend-mode: difference;
         }
 
         body.hover-active .custom-cursor {
-            background: var(--accent);
-            opacity: 0.4;
-            width: 50px;
-            height: 50px;
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.5);
+            opacity: 1;
         }
 
         /* --- 3. GRID SYSTEM --- */
@@ -170,6 +169,11 @@
             transition: background 0.2s;
             overflow: hidden;
             cursor: none;
+        }
+
+        body.light-mode .panel {
+            border: 1px solid #d6d6d6;
+            background: #ffffff;
         }
 
         .panel:hover {
@@ -427,23 +431,21 @@
         }
 
         .theme-btn {
-            background: linear-gradient(135deg, #ff9f1c, #ff5f6d);
+            background: linear-gradient(135deg, var(--accent), #00c63a);
             border: 1px solid var(--line);
-            color: #0b0b0b;
+            color: #000;
             width: 44px;
             height: 30px;
             display: grid;
             place-items: center;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.1s ease, box-shadow 0.2s;
             font-weight: 800;
-            box-shadow: 0 6px 18px rgba(255, 95, 109, 0.35);
+            box-shadow: 0 6px 18px rgba(0, 255, 65, 0.3);
         }
 
         .theme-btn:hover {
-            background: linear-gradient(135deg, #ffd166, #ff7e67);
-            color: #000;
-            box-shadow: 0 8px 24px rgba(255, 126, 103, 0.45);
+            box-shadow: 0 8px 24px rgba(0, 255, 65, 0.4);
         }
 
         .area-hero {
@@ -499,15 +501,25 @@
             min-height: 350px;
         }
 
+        body.light-mode .work-item {
+            border: 1px solid #dcdcdc;
+        }
+
         .work-item::before {
             content: "";
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
-            opacity: 0.7;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.719) 70%, rgb(0, 0, 0) 100%);
+            opacity: 0.99;
             transition: opacity 0.3s;
             z-index: 1;
+        }
+
+        body.light-mode .work-item::before {
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.781) 70%, rgb(255, 255, 255) 100%);
+            opacity: 0.99;
+            mix-blend-mode: multiply;
         }
 
         .work-item:hover::before {
@@ -529,6 +541,16 @@
             filter: grayscale(35%) saturate(1.2);
             transition: 0.4s;
             mix-blend-mode: screen;
+        }
+
+        body.light-mode .work-item {
+            background: #f6f6f6;
+        }
+
+        body.light-mode .work-bg {
+            opacity: 0.9;
+            filter: saturate(1.15);
+            mix-blend-mode: multiply;
         }
 
         .work-item:hover .work-bg {
@@ -1773,41 +1795,21 @@
                 el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
             });
+            document.addEventListener('mousedown', () => {
+                cursor.style.width = '32px';
+                cursor.style.height = '32px';
+            });
+            document.addEventListener('mouseup', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+            });
         }
 
-        // PARTICLES
+        // Disable particle trail for snappier cursor
         const canvas = document.getElementById('cursor-canvas');
-        const ctx = canvas.getContext('2d');
-        let width = window.innerWidth; let height = window.innerHeight;
-        canvas.width = width; canvas.height = height;
-        let particles = []; let mouse = { x: -100, y: -100 };
-
-        window.addEventListener('resize', () => { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; });
-        if (window.matchMedia("(pointer: fine)").matches) {
-            window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        if (canvas) {
+            canvas.style.display = 'none';
         }
-
-        class Particle {
-            constructor(x, y) {
-                this.x = x; this.y = y; this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 2 - 1; this.speedY = Math.random() * 2 - 1;
-                this.life = 1;
-                this.color = document.body.classList.contains('light-mode') ? '#0055ff' : '#00ff41';
-            }
-            update() { this.x += this.speedX; this.y += this.speedY; this.life -= 0.05; }
-            draw() { ctx.fillStyle = this.color; ctx.globalAlpha = this.life; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            if (mouse.x > 0 && window.matchMedia("(pointer: fine)").matches) particles.push(new Particle(mouse.x, mouse.y));
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(); particles[i].draw();
-                if (particles[i].life <= 0) { particles.splice(i, 1); i--; }
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
     </script>
 </body>
 

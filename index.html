@@ -585,7 +585,7 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1024px) {
+        @media (max-width: 900px) {
             body {
                 padding: 0;
                 display: block;
@@ -675,6 +675,7 @@
             position: sticky;
             top: 0;
             z-index: 5;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
         }
 
         .modal-scroll {
@@ -701,6 +702,14 @@
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 0 0 2px var(--bg-panel), 0 8px 18px rgba(0, 0, 0, 0.35);
+            position: absolute;
+            right: 12px;
+            top: 10px;
+            min-width: 44px;
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-btn:hover {
@@ -1732,5 +1741,3 @@
 </body>
 
 </html>
-
-

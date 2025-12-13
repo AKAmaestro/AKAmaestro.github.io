@@ -777,6 +777,49 @@
             padding-bottom: 100px;
         }
 
+        .end-indicator {
+            margin: 40px 0 20px;
+            text-align: center;
+            font-family: var(--font-code);
+            color: var(--text-dim);
+            position: relative;
+        }
+
+        .end-indicator::before,
+        .end-indicator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .end-indicator::before {
+            left: 0;
+        }
+
+        .end-indicator::after {
+            right: 0;
+        }
+
+        .to-top-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border: 1px solid var(--accent);
+            background: var(--bg-panel);
+            color: var(--accent);
+            font-family: var(--font-code);
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .to-top-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
         .embed-actions {
             margin-top: 20px;
             display: flex;
@@ -811,6 +854,66 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .gif-grid img {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: var(--bg-panel);
+        }
+
+        .zoomable {
+            cursor: pointer;
+            border: 1px solid var(--line);
+        }
+
+        #img-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99998;
+            padding: 20px;
+        }
+
+        #img-lightbox.active {
+            display: flex;
+        }
+
+        #img-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border: 2px solid var(--accent);
+            background: #000;
+        }
+
+        #img-lightbox .caption {
+            margin-top: 10px;
+            color: #fff;
+            font-family: var(--font-code);
+            text-align: center;
+        }
+
+        #img-lightbox .close-lightbox {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            padding: 10px 14px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #000;
+            font-family: var(--font-code);
+            cursor: pointer;
+            transform: translateX(-50%);
         }
 
         .modal-hero {
@@ -1148,7 +1251,7 @@
             <div class="area-works">
                 <div class="work-item hover-trigger" onclick="openModal('keybound')">
                     <div class="corner-deco"></div>
-                    <img src="projects/keybound/cover.svg" class="work-bg">
+                    <img src="projects/keybound/vertical.png" class="work-bg">
                     <div class="work-content"><span class="label">FIG_01: GAME</span>
                         <h2 class="h-title">KeyBound</h2><span class="h-sub">NARRATIVE PUZZLE</span>
                     </div>
@@ -1344,10 +1447,10 @@
                 <h1 id="m-title" class="m-title">TITLE</h1>
                 <div id="m-content" class="m-body"></div>
                 <div id="m-action-container" style="margin-top:30px;"></div>
-                <div class="embed-actions">
-                    <button class="embed-btn" onclick="promptEmbed()">Embed YouTube</button>
+                <div class="end-indicator">– END · XX –</div>
+                <div style="text-align:center;">
+                    <button class="to-top-btn" onclick="scrollTopModal()">SCROLL TO TOP</button>
                 </div>
-                <div id="m-embed" class="embed-container"></div>
             </div>
         </div>
     </div>
@@ -1532,7 +1635,7 @@
             'portfolio-pdf': {
                 title: "PORTFOLIO PDF",
                 body: `<div class="video-container" style="height:80vh; background:#111; border:1px solid var(--line);">
-                            <iframe src="projects/Ankit Kumar portfolio_MDE.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Portfolio PDF"></iframe>
+                            <iframe src="projects/Ankit Kumar portfolio draft.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Portfolio PDF"></iframe>
                         </div>
                         <p style="font-family:var(--font-code); color:var(--text-dim); margin-top:10px;">PDF is fully clickable. Use toolbar to zoom/download.</p>`
             },
@@ -1540,25 +1643,68 @@
             'keybound': {
                 title: "KEYBOUND",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Founder & Design Lead</strong></div><div><span class="label">TIMELINE</span><strong>2024 - Present</strong></div><div><span class="label">STACK</span><strong>Unity, C#, Figma</strong></div></div>
-                       <span class="section-h">CONTEXT & MOTIVATION</span>
-                       <p>Memory-as-mechanic puzzle game: rebuild the world via fragments of melody.</p>
-                       <div class="media-grid">
-                           <img src="projects/keybound/KeyBound Banner.jpeg" alt="Keybound banner">
-                           <img src="projects/keybound/process.svg" alt="Keybound process">
+                       <div class="embed-actions" style="margin-top:10px;">
+                           <a href="https://agrmayank.itch.io/keybound" target="_blank" class="action-btn">Play on itch.io</a>
+                           <a href="https://store.steampowered.com/app/3070700/KeyBound/" target="_blank" class="action-btn">Wishlist on Steam</a>
+                           <a href="https://1drv.ms/p/c/5128d2fa303081a4/IQABjkEuFFPpQ4lRuBCKoJhRAUSptRK-ZtTbb4J5yE65nBE?e=5n0LMC" target="_blank" class="action-btn">Pitch Deck</a>
+                           <a href="https://www.youtube.com/watch?v=tWS2I_Pk3m0" target="_blank" class="action-btn">Trailer</a>
+                           <a href="https://amnesea.com/games.html" target="_blank" class="action-btn">Visit Game Site</a>
                        </div>
 
-                       <span class="section-h">DESIGN PROCESS</span>
+                       <span class="section-h">TRAILER</span>
+                       <div class="embed-container">
+                           <iframe src="https://www.youtube.com/embed/tWS2I_Pk3m0" allowfullscreen loading="lazy"></iframe>
+                       </div>
+
+                       <span class="section-h">CONTEXT</span>
+                       <p>Memory-as-mechanic puzzle platformer: rebuild the world via fragments of melody and the keys you collect.</p>
+
+                       <span class="section-h">KEY ART</span>
+                       <div class="media-grid">
+                           <img src="projects/keybound/KeyBound Cover.gif" alt="KeyBound cover gif" class="zoomable" onclick="openImage('projects/keybound/KeyBound Cover.gif','Cover animation')">
+                           <img src="projects/keybound/Keybound bg light background.png" alt="KeyBound background" class="zoomable" onclick="openImage('projects/keybound/Keybound bg light background.png','Background key art')">
+                       </div>
+
+                       <span class="section-h">GAME FLOW</span>
+                       <div class="media-grid">
+                           <img src="projects/keybound/KeyBound Banner.jpeg" alt="KeyBound banner" class="zoomable" onclick="openImage('projects/keybound/KeyBound Banner.jpeg','KeyBound Banner')">
+                           <img src="projects/keybound/process.svg" alt="KeyBound process" class="zoomable" onclick="openImage('projects/keybound/process.svg','Process Snapshot')">
+                           <img src="projects/keybound/ProcessFlow.svg" alt="Game flow" class="zoomable" onclick="openImage('projects/keybound/ProcessFlow.svg','Game Flow')">
+                           <img src="projects/keybound/gameloop.png" alt="Game loop" class="zoomable" onclick="openImage('projects/keybound/gameloop.png','Game Loop')">
+                        </div>
+
+                       <span class="section-h">AN EARLY GLIMPSE</span>
+                       <div class="gif-grid">
+                           <img src="projects/keybound/Gif/1.gif" alt="Keybound GIF 1" class="zoomable" onclick="openImage('projects/keybound/Gif/1.gif','Gameplay loop 1')">
+                           <img src="projects/keybound/Gif/2.gif" alt="Keybound GIF 2" class="zoomable" onclick="openImage('projects/keybound/Gif/2.gif','Gameplay loop 2')">
+                           <img src="projects/keybound/Gif/3.gif" alt="Keybound GIF 3" class="zoomable" onclick="openImage('projects/keybound/Gif/3.gif','Gameplay loop 3')">
+                           <img src="projects/keybound/Gif/4.gif" alt="Keybound GIF 4" class="zoomable" onclick="openImage('projects/keybound/Gif/4.gif','Gameplay loop 4')">
+                           <img src="projects/keybound/Gif/5.gif" alt="Keybound GIF 5" class="zoomable" onclick="openImage('projects/keybound/Gif/5.gif','Gameplay loop 5')">
+                           <img src="projects/keybound/Gif/6.gif" alt="Keybound GIF 6" class="zoomable" onclick="openImage('projects/keybound/Gif/6.gif','Gameplay loop 6')">
+                        </div>
+
+                       <span class="section-h">MIND MAPS</span>
+                       <div class="gif-grid">
+                           <img src="projects/keybound/mindmaps/20240326_123642.jpg" alt="Mindmap 1" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_123642.jpg','Mindmap 1')">
+                           <img src="projects/keybound/mindmaps/20240326_150258.jpg" alt="Mindmap 2" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_150258.jpg','Mindmap 2')">
+                           <img src="projects/keybound/mindmaps/20240326_230449.jpg" alt="Mindmap 3" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_230449.jpg','Mindmap 3')">
+                           <img src="projects/keybound/mindmaps/20240404_010734.jpg" alt="Mindmap 4" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240404_010734.jpg','Mindmap 4')">
+                           <img src="projects/keybound/mindmaps/20240404_012035.jpg" alt="Mindmap 5" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240404_012035.jpg','Mindmap 5')">
+                           <img src="projects/keybound/mindmaps/20240413_000023.jpg" alt="Mindmap 6" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240413_000023.jpg','Mindmap 6')">
+                           <img src="projects/keybound/mindmaps/20240415_025241.jpg" alt="Mindmap 7" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240415_025241.jpg','Mindmap 7')">
+                           <img src="projects/keybound/mindmaps/20240416_180247.jpg" alt="Mindmap 8" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240416_180247.jpg','Mindmap 8')">
+                        </div>
+
+                       <span class="section-h">DESIGN NOTES</span>
                        <ul>
-                           <li><strong>Core Loop:</strong> Mapped out how exploration, puzzle solving and narrative reveals feed into each other.</li>
-                           <li><strong>Prototyping:</strong> Built small prototypes to test memory reconstruction mechanics and environmental storytelling.</li>
-                           <li><strong>Level Design:</strong> Designed tilemaps enabling both linear progress and optional exploration.</li>
+                           <li><strong>Core Loop:</strong> Explore, learn patterns, and unlock keys that reshape levels and music.</li>
+                           <li><strong>Progression:</strong> Modules unlock new traversal verbs; memory fragments retell the story diegetically.</li>
+                           <li><strong>UX:</strong> Minimal HUD; inputs surfaced through controller glyphs and rhythm cues.</li>
                        </ul>
 
-                       <div class="video-container">[VIDEO PLACEHOLDER: GAMEPLAY TRAILER]</div>
-
                        <span class="section-h">IMPACT</span>
-                       <p>Our KeyBound prototype earned us a place at IGDC and selection into Xbox Game Camp Asia. Our pitch deck opened conversations with publishers and secured mentorship.</p>`,
-                link: "https://amnesea.com/keybound"
+                       <p>Selected for Xbox Game Camp Asia; in active production with refined game loop, pitch deck, and public wishlist live.</p>`,
+                link: "https://amnesea.com/games.html"
             },
 
             'mocking': {
@@ -1885,6 +2031,29 @@
         const canvas = document.getElementById('cursor-canvas');
         if (canvas) {
             canvas.style.display = 'none';
+        }
+
+        // Image lightbox
+        const lightbox = document.createElement('div');
+        lightbox.id = 'img-lightbox';
+        lightbox.innerHTML = `<button class="close-lightbox" onclick="closeImage()">CLOSE</button><div style="text-align:center;"><img id="lb-img" src="" alt=""><div class="caption" id="lb-cap"></div></div>`;
+        document.body.appendChild(lightbox);
+
+        function openImage(src, cap) {
+            const lb = document.getElementById('img-lightbox');
+            document.getElementById('lb-img').src = src;
+            document.getElementById('lb-cap').innerText = cap || '';
+            lb.classList.add('active');
+        }
+        function closeImage() {
+            document.getElementById('img-lightbox').classList.remove('active');
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeImage(); });
+
+        // Scroll to top helper for modals
+        function scrollTopModal() {
+            const modalScroll = document.querySelector('.modal-scroll');
+            if (modalScroll) modalScroll.scrollTop = 0;
         }
     </script>
 </body>

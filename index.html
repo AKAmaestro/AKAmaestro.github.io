@@ -158,7 +158,7 @@
             width: 100%;
             height: auto;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto auto auto auto auto;
+            grid-template-rows: auto auto auto auto auto auto auto;
             gap: 4px;
             background: var(--hatch);
             border: 4px solid transparent;
@@ -168,6 +168,7 @@
                 "portfolio portfolio portfolio portfolio"
                 "works  works  works  works"
                 "exp    awards rsch   skills"
+                "vol    vol    vol    vol"
                 "contact contact contact contact";
         }
 
@@ -246,6 +247,10 @@
             color: #00ff41;
         }
 
+        .area-vol .label {
+            color: #5fe1d4;
+        }
+
         .area-awards .label {
             color: #ffc400;
         }
@@ -260,6 +265,10 @@
 
         body.light-mode .area-exp .label {
             color: #008f2a;
+        }
+
+        body.light-mode .area-vol .label {
+            color: #2a7d75;
         }
 
         body.light-mode .area-awards .label {
@@ -286,6 +295,10 @@
             color: #00c63a;
         }
 
+        .area-vol .h-title {
+            color: #3bb2a3;
+        }
+
         .area-awards .h-title {
             color: #c49000;
         }
@@ -300,6 +313,10 @@
 
         body.light-mode .area-exp .h-title {
             color: #008f2a;
+        }
+
+        body.light-mode .area-vol .h-title {
+            color: #2a7d75;
         }
 
         body.light-mode .area-awards .h-title {
@@ -374,6 +391,7 @@
         .area-awards::before,
         .area-rsch::before,
         .area-skills::before,
+        .area-vol::before,
         .area-contact::before {
             content: "";
             position: absolute;
@@ -392,6 +410,10 @@
 
         .area-awards::before {
             background-image: url("data:image/svg+xml,%3Csvg width='520' height='520' viewBox='0 0 520 520' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffcc00' fill-opacity='0.24'%3E%3Cpolygon points='260,60 300,170 420,170 324,238 360,348 260,280 160,348 196,238 100,170 220,170'/%3E%3Crect x='220' y='348' width='80' height='80'/%3E%3Crect x='200' y='428' width='120' height='26'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .area-vol::before {
+            background-image: url("data:image/svg+xml,%3Csvg width='520' height='520' viewBox='0 0 520 520' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235fe1d4' fill-opacity='0.22'%3E%3Ccircle cx='170' cy='210' r='70'/%3E%3Ccircle cx='350' cy='210' r='70'/%3E%3Crect x='150' y='250' width='220' height='70' rx='22'/%3E%3Cpath d='M190 300l-60 90h80l30-50 30 50h80l-60-90z' fill-opacity='0.18'/%3E%3C/g%3E%3C/svg%3E");
         }
 
         .area-rsch::before {
@@ -415,6 +437,7 @@
         body.light-mode .area-awards::before,
         body.light-mode .area-rsch::before,
         body.light-mode .area-skills::before,
+        body.light-mode .area-vol::before,
         body.light-mode .area-contact::before {
             opacity: s;
             mix-blend-mode: multiply;
@@ -618,6 +641,12 @@
             position: relative;
         }
 
+        .area-vol {
+            grid-area: vol;
+            background: rgba(6, 60, 66, 0.82);
+            position: relative;
+        }
+
         .area-contact {
             grid-area: contact;
             align-items: center;
@@ -662,6 +691,7 @@
                     "works  works"
                     "exp    awards"
                     "rsch   skills"
+                    "vol    vol"
                     "contact contact";
                 gap: 2px;
                 background: var(--line);
@@ -1552,6 +1582,20 @@
                 </div>
             </div>
 
+            <div class="panel area-vol hover-trigger" onclick="openModal('vol')">
+                <span class="label">CIVIC_LOG <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Volunteering</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>DAA Mentor</strong>Algorithms tutoring & project guidance.</div>
+                        <div class="list-item"><strong>Brillio NGO</strong>Bringing Smiles outreach & drives.</div>
+                        <div class="list-item"><strong>Toastmasters</strong>Club founder, coach for speakers.</div>
+                        <div class="list-item"><strong>Art Club</strong>Anaadyanta fest curation & showcases.</div>
+                        <div class="list-item"><strong>Swachh Bharat</strong>Campus clean-up and awareness runs.</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="panel area-contact hover-trigger"
                 onclick="window.location.href='mailto:akamaestro@outlook.com'">
                 <h2 class="h-title" style="color:var(--accent); font-size:1.5rem;">akamaestro@outlook.com</h2>
@@ -2114,6 +2158,37 @@
                            <li>Lightweight CNN with on-device inference for low latency.</li>
                            <li>Telemetry layer to stream state to Unity/UX demos.</li>
                        </ul>`
+            },
+
+            'vol': {
+                title: "VOLUNTEERING & COMMUNITY",
+                body: `
+                    <span class="section-h">SERVICE HIGHLIGHTS</span>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="ic-head"><span class="ic-title">Brillio NGO — Bringing Smiles</span><span class="ic-date">Ongoing</span></div>
+                            <div class="ic-desc">Coordinated CSR outreach, tech-for-good workshops, and donation drives with the NGO wing.</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="ic-head"><span class="ic-title">Toastmasters (Brillio Chapter)</span><span class="ic-date">Founder</span></div>
+                            <div class="ic-desc">Set up the club, mentored speakers, and facilitated contests with 20+ members.</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="ic-head"><span class="ic-title">DAA Mentor</span><span class="ic-date">Resume Project</span></div>
+                            <div class="ic-desc">Volunteered to tutor juniors on Design & Analysis of Algorithms and review their project work.</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="ic-head"><span class="ic-title">Art Club — Anaadyanta</span><span class="ic-date">Festival Crew</span></div>
+                            <div class="ic-desc">Led stage art and gallery curation for the college fest, rallying student volunteers.</div>
+                        </div>
+                    </div>
+
+                    <span class="section-h">CIVIC DRIVES</span>
+                    <ul>
+                        <li><strong>Swachh Bharat Abhiyan:</strong> Organized campus and neighborhood clean-up sprints and set up waste-segregation booths.</li>
+                        <li><strong>Community outreach:</strong> Volunteered at Brillio NGO events and local schools with STEM demos and art jams.</li>
+                    </ul>
+                `
             },
 
             'skills': {

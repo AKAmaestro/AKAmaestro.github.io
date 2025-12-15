@@ -158,7 +158,7 @@
             width: 100%;
             height: auto;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto auto auto auto auto auto;
+            grid-template-rows: auto auto auto auto auto auto auto auto;
             gap: 4px;
             background: var(--hatch);
             border: 4px solid transparent;
@@ -166,9 +166,10 @@
                 "header header header header"
                 "hero   hero   hero   hero"
                 "portfolio portfolio portfolio portfolio"
-                "works  works  works  works"
                 "exp    awards rsch   skills"
                 "vol    vol    vol    vol"
+                "separator separator separator separator"
+                "works  works  works  works"
                 "contact contact contact contact";
         }
 
@@ -647,6 +648,22 @@
             position: relative;
         }
 
+        .area-separator {
+            grid-area: separator;
+            background: var(--bg-void);
+            border-top: 1px dashed var(--line);
+            border-bottom: 1px dashed var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            font-family: var(--font-code);
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
         .area-contact {
             grid-area: contact;
             align-items: center;
@@ -686,12 +703,13 @@
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-areas:
                     "header header"
-                    "hero   hero"
+                    "hero hero"
                     "portfolio portfolio"
-                    "works  works"
                     "exp    awards"
                     "rsch   skills"
                     "vol    vol"
+                    "separator separator"
+                    "works  works"
                     "contact contact";
                 gap: 2px;
                 background: var(--line);
@@ -1376,19 +1394,6 @@
                 </div>
             </header>
 
-            <div class="panel area-portfolio hover-trigger" onclick="openModal('portfolio-pdf')"
-                style="background:#1f1400;">
-                <div class="corner-deco"></div>
-                <span class="label"
-                    style="color:#ffb347; border-bottom:1px solid rgba(255,179,71,0.3);">PORTFOLIO_PDF</span>
-                <div>
-                    <h2 class="h-title" style="color:#ffb347;">Birds-eye of works in PDF</h2>
-                    <span class="h-sub" style="color:#ffd27f;">Clickable // full deck pdf view</span>
-                    <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">
-                        Open inline // links active</p>
-                </div>
-            </div>
-
             <div class="panel area-hero hover-trigger" onclick="openModal('bio')">
                 <div class="corner-deco"></div>
                 <span class="label" style="justify-content:center; border:none;">T-shaped first-gen PROFESSIONAL</span>
@@ -1403,6 +1408,98 @@
                 <div style="margin-top:20px; font-family:var(--font-code); font-size:0.7rem; color:var(--accent);">
                     [CLICK TO READ BIO]
                 </div>
+            </div>
+
+            <div class="panel area-portfolio hover-trigger" onclick="openModal('portfolio-pdf')"
+                style="background:#1f1400;">
+                <div class="corner-deco"></div>
+                <span class="label"
+                    style="color:#ffb347; border-bottom:1px solid rgba(255,179,71,0.3);">PORTFOLIO_PDF</span>
+                <div>
+                    <h2 class="h-title" style="color:#ffb347;">Birds-eye of works in PDF</h2>
+                    <span class="h-sub" style="color:#ffd27f;">Clickable // full deck pdf view</span>
+                    <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">
+                        Open inline // links active</p>
+                </div>
+            </div>
+
+            <!-- INFO SECTIONS -->
+            <div class="panel area-exp hover-trigger" onclick="openModal('exp')">
+                <span class="label">JOURNEY_LOG <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Timeline</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
+                        <div class="list-item"><strong>Xbox</strong>UXR Lead</div>
+                        <div class="list-item"><strong>Brillio</strong>Data Eng.</div>
+                        <div class="list-item"><strong>NITTE</strong>Comp Sci</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel area-awards hover-trigger" onclick="openModal('awards')">
+                <span class="label">HONORS_DB<span>+</span></span>
+                <div>
+                    <h2 class="h-title">Awards</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
+                        <div class="list-item"><strong>Xbox Camp</strong>Top 16</div>
+                        <div class="list-item"><strong>TEQIP</strong>Research Grant</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
+                <span class="label">ARCHIVE <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Research</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
+                        <div class="list-item"><strong>TEQIP</strong>Covid AI</div>
+                        <div class="list-item"><strong>IEEE</strong>Robotics</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel area-skills hover-trigger" onclick="openModal('skills')">
+                <span class="label">ARSENAL <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Skills</h2>
+                    <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;">
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">UNITY</span>
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">C#</span>
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">PYTHON</span>
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">FIGMA</span>
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">Adobe
+                            CC</span>
+                        <span
+                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">MS
+                            365</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel area-vol hover-trigger" onclick="openModal('vol')">
+                <span class="label">CIVIC_LOG <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Volunteering</h2>
+                    <div style="margin-top:15px;">
+                        <div class="list-item"><strong>DAA Mentor</strong>Algorithms tutoring & project guidance.</div>
+                        <div class="list-item"><strong>Brillio NGO</strong>Bringing Smiles outreach & drives.</div>
+                        <div class="list-item"><strong>Toastmasters</strong>Club founder, coach for speakers.</div>
+                        <div class="list-item"><strong>Art Club</strong>Anaadyanta fest curation & showcases.</div>
+                        <div class="list-item"><strong>Swachh Bharat</strong>Campus clean-up and awareness runs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel area-separator">
+                BELOW: WORK PROJECTS / UXR / CASE STUDIES / DEMO BUILDS — CLICK TO EXPLORE INDIVIDUALLY
             </div>
 
             <!-- WORKS SUPER GRID -->
@@ -1517,81 +1614,6 @@
                     <img src="projects/Facially/1.png" class="work-bg">
                     <div class="work-content"><span class="label">FIG_16: CV</span>
                         <h2 class="h-title">Facially</h2><span class="h-sub">EXPRESSION AI</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- INFO SECTIONS -->
-            <div class="panel area-exp hover-trigger" onclick="openModal('exp')">
-                <span class="label">JOURNEY_LOG <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Timeline</h2>
-                    <div style="margin-top:15px;">
-                        <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
-                        <div class="list-item"><strong>Xbox</strong>UXR Lead</div>
-                        <div class="list-item"><strong>Brillio</strong>Data Eng.</div>
-                        <div class="list-item"><strong>NITTE</strong>Comp Sci</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel area-awards hover-trigger" onclick="openModal('awards')">
-                <span class="label">HONORS_DB<span>+</span></span>
-                <div>
-                    <h2 class="h-title">Awards</h2>
-                    <div style="margin-top:15px;">
-                        <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
-                        <div class="list-item"><strong>Xbox Camp</strong>Top 16</div>
-                        <div class="list-item"><strong>TEQIP</strong>Research Grant</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
-                <span class="label">ARCHIVE <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Research</h2>
-                    <div style="margin-top:15px;">
-                        <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
-                        <div class="list-item"><strong>TEQIP</strong>Covid AI</div>
-                        <div class="list-item"><strong>IEEE</strong>Robotics</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel area-skills hover-trigger" onclick="openModal('skills')">
-                <span class="label">ARSENAL <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Skills</h2>
-                    <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;">
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">UNITY</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">C#</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">PYTHON</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">FIGMA</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">Adobe
-                            CC</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">MS
-                            365</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel area-vol hover-trigger" onclick="openModal('vol')">
-                <span class="label">CIVIC_LOG <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Volunteering</h2>
-                    <div style="margin-top:15px;">
-                        <div class="list-item"><strong>DAA Mentor</strong>Algorithms tutoring & project guidance.</div>
-                        <div class="list-item"><strong>Brillio NGO</strong>Bringing Smiles outreach & drives.</div>
-                        <div class="list-item"><strong>Toastmasters</strong>Club founder, coach for speakers.</div>
-                        <div class="list-item"><strong>Art Club</strong>Anaadyanta fest curation & showcases.</div>
-                        <div class="list-item"><strong>Swachh Bharat</strong>Campus clean-up and awareness runs.</div>
                     </div>
                 </div>
             </div>

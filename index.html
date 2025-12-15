@@ -790,6 +790,100 @@
             padding-bottom: 100px;
         }
 
+        /* --- 6A. PAPER VIEWER --- */
+        .paper-viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 24000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .paper-close {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 16px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #000;
+            font-family: var(--font-code);
+            cursor: pointer;
+            z-index: 24001;
+        }
+
+        .paper-viewer.active {
+            display: flex;
+        }
+
+        .paper-shell {
+            background: var(--bg-panel);
+            border: 1px solid var(--line);
+            width: min(1100px, calc(100vw - 16px));
+            height: min(90vh, 900px);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .paper-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg-hover);
+            flex-wrap: wrap;
+        }
+
+        .paper-title {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+        }
+
+        .paper-body {
+            position: relative;
+            flex: 1;
+            background: var(--bg-void);
+        }
+
+        .paper-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #ffffff;
+        }
+
+        .paper-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 14px;
+            border: 1px dashed var(--line);
+            color: var(--text-dim);
+            font-family: var(--font-code);
+            background: rgba(0, 0, 0, 0.65);
+            text-align: center;
+        }
+
+        .paper-hint {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            padding: 8px 14px;
+            border-top: 1px solid var(--line);
+            background: var(--bg-hover);
+        }
+
         .end-indicator {
             margin: 40px 0 20px;
             text-align: center;
@@ -1110,6 +1204,7 @@
             position: relative;
             padding-left: 40px;
             margin-bottom: 60px;
+            transition: 0.2s;
         }
 
         .t-marker {
@@ -1121,6 +1216,17 @@
             background: var(--bg-void);
             border: 1px solid var(--text-dim);
             transition: 0.3s;
+        }
+
+        .timeline-entry.paper-trigger {
+            cursor: pointer;
+        }
+
+        .timeline-entry.paper-trigger:hover {
+            background: var(--bg-hover);
+            border-radius: 8px;
+            padding: 12px 12px 12px 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
         }
 
         .timeline-entry.active .t-marker {
@@ -1168,6 +1274,15 @@
 
         .info-card:hover {
             border-color: var(--accent);
+        }
+
+        .paper-trigger {
+            cursor: pointer;
+        }
+
+        .info-card.paper-trigger:hover {
+            background: var(--bg-panel);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
         .ic-head {
@@ -1468,6 +1583,27 @@
         </div>
     </div>
 
+    <!-- PAPER VIEWER -->
+    <div id="paper-viewer" class="paper-viewer">
+        <button class="paper-close" onclick="closePaper()">CLOSE</button>
+        <div class="paper-shell">
+            <div class="paper-bar">
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span class="label" style="margin:0; border:none; padding:0;">DOI / PDF VIEWER</span>
+                    <span id="paper-title" class="paper-title">Research Paper</span>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                    <a id="paper-link" class="action-btn" target="_blank" rel="noopener" style="margin-top:0;">Open in new tab ↗</a>
+                </div>
+            </div>
+            <div class="paper-body">
+                <div id="paper-loader" class="paper-loader">Loading…</div>
+                <iframe id="paper-iframe" title="Research paper viewer"></iframe>
+            </div>
+            <div class="paper-hint">If the embed is blocked by the publisher, use “Open in new tab ↗”.</div>
+        </div>
+    </div>
+
     <script>
         // TYPEWRITER
         const roles = ["Visual Engineer", "UX researcher", "Game Designer", "Roboticist", "Blockchain dev", "Market Technical Analyst", "Photogrpher"];
@@ -1520,7 +1656,7 @@
                 body: `
                     <div class="timeline-wrapper">
                         <!-- Amnesea -->
-                        <div class="timeline-entry active">
+                        <div class="timeline-entry active paper-trigger" data-url="" data-title="Amnesea Studios — Co-Founder & CEO (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">DEC 2023 - PRESENT</span>
                             <div class="t-title">Co-Founder & CEO</div>
@@ -1534,7 +1670,7 @@
                         </div>
 
                         <!-- Xbox -->
-                        <div class="timeline-entry">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Xbox Studios Game Camp — Apprentice Team Lead (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">MAR 2024 - MAY 2024</span>
                             <div class="t-title">Apprentice Team Lead</div>
@@ -1547,7 +1683,7 @@
                         </div>
 
                         <!-- Brillio -->
-                        <div class="timeline-entry">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Brillio — Senior Data Engineer (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">SEPT 2020 - FEB 2023</span>
                             <div class="t-title">Senior Data Engineer</div>
@@ -1560,7 +1696,7 @@
                         </div>
 
                         <!-- NMIT -->
-                        <div class="timeline-entry">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="NMIT — Research Intern (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">APR 2019 - AUG 2020</span>
                             <div class="t-title">Research Intern</div>
@@ -1586,23 +1722,23 @@
                 body: `
                     <span class="section-h">AWARDS</span>
                     <div class="info-grid">
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="Winner: Neuranode Jam (add PDF/link)">
                             <div class="ic-head"><span class="ic-title">Winner: Neuranode Jam</span><span class="ic-date">2025</span></div>
                             <div class="ic-desc">Top honors for design and execution in Avalanche Game Jam.</div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="Xbox Game Camp Asia (add PDF/link)">
                             <div class="ic-head"><span class="ic-title">Xbox Game Camp Asia</span><span class="ic-date">2024</span></div>
                             <div class="ic-desc">Selected among Top 4 Indian studios for intensive mentorship.</div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="Brillio Special Awards (add PDF/link)">
                             <div class="ic-head"><span class="ic-title">Brillio Special Awards</span><span class="ic-date">2022</span></div>
                             <div class="ic-desc">Group Excellence Award & Bringing Smiles star volunteer.</div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="TEQIP Innovation Grant (add PDF/link)">
                             <div class="ic-head"><span class="ic-title">TEQIP Innovation Grant</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">Funded COVID-19 screening and detection research proposal.</div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="National Finalist: EYRC (add PDF/link)">
                             <div class="ic-head"><span class="ic-title">National Finalist: EYRC</span><span class="ic-date">2019</span></div>
                             <div class="ic-desc">4th place finalist out of 7173 teams in E-Yantra Robotics Competition (IIT Bombay).</div>
                         </div>
@@ -1621,21 +1757,22 @@
             'rsch': {
                 title: "RESEARCH PUBLICATIONS",
                 body: `
+                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
                     <div class="info-grid">
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
                             <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
                                 <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
                                 <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
                             </div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
                             <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
                                 <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
                             </div>
                         </div>
-                        <div class="info-card">
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
                             <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
                                 <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
@@ -2020,12 +2157,73 @@
                 actionContainer.innerHTML = `<a href="${d.link}" target="_blank" class="action-btn">VISIT EXTERNAL LINK ↗</a>`;
             }
 
+            if (id === 'rsch' || id === 'awards' || id === 'exp') {
+                bindPaperTriggers();
+            }
+
             document.getElementById('modal').classList.add('active');
             const modalScroll = document.querySelector('.modal-scroll');
             if (modalScroll) modalScroll.scrollTop = 0;
         }
         function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.classList.remove('modal-open'); }
-        document.addEventListener('keydown', e => { if (e.key === "Escape") closeModal(); });
+        document.addEventListener('keydown', e => {
+            if (e.key !== "Escape") return;
+            if (document.getElementById('paper-viewer')?.classList.contains('active')) return;
+            closeModal();
+        });
+
+        // PAPER VIEWER
+        const paperViewer = document.getElementById('paper-viewer');
+        const paperFrame = document.getElementById('paper-iframe');
+        const paperLoader = document.getElementById('paper-loader');
+        const paperTitle = document.getElementById('paper-title');
+        const paperLink = document.getElementById('paper-link');
+
+        function bindPaperTriggers() {
+            const contentEl = document.getElementById('m-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('.paper-trigger').forEach(card => {
+                if (card.dataset.bound === '1') return;
+                card.dataset.bound = '1';
+                card.addEventListener('click', () => {
+                    const url = card.dataset.url || '';
+                    const title = card.dataset.title || (card.querySelector('.ic-title')?.innerText || 'Research Paper');
+                    openPaper(url, title);
+                });
+            });
+        }
+
+        function openPaper(rawUrl, title = 'Research Paper') {
+            if (!rawUrl) {
+                alert('Add a DOI or PDF link for this paper to enable the popup reader.');
+                return;
+            }
+            const url = rawUrl.startsWith('http') ? rawUrl : `https://doi.org/${rawUrl.replace(/^\/+/, '')}`;
+            paperTitle.innerText = title;
+            paperLink.href = url;
+            paperLink.innerText = url.replace(/^https?:\/\//, '');
+            paperLoader.style.display = 'block';
+            paperFrame.src = url;
+            paperViewer.classList.add('active');
+            document.body.classList.add('modal-open');
+            const loaderTimeout = setTimeout(() => { paperLoader.style.display = 'none'; }, 5000);
+            const handleLoad = () => {
+                clearTimeout(loaderTimeout);
+                paperLoader.style.display = 'none';
+                paperFrame.removeEventListener('load', handleLoad);
+            };
+            paperFrame.addEventListener('load', handleLoad);
+        }
+
+        function closePaper() {
+            paperViewer.classList.remove('active');
+            paperFrame.src = 'about:blank';
+            paperLoader.style.display = 'none';
+            if (!document.getElementById('modal').classList.contains('active')) {
+                document.body.classList.remove('modal-open');
+            }
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePaper(); });
 
         // CURSOR
         const cursor = document.getElementById('cursor');

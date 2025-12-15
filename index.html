@@ -32,6 +32,7 @@
             --text-dim: #888888;
 
             --accent: #00ff41;
+            --accent-rgb: 0, 255, 65;
             --alert: #ff3300;
 
             --font-ui: 'Manrope', sans-serif;
@@ -59,6 +60,7 @@
             --text-main: #111111;
             --text-dim: #666666;
             --accent: #0055ff;
+            --accent-rgb: 0, 85, 255;
             --hatch: repeating-linear-gradient(45deg,
                     var(--line),
                     var(--line) 1px,
@@ -119,20 +121,23 @@
         .custom-cursor {
             width: 20px;
             height: 20px;
-            border: 1px solid var(--accent);
+            border: 1.5px solid var(--accent);
+            background: rgba(var(--accent-rgb), 0.22);
             position: fixed;
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
-            transition: width 0.12s ease, height 0.12s ease, border-color 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+            transition: width 0.12s ease, height 0.12s ease, border-color 0.12s ease, background 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
             mix-blend-mode: difference;
-            opacity: 0.5;
+            opacity: 0.9;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 0 14px rgba(var(--accent-rgb), 0.4);
         }
 
         body.hover-active .custom-cursor {
-            background: var(--accent);
+            background: rgba(var(--accent-rgb), 0.35);
             border-color: var(--accent);
-            opacity: 0.9;
+            opacity: 1;
+            box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.7), 0 0 18px rgba(var(--accent-rgb), 0.5);
         }
 
         /* --- 3. GRID SYSTEM --- */

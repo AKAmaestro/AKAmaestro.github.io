@@ -169,7 +169,7 @@
                 "exp    awards rsch   skills"
                 "separator separator separator separator"
                 "works  works  works  works"
-                 "vol    vol    vol    vol"
+                "vol    vol    vol    vol"
                 "contact contact contact contact";
         }
 
@@ -494,6 +494,24 @@
             background-size: cover, 20px 20px;
             background-blend-mode: multiply;
             position: relative;
+        }
+
+        .hero-stamp {
+            position: absolute;
+            left: -11px;
+            top: 70%;
+            transform: translateY(-50%);
+            width: 150px;
+            padding: 0;
+            background: none;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .hero-stamp img {
+            width: 110%;
+            display: block;
+            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0));
         }
 
         .hero-name {
@@ -1116,9 +1134,25 @@
 
         .bio-flex {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            align-items: start;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .bio-copy { order: 1; }
+
+        .bio-photo {
+            order: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bio-photo .modal-hero {
+            border: none;
+            background: none;
+            max-height: 70vh;
+            object-fit: cover;
         }
 
         .bio-copy p {
@@ -1435,11 +1469,14 @@
                     > <span id="typewriter"></span><span style="animation:blink 1s infinite">_</span>
                 </div>
                 <p style="margin-top:20px; max-width:600px; color:var(--text-dim); font-size:0.9rem;">
-                    Games x Robotics x AI x Management — Design Engineer // Building Amnesea Studios, Former Xbox ,
+                    Games x Robotics x AI x Management - Design Engineer // Building Amnesea Studios, Former Xbox ,
                     Brillio
                 </p>
                 <div style="margin-top:20px; font-family:var(--font-code); font-size:0.7rem; color:var(--accent);">
                     [CLICK TO READ BIO]
+                </div>
+                <div class="hero-stamp">
+                    <img src="projects/Ankit/akamaestro.png" alt="AKA seal">
                 </div>
             </div>
 
@@ -1692,7 +1729,8 @@
                     <span id="paper-title" class="paper-title">Research Paper</span>
                 </div>
                 <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                    <a id="paper-link" class="action-btn" target="_blank" rel="noopener" style="margin-top:0;">Open in new tab ↗</a>
+                    <a id="paper-link" class="action-btn" target="_blank" rel="noopener" style="margin-top:0;">Open in
+                        new tab ↗</a>
                 </div>
             </div>
             <div class="paper-body">
@@ -1732,11 +1770,9 @@
                 title: "ANKIT KUMAR AGRAWAL (AKA)",
                 body: `
                     <div class="bio-flex">
-                        <div class="bio-photo">
-                            <img src="projects/Ankit/Picture23.png" alt="Ankit portrait" class="modal-hero">
-                        </div>
                         <div class="bio-copy">
-                            <p>I’m a design engineer who loves building strange intersections: games that learn from players, robots that play music, AI that stays humane. I move between concept and code, shipping ideas fast and keeping the craft visible.</p>
+                            <h3 class="h-title" style="margin-bottom:12px;">Systems-first design engineer</h3>
+                            <p>I'm a design engineer who loves building strange intersections: games that learn from players, robots that play music, AI that stays humane. I move between concept and code, shipping ideas fast and keeping the craft visible.</p>
                             <p>Today I lead <strong>Amnesea</strong>, an indie lab making narrative-driven experiences. Before that: Xbox Game Camp (Top 16), healthcare AI research, and embedded audio robots.</p>
                             <p>What I bring: systems thinking, prototyping speed, and the ability to rally teams across design, engineering, and production. Always open to collaborations that bend mediums.</p>
                             <div class="embed-actions" style="margin-top:12px;">
@@ -1746,6 +1782,9 @@
                                 <a href="https://www.behance.net/akamaestro" target="_blank" class="action-btn" style="margin-top:0;"> Behance</a>
                                 <a href="https://www.instagram.com/akamaestro" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
                             </div>
+                        </div>
+                        <div class="bio-photo">
+                            <img src="projects/Ankit/Picture14.png" alt="Ankit portrait" class="modal-hero">
                         </div>
                     </div>`
             },

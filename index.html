@@ -511,20 +511,24 @@
 
         .hero-stamp {
             position: absolute;
-            left: -11px;
-            top: 70%;
+            left: 12px;
+            top: 50%;
             transform: translateY(-50%);
             width: 150px;
             padding: 0;
             background: none;
-            mix-blend-mode: screen;
+            mix-blend-mode: normal;
             pointer-events: none;
         }
 
         .hero-stamp img {
-            width: 110%;
+            width: 100%;
             display: block;
-            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0));
+            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.15));
+        }
+
+        body.light-mode .hero-stamp {
+            background: none;
         }
 
         .hero-name {

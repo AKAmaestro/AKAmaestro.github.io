@@ -21,7 +21,7 @@
         /* --- 1. THEME ENGINE --- */
         :root {
             --bg-void: #050505;
-            --bg-panel: #0b0b0b;
+            --bg-panel: #0b0b0bc5;
             --bg-hover: #141414;
             --bg-modal: #0a0a0a;
 
@@ -167,9 +167,9 @@
                 "hero   hero   hero   hero"
                 "portfolio portfolio portfolio portfolio"
                 "exp    awards rsch   skills"
-                "vol    vol    vol    vol"
                 "separator separator separator separator"
                 "works  works  works  works"
+                 "vol    vol    vol    vol"
                 "contact contact contact contact";
         }
 
@@ -523,7 +523,7 @@
             background: var(--line);
             gap: 1px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             position: relative;
         }
 
@@ -1071,6 +1071,39 @@
             transform: translateX(-50%);
         }
 
+        #img-lightbox .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--accent);
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.2s ease, opacity 0.2s ease;
+        }
+
+        #img-lightbox .lightbox-nav:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        #img-lightbox .lightbox-nav:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        #img-lightbox .lightbox-nav-left {
+            left: 20px;
+        }
+
+        #img-lightbox .lightbox-nav-right {
+            right: 20px;
+        }
+
         .modal-hero {
             width: 100%;
             height: auto;
@@ -1384,7 +1417,7 @@
         <div class="dashboard-grid">
 
             <header class="panel area-header">
-                <div class="logo">©AKAmaestro | vibe-coded.</div>
+                <div class="logo">©AKAmaestro </div>
                 <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
                     <span class="label" style="border:none; margin:0; width:auto;">Ankit Kumar Agrawal</span>
                     <span class="label"
@@ -1418,8 +1451,8 @@
                 <div>
                     <h2 class="h-title" style="color:#ffb347;">Birds-eye of works in PDF</h2>
                     <span class="h-sub" style="color:#ffd27f;">Clickable // full deck pdf view</span>
-                    <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">
-                        Open inline // links active</p>
+                    <!-- <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">
+                        Open inline // links active</p> -->
                 </div>
             </div>
 
@@ -1429,10 +1462,10 @@
                 <div>
                     <h2 class="h-title">Timeline</h2>
                     <div style="margin-top:15px;">
-                        <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
+                        <!-- <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
                         <div class="list-item"><strong>Xbox</strong>UXR Lead</div>
                         <div class="list-item"><strong>Brillio</strong>Data Eng.</div>
-                        <div class="list-item"><strong>NITTE</strong>Comp Sci</div>
+                        <div class="list-item"><strong>NITTE</strong>Comp Sci</div> -->
                     </div>
                 </div>
             </div>
@@ -1442,9 +1475,9 @@
                 <div>
                     <h2 class="h-title">Awards</h2>
                     <div style="margin-top:15px;">
-                        <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
+                        <!-- <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
                         <div class="list-item"><strong>Xbox Camp</strong>Top 16</div>
-                        <div class="list-item"><strong>TEQIP</strong>Research Grant</div>
+                        <div class="list-item"><strong>TEQIP</strong>Research Grant</div> -->
                     </div>
                 </div>
             </div>
@@ -1454,9 +1487,9 @@
                 <div>
                     <h2 class="h-title">Research</h2>
                     <div style="margin-top:15px;">
-                        <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
+                        <!-- <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
                         <div class="list-item"><strong>TEQIP</strong>Covid AI</div>
-                        <div class="list-item"><strong>IEEE</strong>Robotics</div>
+                        <div class="list-item"><strong>IEEE</strong>Robotics</div> -->
                     </div>
                 </div>
             </div>
@@ -1466,7 +1499,7 @@
                 <div>
                     <h2 class="h-title">Skills</h2>
                     <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;">
-                        <span
+                        <!-- <span
                             style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">UNITY</span>
                         <span
                             style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">C#</span>
@@ -1479,7 +1512,7 @@
                             CC</span>
                         <span
                             style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">MS
-                            365</span>
+                            365</span> -->
                     </div>
                 </div>
             </div>
@@ -2249,6 +2282,9 @@
                 img.onclick = () => openImage(img.getAttribute('src'), img.getAttribute('alt') || d.title);
             });
 
+            autoCarouselImages(contentEl);
+            enhanceMediaGrids(contentEl);
+
             // Link Button
             const actionContainer = document.getElementById('m-action-container');
             actionContainer.innerHTML = '';
@@ -2264,6 +2300,104 @@
             const modalScroll = document.querySelector('.modal-scroll');
             if (modalScroll) modalScroll.scrollTop = 0;
         }
+
+        // MEDIA CAROUSEL
+        function autoCarouselImages(scope = document) {
+            const imgs = Array.from(scope.querySelectorAll('img:not(.modal-hero)'));
+            if (!imgs.length) return;
+
+            const parents = Array.from(new Set(imgs.map(img => img.parentElement)));
+            parents.forEach(parent => {
+                if (parent.closest('.media-grid') || parent.closest('.bio-photo')) return;
+                const kids = Array.from(parent.children);
+                let run = [];
+                const flush = () => {
+                    if (run.length <= 1) { run = []; return; }
+                    const shell = document.createElement('div');
+                    shell.className = 'media-shell';
+                    const grid = document.createElement('div');
+                    grid.className = 'media-grid';
+                    parent.insertBefore(shell, run[0]);
+                    shell.appendChild(grid);
+                    run.forEach(img => grid.appendChild(img));
+                    run = [];
+                };
+                kids.forEach(child => {
+                    if (child.tagName === 'IMG' && !child.classList.contains('modal-hero')) {
+                        run.push(child);
+                    } else {
+                        flush();
+                    }
+                });
+                flush();
+            });
+        }
+
+        function enhanceMediaGrids(scope = document) {
+            const grids = scope.querySelectorAll('.media-grid');
+            grids.forEach(grid => {
+                if (grid.dataset.enhanced === '1') return;
+                const imgs = grid.querySelectorAll('img');
+                if (!imgs.length) return;
+
+                grid.dataset.enhanced = '1';
+                grid.dataset.currentIndex = '0';
+                grid.setAttribute('tabindex', '0');
+
+                const shell = document.createElement('div');
+                shell.className = 'media-shell';
+                grid.parentNode.insertBefore(shell, grid);
+                shell.appendChild(grid);
+
+                const leftBtn = document.createElement('button');
+                leftBtn.className = 'media-nav media-nav-left hover-trigger';
+                leftBtn.type = 'button';
+                leftBtn.innerText = '<';
+
+                const rightBtn = document.createElement('button');
+                rightBtn.className = 'media-nav media-nav-right hover-trigger';
+                rightBtn.type = 'button';
+                rightBtn.innerText = '>';
+
+                shell.appendChild(leftBtn);
+                shell.appendChild(rightBtn);
+
+                const setActive = (targetIndex) => {
+                    const maxIndex = imgs.length - 1;
+                    const nextIndex = Math.min(maxIndex, Math.max(0, targetIndex));
+                    grid.dataset.currentIndex = nextIndex;
+                    imgs.forEach((img, i) => img.classList.toggle('zoomed', i === nextIndex));
+                    leftBtn.disabled = nextIndex === 0;
+                    rightBtn.disabled = nextIndex === maxIndex;
+                    const target = imgs[nextIndex];
+                    grid.scrollTo({ left: target.offsetLeft - 12, behavior: 'smooth' });
+                };
+
+                leftBtn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    setActive((Number(grid.dataset.currentIndex) || 0) - 1);
+                });
+
+                rightBtn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    setActive((Number(grid.dataset.currentIndex) || 0) + 1);
+                });
+
+                grid.addEventListener('keydown', e => {
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        setActive((Number(grid.dataset.currentIndex) || 0) + 1);
+                    }
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        setActive((Number(grid.dataset.currentIndex) || 0) - 1);
+                    }
+                });
+
+                setActive(0);
+            });
+        }
+
         function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.classList.remove('modal-open'); }
         document.addEventListener('keydown', e => {
             if (e.key !== "Escape") return;
@@ -2353,19 +2487,71 @@
         // Image lightbox
         const lightbox = document.createElement('div');
         lightbox.id = 'img-lightbox';
-        lightbox.innerHTML = `<button class="close-lightbox" onclick="closeImage()">CLOSE</button><div style="text-align:center;"><img id="lb-img" src="" alt=""><div class="caption" id="lb-cap"></div></div>`;
+        lightbox.innerHTML = `
+            <button class="close-lightbox" onclick="closeImage()">CLOSE</button>
+            <button class="lightbox-nav lightbox-nav-left" id="lb-prev" onclick="shiftImage(-1)">&lt;</button>
+            <button class="lightbox-nav lightbox-nav-right" id="lb-next" onclick="shiftImage(1)">&gt;</button>
+            <div style="text-align:center;">
+                <img id="lb-img" src="" alt="">
+                <div class="caption" id="lb-cap"></div>
+            </div>`;
         document.body.appendChild(lightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeImage(); });
+
+        let lightboxList = [];
+        let lightboxIndex = 0;
+
+        function setLightboxSource(fallbackCap = '') {
+            const imgEl = document.getElementById('lb-img');
+            const capEl = document.getElementById('lb-cap');
+            const prevBtn = document.getElementById('lb-prev');
+            const nextBtn = document.getElementById('lb-next');
+            const item = lightboxList[lightboxIndex] || { src: imgEl?.src || '', cap: fallbackCap };
+            if (imgEl) imgEl.src = item.src;
+            const hasMulti = lightboxList.length > 1;
+            const text = item.cap || fallbackCap || '';
+            if (capEl) capEl.innerText = hasMulti ? `${text ? text + ' • ' : ''}${lightboxIndex + 1}/${lightboxList.length}` : text;
+            if (prevBtn) prevBtn.style.display = hasMulti ? 'grid' : 'none';
+            if (nextBtn) nextBtn.style.display = hasMulti ? 'grid' : 'none';
+        }
 
         function openImage(src, cap) {
-            const lb = document.getElementById('img-lightbox');
-            document.getElementById('lb-img').src = src;
-            document.getElementById('lb-cap').innerText = cap || '';
-            lb.classList.add('active');
+            const scope = document.getElementById('m-content');
+            const scopeImgs = scope ? Array.from(scope.querySelectorAll('img')) : [];
+            if (scopeImgs.length) {
+                lightboxList = scopeImgs.map(img => ({
+                    src: img.getAttribute('src'),
+                    cap: img.getAttribute('alt') || ''
+                }));
+                const foundIdx = lightboxList.findIndex(item => item.src === src);
+                lightboxIndex = foundIdx >= 0 ? foundIdx : 0;
+            } else {
+                lightboxList = [{ src, cap: cap || '' }];
+                lightboxIndex = 0;
+            }
+            setLightboxSource(cap || '');
+            document.getElementById('img-lightbox').classList.add('active');
         }
+
+        function shiftImage(step) {
+            if (!lightboxList.length) return;
+            lightboxIndex = (lightboxIndex + step + lightboxList.length) % lightboxList.length;
+            setLightboxSource();
+        }
+
         function closeImage() {
             document.getElementById('img-lightbox').classList.remove('active');
         }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeImage(); });
+        document.addEventListener('keydown', e => {
+            const active = document.getElementById('img-lightbox')?.classList.contains('active');
+            if (e.key === 'Escape') {
+                closeImage();
+                return;
+            }
+            if (!active) return;
+            if (e.key === 'ArrowRight') { e.preventDefault(); shiftImage(1); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); shiftImage(-1); }
+        });
 
         // Scroll to top helper for modals
         function scrollTopModal() {

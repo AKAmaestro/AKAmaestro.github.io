@@ -511,8 +511,8 @@
 
         .hero-stamp {
             position: absolute;
-            left: 12px;
-            top: 50%;
+            left: -30px;
+            top: 55%;
             transform: translateY(-50%);
             width: 150px;
             padding: 0;
@@ -522,7 +522,7 @@
         }
 
         .hero-stamp img {
-            width: 100%;
+            width: 150%;
             display: block;
             filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.15));
         }
@@ -1317,6 +1317,101 @@
             object-fit: cover;
         }
 
+        .media-grid img {
+            flex: 0 0 auto;
+            width: min(320px, 70vw);
+            scroll-snap-align: start;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 18px 0 10px;
+        }
+
+        .mini-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--line);
+            padding: 12px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 6px;
+            min-height: 240px;
+        }
+
+        body.light-mode .mini-card {
+            border: 1px solid #dcdcdc;
+            background: #ffffff;
+        }
+
+        .mini-card .mini-title {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mini-card .mini-desc {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .mini-card .mini-tags {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: none;
+        }
+
+        .mini-note {
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            display: none;
+        }
+
+        .mini-card iframe {
+            width: 100%;
+            max-width: 550px;
+            height: 170px;
+            border: 1px solid var(--line);
+            background: var(--bg-panel);
+        }
+
+        .itch-link-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 10px 14px;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            text-decoration: none;
+            border: 1px solid var(--line);
+            background: var(--bg-panel);
+            color: var(--text-main);
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+
+        .itch-link-btn:hover {
+            filter: brightness(1.05);
+        }
+
+        .embed-frame {
+            width: 100%;
+            max-width: 560px;
+            height: 180px;
+            border: none;
+        }
+
+        .embed-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+        }
+
         .modal-hero {
             max-height: 280px;
             margin-bottom: 16px;
@@ -1506,7 +1601,7 @@
             <header class="panel area-header">
                 <div class="logo">©AKAmaestro </div>
                 <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
-                    <span class="label" style="border:none; margin:0; width:auto;">Ankit Kumar Agrawal</span>
+                    <!-- <span class="label" style="border:none; margin:0; width:auto;">Ankit Kumar Agrawal</span> -->
                     <span class="label"
                         style="border:none; margin:0; width:auto; color:var(--accent); letter-spacing:0.5px;">12+
                         PROJECTS // 6+ AWARDS // 5+ YRS</span>
@@ -1628,118 +1723,121 @@
 
             <!-- WORKS SUPER GRID -->
             <div class="area-works">
+                <div class="work-item hover-trigger" onclick="openModal('amnesea')">
+                    <div class="corner-deco"></div>
+                    <img src="projects/Amnesea/Octopus.png" class="work-bg">
+                    <div class="work-content"><span class="label">Entrepreneurship</span>
+                        <h2 class="h-title">Amnesea</h2><span class="h-sub">INDIE gaming LAB</span>
+                    </div>
+                </div>
                 <div class="work-item hover-trigger" onclick="openModal('keybound')">
                     <div class="corner-deco"></div>
                     <img src="projects/keybound/KeyBound Gameplay GIF.gif" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_01: GAME</span>
+                    <div class="work-content"><span class="label">GAMing</span>
                         <h2 class="h-title">KeyBound</h2><span class="h-sub">Rogue-Vania</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('mocking')">
                     <div class="corner-deco"></div>
-                    <img src="projects/mocking-bot/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_02: HARDWARE</span>
+                    <img src="projects/mocking-bot/1.png" class="work-bg">
+                    <div class="work-content"><span class="label">Robotics</span>
                         <h2 class="h-title">Mocking Bot</h2><span class="h-sub">BIO-MIMETIC AUDIO</span>
                     </div>
                 </div>
-                <div class="work-item hover-trigger" onclick="openModal('xbox')">
+                <!-- <div class="work-item hover-trigger" onclick="openModal('xbox')">
                     <div class="corner-deco"></div>
                     <img src="projects/xbox-camp/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_03: RESEARCH</span>
                         <h2 class="h-title">Xbox Camp</h2><span class="h-sub">UXR STRATEGY</span>
                     </div>
-                </div>
+                </div> -->
                 <div class="work-item hover-trigger" onclick="openModal('retina')">
                     <div class="corner-deco"></div>
-                    <img src="projects/retina-ai/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_04: MED-TECH</span>
+                    <img src="projects/retina-ai/1.png" class="work-bg">
+                    <div class="work-content"><span class="label">MED-TECH</span>
                         <h2 class="h-title">Retina AI</h2><span class="h-sub">DEEP LEARNING</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('timebound')">
                     <div class="corner-deco"></div>
-                    <img src="projects/timebound/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_05: SYSTEM</span>
+                    <img src="projects/timebound/TimeBound Gameplay GIF.gif" class="work-bg">
+                    <div class="work-content"><span class="label">GAMING</span>
                         <h2 class="h-title">TimeBound</h2><span class="h-sub">RPG MECHANICS</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('balance')">
                     <div class="corner-deco"></div>
-                    <img src="projects/balance/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_06: CONTROL</span>
+                    <img src="projects/balance/gif2.gif" class="work-bg">
+                    <div class="work-content"><span class="label">Applied sciences</span>
                         <h2 class="h-title">Balance Bot</h2><span class="h-sub">INVERTED PENDULUM</span>
                     </div>
                 </div>
-                <div class="work-item hover-trigger" onclick="openModal('neura')">
+                <div class="work-item hover-trigger" onclick="openModal('arnft')">
+                    <div class="corner-deco"></div>
+                    <img src="projects/AR NFT/Picture19.jpg" class="work-bg">
+                    <div class="work-content"><span class="label">Blockchain / crypto</span>
+                        <h2 class="h-title">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
+                    </div>
+                </div>
+                <!-- <div class="work-item hover-trigger" onclick="openModal('neura')">
                     <div class="corner-deco"></div>
                     <img src="projects/neuranode/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_07: WEB3</span>
                         <h2 class="h-title">NeuraNode</h2><span class="h-sub">AI + BLOCKCHAIN</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('teqip')">
+                </div> -->
+                <!-- <div class="work-item hover-trigger" onclick="openModal('teqip')">
                     <div class="corner-deco"></div>
                     <img src="projects/retina-ai/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_08: GRANT</span>
                         <h2 class="h-title">Covid CT</h2><span class="h-sub">VOLUMETRIC AI</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('amnesea')">
+                </div> -->
+                <div class="work-item hover-trigger" onclick="openModal('facially')">
                     <div class="corner-deco"></div>
-                    <img src="projects/Amnesea/Amnesea Name Logo.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_09: STUDIO</span>
-                        <h2 class="h-title">Amnesea</h2><span class="h-sub">INDIE LAB</span>
+                    <img src="projects/Facially/Picture18.png" class="work-bg">
+                    <div class="work-content"><span class="label">WEB3</span>
+                        <h2 class="h-title">Facially</h2><span class="h-sub">EXPRESSION AI</span>
                     </div>
                 </div>
-                <div class="work-item hover-trigger" onclick="openModal('atomica')">
+
+                <!-- <div class="work-item hover-trigger" onclick="openModal('atomica')">
                     <div class="corner-deco"></div>
                     <img src="projects/Atomica/Atomica Banner GIF.gif" class="work-bg">
                     <div class="work-content"><span class="label">WORK_10: ACTION</span>
                         <h2 class="h-title">Atomica</h2><span class="h-sub">ROGUE IMMERSION</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('arnft')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/AR NFT/Picture20.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_11: XR</span>
-                        <h2 class="h-title">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
-                    </div>
-                </div>
+                </div> -->
+
                 <div class="work-item hover-trigger" onclick="openModal('arts')">
                     <div class="corner-deco"></div>
                     <img src="projects/Arts/Picture20.jpg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_12: VISUALS</span>
+                    <div class="work-content"><span class="label">VISUALS and scultures </span>
                         <h2 class="h-title">Arts</h2><span class="h-sub">POSTER LAB</span>
                     </div>
                 </div>
-                <div class="work-item hover-trigger" onclick="openModal('brubble')">
+                <!-- <div class="work-item hover-trigger" onclick="openModal('brubble')">
                     <div class="corner-deco"></div>
                     <img src="projects/Brubble/Brubble Title.png" class="work-bg">
                     <div class="work-content"><span class="label">WORK_13: MOBILE</span>
                         <h2 class="h-title">Brubble</h2><span class="h-sub">CASUAL FUN</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('retro')">
+                </div> -->
+                <!-- <div class="work-item hover-trigger" onclick="openModal('retro')">
                     <div class="corner-deco"></div>
                     <img src="projects/RetroBellion/RetroBellion GIF.gif" class="work-bg">
                     <div class="work-content"><span class="label">WORK_14: ARCADE</span>
                         <h2 class="h-title">RetroBellion</h2><span class="h-sub">NEO PIXEL</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('tilebound')">
+                </div> -->
+                <!-- <div class="work-item hover-trigger" onclick="openModal('tilebound')">
                     <div class="corner-deco"></div>
                     <img src="projects/TileBound/TileBound Banner.png" class="work-bg">
                     <div class="work-content"><span class="label">WORK_15: PUZZLE</span>
                         <h2 class="h-title">TileBound</h2><span class="h-sub">TACTICAL GRID</span>
                     </div>
-                </div>
-                <div class="work-item hover-trigger" onclick="openModal('facially')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/Facially/1.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_16: CV</span>
-                        <h2 class="h-title">Facially</h2><span class="h-sub">EXPRESSION AI</span>
-                    </div>
-                </div>
+                </div> -->
+
             </div>
 
             <div class="panel area-contact hover-trigger"
@@ -1816,6 +1914,7 @@
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             updateThemeButtonLabel();
+            updateItchEmbeds();
         }
 
         function updateThemeButtonLabel() {
@@ -1826,6 +1925,24 @@
         }
 
         // --- CONTENT DATABASE (RICH DATA FROM RESUME & CASE STUDIES) ---
+        const gamesManifest = [
+            { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", tagline: "Every trace you leave powers your future.", palette: { light: { bg: "#ffffff", fg: "#333333", link: "#6e40d8", border: "#eeeeee" }, dark: { bg: "#121212", fg: "#e0e0e0", link: "#a085ff", border: "#222222" } } },
+            { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!", palette: { light: { bg: "#fff9fb", fg: "#440022", link: "#ff007f", border: "#ffd9e5" }, dark: { bg: "#1a000d", fg: "#ffe0ef", link: "#ff007f", border: "#440022" } } },
+            { name: "Kinetica", account: "AKAmaestro", url: "https://akamaestro.itch.io/kinetica", embedId: "3013014", tagline: "A bullet-hell where everything you pick up becomes a weapon!", palette: { light: { bg: "#f0fdf4", fg: "#064e3b", link: "#10b981", border: "#dcfce7" }, dark: { bg: "#022c22", fg: "#d1fae5", link: "#34d399", border: "#064e3b" } } },
+            { name: "Quanta", account: "AKAmaestro", url: "https://akamaestro.itch.io/quanta", embedId: "3374993", tagline: "Blast through the periodic table in this fast-paced arcade shooter.", palette: { light: { bg: "#eff6ff", fg: "#1e3a8a", link: "#3b82f6", border: "#dbeafe" }, dark: { bg: "#0f172a", fg: "#dbeafe", link: "#60a5fa", border: "#1e40af" } } },
+            { name: "Atomica", account: "AKAmaestro", url: "https://akamaestro.itch.io/atomica", embedId: "2848461", tagline: "Chemistry meets chaos! A periodic shooter experiment.", palette: { light: { bg: "#fdf4ff", fg: "#701a75", link: "#d946ef", border: "#f5d0fe" }, dark: { bg: "#4a044e", fg: "#fae8ff", link: "#e879f9", border: "#701a75" } } },
+            { name: "DogeDash (Touchscreen)", account: "AKAmaestro", url: "https://akamaestro.itch.io/dogedash", embedId: "3472181", tagline: "Much speed. Very dodge. Touch-based survival challenge.", palette: { light: { bg: "#fff7ed", fg: "#7c2d12", link: "#ea580c", border: "#ffedd5" }, dark: { bg: "#2a0f07", fg: "#ffedd5", link: "#fb923c", border: "#7c2d12" } } },
+            // { name: "Grid Sweep", account: "AKAmaestro", url: "https://akamaestro.itch.io/grid-sweep", embedId: null, tagline: "Sweep, survive, and evolve to beat the moving grid.", palette: { light: { bg: "#f0f9ff", fg: "#0c4a6e", link: "#0284c7", border: "#e0f2fe" }, dark: { bg: "#0c4a6e", fg: "#e0f2fe", link: "#38bdf8", border: "#075985" } } },
+            { name: "TrapTile", account: "Amnesea", url: "https://amnesea.itch.io/traptile", embedId: "3370444", tagline: "Strategy · Shifting tiles where every move could be a trap.", palette: { light: { bg: "#f8fafc", fg: "#334155", link: "#64748b", border: "#e2e8f0" }, dark: { bg: "#0f172a", fg: "#f1f5f9", link: "#94a3b8", border: "#1e293b" } } },
+            { name: "Hop n Drop", account: "Amnesea", url: "https://amnesea.itch.io/hop-n-drop", embedId: "3367884", tagline: "Casual · Fast-paced grid-based vertical platforming.", palette: { light: { bg: "#ecfeff", fg: "#083344", link: "#06b6d4", border: "#cffafe" }, dark: { bg: "#083344", fg: "#cffafe", link: "#22d3ee", border: "#0e7490" } } },
+            { name: "TileBound", account: "AgrMayank", url: "https://agrmayank.itch.io/tilebound", embedId: "2989067", tagline: "Experimental · Navigate a shifting playfield of survival.", palette: { light: { bg: "#fffbeb", fg: "#78350f", link: "#f59e0b", border: "#fef3c7" }, dark: { bg: "#451a03", fg: "#fef3c7", link: "#fbbf24", border: "#78350f" } } },
+            { name: "ShapeBound", account: "AgrMayank", url: "https://agrmayank.itch.io/shapebound", embedId: "2310807", tagline: "Action · Bound to roll, destined to rebound.", palette: { light: { bg: "#fafaf9", fg: "#44403c", link: "#a8a29e", border: "#e7e5e4" }, dark: { bg: "#1c1917", fg: "#e7e5e4", link: "#78716c", border: "#292524" } } },
+            { name: "TimeBound", account: "AgrMayank", url: "https://agrmayank.itch.io/timebound", embedId: "2267076", tagline: "RPG · A genre-shifting legacy of history and manipulation.", palette: { light: { bg: "#fdf2f8", fg: "#831843", link: "#ec4899", border: "#fce7f3" }, dark: { bg: "#500724", fg: "#fce7f3", link: "#f472b6", border: "#831843" } } },
+            { name: "KeyBound", account: "AgrMayank", url: "https://agrmayank.itch.io/keybound", embedId: "2294357", tagline: "Platformer · A journey of reclamation in a locked world.", palette: { light: { bg: "#f5f3ff", fg: "#4c1d95", link: "#8b5cf6", border: "#ede9fe" }, dark: { bg: "#1e1b4b", fg: "#ede9fe", link: "#a78bfa", border: "#312e81" } } },
+            { name: "RetroBellion", account: "AgrMayank", url: "https://agrmayank.itch.io/retrobellion", embedId: "2275688", tagline: "8-Bit · Classic platforming mechanics with a rebellious twist.", palette: { light: { bg: "#ffffff", fg: "#111111", link: "#ff0000", border: "#dddddd" }, dark: { bg: "#000000", fg: "#eeeeee", link: "#ff0000", border: "#222222" } } },
+            { name: "Bomb the Dead", account: "AgrMayank", url: "https://agrmayank.itch.io/bomb-the-dead", embedId: "3519712", tagline: "Horror · AI-powered survival in the zombie depths.", palette: { light: { bg: "#fef2f2", fg: "#7f1d1d", link: "#ef4444", border: "#fee2e2" }, dark: { bg: "#450a0a", fg: "#fee2e2", link: "#f87171", border: "#7f1d1d" } } },
+        ];
+
         const db = {
             'bio': {
                 title: "ANKIT KUMAR AGRAWAL (AKA)",
@@ -2197,7 +2314,9 @@
                            <li>12+ shipped/preview builds across puzzle, RPG, XR.</li>
                            <li>Selected for Xbox Game Camp Asia; Sony outreach.</li>
                            <li>Built modular pipelines for art, audio, prototyping.</li>
-                       </ul>`
+                       </ul>
+                       <span class="section-h">GAME BUILDS</span>
+                       <div class="mini-grid" id="amnesea-games"></div>`
             },
 
             'atomica': {
@@ -2395,10 +2514,93 @@
             if (id === 'rsch' || id === 'awards' || id === 'exp') {
                 bindPaperTriggers();
             }
+            if (id === 'amnesea') {
+                renderAmneseaGames();
+                updateItchEmbeds();
+            }
 
             document.getElementById('modal').classList.add('active');
             const modalScroll = document.querySelector('.modal-scroll');
             if (modalScroll) modalScroll.scrollTop = 0;
+        }
+
+        function renderAmneseaGames() {
+            const container = document.getElementById('amnesea-games');
+            if (!container || container.dataset.rendered === '1') return;
+            container.dataset.rendered = '1';
+            const frag = document.createDocumentFragment();
+            gamesManifest.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'mini-card';
+
+                const title = document.createElement('div');
+                title.className = 'mini-title';
+                title.innerText = game.name;
+                card.appendChild(title);
+
+                const desc = document.createElement('div');
+                desc.className = 'mini-desc';
+                desc.innerText = game.tagline || '';
+                card.appendChild(desc);
+
+                if (game.embedId) {
+                    const iframe = document.createElement('iframe');
+                    iframe.className = 'itch-embed-frame';
+                    iframe.setAttribute('loading', 'lazy');
+                    iframe.dataset.embedId = game.embedId;
+                    iframe.dataset.paletteLight = JSON.stringify(game.palette.light);
+                    iframe.dataset.paletteDark = JSON.stringify(game.palette.dark);
+                    card.appendChild(iframe);
+                } else {
+                    const link = document.createElement('a');
+                    link.href = game.url;
+                    link.target = '_blank';
+                    link.rel = 'noopener';
+                    link.className = 'itch-link-btn';
+                    link.innerText = 'Play on itch.io';
+                    link.dataset.paletteLight = JSON.stringify(game.palette.light);
+                    link.dataset.paletteDark = JSON.stringify(game.palette.dark);
+                    card.appendChild(link);
+                }
+
+                const tagLine = document.createElement('div');
+                tagLine.className = 'mini-tags';
+                tagLine.innerText = game.account ? `${game.account}.itch.io` : 'itch.io';
+                card.appendChild(tagLine);
+
+                if (!game.embedId) {
+                    const note = document.createElement('div');
+                    note.className = 'mini-note';
+                    note.innerText = 'Widget slot: add itch embed here';
+                    card.appendChild(note);
+                }
+
+                frag.appendChild(card);
+            });
+            container.appendChild(frag);
+        }
+
+        function toHexParam(hex) {
+            return (hex || '').replace('#', '');
+        }
+
+        function updateItchEmbeds() {
+            const isLight = document.body.classList.contains('light-mode');
+            const frames = document.querySelectorAll('.itch-embed-frame');
+            frames.forEach(frame => {
+                const pal = isLight ? JSON.parse(frame.dataset.paletteLight || '{}') : JSON.parse(frame.dataset.paletteDark || '{}');
+                const id = frame.dataset.embedId;
+                if (!id) return;
+                const src = `https://itch.io/embed/${id}?linkback=true&border_width=0&bg_color=${toHexParam(pal.bg)}&fg_color=${toHexParam(pal.fg)}&link_color=${toHexParam(pal.link)}&border_color=${toHexParam(pal.border)}`;
+                if (frame.src !== src) frame.src = src;
+            });
+            const links = document.querySelectorAll('.itch-link-btn');
+            links.forEach(link => {
+                const pal = isLight ? JSON.parse(link.dataset.paletteLight || '{}') : JSON.parse(link.dataset.paletteDark || '{}');
+                link.style.background = pal.bg || 'var(--bg-panel)';
+                link.style.color = pal.fg || 'var(--text-main)';
+                link.style.borderColor = pal.border || 'var(--line)';
+            });
         }
 
         // MEDIA CAROUSEL

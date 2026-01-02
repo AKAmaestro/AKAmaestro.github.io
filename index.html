@@ -584,14 +584,14 @@
             inset: 0;
             pointer-events: none;
             background: radial-gradient(circle at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.85) 100%);
-            opacity: 0.8;
+            opacity: 0.45;
             transition: opacity 0.3s;
             z-index: 1;
         }
 
         body.light-mode .work-item::before {
             background: radial-gradient(circle at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.5) 100%);
-            opacity: 0.55;
+            opacity: 0.35;
             mix-blend-mode: multiply;
         }
 
@@ -636,6 +636,9 @@
             position: relative;
             z-index: 2;
             pointer-events: none;
+            padding: 14px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.75) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .list-item {

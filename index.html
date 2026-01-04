@@ -157,19 +157,12 @@
             display: grid;
             width: 100%;
             height: auto;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: auto auto auto auto auto auto auto;
+            grid-template-columns: repeat(10, 1fr);
+            grid-auto-rows: minmax(60px, auto);
+            grid-auto-flow: row dense;
             gap: 4px;
             background: var(--hatch);
             border: 4px solid transparent;
-            grid-template-areas:
-                "header header header header header"
-                "hero   hero   hero   hero   hero"
-                "portfolio portfolio portfolio resume resume"
-                " exp  vol_media abc awards skills  "
-                "separator separator separator separator separator"
-                "works  works  works  works  works"
-                "contact contact contact contact contact";
         }
 
         /* --- 4. PANELS --- */
@@ -183,6 +176,8 @@
             transition: background 0.2s;
             overflow: hidden;
             cursor: none;
+            grid-column: var(--grid-col, auto);
+            grid-row: var(--grid-row, auto);
         }
 
         body.light-mode .panel {
@@ -486,9 +481,10 @@
             display: block;
         }
 
-        /* AREAS */
+        /* AREAS + GRID POSITIONS (10-col grid). Adjust --grid-col / --grid-row per tile. */
         .area-header {
-            grid-area: header;
+            grid-column: 1 / -1;
+            grid-row: 1 / span 1;
             flex-direction: row;
             align-items: center;
             padding: 0 20px;
@@ -524,7 +520,8 @@
         }
 
         .area-hero {
-            grid-area: hero;
+            grid-column: 1 / -1;
+            grid-row: 2 / span 3;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -582,24 +579,41 @@
         }
 
         .area-portfolio {
-            grid-area: portfolio;
             position: relative;
             overflow: hidden;
+            --grid-col: 1 / span 2;
+            --grid-row: 5 / span 1;
         }
 
         .area-resume {
-            grid-area: resume;
             position: relative;
             overflow: hidden;
+            --grid-col: 3 / span 2;
+            --grid-row: 5 / span 1;
         }
 
         .area-works {
-            grid-area: works;
+            grid-column: 1 / -1;
+            grid-row: 8 / span 6;
             padding: 0;
             background: var(--line);
             gap: 1px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            position: relative;
+        }
+
+        .area-skills {
+            --grid-col: 5 / span 2;
+            --grid-row: 5 / span 1;
+            background: rgba(75, 27, 31, 0.786);
+            position: relative;
+        }
+
+        .area-rsch {
+            --grid-col: 7 / span 2;
+            --grid-row: 5 / span 1;
+            background: rgba(1, 56, 59, 0.786);
             position: relative;
         }
 
@@ -729,43 +743,50 @@
         }
 
         .area-exp {
-            grid-area: exp;
+            --grid-col: 1 / span 2;
+            --grid-row: 6 / span 1;
             background: rgba(8, 73, 24, 0.786);
             position: relative;
         }
 
         .area-awards {
-            grid-area: awards;
+            --grid-col: 3 / span 2;
+            --grid-row: 6 / span 1;
             background: rgba(77, 61, 1, 0.786);
             position: relative;
         }
 
         .area-rsch {
-            grid-area: rsch;
+            --grid-col: 7 / span 2;
+            --grid-row: 5 / span 1;
             background: rgba(1, 56, 59, 0.786);
             position: relative;
         }
 
         .area-skills {
-            grid-area: skills;
+            --grid-col: 5 / span 2;
+            --grid-row: 5 / span 1;
             background: rgba(75, 27, 31, 0.786);
             position: relative;
         }
 
         .area-vol {
-            grid-area: vol;
+            --grid-col: auto;
+            --grid-row: auto;
             background: rgba(6, 60, 66, 0.82);
             position: relative;
         }
 
         .area-vol-media {
-            grid-area: vol_media;
+            --grid-col: 9 / span 2;
+            --grid-row: 5 / span 1;
             background: rgba(6, 60, 90, 0.82);
             position: relative;
         }
 
         .area-separator {
-            grid-area: separator;
+            grid-column: 1 / -1;
+            grid-row: 7 / span 1;
             background: var(--bg-void);
             border-top: 1px dashed var(--line);
             border-bottom: 1px dashed var(--line);
@@ -781,12 +802,22 @@
         }
 
         .area-contact {
-            grid-area: contact;
+            grid-column: 1 / -1;
+            grid-row: 14 / span 1;
             align-items: center;
             justify-content: center;
             background: var(--bg-hover);
             border-top: 4px solid var(--bg-void);
         }
+
+        .area-void {
+            --grid-col: 5 / span 2;
+            --grid-row: 6 / span 1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.2));
+            border: 1px dashed var(--line);
+        }
+
+
 
         /* RESPONSIVE */
         @media (max-width: 720px) {
@@ -816,21 +847,18 @@
 
             .dashboard-grid {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-areas:
-                    "header header"
-                    "hero hero"
-                    "portfolio resume"
-                    "exp    awards"
-                    "skills vol_media"
-                    "skills vol_media"
-                    "separator separator"
-                    "works  works"
-                    "contact contact";
-                gap: 2px;
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+                grid-auto-flow: row;
+                gap: 6px;
                 background: var(--line);
                 border: none;
                 height: auto;
+            }
+
+            .dashboard-grid .panel {
+                grid-column: 1 / -1;
+                grid-row: auto;
             }
 
             .panel {
@@ -846,6 +874,7 @@
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1px;
+                grid-row: auto;
             }
 
             .work-item {
@@ -1231,18 +1260,18 @@
         }
 
         .bio-flex {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 24px;
-            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: flex-start;
+            max-width: 900px;
         }
 
         .bio-copy {
-            order: 1;
+            width: 100%;
         }
 
         .bio-photo {
-            order: 2;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1262,7 +1291,8 @@
 
         @media (max-width: 720px) {
             .bio-flex {
-                grid-template-columns: 1fr;
+                max-width: none;
+                gap: 14px;
             }
         }
 
@@ -1725,6 +1755,18 @@
                 </div>
             </div>
 
+            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
+                <span class="label">ARCHIVE <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Research Dossier</h2>
+                    <div style="margin-top:15px;">
+                        <!-- <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
+                        <div class="list-item"><strong>TEQIP</strong>Covid AI</div>
+                        <div class="list-item"><strong>IEEE</strong>Robotics</div> -->
+                    </div>
+                </div>
+            </div>
+
             <div class="panel area-skills hover-trigger" onclick="openModal('skills')">
                 <span class="label">ARSENAL <span>+</span></span>
                 <div>
@@ -1759,6 +1801,9 @@
                     </div>
                 </div>
             </div>
+
+            <div class="panel area-void" aria-hidden="true"></div>
+            <div class="panel area-void" aria-hidden="true" style="--grid-col: 7 / span 2; --grid-row: 6 / span 1;"></div>
 
             <div class="panel area-separator">
                 BELOW: WORK PROJECTS / UXR / CASE STUDIES / DEMO BUILDS — CLICK TO EXPLORE INDIVIDUALLY
@@ -1992,10 +2037,16 @@
                 body: `
                     <div class="bio-flex">
                         <div class="bio-copy">
-                            <h3 class="h-title" style="margin-bottom:12px;">multi-faceted design engineer</h3>
-                            <p>I'm a design engineer who loves building strange intersections: games that learn from players, robots that play music, AI that stays humane. I move between concept and code, shipping ideas fast and keeping the craft visible.</p>
-                            <p>Today I lead <strong>Amnesea</strong>, an indie lab making narrative-driven experiences. Before that: Xbox Game Camp (Top 16), healthcare AI research, and embedded audio robots.</p>
-                            <p>What I bring: systems thinking, prototyping speed, and the ability to rally teams across design, engineering, and production. Always open to collaborations that bend mediums.</p>
+                            <p>I’m a technologist working across systems, mechanics, and human behavior to create meaningful interactive experiences.</p>
+                             <p>My
+work spans robotics, AI, immersive media, and UX research, enabling me to move fluidly between conceptual exploration and
+technical execution. From founding an indie studio to building systems, my practice is grounded in experimentation, rigor, and
+interdisciplinary thinking.</p>
+<p>I thrive where creativity meets engineering-designing interfaces, architecting ML-driven systems, or leading cross-functional
+teams. I bring a rare blend of creative vision, engineering depth, and strategic thinking, making me a high-value contributor to
+environments that demand curiosity, innovation, and craft-from research labs to game studios to early-stage startups.</p>
+                            <p>Outside work, I’m an avid photographer, gamer, and lifelong learner—always exploring new tools, techniques, and ideas to expand my horizons.</p>
+                        </div>
                             <div class="embed-actions" style="margin-top:12px;">
                                 <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
                                 <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
@@ -2135,8 +2186,31 @@
             },
 
             'rsch': {
-                title: "RESEARCH (MERGED)",
-                body: `<p style="font-family:var(--font-code); color:var(--text-dim);">Research publications now live inside <strong>Career Runway</strong>. Click the “Career + Research” tile to view them.</p>`
+                title: "RESEARCH PUBLICATIONS",
+                body: `
+                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
+                    <div class="info-grid">
+                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
+                            <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
+                                <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
+                            </div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
+                            <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
+                            </div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
+                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
+                            </div>
+                        </div>
+                    </div>
+                `
             },
 
             'portfolio-pdf': {

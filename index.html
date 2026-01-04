@@ -166,7 +166,7 @@
                 "header header header header header"
                 "hero   hero   hero   hero   hero"
                 "portfolio portfolio portfolio resume resume"
-                "exp    awards rsch   skills vol_media"
+                " exp  vol_media abc awards skills  "
                 "separator separator separator separator separator"
                 "works  works  works  works  works"
                 "contact contact contact contact contact";
@@ -822,8 +822,8 @@
                     "hero hero"
                     "portfolio resume"
                     "exp    awards"
-                    "rsch   skills"
-                    "vol_media vol_media"
+                    "skills vol_media"
+                    "skills vol_media"
                     "separator separator"
                     "works  works"
                     "contact contact";
@@ -1689,8 +1689,7 @@
                 </div>
             </div>
 
-            <div class="panel area-resume hover-trigger" onclick="openModal('resume-pdf')"
-                style="background:#00121f;">
+            <div class="panel area-resume hover-trigger" onclick="openModal('resume-pdf')" style="background:#00121f;">
                 <div class="corner-deco"></div>
                 <span class="label"
                     style="color:#6ecbff; border-bottom:1px solid rgba(110,203,255,0.3);">RESUME_DROP</span>
@@ -1726,18 +1725,6 @@
                 </div>
             </div>
 
-            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
-                <span class="label">ARCHIVE <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Research Dossier</h2>
-                    <div style="margin-top:15px;">
-                        <!-- <div class="list-item"><strong>IJETER</strong>Retinopathy</div>
-                        <div class="list-item"><strong>TEQIP</strong>Covid AI</div>
-                        <div class="list-item"><strong>IEEE</strong>Robotics</div> -->
-                    </div>
-                </div>
-            </div>
-
             <div class="panel area-skills hover-trigger" onclick="openModal('skills')">
                 <span class="label">ARSENAL <span>+</span></span>
                 <div>
@@ -1766,9 +1753,9 @@
                 <div>
                     <h2 class="h-title">Proof / Signals</h2>
                     <div style="margin-top:15px;">
-                        <div class="list-item"><strong>Community</strong>Mentor gigs, NGO drives, art crews.</div>
+                        <!-- <div class="list-item"><strong>Community</strong>Mentor gigs, NGO drives, art crews.</div>
                         <div class="list-item"><strong>Speaking</strong>Toastmasters founder; campus mic drops.</div>
-                        <div class="list-item"><strong>Press</strong>Clips, shoutouts, and receipts inside.</div>
+                        <div class="list-item"><strong>Press</strong>Clips, shoutouts, and receipts inside.</div> -->
                     </div>
                 </div>
             </div>
@@ -2083,6 +2070,30 @@
                         <div class="ic-head"><span class="ic-title">NITTE Meenakshi Institute</span><span class="ic-date">2020</span></div>
                         <div class="ic-desc"><strong>B.E. Information Science & Eng.</strong> (CGPA: 8.52/10)<br>Coursework: Machine Learning, Computer Vision, Robotic Systems.</div>
                     </div>
+
+                    <span class="section-h">RESEARCH DOSSIER</span>
+                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
+                    <div class="info-grid">
+                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
+                            <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
+                                <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
+                            </div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
+                            <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
+                            </div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
+                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">
+                                <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
+                            </div>
+                        </div>
+                    </div>
                 `
             },
 
@@ -2124,31 +2135,8 @@
             },
 
             'rsch': {
-                title: "RESEARCH PUBLICATIONS",
-                body: `
-                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
-                    <div class="info-grid">
-                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
-                            <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
-                                <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
-                            <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
-                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
-                            </div>
-                        </div>
-                    </div>
-                `
+                title: "RESEARCH (MERGED)",
+                body: `<p style="font-family:var(--font-code); color:var(--text-dim);">Research publications now live inside <strong>Career Runway</strong>. Click the “Career + Research” tile to view them.</p>`
             },
 
             'portfolio-pdf': {

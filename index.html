@@ -1487,6 +1487,28 @@
             margin: 16px 0;
         }
 
+        .credly-embed {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        .credly-embed .credly-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--line);
+            background: var(--bg-panel);
+        }
+
+        body.light-mode .credly-embed .credly-badge {
+            border: 1px solid #dcdcdc;
+            background: #ffffff;
+        }
+
         .modal-hero {
             max-height: 280px;
             margin-bottom: 16px;
@@ -1621,6 +1643,66 @@
         .info-card.paper-trigger:hover {
             background: var(--bg-panel);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .info-card.compact {
+            padding: 16px;
+        }
+
+        .info-card.compact .ic-title {
+            font-size: 1rem;
+        }
+
+        .info-card.compact .ic-desc {
+            font-size: 0.85rem;
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .fact-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--line);
+            padding: 14px 16px;
+            border-radius: 12px;
+        }
+
+        .fact-label {
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fact-value {
+            margin-top: 6px;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-void);
         }
 
         /* Media mentions layout */
@@ -1848,13 +1930,13 @@
                         <h2 class="h-title">Mocking Bot</h2><span class="h-sub">BIO-MIMETIC AUDIO</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('xbox')">
+                <div class="work-item hover-trigger" onclick="openModal('xbox')">
                     <div class="corner-deco"></div>
                     <img src="projects/xbox-camp/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_03: RESEARCH</span>
                         <h2 class="h-title">Xbox Camp</h2><span class="h-sub">UXR STRATEGY</span>
                     </div>
-                </div> -->
+                </div>
                 <div class="work-item hover-trigger" onclick="openModal('retina')">
                     <div class="corner-deco"></div>
                     <img src="projects/retina-ai/1.png" class="work-bg">
@@ -1883,20 +1965,20 @@
                         <h2 class="h-title">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('neura')">
+                <div class="work-item hover-trigger" onclick="openModal('neura')">
                     <div class="corner-deco"></div>
                     <img src="projects/neuranode/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_07: WEB3</span>
                         <h2 class="h-title">NeuraNode</h2><span class="h-sub">AI + BLOCKCHAIN</span>
                     </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('teqip')">
+                </div>
+                <div class="work-item hover-trigger" onclick="openModal('teqip')">
                     <div class="corner-deco"></div>
                     <img src="projects/retina-ai/cover.svg" class="work-bg">
                     <div class="work-content"><span class="label">WORK_08: GRANT</span>
                         <h2 class="h-title">Covid CT</h2><span class="h-sub">VOLUMETRIC AI</span>
                     </div>
-                </div> -->
+                </div>
                 <div class="work-item hover-trigger" onclick="openModal('facially')">
                     <div class="corner-deco"></div>
                     <img src="projects/Facially/Picture18.png" class="work-bg">
@@ -1905,13 +1987,13 @@
                     </div>
                 </div>
 
-                <!-- <div class="work-item hover-trigger" onclick="openModal('atomica')">
+                <div class="work-item hover-trigger" onclick="openModal('atomica')">
                     <div class="corner-deco"></div>
                     <img src="projects/Atomica/Atomica Banner GIF.gif" class="work-bg">
                     <div class="work-content"><span class="label">WORK_10: ACTION</span>
                         <h2 class="h-title">Atomica</h2><span class="h-sub">ROGUE IMMERSION</span>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="work-item hover-trigger" onclick="openModal('arts')">
                     <div class="corner-deco"></div>
@@ -1920,27 +2002,27 @@
                         <h2 class="h-title">Arts</h2><span class="h-sub">POSTER LAB</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('brubble')">
+                <div class="work-item hover-trigger" onclick="openModal('brubble')">
                     <div class="corner-deco"></div>
                     <img src="projects/Brubble/Brubble Title.png" class="work-bg">
                     <div class="work-content"><span class="label">WORK_13: MOBILE</span>
                         <h2 class="h-title">Brubble</h2><span class="h-sub">CASUAL FUN</span>
                     </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('retro')">
+                </div>
+                <div class="work-item hover-trigger" onclick="openModal('retro')">
                     <div class="corner-deco"></div>
                     <img src="projects/RetroBellion/RetroBellion GIF.gif" class="work-bg">
                     <div class="work-content"><span class="label">WORK_14: ARCADE</span>
                         <h2 class="h-title">RetroBellion</h2><span class="h-sub">NEO PIXEL</span>
                     </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('tilebound')">
+                </div>
+                <div class="work-item hover-trigger" onclick="openModal('tilebound')">
                     <div class="corner-deco"></div>
                     <img src="projects/TileBound/TileBound Banner.png" class="work-bg">
                     <div class="work-content"><span class="label">WORK_15: PUZZLE</span>
                         <h2 class="h-title">TileBound</h2><span class="h-sub">TACTICAL GRID</span>
                     </div>
-                </div> -->
+                </div>
 
             </div>
 
@@ -2151,21 +2233,44 @@
                 body: `
                     <div class="bio-flex">
                         <div class="bio-copy">
-                            <p>I’m a technologist working across systems, mechanics, and human behavior to create meaningful interactive experiences.</p>
-                             <p>My
-work spans robotics, AI, immersive media, and UX research, enabling me to move fluidly between conceptual exploration and
-technical execution. From founding an indie studio to building systems, my practice is grounded in experimentation, rigor, and
-interdisciplinary thinking.</p>
-<p>I thrive where creativity meets engineering-designing interfaces, architecting ML-driven systems, or leading cross-functional
-teams. I bring a rare blend of creative vision, engineering depth, and strategic thinking, making me a high-value contributor to
-environments that demand curiosity, innovation, and craft-from research labs to game studios to early-stage startups.</p>
-                            <p>Outside work, I’m an avid photographer, gamer, and lifelong learner—always exploring new tools, techniques, and ideas to expand my horizons.</p>
+                            <p>Creative technologist and design engineer building interactive systems at the intersection of engineering and human experience.</p>
+                            <p>Practice spans AI, robotics, interactive design, and large-scale installation art. I design interfaces, architect ML-driven systems, and lead cross-functional teams across research labs, game studios, and early-stage startups.</p>
+                            <p>Outside work, I'm an avid photographer, gamer, and lifelong learner always exploring new tools, techniques, and ideas.</p>
                         </div>
-                            <div class="embed-actions" style="margin-top:12px;">
-                                <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
-                                <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
-                                <a href="https://www.instagram.com/ankit_tikna_" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
+
+                        <div class="fact-grid">
+                            <div class="fact-card">
+                                <div class="fact-label">Location</div>
+                                <div class="fact-value">New Delhi, India</div>
                             </div>
+                            <div class="fact-card">
+                                <div class="fact-label">Email</div>
+                                <div class="fact-value">akamaestro@outlook.com</div>
+                            </div>
+                            <div class="fact-card">
+                                <div class="fact-label">Phone</div>
+                                <div class="fact-value">+91-9958295598</div>
+                            </div>
+                            <div class="fact-card">
+                                <div class="fact-label">Portfolio</div>
+                                <div class="fact-value">akamaestro.com</div>
+                            </div>
+                        </div>
+
+                        <span class="section-h">Focus Areas</span>
+                        <div class="chip-grid">
+                            <span class="chip">Creative technology</span>
+                            <span class="chip">Interactive systems</span>
+                            <span class="chip">Game design</span>
+                            <span class="chip">Robotics + vision</span>
+                            <span class="chip">ML prototyping</span>
+                            <span class="chip">UX research</span>
+                        </div>
+
+                        <div class="embed-actions" style="margin-top:12px;">
+                            <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
+                            <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
+                            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
                         </div>
                     </div>`
             },
@@ -2177,63 +2282,76 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                 body: `
                     <div class="timeline-wrapper">
                         <!-- Amnesea -->
-                        <div class="timeline-entry active paper-trigger" data-url="" data-title="Amnesea Studios — Co-Founder & CEO (add PDF/DOI)">
+                        <div class="timeline-entry active paper-trigger" data-url="" data-title="Amnesea Studios - Founder & CEO (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">DEC 2023 - PRESENT</span>
-                            <div class="t-title">Co-Founder & CEO</div>
+                            <div class="t-title">Founder & CEO</div>
                             <div class="t-sub">Amnesea Studios, India</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li>Leading creative and strategic direction of an indie game studio with a focus on experiential design.</li>
-                                <li>Designed and released prototypes reaching 5,000+ players.</li>
-                                <li>Secured publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
-                                <li>Selected among Top 16 Asian studios for Xbox Game Camp Asia.</li>
+                                <li><strong>Studio direction:</strong> Leading creative and strategic direction for experiential, narrative-driven games.</li>
+                                <li><strong>Product delivery:</strong> Bootstrapped end-to-end development with prototypes reaching 5,000+ players.</li>
+                                <li><strong>Partnerships:</strong> Secured publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
+                                <li><strong>Validation:</strong> Exhibited interactive prototypes at IGDC 2024 to refine narrative pacing and game loops.</li>
+                                <li><strong>Recognition:</strong> Selected as Top 16 Asian studios for Xbox Game Camp Asia, pitched to global investors, and managed international partnerships.</li>
                             </ul>
                         </div>
 
                         <!-- Xbox -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="Xbox Studios Game Camp — Apprentice Team Lead (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Xbox Studios Game Camp - Studio Accelerator Participant (add PDF/DOI)">
                             <div class="t-marker"></div>
-                            <span class="t-date">MAR 2024 - MAY 2024</span>
-                            <div class="t-title">Apprentice Team Lead</div>
+                            <span class="t-date">MAR 2024 - JUN 2024</span>
+                            <div class="t-title">Studio Accelerator Participant</div>
                             <div class="t-sub">Microsoft Xbox Studios (Remote)</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li>Intensive design-lead apprenticeship in game ideation, experience design, and pitching.</li>
-                                <li>Led across UXR, operations, and financial planning, mentored by Xbox experts.</li>
-                                <li>Designed and pitched multiple concepts, receiving full sponsorship for booths across India GDC.</li>
+                                <li>Design-led accelerator focused on game ideation, experience design, production frameworks, and pitching.</li>
+                                <li>Led UXR and production strategy for studio prototype and pitch development.</li>
+                                <li>Validated market fit with industry veterans; refined pitch deck for publisher negotiations.</li>
+                                <li>Collaborated with gaming organizations across five countries.</li>
+                                <li>Received direct mentorship from Xbox Studios experts on design thinking and production methods.</li>
                             </ul>
                         </div>
 
                         <!-- Brillio -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="Brillio — Senior Data Engineer (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Brillio - Senior Data Engineer (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">SEPT 2020 - FEB 2023</span>
                             <div class="t-title">Senior Data Engineer</div>
                             <div class="t-sub">Brillio LLC, India</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li>Redesigned legacy system migration pipelines on Azure, reducing processing time by 400%.</li>
-                                <li>Developed automated ETL pipelines, cutting file traversal time from 24+ hours to 5–6 hours.</li>
-                                <li>Led Brillio’s first Toastmasters chapter, managing 20+ members.</li>
+                                <li><strong>Fast-track promotion:</strong> Promoted to Senior Data Engineer in under 2 years for client impact and technical leadership.</li>
+                                <li><strong>Infrastructure modernization:</strong> Optimized ETL pipelines for clients like Ruffalo Noel Levitz, reducing processing time by 400% (24h to ~5h).</li>
+                                <li><strong>Analytics quality:</strong> Led data accuracy initiatives for ML-driven analytics; recognized for zero-defect delivery.</li>
+                                <li><strong>System architecture:</strong> Automated ETL/data pipelines to improve efficiency across analytics workflows.</li>
+                                <li><strong>Business impact:</strong> Built data infrastructure that influenced strategic decisions and UX optimization.</li>
                             </ul>
                         </div>
 
                         <!-- NMIT -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="NMIT — Research Intern (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="NMIT - Research Intern (add PDF/DOI)">
                             <div class="t-marker"></div>
                             <span class="t-date">APR 2019 - AUG 2020</span>
                             <div class="t-title">Research Intern</div>
-                            <div class="t-sub">Centre for Robotics Research (NMIT)</div>
+                            <div class="t-sub">Centre for Robotics Research, NMIT (DRDO mentorship)</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li>Conducted research in computer vision, deep learning, and robotics.</li>
-                                <li>Developed algorithms for video summarisation, shot detection, and robot navigation.</li>
-                                <li>Built custom robotic mechanisms for academic and lab projects.</li>
+                                <li>Researched computer vision, digital image/video processing, deep learning, and robotics.</li>
+                                <li>Developed algorithms for video summarization, shot detection, and low-visibility robot navigation.</li>
+                                <li>Built custom robotic mechanisms for ongoing research initiatives.</li>
+                                <li>Authored peer-reviewed research publications in medical AI applications.</li>
+                                <li>Applied machine learning techniques to real-world robotics challenges.</li>
                             </ul>
                         </div>
                     </div>
 
                     <span class="section-h">EDUCATION</span>
-                    <div class="info-card">
-                        <div class="ic-head"><span class="ic-title">NITTE Meenakshi Institute</span><span class="ic-date">2020</span></div>
-                        <div class="ic-desc"><strong>B.E. Information Science & Eng.</strong> (CGPA: 8.52/10)<br>Coursework: Machine Learning, Computer Vision, Robotic Systems.</div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="ic-head"><span class="ic-title">NITTE Meenakshi Institute of Technology, Bangalore</span><span class="ic-date">2016 - 2020</span></div>
+                            <div class="ic-desc"><strong>B.E. Information Science & Engineering</strong> (CGPA 8.52/10, First Class with Distinction).<br>Coursework: Machine Learning & Deep Learning Systems, Computer Vision & Digital Image Processing, Robotic Systems & Design, Human Computer Interaction, Data Structures & Algorithms, Statistical Analysis & Pattern Recognition.</div>
+                        </div>
+                        <div class="info-card compact">
+                            <div class="ic-head"><span class="ic-title">Academic Highlights</span><span class="ic-date">2016 - 2020</span></div>
+                            <div class="ic-desc">Research publication in peer-reviewed journal; National-level robotics competition finalist (4th/7,173 teams); Government research grant recipient for COVID-19 detection system.</div>
+                        </div>
                     </div>
 
                     <span class="section-h">RESEARCH DOSSIER</span>
@@ -2246,19 +2364,26 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                                 <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
-                            <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Diabetic Retinopathy Detection and Grading (Journal of Diabetes Medication & Care)">
+                            <div class="ic-head"><span class="ic-title">DR Detection and Grading</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
+                                <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
                             <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
+                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
                             </div>
                         </div>
                     </div>
+
+                    <span class="section-h">RESEARCH IMPACT</span>
+                    <ul>
+                        <li>97.46% accuracy for diabetic retinopathy detection; 73% accuracy for severity grading.</li>
+                        <li>Research cited in subsequent medical AI studies.</li>
+                        <li>Applied ML to real-world diagnostics and clinician workflows.</li>
+                    </ul>
                 `
             },
 
@@ -2267,34 +2392,42 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                 body: `
                     <span class="section-h">AWARDS</span>
                     <div class="info-grid">
-                        <div class="info-card paper-trigger" data-url="" data-title="Winner: Neuranode Jam (add PDF/link)">
-                            <div class="ic-head"><span class="ic-title">Winner: Neuranode Jam</span><span class="ic-date">2025</span></div>
-                            <div class="ic-desc">Top honors for design and execution in Avalanche Game Jam.</div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Avalanche X Neuranode Game Jam Winner">
+                            <div class="ic-head"><span class="ic-title">Avalanche X Neuranode Game Jam Winner</span><span class="ic-date">2025</span></div>
+                            <div class="ic-desc">$2,380 prize for innovative game design and execution.</div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Xbox Game Camp Asia (add PDF/link)">
-                            <div class="ic-head"><span class="ic-title">Xbox Game Camp Asia</span><span class="ic-date">2024</span></div>
-                            <div class="ic-desc">Selected among Top 4 Indian studios for intensive mentorship.</div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Whalepass Blockchain Game Jam Winner">
+                            <div class="ic-head"><span class="ic-title">Whalepass Blockchain Game Jam Winner</span><span class="ic-date">2025</span></div>
+                            <div class="ic-desc">$500 prize for on-chain economy centered design and gameplay experience.</div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Brillio Special Awards (add PDF/link)">
-                            <div class="ic-head"><span class="ic-title">Brillio Special Awards</span><span class="ic-date">2022</span></div>
-                            <div class="ic-desc">Group Excellence Award & Bringing Smiles star volunteer.</div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Microsoft Xbox Game Camp Asia">
+                            <div class="ic-head"><span class="ic-title">Microsoft Xbox Game Camp Asia</span><span class="ic-date">2024</span></div>
+                            <div class="ic-desc">Selected as Top 16 Asian studios (4 from India) for intensive mentorship.</div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="TEQIP Innovation Grant (add PDF/link)">
-                            <div class="ic-head"><span class="ic-title">TEQIP Innovation Grant</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">Funded COVID-19 screening and detection research proposal.</div>
+                        <div class="info-card paper-trigger" data-url="" data-title="India Game Developers Conference (IGDC)">
+                            <div class="ic-head"><span class="ic-title">India Game Developers Conference (IGDC)</span><span class="ic-date">2024</span></div>
+                            <div class="ic-desc">Featured exhibitor and speaker; showcased interactive prototypes.</div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="National Finalist: EYRC (add PDF/link)">
-                            <div class="ic-head"><span class="ic-title">National Finalist: EYRC</span><span class="ic-date">2019</span></div>
-                            <div class="ic-desc">4th place finalist out of 7173 teams in E-Yantra Robotics Competition (IIT Bombay).</div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Brillio LLC Excellence Awards">
+                            <div class="ic-head"><span class="ic-title">Brillio LLC Excellence Awards</span><span class="ic-date">2022</span></div>
+                            <div class="ic-desc">Special Achievement Award, Group Excellence Award, and Bringing Smiles Star Volunteer.</div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="TEQIP Government Grant">
+                            <div class="ic-head"><span class="ic-title">TEQIP Government Grant</span><span class="ic-date">2020</span></div>
+                            <div class="ic-desc">Innovation Ideas & Research Grant for COVID-19 detection system.</div>
+                        </div>
+                        <div class="info-card paper-trigger" data-url="" data-title="National Finalist: EYRC (IIT Bombay)">
+                            <div class="ic-head"><span class="ic-title">National Finalist: EYRC (IIT Bombay)</span><span class="ic-date">2019</span></div>
+                            <div class="ic-desc">4th place finalist out of 7,173 teams in E-Yantra Robotics Competition.</div>
                         </div>
                     </div>
 
                     <span class="section-h">CERTIFICATIONS</span>
                     <div class="info-grid">
-                        <div class="info-card"><div class="ic-head"><span class="ic-title">Xbox Studios Game Camp Asia</span><span class="ic-date">2024</span></div></div>
+                        <div class="info-card"><div class="ic-head"><span class="ic-title">Xbox Studios Game Camp Asia (Microsoft Xbox)</span><span class="ic-date">2024</span></div></div>
                         <div class="info-card"><div class="ic-head"><span class="ic-title">Certified SAFe® 5 Agile Practitioner</span><span class="ic-date">2022</span></div></div>
                         <div class="info-card"><div class="ic-head"><span class="ic-title">Deep Learning Specialization (Coursera)</span><span class="ic-date">2021</span></div></div>
-                        <div class="info-card"><div class="ic-head"><span class="ic-title">ROBOTC Engineering (TETRIX)</span><span class="ic-date">2019</span></div></div>
+                        <div class="info-card"><div class="ic-head"><span class="ic-title">ROBOTC Engineering (TETRIX & LEGO Mindstorms)</span><span class="ic-date">2019</span></div></div>
                     </div>
                 `
             },
@@ -2311,19 +2444,26 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                                 <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Analysis & Optimization of DNNs (add DOI/PDF)">
-                            <div class="ic-head"><span class="ic-title">Analysis & Optimization of DNNs</span><span class="ic-date">2020</span></div>
+                        <div class="info-card paper-trigger" data-url="" data-title="Diabetic Retinopathy Detection and Grading (Journal of Diabetes Medication & Care)">
+                            <div class="ic-head"><span class="ic-title">DR Detection and Grading</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Co-Authored.</strong> Published in <em>Journal of Diabetes Medication & Care.</em> Presented at 5th international conference on Diabetes and Endocrinology.
+                                <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (add DOI/PDF)">
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
                             <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Project Venture.</strong> Envisioned and developed a COVID-19 detection system using patient Chest CT-Scans using Deep Neural Networks.
+                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
                             </div>
                         </div>
                     </div>
+
+                    <span class="section-h">RESEARCH IMPACT</span>
+                    <ul>
+                        <li>97.46% accuracy for diabetic retinopathy detection; 73% accuracy for severity grading.</li>
+                        <li>Research cited in subsequent medical AI studies.</li>
+                        <li>Applied ML to real-world diagnostics and clinician workflows.</li>
+                    </ul>
                 `
             },
 
@@ -2429,7 +2569,29 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                        <span class="section-h">THE CHALLENGE</span>
                        <p>Music-listening bot that mirrors instruments in real time.</p>
                        <span class="section-h">ORIGIN STORY</span>
-                       <p>Curiosity has been my default setting since I was a teenager studying Leonardo da Vinci, not for his sketches, but for his method: find patterns across anatomy, mechanics, and imagination, then build what seems impossible. I applied that mindset in college when I became obsessed with a technically brutal question: could a robot understand music well enough to perform it. For IIT Bombay’s e Yantra finals, my team built a Mocking Bot that listened to audio, identified instruments, and played notes on real instruments. Wanting the fastest response time, I stopped thinking only in code and studied biology, especially how the human hand prepares before striking. Inspired by that, I designed a solenoid striker and tuned the system to about 400 ms response with 92.6 percent instrument detection accuracy, helping us place 4th out of 7,173 teams. During development, I also added a simple visual indicator that signaled the robot’s next strike, because I got curious about a different problem: performance is not enough if a system is not legible to humans. That shift influenced my growth. I began treating engineering as a dialogue with users, not a closed optimization task.</p>
+                       <p>Curiosity has been my default setting since I was a teenager studying Leonardo da Vinci, not for his sketches, but for his method: find patterns across anatomy, mechanics, and imagination, then build what seems impossible.</p>
+                       <p>I applied that mindset in college when I became obsessed with a technically brutal question: could a robot understand music well enough to perform it. For IIT Bombay's E-Yantra finals, my team built a Mocking Bot that listened to audio, identified instruments, and played notes on real instruments.</p>
+                       <p>Wanting the fastest response time, I studied how the human hand prepares before striking. Inspired by that, I designed a solenoid striker and tuned the system to about 400 ms response with 92.6 percent instrument detection accuracy, helping us place 4th out of 7,173 teams. I also added a simple visual indicator that signaled the robot's next strike, because performance is not enough if a system is not legible to humans.</p>
+
+                       <span class="section-h">KEY METRICS</span>
+                       <div class="fact-grid">
+                           <div class="fact-card">
+                               <div class="fact-label">Accuracy</div>
+                               <div class="fact-value">92.6% detection</div>
+                           </div>
+                           <div class="fact-card">
+                               <div class="fact-label">Latency</div>
+                               <div class="fact-value">~400 ms response</div>
+                           </div>
+                           <div class="fact-card">
+                               <div class="fact-label">Result</div>
+                               <div class="fact-value">4th / 7,173 teams</div>
+                           </div>
+                           <div class="fact-card">
+                               <div class="fact-label">Event</div>
+                               <div class="fact-value">IIT Bombay E-Yantra Finals</div>
+                           </div>
+                       </div>
                        <div class="media-grid">
                            <img src="projects/mocking-bot/1.png" alt="Mocking Bot rig">
                            <img src="projects/mocking-bot/2.png" alt="Mocking Bot array">
@@ -2446,23 +2608,24 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                        <div class="video-container">[VIDEO PLACEHOLDER: ROBOT DEMO]</div>
 
                        <span class="section-h">RESULTS</span>
-                       <p>During national finals at IIT Bombay, the robot performed live demos, accurately mimicking musicians. Earned 4th place out of ~7,000 teams.</p>`
+                       <p>During national finals at IIT Bombay, the robot performed live demos, accurately mimicking musicians. Earned 4th place out of 7,173 teams.</p>`
             },
 
             'xbox': {
                 title: "XBOX GAME CAMP",
-                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Apprentice Team Lead</strong></div><div><span class="label">FOCUS</span><strong>UXR & Strategy</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Studio Accelerator Participant</strong></div><div><span class="label">FOCUS</span><strong>UXR + Production</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
                        <span class="section-h">RESPONSIBILITIES</span>
                        <div class="media-grid">
                            <img src="projects/xbox-camp/cover.svg" alt="Xbox Camp cover">
                        </div>
                        <ul>
-                           <li><strong>Ideation:</strong> Worked with Xbox mentors to brainstorm game mechanics and player experience goals.</li>
-                           <li><strong>UX Refinement:</strong> Developed user flows, onboarding sequences, and interaction diagrams.</li>
-                           <li><strong>Production:</strong> Scoped features, estimated budgets, and created milestone schedules.</li>
+                           <li><strong>Ideation:</strong> Collaborated with Xbox mentors on game mechanics, player experience goals, and production frameworks.</li>
+                           <li><strong>UX Refinement:</strong> Built user flows, onboarding sequences, and interaction diagrams to validate concepts.</li>
+                           <li><strong>Production:</strong> Scoped features, estimated budgets, and aligned milestones for studio pitches.</li>
+                           <li><strong>Validation:</strong> Tested market fit with industry veterans; refined pitch deck for publisher conversations.</li>
                        </ul>
                        <span class="section-h">KEY LEARNINGS</span>
-                       <p>Learned how to translate messy prototypes into clear marketable pitches. Strengthened communication across design and engineering.</p>`
+                       <p>Learned how to translate messy prototypes into clear marketable pitches and collaborate across global partners. Received direct mentorship on design thinking and production methods.</p>`
             },
 
             'retina': {
@@ -2481,14 +2644,14 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                            <li><strong>Evaluation:</strong> Tuned hyperparameters using cross-validation, achieving high sensitivity.</li>
                        </ul>
                        <span class="section-h">RESULTS</span>
-                       <p>Our models achieved 97.4% accuracy in detection. The work resulted in two journal publications.</p>`
+                       <p>Achieved 97.46% detection accuracy and 73% severity grading accuracy. Resulted in peer-reviewed publications and subsequent citations.</p>`
             },
 
             'teqip': {
                 title: "COVID-19 CT SCREENING",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Researcher</strong></div><div><span class="label">GRANT</span><strong>TEQIP Innovation</strong></div><div><span class="label">YEAR</span><strong>2020</strong></div></div>
                        <span class="section-h">MOTIVATION</span>
-                       <p>Rapid COVID-19 CT triage: fast flagging pipeline for clinicians.</p>
+                       <p>Rapid COVID-19 CT triage: TEQIP government grant supported a fast-flagging pipeline for clinicians.</p>
                        <div class="media-grid">
                            <img src="projects/retina-ai/Picture5.png" alt="CT slice sample">
                        </div>
@@ -2502,16 +2665,16 @@ environments that demand curiosity, innovation, and craft-from research labs to 
 
             'neura': {
                 title: "NEURANODE",
-                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Jam</strong></div><div><span class="label">RESULT</span><strong>Winner</strong></div></div>
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Jam</strong></div><div><span class="label">RESULT</span><strong>Winner ($2,380)</strong></div></div>
                        <span class="section-h">CONTEXT</span>
                        <p>Game-jam prototypes testing on-chain player agency.</p>
                        <div class="media-grid">
                            <img src="projects/neuranode/cover.svg" alt="Neuranode cover">
                        </div>
                        <span class="section-h">APPROACH</span>
-                       <p>We divided our work into discovery, design, and implementation. Used game engine templates and Avalanche’s dev tools to implement core loops within 36 hours.</p>
+                       <p>We divided our work into discovery, design, and implementation. Used game engine templates and Avalanche's dev tools to implement core loops within 36 hours.</p>
                        <span class="section-h">OUTCOME</span>
-                       <p>Awarded first place for creative mechanics and technical execution. Broadened my understanding of decentralized game economies.</p>`
+                       <p>Awarded first place for creative mechanics and technical execution, with a $2,380 prize. Broadened my understanding of decentralized game economies.</p>`
             },
 
             'timebound': {
@@ -2561,10 +2724,16 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                        </div>
                        <span class="section-h">HIGHLIGHTS</span>
                        <ul>
-                           <li>12+ shipped/preview builds across puzzle, RPG, XR.</li>
-                           <li>Selected for Xbox Game Camp Asia; Sony outreach.</li>
-                           <li>Built modular pipelines for art, audio, prototyping.</li>
+                           <li>12+ shipped/preview builds across puzzle, RPG, and XR.</li>
+                           <li>Bootstrapped end-to-end production with prototypes reaching 5,000+ players.</li>
+                           <li>Selected as Top 16 Asian studios (Xbox Game Camp Asia); pitched to global investors.</li>
+                           <li>Publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
+                           <li>Showcased interactive prototypes at IGDC 2024 to refine game loops.</li>
                        </ul>
+                       <span class="section-h">CREDENTIAL</span>
+                       <div class="credly-embed">
+                           <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
+                       </div>
                        <span class="section-h">GAME BUILDS</span>
                        <div class="mini-grid" id="amnesea-games"></div>`
             },
@@ -2785,27 +2954,84 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                         </div>
                     </div>
 
-                    <span class="section-h">VOLUNTEERING</span>
+                    <span class="section-h">LEADERSHIP & COMMUNITY</span>
                     <div class="press-summary">
                         <div class="press-card">
                             <div class="press-meta">CSR Outreach</div>
                             <div class="press-title">Brillio NGO - Bringing Smiles</div>
-                            <div class="press-desc">Tech-for-good workshops, donation drives, and on-ground coordination.</div>
+                            <div class="press-desc">Trained 50+ NGO staff in digital literacy; built curricula and assessment methods.</div>
                         </div>
                         <div class="press-card">
                             <div class="press-meta">Public Speaking</div>
                             <div class="press-title">Toastmasters (Brillio Chapter)</div>
-                            <div class="press-desc">Founded the club, mentored speakers, and ran contests for a 20+ member cohort.</div>
+                            <div class="press-desc">Founded the chapter, mentored 20+ engineers, and ran speaking contests.</div>
                         </div>
                         <div class="press-card">
                             <div class="press-meta">Mentorship</div>
                             <div class="press-title">DAA Mentor</div>
-                            <div class="press-desc">Tutored juniors on Design & Analysis of Algorithms; reviewed capstone projects.</div>
+                            <div class="press-desc">Tutored juniors in Design & Analysis of Algorithms; reviewed capstone projects.</div>
                         </div>
                         <div class="press-card">
                             <div class="press-meta">Fests & Showcases</div>
                             <div class="press-title">Art Club - Anaadyanta</div>
-                            <div class="press-desc">Stage art, gallery curation, and student volunteer coordination for festival crews.</div>
+                            <div class="press-desc">Led stage art and immersive installations; managed a 30,000+ audience fest with a 300+ member team.</div>
+                        </div>
+                    </div>
+
+                    <span class="section-h">PROFESSIONAL DEVELOPMENT</span>
+                    <div class="press-summary">
+                        <div class="press-card">
+                            <div class="press-meta">Conferences</div>
+                            <div class="press-title">Speaker + Attendee</div>
+                            <div class="press-desc">Regular attendee and speaker at technology and design conferences.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">Open Source</div>
+                            <div class="press-title">Contributor</div>
+                            <div class="press-desc">Contributions across AI and game development repositories.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">Mentorship</div>
+                            <div class="press-title">Community Mentor</div>
+                            <div class="press-desc">Active mentor for junior developers and design students.</div>
+                        </div>
+                    </div>
+
+                    <span class="section-h">CREATIVE PURSUITS</span>
+                    <div class="press-summary">
+                        <div class="press-card">
+                            <div class="press-meta">Interactive Art</div>
+                            <div class="press-title">Large-Scale Installations</div>
+                            <div class="press-desc">Built immersive art installations blending technology and spatial design.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">Music Tech</div>
+                            <div class="press-title">Performance Systems</div>
+                            <div class="press-desc">Explored music-technology interfaces and automated performances.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">Travel</div>
+                            <div class="press-title">Cultural Research</div>
+                            <div class="press-desc">Travel for cultural research and international collaboration.</div>
+                        </div>
+                    </div>
+
+                    <span class="section-h">COMMUNITY SERVICE</span>
+                    <div class="press-summary">
+                        <div class="press-card">
+                            <div class="press-meta">Digital Literacy</div>
+                            <div class="press-title">Volunteer Educator</div>
+                            <div class="press-desc">Led digital literacy training for underserved communities.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">STEM Education</div>
+                            <div class="press-title">Workshop Facilitator</div>
+                            <div class="press-desc">K-12 workshops in robotics and programming.</div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-meta">Sustainability</div>
+                            <div class="press-title">Tech for Good</div>
+                            <div class="press-desc">Participant in technology-for-sustainability initiatives.</div>
                         </div>
                     </div>
                 `
@@ -2815,16 +3041,104 @@ environments that demand curiosity, innovation, and craft-from research labs to 
                 title: "TECHNICAL ARSENAL",
                 body: `
                     <span class="section-h">PROGRAMMING</span>
-                    <p>C, C++, Python, Solidity, T-SQL, LaTeX.</p>
+                    <div class="chip-grid">
+                        <span class="chip">C</span>
+                        <span class="chip">C++</span>
+                        <span class="chip">Python</span>
+                        <span class="chip">Solidity</span>
+                        <span class="chip">T-SQL</span>
+                        <span class="chip">LaTeX</span>
+                    </div>
+
+                    <span class="section-h">ML + AI</span>
+                    <div class="chip-grid">
+                        <span class="chip">TensorFlow</span>
+                        <span class="chip">Keras</span>
+                        <span class="chip">Scikit-Learn</span>
+                        <span class="chip">PyTorch</span>
+                        <span class="chip">OpenCV</span>
+                        <span class="chip">NumPy</span>
+                        <span class="chip">Pandas</span>
+                        <span class="chip">SciPy</span>
+                        <span class="chip">PyAudioAnalysis</span>
+                        <span class="chip">Deep Learning</span>
+                        <span class="chip">Computer Vision</span>
+                        <span class="chip">NLP</span>
+                        <span class="chip">CNN</span>
+                        <span class="chip">RNN</span>
+                        <span class="chip">DNN</span>
+                        <span class="chip">Transfer Learning</span>
+                    </div>
 
                     <span class="section-h">DOMAINS</span>
-                    <p>Game Design, Deep Learning, Robotics (Computer Vision), User Experience Research (UXR), Business Intelligence.</p>
+                    <div class="chip-grid">
+                        <span class="chip">Game design</span>
+                        <span class="chip">Robotics</span>
+                        <span class="chip">UX research</span>
+                        <span class="chip">Interactive design</span>
+                        <span class="chip">Business intelligence</span>
+                    </div>
 
-                    <span class="section-h">TOOLS & IDES</span>
-                    <p>Unity, Figma, Adobe Creative Cloud, Jupyter, Git, Microsoft Azure, Visual Studio.</p>
+                    <span class="section-h">PLATFORMS & TOOLS</span>
+                    <div class="chip-grid">
+                        <span class="chip">Microsoft Azure</span>
+                        <span class="chip">Google Cloud Platform</span>
+                        <span class="chip">Google Colab</span>
+                        <span class="chip">Visual Studio</span>
+                        <span class="chip">VS Code</span>
+                        <span class="chip">Unity Engine</span>
+                        <span class="chip">Git</span>
+                        <span class="chip">Anaconda</span>
+                        <span class="chip">Spyder</span>
+                        <span class="chip">Jupyter</span>
+                    </div>
 
-                    <span class="section-h">LIBRARIES</span>
-                    <p>TensorFlow, PyTorch, OpenCV, Pandas, NumPy, SciPy.</p>
+                    <span class="section-h">DESIGN & CREATIVE</span>
+                    <div class="chip-grid">
+                        <span class="chip">Adobe Creative Cloud</span>
+                        <span class="chip">Photoshop</span>
+                        <span class="chip">Illustrator</span>
+                        <span class="chip">After Effects</span>
+                        <span class="chip">Premiere Pro</span>
+                        <span class="chip">Figma</span>
+                        <span class="chip">Sketch</span>
+                        <span class="chip">Linearity</span>
+                        <span class="chip">Blender</span>
+                        <span class="chip">Unity 3D</span>
+                        <span class="chip">CAD</span>
+                        <span class="chip">C# scripting</span>
+                    </div>
+
+                    <span class="section-h">DATA & ANALYTICS</span>
+                    <div class="chip-grid">
+                        <span class="chip">ETL pipelines</span>
+                        <span class="chip">Data warehousing</span>
+                        <span class="chip">Business intelligence</span>
+                        <span class="chip">Data visualization</span>
+                        <span class="chip">Dashboarding</span>
+                        <span class="chip">SQL Server</span>
+                        <span class="chip">MySQL</span>
+                        <span class="chip">NoSQL</span>
+                    </div>
+
+                    <span class="section-h">WORKFLOW</span>
+                    <div class="chip-grid">
+                        <span class="chip">JIRA</span>
+                        <span class="chip">Agile</span>
+                        <span class="chip">Scrum</span>
+                        <span class="chip">Project management</span>
+                    </div>
+
+                    <span class="section-h">LANGUAGES</span>
+                    <div class="chip-grid">
+                        <span class="chip">English (Fluent)</span>
+                        <span class="chip">Hindi (Native)</span>
+                    </div>
+
+                    <span class="section-h">CREDENTIAL</span>
+                    <div class="credly-embed">
+                        <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
+                    </div>
                 `
             }
         };
@@ -2847,6 +3161,7 @@ environments that demand curiosity, innovation, and craft-from research labs to 
 
             autoCarouselImages(contentEl);
             enhanceMediaGrids(contentEl);
+            hydrateCredlyBadges(contentEl);
 
             // Link Button
             const actionContainer = document.getElementById('m-action-container');
@@ -3042,6 +3357,21 @@ environments that demand curiosity, innovation, and craft-from research labs to 
 
                 setActive(0);
             });
+        }
+
+        // Re-run Credly embed loader when badge containers appear inside modal content.
+        function hydrateCredlyBadges(scope = document) {
+            const targetScope = scope || document;
+            const badges = targetScope.querySelectorAll('[data-share-badge-id]');
+            if (!badges.length) return;
+
+            document.querySelectorAll('script[data-credly-embed]').forEach(node => node.remove());
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.credly.com/assets/utilities/embed.js';
+            script.async = true;
+            script.dataset.credlyEmbed = '1';
+            document.body.appendChild(script);
         }
 
         function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.classList.remove('modal-open'); }

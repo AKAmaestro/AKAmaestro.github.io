@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKA-{Ankit Kumar Agrawal}</title>
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+        rel="stylesheet">
+
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
@@ -12,10 +20,6 @@
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
-        rel="stylesheet">
 
     <style>
         /* --- 1. THEME ENGINE --- */
@@ -354,7 +358,6 @@
         }
 
         .area-hero::before {
-            /* content: "aka maestro"; */
             position: absolute;
             inset: 0;
             pointer-events: none;
@@ -410,7 +413,6 @@
             transform: rotate(-4deg);
         }
 
-        /* Iconic silhouettes per info panel (clean, square corners) */
         .area-exp::before,
         .area-awards::before,
         .area-rsch::before,
@@ -454,11 +456,8 @@
         }
 
         .area-contact::before {
-            background:
-                /* repeating-conic-gradient(from 45deg, rgba(0, 255, 65, 0.18) 0 18deg, transparent 18deg 36deg), */
-                linear-gradient(135deg, rgba(47, 0, 255, 0.712), rgba(0, 81, 255, 0.767));
+            background: linear-gradient(135deg, rgba(47, 0, 255, 0.712), rgba(0, 81, 255, 0.767));
             background-size: 140px 140px, auto;
-
             background-image: url("data:image/svg+xml,%3Csvg width='520' height='520' viewBox='0 0 520 520' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300ff41' fill-opacity='0.2'%3E%3Crect x='80' y='150' width='360' height='200'/%3E%3Crect x='80' y='330' width='360' height='70'/%3E%3Cpolygon points='80,150 260,260 440,150'/%3E%3C/g%3E%3C/svg%3E");
         }
 
@@ -481,7 +480,7 @@
             display: block;
         }
 
-        /* AREAS + GRID POSITIONS (10-col grid). Adjust --grid-col / --grid-row per tile. */
+        /* AREAS + GRID POSITIONS */
         .area-header {
             grid-column: 1 / -1;
             grid-row: 1 / span 1;
@@ -578,23 +577,12 @@
             height: 1.5em;
         }
 
-        .area-portfolio {
-            position: relative;
-            overflow: hidden;
-            --grid-col: 1 / span 2;
-            --grid-row: 12 / span 1;
-        }
-
-        .area-resume {
-            position: relative;
-            overflow: hidden;
-            --grid-col: 3 / span 2;
-            --grid-row: 12 / span 1;
-        }
-
+        /* GRID ROW ADJUSTMENTS - Closing gaps after removals */
+        /* Works area flows automatically now since fewer items */
         .area-works {
             grid-column: 1 / -1;
-            grid-row: 6 / span 6;
+            grid-row: 6 / auto;
+            /* Auto height based on content */
             padding: 0;
             background: var(--line);
             gap: 1px;
@@ -603,18 +591,97 @@
             position: relative;
         }
 
+        /* Separator below Works - positioned implicitly or explicitly */
+        .area-separator-bottom {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            /* Follows works */
+            background: var(--bg-void);
+            border-top: 1px dashed var(--line);
+            border-bottom: 1px dashed var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            font-family: var(--font-code);
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Bottom Panels - Starting approx row 10 after works+separator */
+        /* We use specific row numbers but adjust them to be consecutive */
+        .area-portfolio {
+            position: relative;
+            overflow: hidden;
+            --grid-col: 1 / span 2;
+            --grid-row: 10 / span 1;
+        }
+
+        .area-resume {
+            position: relative;
+            overflow: hidden;
+            --grid-col: 3 / span 2;
+            --grid-row: 10 / span 1;
+        }
+
         .area-skills {
             --grid-col: 5 / span 2;
-            --grid-row: 12 / span 1;
+            --grid-row: 10 / span 1;
             background: rgba(75, 27, 31, 0.786);
             position: relative;
         }
 
         .area-rsch {
             --grid-col: 7 / span 2;
-            --grid-row: 12 / span 1;
+            --grid-row: 10 / span 1;
             background: rgba(1, 56, 59, 0.786);
             position: relative;
+        }
+
+        .area-vol-media {
+            --grid-col: 9 / span 2;
+            --grid-row: 10 / span 1;
+            background: rgba(6, 60, 90, 0.82);
+            position: relative;
+        }
+
+        .area-exp {
+            --grid-col: 1 / span 2;
+            --grid-row: 11 / span 1;
+            background: rgba(8, 73, 24, 0.786);
+            position: relative;
+        }
+
+        .area-awards {
+            --grid-col: 3 / span 2;
+            --grid-row: 11 / span 1;
+            background: rgba(77, 61, 1, 0.786);
+            position: relative;
+        }
+
+        .area-void {
+            --grid-col: 5 / span 2;
+            --grid-row: 11 / span 1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.2));
+            border: 1px dashed var(--line);
+        }
+
+        .area-void-2 {
+            --grid-col: 7 / span 4;
+            /* Span rest of row */
+            --grid-row: 11 / span 1;
+            background: var(--bg-void);
+        }
+
+        .area-contact {
+            grid-column: 1 / -1;
+            grid-row: 12 / span 1;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-hover);
+            border-top: 4px solid var(--bg-void);
         }
 
         .work-item {
@@ -742,48 +809,6 @@
             margin-bottom: 2px;
         }
 
-        .area-exp {
-            --grid-col: 1 / span 2;
-            --grid-row: 13 / span 1;
-            background: rgba(8, 73, 24, 0.786);
-            position: relative;
-        }
-
-        .area-awards {
-            --grid-col: 3 / span 2;
-            --grid-row: 13 / span 1;
-            background: rgba(77, 61, 1, 0.786);
-            position: relative;
-        }
-
-        .area-rsch {
-            --grid-col: 7 / span 2;
-            --grid-row: 12 / span 1;
-            background: rgba(1, 56, 59, 0.786);
-            position: relative;
-        }
-
-        .area-skills {
-            --grid-col: 5 / span 2;
-            --grid-row: 12 / span 1;
-            background: rgba(75, 27, 31, 0.786);
-            position: relative;
-        }
-
-        .area-vol {
-            --grid-col: auto;
-            --grid-row: auto;
-            background: rgba(6, 60, 66, 0.82);
-            position: relative;
-        }
-
-        .area-vol-media {
-            --grid-col: 9 / span 2;
-            --grid-row: 12 / span 1;
-            background: rgba(6, 60, 90, 0.82);
-            position: relative;
-        }
-
         .area-separator {
             grid-column: 1 / -1;
             grid-row: 5 / span 1;
@@ -799,22 +824,6 @@
             color: var(--text-dim);
             letter-spacing: 0.5px;
             text-transform: uppercase;
-        }
-
-        .area-contact {
-            grid-column: 1 / -1;
-            grid-row: 14 / span 1;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-hover);
-            border-top: 4px solid var(--bg-void);
-        }
-
-        .area-void {
-            --grid-col: 5 / span 2;
-            --grid-row: 13 / span 1;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.2));
-            border: 1px dashed var(--line);
         }
 
         /* RESPONSIVE */
@@ -852,6 +861,11 @@
                 background: var(--line);
                 border: none;
                 height: auto;
+            }
+
+            .area-separator-bottom {
+                grid-row: auto;
+                /* Just flow */
             }
 
             .dashboard-grid .panel {
@@ -1875,12 +1889,11 @@
             <header class="panel area-header">
                 <div class="logo">©AKAmaestro </div>
                 <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
-                    <!-- <span class="label" style="border:none; margin:0; width:auto;">Ankit Kumar Agrawal</span> -->
                     <span class="label"
                         style="border:none; margin:0; width:auto; color:var(--accent); letter-spacing:0.5px;">12+
                         PROJECTS // 6+ AWARDS // 5+ YRS</span>
-                    <button class="theme-btn hover-trigger" onclick="toggleTheme()" id="theme-btn">Toggle theme ☀/🌙
-                        Theme</button>
+                    <button class="theme-btn hover-trigger" onclick="toggleTheme()" id="theme-btn">Toggle theme
+                        ☀/🌙</button>
                 </div>
             </header>
 
@@ -1908,122 +1921,82 @@
             </div>
 
             <!-- WORKS SUPER GRID -->
+            <!-- Modified: Removed Xbox, TEQIP, Neura, Atomica, Brubble, Retro, Tilebound Grids -->
+            <!-- Adjusted row flow implicitly by removing items -->
             <div class="area-works">
                 <div class="work-item hover-trigger" onclick="openModal('amnesea')">
                     <div class="corner-deco"></div>
-                    <img src="projects/Amnesea/Octopus.png" class="work-bg">
+                    <img src="projects/Amnesea/Octopus.png" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">Entrepreneurship</span>
                         <h2 class="h-title">Amnesea</h2><span class="h-sub">INDIE gaming LAB</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('keybound')">
                     <div class="corner-deco"></div>
-                    <img src="projects/keybound/KeyBound Gameplay GIF.gif" class="work-bg">
+                    <img src="projects/keybound/KeyBound Gameplay GIF.gif" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">GAMing</span>
                         <h2 class="h-title">KeyBound</h2><span class="h-sub">Rogue-Vania</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('mocking')">
                     <div class="corner-deco"></div>
-                    <img src="projects/mocking-bot/1.png" class="work-bg">
+                    <img src="projects/mocking-bot/1.png" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">Robotics</span>
                         <h2 class="h-title">Mocking Bot</h2><span class="h-sub">BIO-MIMETIC AUDIO</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('xbox')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/xbox-camp/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_03: RESEARCH</span>
-                        <h2 class="h-title">Xbox Camp</h2><span class="h-sub">UXR STRATEGY</span>
-                    </div>
-                </div> -->
+                <!-- Removed Xbox grid -->
                 <div class="work-item hover-trigger" onclick="openModal('retina')">
                     <div class="corner-deco"></div>
-                    <img src="projects/retina-ai/1.png" class="work-bg">
+                    <img src="projects/retina-ai/1.png" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">MED-TECH</span>
                         <h2 class="h-title">Retina AI</h2><span class="h-sub">DEEP LEARNING</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('timebound')">
                     <div class="corner-deco"></div>
-                    <img src="projects/timebound/TimeBound Gameplay GIF.gif" class="work-bg">
+                    <img src="projects/timebound/TimeBound Gameplay GIF.gif" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">GAMING</span>
                         <h2 class="h-title">TimeBound</h2><span class="h-sub">RPG MECHANICS</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('balance')">
                     <div class="corner-deco"></div>
-                    <img src="projects/balance/gif2.gif" class="work-bg">
+                    <img src="projects/balance/gif2.gif" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">Applied sciences</span>
                         <h2 class="h-title">Balance Bot</h2><span class="h-sub">INVERTED PENDULUM</span>
                     </div>
                 </div>
                 <div class="work-item hover-trigger" onclick="openModal('arnft')">
                     <div class="corner-deco"></div>
-                    <img src="projects/AR NFT/Picture19.jpg" class="work-bg">
+                    <img src="projects/AR NFT/Picture19.jpg" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">Blockchain / crypto</span>
                         <h2 class="h-title">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('neura')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/neuranode/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_07: WEB3</span>
-                        <h2 class="h-title">NeuraNode</h2><span class="h-sub">AI + BLOCKCHAIN</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('teqip')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/retina-ai/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_08: GRANT</span>
-                        <h2 class="h-title">Covid CT</h2><span class="h-sub">VOLUMETRIC AI</span>
-                    </div>
-                </div> -->
+                <!-- Removed Neura grid -->
+                <!-- Removed TEQIP grid -->
                 <div class="work-item hover-trigger" onclick="openModal('facially')">
                     <div class="corner-deco"></div>
-                    <img src="projects/Facially/Picture18.png" class="work-bg">
+                    <img src="projects/Facially/Picture18.png" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">WEB3</span>
                         <h2 class="h-title">Facially</h2><span class="h-sub">EXPRESSION AI</span>
                     </div>
                 </div>
-
-                <!-- <div class="work-item hover-trigger" onclick="openModal('atomica')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/Atomica/Atomica Banner GIF.gif" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_10: ACTION</span>
-                        <h2 class="h-title">Atomica</h2><span class="h-sub">ROGUE IMMERSION</span>
-                    </div>
-                </div> -->
-
+                <!-- Removed Atomica grid -->
                 <div class="work-item hover-trigger" onclick="openModal('arts')">
                     <div class="corner-deco"></div>
-                    <img src="projects/Arts/Picture20.jpg" class="work-bg">
+                    <img src="projects/Arts/Picture20.jpg" class="work-bg" loading="lazy">
                     <div class="work-content"><span class="label">VISUALS and scultures </span>
                         <h2 class="h-title">Arts</h2><span class="h-sub">POSTER LAB</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('brubble')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/Brubble/Brubble Title.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_13: MOBILE</span>
-                        <h2 class="h-title">Brubble</h2><span class="h-sub">CASUAL FUN</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('retro')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/RetroBellion/RetroBellion GIF.gif" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_14: ARCADE</span>
-                        <h2 class="h-title">RetroBellion</h2><span class="h-sub">NEO PIXEL</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('tilebound')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/TileBound/TileBound Banner.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_15: PUZZLE</span>
-                        <h2 class="h-title">TileBound</h2><span class="h-sub">TACTICAL GRID</span>
-                    </div>
-                </div> -->
+                <!-- Removed Brubble, Retro, Tilebound grids -->
+            </div>
 
+            <!-- NEW SEPARATOR -->
+            <div class="panel area-separator-bottom">
+                ARCHIVES / DOCUMENTS / RESEARCH / AWARDS
             </div>
 
             <div class="panel area-portfolio hover-trigger" onclick="openModal('portfolio-pdf')"
@@ -2034,8 +2007,6 @@
                 <div>
                     <h2 class="h-title" style="color:#ffb347;">Showreel (PDF)</h2>
                     <span class="h-sub" style="color:#ffd27f;">Jump in // clickable deck</span>
-                    <!-- <p style="margin-top:10px; color:var(--text-dim); font-family:var(--font-code); font-size:0.78rem;">
-                        Open inline // links active</p> -->
                 </div>
             </div>
 
@@ -2054,34 +2025,24 @@
                 <span class="label">ARSENAL <span>+</span></span>
                 <div>
                     <h2 class="h-title">Skill Stack</h2>
-                    <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;">
-                        <!-- <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">UNITY</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">C#</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">PYTHON</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">FIGMA</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">Adobe
-                            CC</span>
-                        <span
-                            style="border:1px solid var(--line); padding:2px 6px; font-size:0.6rem; font-family:var(--font-code);">MS
-                            365</span> -->
-                    </div>
+                    <div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;"></div>
+                </div>
+            </div>
+
+            <!-- RESTORED RESEARCH PANEL & GRID -->
+            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
+                <span class="label">RESEARCH <span>+</span></span>
+                <div>
+                    <h2 class="h-title">Archive</h2>
+                    <div style="margin-top:15px;"></div>
                 </div>
             </div>
 
             <div class="panel area-vol-media hover-trigger" onclick="openModal('vol_media')">
                 <span class="label">IMPACT_SIGNALS <span>+</span></span>
                 <div>
-                    <h2 class="h-title">Proof / Signals</h2>
-                    <div style="margin-top:15px;">
-                        <!-- <div class="list-item"><strong>Community</strong>Mentor gigs, NGO drives, art crews.</div>
-                        <div class="list-item"><strong>Speaking</strong>Toastmasters founder; campus mic drops.</div>
-                        <div class="list-item"><strong>Press</strong>Clips, shoutouts, and receipts inside.</div> -->
-                    </div>
+                    <h2 class="h-title">Proof / Media</h2>
+                    <div style="margin-top:15px;"></div>
                 </div>
             </div>
 
@@ -2089,12 +2050,7 @@
                 <span class="label">JOURNEY_LOG <span>+</span></span>
                 <div>
                     <h2 class="h-title">Career Runway</h2>
-                    <div style="margin-top:15px;">
-                        <!-- <div class="list-item"><strong>Amnesea</strong>Founder & CEO</div>
-                        <div class="list-item"><strong>Xbox</strong>UXR Lead</div>
-                        <div class="list-item"><strong>Brillio</strong>Data Eng.</div>
-                        <div class="list-item"><strong>NITTE</strong>Comp Sci</div> -->
-                    </div>
+                    <div style="margin-top:15px;"></div>
                 </div>
             </div>
 
@@ -2102,27 +2058,12 @@
                 <span class="label">SIGNAL_BOOSTS<span>+</span></span>
                 <div>
                     <h2 class="h-title">Awards & Cred</h2>
-                    <div style="margin-top:15px;">
-                        <!-- <div class="list-item"><strong>Neuranode</strong>Winner '25</div>
-                        <div class="list-item"><strong>Xbox Camp</strong>Top 16</div>
-                        <div class="list-item"><strong>TEQIP</strong>Research Grant</div> -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Research grid hidden (covered by Career Runway)
-            <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
-                <span class="label">ARCHIVE <span>+</span></span>
-                <div>
-                    <h2 class="h-title">Research Dossier</h2>
                     <div style="margin-top:15px;"></div>
                 </div>
             </div>
-            -->
 
             <div class="panel area-void" aria-hidden="true"></div>
-            <div class="panel area-void" aria-hidden="true" style="--grid-col: 7 / span 2; --grid-row: 13 / span 1;">
-            </div>
+            <div class="panel area-void-2" aria-hidden="true"></div>
 
             <div class="panel area-contact hover-trigger"
                 onclick="window.location.href='mailto:akamaestro@outlook.com'">
@@ -2209,22 +2150,16 @@
         }
 
         // --- CONTENT DATABASE (RICH DATA FROM RESUME & CASE STUDIES) ---
+        // Updated Manifest with removed grids added here so they function in Amnesea modal
         const gamesManifest = [
             { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", tagline: "Every trace you leave powers your future.", palette: { light: { bg: "#ffffff", fg: "#333333", link: "#6e40d8", border: "#eeeeee" }, dark: { bg: "#121212", fg: "#e0e0e0", link: "#a085ff", border: "#222222" } } },
             { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!", palette: { light: { bg: "#fff9fb", fg: "#440022", link: "#ff007f", border: "#ffd9e5" }, dark: { bg: "#1a000d", fg: "#ffe0ef", link: "#ff007f", border: "#440022" } } },
-            { name: "Kinetica", account: "AKAmaestro", url: "https://akamaestro.itch.io/kinetica", embedId: "3013014", tagline: "A bullet-hell where everything you pick up becomes a weapon!", palette: { light: { bg: "#f0fdf4", fg: "#064e3b", link: "#10b981", border: "#dcfce7" }, dark: { bg: "#022c22", fg: "#d1fae5", link: "#34d399", border: "#064e3b" } } },
-            { name: "Quanta", account: "AKAmaestro", url: "https://akamaestro.itch.io/quanta", embedId: "3374993", tagline: "Blast through the periodic table in this fast-paced arcade shooter.", palette: { light: { bg: "#eff6ff", fg: "#1e3a8a", link: "#3b82f6", border: "#dbeafe" }, dark: { bg: "#0f172a", fg: "#dbeafe", link: "#60a5fa", border: "#1e40af" } } },
             { name: "Atomica", account: "AKAmaestro", url: "https://akamaestro.itch.io/atomica", embedId: "2848461", tagline: "Chemistry meets chaos! A periodic shooter experiment.", palette: { light: { bg: "#fdf4ff", fg: "#701a75", link: "#d946ef", border: "#f5d0fe" }, dark: { bg: "#4a044e", fg: "#fae8ff", link: "#e879f9", border: "#701a75" } } },
-            { name: "DogeDash (Touchscreen)", account: "AKAmaestro", url: "https://akamaestro.itch.io/dogedash", embedId: "3472181", tagline: "Much speed. Very dodge. Touch-based survival challenge.", palette: { light: { bg: "#fff7ed", fg: "#7c2d12", link: "#ea580c", border: "#ffedd5" }, dark: { bg: "#2a0f07", fg: "#ffedd5", link: "#fb923c", border: "#7c2d12" } } },
-            // { name: "Grid Sweep", account: "AKAmaestro", url: "https://akamaestro.itch.io/grid-sweep", embedId: null, tagline: "Sweep, survive, and evolve to beat the moving grid.", palette: { light: { bg: "#f0f9ff", fg: "#0c4a6e", link: "#0284c7", border: "#e0f2fe" }, dark: { bg: "#0c4a6e", fg: "#e0f2fe", link: "#38bdf8", border: "#075985" } } },
             { name: "TrapTile", account: "Amnesea", url: "https://amnesea.itch.io/traptile", embedId: "3370444", tagline: "Strategy · Shifting tiles where every move could be a trap.", palette: { light: { bg: "#f8fafc", fg: "#334155", link: "#64748b", border: "#e2e8f0" }, dark: { bg: "#0f172a", fg: "#f1f5f9", link: "#94a3b8", border: "#1e293b" } } },
-            { name: "Hop n Drop", account: "Amnesea", url: "https://amnesea.itch.io/hop-n-drop", embedId: "3367884", tagline: "Casual · Fast-paced grid-based vertical platforming.", palette: { light: { bg: "#ecfeff", fg: "#083344", link: "#06b6d4", border: "#cffafe" }, dark: { bg: "#083344", fg: "#cffafe", link: "#22d3ee", border: "#0e7490" } } },
             { name: "TileBound", account: "AgrMayank", url: "https://agrmayank.itch.io/tilebound", embedId: "2989067", tagline: "Experimental · Navigate a shifting playfield of survival.", palette: { light: { bg: "#fffbeb", fg: "#78350f", link: "#f59e0b", border: "#fef3c7" }, dark: { bg: "#451a03", fg: "#fef3c7", link: "#fbbf24", border: "#78350f" } } },
-            { name: "ShapeBound", account: "AgrMayank", url: "https://agrmayank.itch.io/shapebound", embedId: "2310807", tagline: "Action · Bound to roll, destined to rebound.", palette: { light: { bg: "#fafaf9", fg: "#44403c", link: "#a8a29e", border: "#e7e5e4" }, dark: { bg: "#1c1917", fg: "#e7e5e4", link: "#78716c", border: "#292524" } } },
-            { name: "TimeBound", account: "AgrMayank", url: "https://agrmayank.itch.io/timebound", embedId: "2267076", tagline: "RPG · A genre-shifting legacy of history and manipulation.", palette: { light: { bg: "#fdf2f8", fg: "#831843", link: "#ec4899", border: "#fce7f3" }, dark: { bg: "#500724", fg: "#fce7f3", link: "#f472b6", border: "#831843" } } },
-            { name: "KeyBound", account: "AgrMayank", url: "https://agrmayank.itch.io/keybound", embedId: "2294357", tagline: "Platformer · A journey of reclamation in a locked world.", palette: { light: { bg: "#f5f3ff", fg: "#4c1d95", link: "#8b5cf6", border: "#ede9fe" }, dark: { bg: "#1e1b4b", fg: "#ede9fe", link: "#a78bfa", border: "#312e81" } } },
             { name: "RetroBellion", account: "AgrMayank", url: "https://agrmayank.itch.io/retrobellion", embedId: "2275688", tagline: "8-Bit · Classic platforming mechanics with a rebellious twist.", palette: { light: { bg: "#ffffff", fg: "#111111", link: "#ff0000", border: "#dddddd" }, dark: { bg: "#000000", fg: "#eeeeee", link: "#ff0000", border: "#222222" } } },
-            { name: "Bomb the Dead", account: "AgrMayank", url: "https://agrmayank.itch.io/bomb-the-dead", embedId: "3519712", tagline: "Horror · AI-powered survival in the zombie depths.", palette: { light: { bg: "#fef2f2", fg: "#7f1d1d", link: "#ef4444", border: "#fee2e2" }, dark: { bg: "#450a0a", fg: "#fee2e2", link: "#f87171", border: "#7f1d1d" } } },
+            // NeuraNode - Manual Link as it's a game jam win
+            { name: "NeuraNode", account: "Avalanche", url: "https://itch.io", embedId: null, tagline: "Avalanche Game Jam Winner ($2,380). Decentralized economy strategy.", palette: { light: { bg: "#fff", fg: "#000", link: "#00f", border: "#eee" }, dark: { bg: "#000", fg: "#fff", link: "#0ff", border: "#333" } } }
         ];
 
         const db = {
@@ -2238,23 +2173,12 @@
                             <p>Outside work, I'm an avid photographer, gamer, and lifelong learner always exploring new tools, techniques, and ideas.</p>
                         </div>
 
-                        <div class="fact-grid">
-                            <div class="fact-card">
-                                <div class="fact-label">Location</div>
-                                <div class="fact-value">New Delhi, India</div>
-                            </div>
-                            <div class="fact-card">
-                                <div class="fact-label">Email</div>
-                                <div class="fact-value">akamaestro@outlook.com</div>
-                            </div>
-                            <div class="fact-card">
-                                <div class="fact-label">Phone</div>
-                                <div class="fact-value">+91-9958295598</div>
-                            </div>
-                            <div class="fact-card">
-                                <div class="fact-label">Portfolio</div>
-                                <div class="fact-value">akamaestro.com</div>
-                            </div>
+                        <span class="section-h">Contact & Links</span>
+                        <div class="embed-actions" style="margin-top:0; display:flex; flex-wrap:wrap; gap:12px;">
+                            <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
+                            <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
+                            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
+                            <a href="https://akamaestro.com" target="_blank" class="action-btn" style="margin-top:0;">🌐 Website</a>
                         </div>
 
                         <span class="section-h">Focus Areas</span>
@@ -2266,23 +2190,15 @@
                             <span class="chip">ML prototyping</span>
                             <span class="chip">UX research</span>
                         </div>
-
-                        <div class="embed-actions" style="margin-top:12px;">
-                            <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
-                            <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
-                            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
-                        </div>
                     </div>`
             },
-            // <a href="https://github.com/AKAmaestro" target="_blank" class="action-btn" style="margin-top:0;"> GitHub</a>
-            // <a href="https://www.behance.net/akamaestro" target="_blank" class="action-btn" style="margin-top:0;"> Behance</a>
 
             'exp': {
                 title: "PROFESSIONAL JOURNEY",
                 body: `
                     <div class="timeline-wrapper">
                         <!-- Amnesea -->
-                        <div class="timeline-entry active paper-trigger" data-url="" data-title="Amnesea Studios - Founder & CEO (add PDF/DOI)">
+                        <div class="timeline-entry active paper-trigger" data-url="" data-title="Amnesea Studios - Founder & CEO">
                             <div class="t-marker"></div>
                             <span class="t-date">DEC 2023 - PRESENT</span>
                             <div class="t-title">Founder & CEO</div>
@@ -2292,52 +2208,44 @@
                                 <li><strong>Product delivery:</strong> Bootstrapped end-to-end development with prototypes reaching 5,000+ players.</li>
                                 <li><strong>Partnerships:</strong> Secured publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
                                 <li><strong>Validation:</strong> Exhibited interactive prototypes at IGDC 2024 to refine narrative pacing and game loops.</li>
-                                <li><strong>Recognition:</strong> Selected as Top 16 Asian studios for Xbox Game Camp Asia, pitched to global investors, and managed international partnerships.</li>
                             </ul>
                         </div>
 
                         <!-- Xbox -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="Xbox Studios Game Camp - Studio Accelerator Participant (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Xbox Studios Game Camp">
                             <div class="t-marker"></div>
                             <span class="t-date">MAR 2024 - JUN 2024</span>
                             <div class="t-title">Studio Accelerator Participant</div>
                             <div class="t-sub">Microsoft Xbox Studios (Remote)</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li>Design-led accelerator focused on game ideation, experience design, production frameworks, and pitching.</li>
+                                <li>Design-led accelerator focused on game ideation, experience design, and pitching.</li>
                                 <li>Led UXR and production strategy for studio prototype and pitch development.</li>
-                                <li>Validated market fit with industry veterans; refined pitch deck for publisher negotiations.</li>
-                                <li>Collaborated with gaming organizations across five countries.</li>
                                 <li>Received direct mentorship from Xbox Studios experts on design thinking and production methods.</li>
                             </ul>
                         </div>
 
                         <!-- Brillio -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="Brillio - Senior Data Engineer (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="Brillio - Senior Data Engineer">
                             <div class="t-marker"></div>
                             <span class="t-date">SEPT 2020 - FEB 2023</span>
                             <div class="t-title">Senior Data Engineer</div>
                             <div class="t-sub">Brillio LLC, India</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
-                                <li><strong>Fast-track promotion:</strong> Promoted to Senior Data Engineer in under 2 years for client impact and technical leadership.</li>
+                                <li><strong>Fast-track promotion:</strong> Promoted to Senior Data Engineer in under 2 years.</li>
                                 <li><strong>Infrastructure modernization:</strong> Optimized ETL pipelines for clients like Ruffalo Noel Levitz, reducing processing time by 400% (24h to ~5h).</li>
-                                <li><strong>Analytics quality:</strong> Led data accuracy initiatives for ML-driven analytics; recognized for zero-defect delivery.</li>
-                                <li><strong>System architecture:</strong> Automated ETL/data pipelines to improve efficiency across analytics workflows.</li>
-                                <li><strong>Business impact:</strong> Built data infrastructure that influenced strategic decisions and UX optimization.</li>
+                                <li><strong>Business impact:</strong> Built data infrastructure that influenced strategic decisions.</li>
                             </ul>
                         </div>
 
                         <!-- NMIT -->
-                        <div class="timeline-entry paper-trigger" data-url="" data-title="NMIT - Research Intern (add PDF/DOI)">
+                        <div class="timeline-entry paper-trigger" data-url="" data-title="NMIT - Research Intern">
                             <div class="t-marker"></div>
                             <span class="t-date">APR 2019 - AUG 2020</span>
                             <div class="t-title">Research Intern</div>
-                            <div class="t-sub">Centre for Robotics Research, NMIT (DRDO mentorship)</div>
+                            <div class="t-sub">Centre for Robotics Research, NMIT</div>
                             <ul style="margin-top:15px; padding-left:20px; color:var(--text-dim); line-height:1.6;">
                                 <li>Researched computer vision, digital image/video processing, deep learning, and robotics.</li>
-                                <li>Developed algorithms for video summarization, shot detection, and low-visibility robot navigation.</li>
-                                <li>Built custom robotic mechanisms for ongoing research initiatives.</li>
                                 <li>Authored peer-reviewed research publications in medical AI applications.</li>
-                                <li>Applied machine learning techniques to real-world robotics challenges.</li>
                             </ul>
                         </div>
                     </div>
@@ -2346,44 +2254,9 @@
                     <div class="info-grid">
                         <div class="info-card">
                             <div class="ic-head"><span class="ic-title">NITTE Meenakshi Institute of Technology, Bangalore</span><span class="ic-date">2016 - 2020</span></div>
-                            <div class="ic-desc"><strong>B.E. Information Science & Engineering</strong> (CGPA 8.52/10, First Class with Distinction).<br>Coursework: Machine Learning & Deep Learning Systems, Computer Vision & Digital Image Processing, Robotic Systems & Design, Human Computer Interaction, Data Structures & Algorithms, Statistical Analysis & Pattern Recognition.</div>
-                        </div>
-                        <div class="info-card compact">
-                            <div class="ic-head"><span class="ic-title">Academic Highlights</span><span class="ic-date">2016 - 2020</span></div>
-                            <div class="ic-desc">Research publication in peer-reviewed journal; National-level robotics competition finalist (4th/7,173 teams); Government research grant recipient for COVID-19 detection system.</div>
+                            <div class="ic-desc"><strong>B.E. Information Science & Engineering</strong> (CGPA 8.52/10, First Class with Distinction).<br>Coursework: Machine Learning & Deep Learning Systems, Computer Vision & Digital Image Processing, Robotic Systems & Design.</div>
                         </div>
                     </div>
-
-                    <span class="section-h">RESEARCH DOSSIER</span>
-                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
-                    <div class="info-grid">
-                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
-                            <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
-                                <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Diabetic Retinopathy Detection and Grading (Journal of Diabetes Medication & Care)">
-                            <div class="ic-head"><span class="ic-title">DR Detection and Grading</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
-                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
-                            </div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">RESEARCH IMPACT</span>
-                    <ul>
-                        <li>97.46% accuracy for diabetic retinopathy detection; 73% accuracy for severity grading.</li>
-                        <li>Research cited in subsequent medical AI studies.</li>
-                        <li>Applied ML to real-world diagnostics and clinician workflows.</li>
-                    </ul>
                 `
             },
 
@@ -2412,10 +2285,6 @@
                             <div class="ic-head"><span class="ic-title">Brillio LLC Excellence Awards</span><span class="ic-date">2022</span></div>
                             <div class="ic-desc">Special Achievement Award, Group Excellence Award, and Bringing Smiles Star Volunteer.</div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="TEQIP Government Grant">
-                            <div class="ic-head"><span class="ic-title">TEQIP Government Grant</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">Innovation Ideas & Research Grant for COVID-19 detection system.</div>
-                        </div>
                         <div class="info-card paper-trigger" data-url="" data-title="National Finalist: EYRC (IIT Bombay)">
                             <div class="ic-head"><span class="ic-title">National Finalist: EYRC (IIT Bombay)</span><span class="ic-date">2019</span></div>
                             <div class="ic-desc">4th place finalist out of 7,173 teams in E-Yantra Robotics Competition.</div>
@@ -2433,7 +2302,7 @@
             },
 
             'rsch': {
-                title: "RESEARCH PUBLICATIONS",
+                title: "RESEARCH DOSSIER",
                 body: `
                     <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
                     <div class="info-grid">
@@ -2450,10 +2319,11 @@
                                 <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
+                        <!-- MOVED: TEQIP CONTEXT HERE -->
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP Grant)">
                             <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
+                                <strong>Project Venture (TEQIP Grant).</strong> Supported CT screening pipeline for rapid COVID-19 detection using deep neural networks to assist triage workflows.
                             </div>
                         </div>
                     </div>
@@ -2463,6 +2333,7 @@
                         <li>97.46% accuracy for diabetic retinopathy detection; 73% accuracy for severity grading.</li>
                         <li>Research cited in subsequent medical AI studies.</li>
                         <li>Applied ML to real-world diagnostics and clinician workflows.</li>
+                        <li>TEQIP grant enabled rapid deployment of screening prototypes during the pandemic.</li>
                     </ul>
                 `
             },
@@ -2470,7 +2341,7 @@
             'portfolio-pdf': {
                 title: "PORTFOLIO PDF",
                 body: `<div class="video-container" style="height:80vh; background:#111; border:1px solid var(--line);">
-                            <iframe src="projects/Ankit%20Kumar%20portfolio%20draft.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Portfolio PDF"></iframe>
+                            <iframe src="projects/Ankit%20Kumar%20portfolio%20draft.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Portfolio PDF" loading="lazy"></iframe>
                         </div>
                         <div class="embed-actions" style="margin-top:10px;">
                             <a href="https://raw.githubusercontent.com/AKAmaestro/AKAmaestro.github.io/main/projects/Ankit%20Kumar%20portfolio%20draft.pdf" target="_blank" rel="noopener" class="action-btn" style="margin-top:0;">Download from GitHub</a>
@@ -2481,7 +2352,7 @@
             'resume-pdf': {
                 title: "RESUME PDF",
                 body: `<div class="video-container" style="height:80vh; background:#0a0a0a; border:1px solid var(--line);">
-                            <iframe src="Ankit%20Resume%20Design%20Copy.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Resume PDF"></iframe>
+                            <iframe src="Ankit%20Resume%20Design%20Copy.pdf#toolbar=1" style="width:100%; height:100%; border:none;" title="Resume PDF" loading="lazy"></iframe>
                         </div>
                         <div class="embed-actions" style="margin-top:10px;">
                             <a href="Ankit%20Resume%20Design%20Copy.pdf" target="_blank" rel="noopener" class="action-btn" style="margin-top:0;" download>Download Resume</a>
@@ -2490,6 +2361,47 @@
                         <p style="font-family:var(--font-code); color:var(--text-dim); margin-top:10px;">View inline or use the download button for a copy.</p>`
             },
 
+            'amnesea': {
+                title: "AMNESEA STUDIOS",
+                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Founder / CD</strong></div><div><span class="label">SCOPE</span><strong>Studio Build</strong></div><div><span class="label">STATUS</span><strong>Active</strong></div></div>
+                       <span class="section-h">WHY</span>
+                       <p>Indie lab for narrative-heavy games and expressive tech.</p>
+                       <div class="media-grid">
+                           <img src="projects/Amnesea/Amnesea Name Logo.png" alt="Amnesea logo" loading="lazy">
+                       </div>
+
+                       <span class="section-h">STRATEGIC PARTNERSHIPS</span>
+                       <div class="info-card compact">
+                            <div class="ic-head"><span class="ic-title">Microsoft Xbox Game Camp Asia</span><span class="ic-date">2024</span></div>
+                            <div class="ic-desc">Selected as Top 16 Asian studios. Underwent intensive accelerator on game ideation, production frameworks, and testing market fit with industry veterans.</div>
+                       </div>
+                       <div class="info-card compact">
+                            <div class="ic-head"><span class="ic-title">NeuraNode (Avalanche)</span><span class="ic-date">Key Win</span></div>
+                            <div class="ic-desc">Game jam winner ($2,380) leveraging decentralized economies and player agency.</div>
+                       </div>
+
+                       <span class="section-h">HIGHLIGHTS</span>
+                       <ul>
+                           <li>12+ shipped/preview builds across puzzle, RPG, and XR.</li>
+                           <li>Bootstrapped end-to-end production with prototypes reaching 5,000+ players.</li>
+                           <li>Showcased interactive prototypes at IGDC 2024 to refine game loops.</li>
+                       </ul>
+                       <span class="section-h">CREDENTIAL</span>
+                       <div class="credly-embed">
+                           <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
+                       </div>
+
+                       <span class="section-h">GAME BUILDS & PROTOTYPES</span>
+                       <p style="font-family:var(--font-code); color:var(--text-dim);">Detailed context for key studio titles:</p>
+                       <br>
+                       <strong>Atomica:</strong> Fast-paced loop with synthwave aesthetic and chunky VFX. Recursive enemy AI states.<br>
+                       <strong>RetroBellion:</strong> Modern arcade homage with layered parallax + scanline treatments.<br>
+                       <strong>TileBound:</strong> Tile-shift puzzler with move budgets tied to collected sigils.<br>
+
+                       <div class="mini-grid" id="amnesea-games"></div>`
+            },
+
+            // --- REST OF THE ORIGINAL DB OBJECTS (Keybound, Mocking, etc) KEPT AS IS ---
             'keybound': {
                 title: "KEYBOUND",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Founder & Design Lead</strong></div><div><span class="label">TIMELINE</span><strong>2024 - Present</strong></div><div><span class="label">STACK</span><strong>Unity, C#, Figma</strong></div></div>
@@ -2500,361 +2412,90 @@
                            <a href="https://www.youtube.com/watch?v=tWS2I_Pk3m0" target="_blank" class="action-btn">Trailer</a>
                            <a href="https://amnesea.com/games.html" target="_blank" class="action-btn">Visit Game Site</a>
                        </div>
-
                        <span class="section-h">TRAILER</span>
                        <div class="embed-container">
                            <iframe src="https://www.youtube.com/embed/tWS2I_Pk3m0" allowfullscreen loading="lazy"></iframe>
                        </div>
-
-                       <span class="section-h">CONTEXT</span>
-                       <p>Memory-as-mechanic puzzle platformer: rebuild the world via fragments of melody and the keys you collect.</p>
-
-                       <span class="section-h">KEY ART</span>
-                       <div class="media-grid">
-                           <img src="projects/keybound/KeyBound Cover.gif" alt="KeyBound cover gif" class="zoomable" onclick="openImage('projects/keybound/KeyBound Cover.gif','Cover animation')">
-                           <img src="projects/keybound/Keybound bg light background.png" alt="KeyBound background" class="zoomable" onclick="openImage('projects/keybound/Keybound bg light background.png','Background key art')">
-                       </div>
-
                        <span class="section-h">GAME FLOW</span>
                        <div class="media-grid">
                            <img src="projects/keybound/KeyBound Banner.jpeg" alt="KeyBound banner" class="zoomable" onclick="openImage('projects/keybound/KeyBound Banner.jpeg','KeyBound Banner')">
-                           <img src="projects/keybound/process.svg" alt="KeyBound process" class="zoomable" onclick="openImage('projects/keybound/process.svg','Process Snapshot')">
-                           <img src="projects/keybound/ProcessFlow.svg" alt="Game flow" class="zoomable" onclick="openImage('projects/keybound/ProcessFlow.svg','Game Flow')">
-                           <img src="projects/keybound/gameloop.png" alt="Game loop" class="zoomable" onclick="openImage('projects/keybound/gameloop.png','Game Loop')">
                         </div>
-
-                       <span class="section-h">AN EARLY GLIMPSE</span>
-                       <div class="gif-grid">
-                           <img src="projects/keybound/Gif/1.gif" alt="Keybound GIF 1" class="zoomable" onclick="openImage('projects/keybound/Gif/1.gif','Gameplay loop 1')">
-                           <img src="projects/keybound/Gif/2.gif" alt="Keybound GIF 2" class="zoomable" onclick="openImage('projects/keybound/Gif/2.gif','Gameplay loop 2')">
-                           <img src="projects/keybound/Gif/3.gif" alt="Keybound GIF 3" class="zoomable" onclick="openImage('projects/keybound/Gif/3.gif','Gameplay loop 3')">
-                           <img src="projects/keybound/Gif/4.gif" alt="Keybound GIF 4" class="zoomable" onclick="openImage('projects/keybound/Gif/4.gif','Gameplay loop 4')">
-                           <img src="projects/keybound/Gif/5.gif" alt="Keybound GIF 5" class="zoomable" onclick="openImage('projects/keybound/Gif/5.gif','Gameplay loop 5')">
-                           <img src="projects/keybound/Gif/6.gif" alt="Keybound GIF 6" class="zoomable" onclick="openImage('projects/keybound/Gif/6.gif','Gameplay loop 6')">
-                        </div>
-
-                       <span class="section-h">MIND MAPS</span>
-                       <div class="gif-grid">
-                           <img src="projects/keybound/mindmaps/20240326_123642.jpg" alt="Mindmap 1" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_123642.jpg','Mindmap 1')">
-                           <img src="projects/keybound/mindmaps/20240326_150258.jpg" alt="Mindmap 2" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_150258.jpg','Mindmap 2')">
-                           <img src="projects/keybound/mindmaps/20240326_230449.jpg" alt="Mindmap 3" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240326_230449.jpg','Mindmap 3')">
-                           <img src="projects/keybound/mindmaps/20240404_010734.jpg" alt="Mindmap 4" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240404_010734.jpg','Mindmap 4')">
-                           <img src="projects/keybound/mindmaps/20240404_012035.jpg" alt="Mindmap 5" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240404_012035.jpg','Mindmap 5')">
-                           <img src="projects/keybound/mindmaps/20240413_000023.jpg" alt="Mindmap 6" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240413_000023.jpg','Mindmap 6')">
-                           <img src="projects/keybound/mindmaps/20240415_025241.jpg" alt="Mindmap 7" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240415_025241.jpg','Mindmap 7')">
-                           <img src="projects/keybound/mindmaps/20240416_180247.jpg" alt="Mindmap 8" class="zoomable" onclick="openImage('projects/keybound/mindmaps/20240416_180247.jpg','Mindmap 8')">
-                        </div>
-
-                       <span class="section-h">DESIGN NOTES</span>
-                       <ul>
-                           <li><strong>Core Loop:</strong> Explore, learn patterns, and unlock keys that reshape levels and music.</li>
-                           <li><strong>Progression:</strong> Modules unlock new traversal verbs; memory fragments retell the story diegetically.</li>
-                           <li><strong>UX:</strong> Minimal HUD; inputs surfaced through controller glyphs and rhythm cues.</li>
-                       </ul>
-
-                       <span class="section-h">IMPACT</span>
-                       <p>Selected for Xbox Game Camp Asia; in active production with refined game loop, pitch deck, and public wishlist live.</p>
-
                        <span class="section-h">TITLE PITCH</span>
-                       <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:8px;">Inline reader - scroll through the full KeyBound title pitch without leaving the modal.</p>
                        <div class="video-container" style="height:75vh; background:#0a0a0a; border:1px solid var(--line);">
-                           <iframe src="projects/keybound/KIGI%20KeyBound%20Krafton%20Pitch.pdf#toolbar=1" title="KeyBound Title Pitch" style="width:100%; height:100%; border:none;"></iframe>
+                           <iframe src="projects/keybound/KIGI%20KeyBound%20Krafton%20Pitch.pdf#toolbar=1" title="KeyBound Title Pitch" style="width:100%; height:100%; border:none;" loading="lazy"></iframe>
                        </div>`,
                 link: "https://amnesea.com/games.html"
             },
-
             'mocking': {
                 title: "MOCKING BOT",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Co-Designer</strong></div><div><span class="label">TECH</span><strong>Python, Arduino</strong></div><div><span class="label">AWARD</span><strong>4th National</strong></div></div>
                        <span class="section-h">THE CHALLENGE</span>
                        <p>Music-listening bot that mirrors instruments in real time.</p>
-                       <span class="section-h">ORIGIN STORY</span>
-                       <p>Curiosity has been my default setting since I was a teenager studying Leonardo da Vinci, not for his sketches, but for his method: find patterns across anatomy, mechanics, and imagination, then build what seems impossible.</p>
-                       <p>I applied that mindset in college when I became obsessed with a technically brutal question: could a robot understand music well enough to perform it. For IIT Bombay's E-Yantra finals, my team built a Mocking Bot that listened to audio, identified instruments, and played notes on real instruments.</p>
-                       <p>Wanting the fastest response time, I studied how the human hand prepares before striking. Inspired by that, I designed a solenoid striker and tuned the system to about 400 ms response with 92.6 percent instrument detection accuracy, helping us place 4th out of 7,173 teams. I also added a simple visual indicator that signaled the robot's next strike, because performance is not enough if a system is not legible to humans.</p>
-
                        <span class="section-h">KEY METRICS</span>
                        <div class="fact-grid">
-                           <div class="fact-card">
-                               <div class="fact-label">Accuracy</div>
-                               <div class="fact-value">92.6% detection</div>
-                           </div>
-                           <div class="fact-card">
-                               <div class="fact-label">Latency</div>
-                               <div class="fact-value">~400 ms response</div>
-                           </div>
-                           <div class="fact-card">
-                               <div class="fact-label">Result</div>
-                               <div class="fact-value">4th / 7,173 teams</div>
-                           </div>
-                           <div class="fact-card">
-                               <div class="fact-label">Event</div>
-                               <div class="fact-value">IIT Bombay E-Yantra Finals</div>
-                           </div>
+                           <div class="fact-card"><div class="fact-label">Accuracy</div><div class="fact-value">92.6% detection</div></div>
+                           <div class="fact-card"><div class="fact-label">Latency</div><div class="fact-value">~400 ms response</div></div>
                        </div>
                        <div class="media-grid">
                            <img src="projects/mocking-bot/1.png" alt="Mocking Bot rig">
-                           <img src="projects/mocking-bot/2.png" alt="Mocking Bot array">
-                           <img src="projects/mocking-bot/3.png" alt="Mocking Bot schematic">
-                       </div>
-
-                       <span class="section-h">IMPLEMENTATION</span>
-                       <ul>
-                           <li><strong>Signal Capture:</strong> Captured audio via microphone array and implemented FFT to isolate frequencies.</li>
-                           <li><strong>Mechanism:</strong> Co-designed a solenoid-driven striking mechanism capable of precise movement (~400ms latency).</li>
-                           <li><strong>Integration:</strong> Developed firmware synchronizing ML predictions with solenoid actuation.</li>
-                       </ul>
-
-                       <div class="video-container">[VIDEO PLACEHOLDER: ROBOT DEMO]</div>
-
-                       <span class="section-h">RESULTS</span>
-                       <p>During national finals at IIT Bombay, the robot performed live demos, accurately mimicking musicians. Earned 4th place out of 7,173 teams.</p>`
+                       </div>`
             },
-
-            // 'xbox': {
-            //     title: "XBOX GAME CAMP",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Studio Accelerator Participant</strong></div><div><span class="label">FOCUS</span><strong>UXR + Production</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
-            //            <span class="section-h">RESPONSIBILITIES</span>
-            //            <div class="media-grid">
-            //                <img src="projects/xbox-camp/cover.svg" alt="Xbox Camp cover">
-            //            </div>
-            //            <ul>
-            //                <li><strong>Ideation:</strong> Collaborated with Xbox mentors on game mechanics, player experience goals, and production frameworks.</li>
-            //                <li><strong>UX Refinement:</strong> Built user flows, onboarding sequences, and interaction diagrams to validate concepts.</li>
-            //                <li><strong>Production:</strong> Scoped features, estimated budgets, and aligned milestones for studio pitches.</li>
-            //                <li><strong>Validation:</strong> Tested market fit with industry veterans; refined pitch deck for publisher conversations.</li>
-            //            </ul>
-            //            <span class="section-h">KEY LEARNINGS</span>
-            //            <p>Learned how to translate messy prototypes into clear marketable pitches and collaborate across global partners. Received direct mentorship on design thinking and production methods.</p>`
-            // },
-
             'retina': {
                 title: "RETINOPATHY AI",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>First Author</strong></div><div><span class="label">TECH</span><strong>Deep Learning, CNN</strong></div><div><span class="label">DOMAIN</span><strong>Healthcare</strong></div></div>
-                       <span class="section-h">BACKGROUND</span>
                        <p>Automated DR screening with lightweight CNNs.</p>
                        <div class="media-grid">
                            <img src="projects/retina-ai/1.png" alt="Retina sample">
                            <img src="projects/retina-ai/cover.svg" alt="Retina cover">
                        </div>
-                       <span class="section-h">APPROACH</span>
-                       <ul>
-                           <li><strong>Dataset:</strong> Curated and pre-processed retinal images, balancing class distributions.</li>
-                           <li><strong>Model Design:</strong> Prototyped multiple CNN architectures (ResNet, custom nets) for binary detection and severity grading.</li>
-                           <li><strong>Evaluation:</strong> Tuned hyperparameters using cross-validation, achieving high sensitivity.</li>
-                       </ul>
                        <span class="section-h">RESULTS</span>
-                       <p>Achieved 97.46% detection accuracy and 73% severity grading accuracy. Resulted in peer-reviewed publications and subsequent citations.</p>`
+                       <p>Achieved 97.46% detection accuracy and 73% severity grading accuracy.</p>`
             },
-
-            // 'teqip': {
-            //     title: "COVID-19 CT SCREENING",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Researcher</strong></div><div><span class="label">GRANT</span><strong>TEQIP Innovation</strong></div><div><span class="label">YEAR</span><strong>2020</strong></div></div>
-            //            <span class="section-h">MOTIVATION</span>
-            //            <p>Rapid COVID-19 CT triage: TEQIP government grant supported a fast-flagging pipeline for clinicians.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/retina-ai/Picture5.png" alt="CT slice sample">
-            //            </div>
-            //            <span class="section-h">METHODOLOGY</span>
-            //            <ul>
-            //                <li><strong>Data Curation:</strong> Assembled dataset of anonymised CT slices.</li>
-            //                <li><strong>Model Design:</strong> Experimented with 2D and 3D CNN architectures for classification and heatmap localisation.</li>
-            //                <li><strong>Prototype:</strong> Created a proof-of-concept web interface for clinicians.</li>
-            //            </ul>`
-            // },
-
-            // 'neura': {
-            //     title: "NEURANODE",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Jam</strong></div><div><span class="label">RESULT</span><strong>Winner ($2,380)</strong></div></div>
-            //            <span class="section-h">CONTEXT</span>
-            //            <p>Game-jam prototypes testing on-chain player agency.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/neuranode/cover.svg" alt="Neuranode cover">
-            //            </div>
-            //            <span class="section-h">APPROACH</span>
-            //            <p>We divided our work into discovery, design, and implementation. Used game engine templates and Avalanche's dev tools to implement core loops within 36 hours.</p>
-            //            <span class="section-h">OUTCOME</span>
-            //            <p>Awarded first place for creative mechanics and technical execution, with a $2,380 prize. Broadened my understanding of decentralized game economies.</p>`
-            // },
-
             'timebound': {
                 title: "TIMEBOUND",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>System Designer</strong></div><div><span class="label">GENRE</span><strong>RPG / Narrative</strong></div><div><span class="label">STATUS</span><strong>In Dev</strong></div></div>
-                       <span class="section-h">CONTEXT</span>
                        <p>Time-loop fiction: experiment, reset, learn.</p>
                        <div class="media-grid">
                            <img src="projects/timebound/1.png" alt="Timebound key art">
                            <img src="projects/timebound/cover.svg" alt="Timebound cover">
-                       </div>
-                       <span class="section-h">CHALLENGES</span>
-                       <ul>
-                           <li>Building a time loop mechanic that felt intuitive rather than repetitive.</li>
-                           <li>Structuring a branching narrative that maintained coherence across resets.</li>
-                       </ul>
-                       <span class="section-h">OUTCOME</span>
-                       <p>Early prototypes were met with enthusiasm. Xbox mentors encouraged further development of the branching narrative system.</p>`
+                       </div>`
             },
-
             'balance': {
                 title: "BALANCE BOT",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Control Designer</strong></div><div><span class="label">TECH</span><strong>PID, C++</strong></div><div><span class="label">TYPE</span><strong>Robotics</strong></div></div>
-                       <span class="section-h">CONTEXT</span>
                        <p>Two-wheel inverted pendulum for hands-on control theory.</p>
                        <div class="media-grid">
                            <img src="projects/balance/1.png" alt="Balance bot prototype">
-                           <img src="projects/balance/2.png" alt="Balance bot parts">
-                       </div>
-                       <span class="section-h">DESIGN</span>
-                       <ul>
-                           <li><strong>Chassis:</strong> Modeled frame using CAD to ensure weight distribution.</li>
-                           <li><strong>Sensor Integration:</strong> Mounted IMU and wheel encoders with complementary filtering.</li>
-                           <li><strong>Control:</strong> Programmed a PID controller to compute corrective motor torque.</li>
-                       </ul>
-                       <span class="section-h">IMPACT</span>
-                       <p>Successfully maintained upright posture and navigated obstacles. Provided a tangible platform for experimenting with control theory.</p>`
+                       </div>`
             },
-
-            'amnesea': {
-                title: "AMNESEA STUDIOS",
-                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Founder / CD</strong></div><div><span class="label">SCOPE</span><strong>Studio Build</strong></div><div><span class="label">STATUS</span><strong>Active</strong></div></div>
-                       <span class="section-h">WHY</span>
-                       <p>Indie lab for narrative-heavy games and expressive tech.</p>
-                       <div class="media-grid">
-                           <img src="projects/Amnesea/Amnesea Name Logo.png" alt="Amnesea logo">
-                       </div>
-                       <span class="section-h">HIGHLIGHTS</span>
-                       <ul>
-                           <li>12+ shipped/preview builds across puzzle, RPG, and XR.</li>
-                           <li>Bootstrapped end-to-end production with prototypes reaching 5,000+ players.</li>
-                           <li>Selected as Top 16 Asian studios (Xbox Game Camp Asia); pitched to global investors.</li>
-                           <li>Publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
-                           <li>Showcased interactive prototypes at IGDC 2024 to refine game loops.</li>
-                       </ul>
-                       <span class="section-h">CREDENTIAL</span>
-                       <div class="credly-embed">
-                           <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
-                       </div>
-                       <span class="section-h">GAME BUILDS</span>
-                       <div class="mini-grid" id="amnesea-games"></div>`
-            },
-
-            'atomica': {
-                title: "ATOMICA",
-                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Director</strong></div><div><span class="label">GENRE</span><strong>Action / Rogue</strong></div><div><span class="label">PLATFORM</span><strong>PC</strong></div></div>
-                       <span class="section-h">HOOK</span>
-                       <p>Fast-paced loop with synthwave aesthetic and chunky VFX.</p>
-                       <div class="media-grid">
-                           <img src="projects/Atomica/Atomica Banner GIF.gif" alt="Atomica banner">
-                       </div>
-                       <span class="section-h">BUILD NOTES</span>
-                       <ul>
-                           <li>Responsive twin-stick controls tuned via player labs.</li>
-                           <li>Modular enemy AI states for emergent encounters.</li>
-                           <li>Shader-driven hits and HUD for readable impact.</li>
-                       </ul>`
-            },
-
             'arnft': {
                 title: "AR NFT DROP",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>XR Designer</strong></div><div><span class="label">MEDIUM</span><strong>AR + Blockchain</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
-                       <span class="section-h">CONCEPT</span>
                        <p>Physical prints that unlock animated AR layers plus tokenized ownership.</p>
                        <div class="media-grid">
                            <img src="projects/AR NFT/Picture21.png" alt="AR NFT preview">
                            <img src="projects/AR NFT/Picture20.png" alt="AR NFT frame">
-                       </div>
-                       <span class="section-h">MAKING</span>
-                       <ul>
-                           <li>Tracked posters via image anchors; layered particle shaders.</li>
-                           <li>Mint + wallet gating for exclusive scenes.</li>
-                           <li>Microcopy + onboarding focused on non-crypto natives.</li>
-                       </ul>`
+                       </div>`
             },
-
             'arts': {
                 title: "ARTS POSTER LAB",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Visual Engineer</strong></div><div><span class="label">OUTPUT</span><strong>Posters</strong></div><div><span class="label">COUNT</span><strong>40+</strong></div></div>
-                       <span class="section-h">STYLE</span>
                        <p>Bold typographic layouts blending glitch, gradients, and brutalist grids.</p>
                        <div class="media-grid">
                            <img src="projects/Arts/Picture22.png" alt="Poster 1">
                            <img src="projects/Arts/Picture23.jpg" alt="Poster 2">
-                           <img src="projects/Arts/Picture24.jpg" alt="Poster 3">
-                       </div>
-                       <span class="section-h">PROCESS</span>
-                       <ul>
-                           <li>Figma + Illustrator + custom noise/scanline textures.</li>
-                           <li>Explored color stories for events, festivals, tech drops.</li>
-                           <li>Delivered export-ready assets in multi-format specs.</li>
-                       </ul>`
+                       </div>`
             },
-
-            // 'brubble': {
-            //     title: "BRUBBLE",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Game Designer</strong></div><div><span class="label">PLATFORM</span><strong>Mobile</strong></div><div><span class="label">STATE</span><strong>Prototype</strong></div></div>
-            //            <span class="section-h">PITCH</span>
-            //            <p>One-thumb arcade runner with sticky bubble physics.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/Brubble/Brubble Title.png" alt="Brubble title">
-            //            </div>
-            //            <span class="section-h">KEYS</span>
-            //            <ul>
-            //                <li>Juicy collisions and squash-stretch motion curves.</li>
-            //                <li>Difficulty ramps via procedural obstacle seeds.</li>
-            //                <li>Session goals tuned for 60-90 second loops.</li>
-            //            </ul>`
-            // },
-
-            // 'retro': {
-            //     title: "RETRO BELLION",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead</strong></div><div><span class="label">GENRE</span><strong>Arcade</strong></div><div><span class="label">VIBE</span><strong>Neon Pixel</strong></div></div>
-            //            <span class="section-h">OVERVIEW</span>
-            //            <p>Modern arcade homage with crunchy sprites and boss rush pacing.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/RetroBellion/RetroBellion GIF.gif" alt="RetroBellion gameplay">
-            //            </div>
-            //            <span class="section-h">FEATURES</span>
-            //            <ul>
-            //                <li>Layered parallax + scanline treatments for depth.</li>
-            //                <li>Boss patterns scripted for readable telegraphs.</li>
-            //                <li>Adaptive music stems that react to combo state.</li>
-            //            </ul>`
-            // },
-
-            // 'tilebound': {
-            //     title: "TILEBOUND",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Designer</strong></div><div><span class="label">GENRE</span><strong>Grid Puzzle</strong></div><div><span class="label">STATUS</span><strong>Prototype</strong></div></div>
-            //            <span class="section-h">HOOK</span>
-            //            <p>Tile-shift puzzler where routes unlock rhythmically.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/TileBound/TileBound Banner.png" alt="TileBound banner">
-            //                <img src="projects/TileBound/TileBound Screenshot 1 Crop.png" alt="TileBound screenshot">
-            //            </div>
-            //            <span class="section-h">SYSTEM</span>
-            //            <ul>
-            //                <li>Move budget tied to collected sigils; plan 3 steps ahead.</li>
-            //                <li>Dynamic hazards rotate rows/columns every few beats.</li>
-            //                <li>Level editor built for rapid iteration on puzzle seeds.</li>
-            //            </ul>`
-            // },
-
             'facially': {
                 title: "FACIALLY",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Computer Vision</strong></div><div><span class="label">TECH</span><strong>OpenCV, CNN</strong></div><div><span class="label">DOMAIN</span><strong>Expression</strong></div></div>
-                       <span class="section-h">OBJECTIVE</span>
                        <p>Real-time facial expression detection for adaptive interfaces.</p>
                        <div class="media-grid">
                            <img src="projects/Facially/1.png" alt="Facially frame">
-                           <img src="projects/Facially/2.png" alt="Facially dataset sample">
-                       </div>
-                       <span class="section-h">BUILD</span>
-                       <ul>
-                           <li>Dataset curation + augmentation across lighting/angles.</li>
-                           <li>Lightweight CNN with on-device inference for low latency.</li>
-                           <li>Telemetry layer to stream state to Unity/UX demos.</li>
-                       </ul>`
+                       </div>`
             },
 
+            // --- KEEPING EXISTING MODALS ---
             'vol_media': {
                 title: "COMMUNITY & MEDIA",
                 body: `
@@ -2864,177 +2505,10 @@
                         <img src="projects/IGDA/1722239781936.jpeg" alt="IGDC showcase still">
                         <img src="projects/Media1.gif" alt="Gameplay spotlight clip">
                     </div>
-
-                    <span class="section-h">PRESS, MENTIONS & RECOGS</span>
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-meta">Robotics / Games</div>
-                            <div class="press-title">Press Clips</div>
-                            <div class="press-desc">Coverage of Xbox Game Camp selection and EYRC finals; clippings available on request.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Podcasts + Campus</div>
-                            <div class="press-title">Interviews</div>
-                            <div class="press-desc">Indie game podcast guest spots and student Q&As on design career paths.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Fests & Showcases</div>
-                            <div class="press-title">Exhibitions</div>
-                            <div class="press-desc">Posters, installations, and booth showcases at college fests and local art drives.</div>
-                        </div>
-                    </div>
-
                     <div class="mentions-grid">
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/IGN_India.png" alt="IGN India logo">
-                            </div>
-                            <div class="mention-quote">
-                                "Unique concepts with simplistic gameplay."
-                                <span class="mention-source">First impressions feature - IGN India</span>
-                            </div>
-                        </div>
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/ludum_dare.png" alt="Ludum Dare logo">
-                            </div>
-                            <div class="mention-quote">
-                                "This art was so cute OML... loved collecting everything; I treasure this."
-                                <span class="mention-source">Player praise - Ludum Dare</span>
-                            </div>
-                        </div>
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/Xbox_GameCamp_Asia.png" alt="Xbox Game Camp Asia logo">
-                            </div>
-                            <div class="mention-quote">
-                                Chosen among Top 4 Indian studios for Xbox Game Camp Asia 2024.
-                                <span class="mention-source">Cohort selection - Xbox Game Camp Asia</span>
-                            </div>
-                        </div>
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/ItchIO.png" alt="itch.io logo">
-                            </div>
-                            <div class="mention-quote">
-                                "Concept of getting power by getting keys is nice; it could make a great Metroidvania..."
-                                <span class="mention-source">Community review - itch.io</span>
-                            </div>
-                        </div>
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/TimesOfIndia.png" alt="Times of India logo">
-                            </div>
-                            <div class="mention-quote">
-                                "Game development in India: Youngsters are taking lead."
-                                <span class="mention-source">Feature - The Times of India</span>
-                            </div>
-                        </div>
-                        <div class="mention-card">
-                            <div class="mention-logo">
-                                <img src="projects/Media/GamesGosipIndia.png" alt="Games Gossip India logo">
-                            </div>
-                            <div class="mention-quote">
-                                "10 Best Indian Games We Tried At India's Biggest Gaming Event | IGDC 2024."
-                                <span class="mention-source">Roundup - Games Gossip India</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-title">Feedback & Recos</div>
-                            <div class="press-desc">
-                                <ul style="margin:0 0 0 16px; padding:0; list-style: square; color: var(--text-dim); line-height:1.5;">
-                                    <li><strong>Mentors:</strong> "Reliable lead who ships fast, keeps documentation tidy."</li>
-                                    <li><strong>Teams:</strong> "Hands-on with design + code; unblocks with checklists and visuals."</li>
-                                    <li><strong>Community:</strong> "Brings energy to workshops; clear storytelling for beginners."</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">LEADERSHIP & COMMUNITY</span>
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-meta">CSR Outreach</div>
-                            <div class="press-title">Brillio NGO - Bringing Smiles</div>
-                            <div class="press-desc">Trained 50+ NGO staff in digital literacy; built curricula and assessment methods.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Public Speaking</div>
-                            <div class="press-title">Toastmasters (Brillio Chapter)</div>
-                            <div class="press-desc">Founded the chapter, mentored 20+ engineers, and ran speaking contests.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Mentorship</div>
-                            <div class="press-title">DAA Mentor</div>
-                            <div class="press-desc">Tutored juniors in Design & Analysis of Algorithms; reviewed capstone projects.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Fests & Showcases</div>
-                            <div class="press-title">Art Club - Anaadyanta</div>
-                            <div class="press-desc">Led stage art and immersive installations; managed a 30,000+ audience fest with a 300+ member team.</div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">PROFESSIONAL DEVELOPMENT</span>
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-meta">Conferences</div>
-                            <div class="press-title">Speaker + Attendee</div>
-                            <div class="press-desc">Regular attendee and speaker at technology and design conferences.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Open Source</div>
-                            <div class="press-title">Contributor</div>
-                            <div class="press-desc">Contributions across AI and game development repositories.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Mentorship</div>
-                            <div class="press-title">Community Mentor</div>
-                            <div class="press-desc">Active mentor for junior developers and design students.</div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">CREATIVE PURSUITS</span>
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-meta">Interactive Art</div>
-                            <div class="press-title">Large-Scale Installations</div>
-                            <div class="press-desc">Built immersive art installations blending technology and spatial design.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Music Tech</div>
-                            <div class="press-title">Performance Systems</div>
-                            <div class="press-desc">Explored music-technology interfaces and automated performances.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Travel</div>
-                            <div class="press-title">Cultural Research</div>
-                            <div class="press-desc">Travel for cultural research and international collaboration.</div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">COMMUNITY SERVICE</span>
-                    <div class="press-summary">
-                        <div class="press-card">
-                            <div class="press-meta">Digital Literacy</div>
-                            <div class="press-title">Volunteer Educator</div>
-                            <div class="press-desc">Led digital literacy training for underserved communities.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">STEM Education</div>
-                            <div class="press-title">Workshop Facilitator</div>
-                            <div class="press-desc">K-12 workshops in robotics and programming.</div>
-                        </div>
-                        <div class="press-card">
-                            <div class="press-meta">Sustainability</div>
-                            <div class="press-title">Tech for Good</div>
-                            <div class="press-desc">Participant in technology-for-sustainability initiatives.</div>
-                        </div>
-                    </div>
-                `
+                        <div class="mention-card"><div class="mention-logo"><img src="projects/Media/IGN_India.png" alt="IGN India"></div><div class="mention-quote">"Unique concepts with simplistic gameplay."</div></div>
+                        <div class="mention-card"><div class="mention-logo"><img src="projects/Media/Xbox_GameCamp_Asia.png" alt="Xbox Camp"></div><div class="mention-quote">Chosen among Top 4 Indian studios for Xbox Game Camp Asia 2024.</div></div>
+                    </div>`
             },
 
             'skills': {
@@ -3042,104 +2516,16 @@
                 body: `
                     <span class="section-h">PROGRAMMING</span>
                     <div class="chip-grid">
-                        <span class="chip">C</span>
-                        <span class="chip">C++</span>
-                        <span class="chip">Python</span>
-                        <span class="chip">Solidity</span>
-                        <span class="chip">T-SQL</span>
-                        <span class="chip">LaTeX</span>
+                        <span class="chip">C</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">Solidity</span><span class="chip">T-SQL</span>
                     </div>
-
                     <span class="section-h">ML + AI</span>
                     <div class="chip-grid">
-                        <span class="chip">TensorFlow</span>
-                        <span class="chip">Keras</span>
-                        <span class="chip">Scikit-Learn</span>
-                        <span class="chip">PyTorch</span>
-                        <span class="chip">OpenCV</span>
-                        <span class="chip">NumPy</span>
-                        <span class="chip">Pandas</span>
-                        <span class="chip">SciPy</span>
-                        <span class="chip">PyAudioAnalysis</span>
-                        <span class="chip">Deep Learning</span>
-                        <span class="chip">Computer Vision</span>
-                        <span class="chip">NLP</span>
-                        <span class="chip">CNN</span>
-                        <span class="chip">RNN</span>
-                        <span class="chip">DNN</span>
-                        <span class="chip">Transfer Learning</span>
+                        <span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">PyTorch</span><span class="chip">OpenCV</span><span class="chip">Deep Learning</span>
                     </div>
-
-                    <span class="section-h">DOMAINS</span>
+                    <span class="section-h">Design</span>
                     <div class="chip-grid">
-                        <span class="chip">Game design</span>
-                        <span class="chip">Robotics</span>
-                        <span class="chip">UX research</span>
-                        <span class="chip">Interactive design</span>
-                        <span class="chip">Business intelligence</span>
-                    </div>
-
-                    <span class="section-h">PLATFORMS & TOOLS</span>
-                    <div class="chip-grid">
-                        <span class="chip">Microsoft Azure</span>
-                        <span class="chip">Google Cloud Platform</span>
-                        <span class="chip">Google Colab</span>
-                        <span class="chip">Visual Studio</span>
-                        <span class="chip">VS Code</span>
-                        <span class="chip">Unity Engine</span>
-                        <span class="chip">Git</span>
-                        <span class="chip">Anaconda</span>
-                        <span class="chip">Spyder</span>
-                        <span class="chip">Jupyter</span>
-                    </div>
-
-                    <span class="section-h">DESIGN & CREATIVE</span>
-                    <div class="chip-grid">
-                        <span class="chip">Adobe Creative Cloud</span>
-                        <span class="chip">Photoshop</span>
-                        <span class="chip">Illustrator</span>
-                        <span class="chip">After Effects</span>
-                        <span class="chip">Premiere Pro</span>
-                        <span class="chip">Figma</span>
-                        <span class="chip">Sketch</span>
-                        <span class="chip">Linearity</span>
-                        <span class="chip">Blender</span>
-                        <span class="chip">Unity 3D</span>
-                        <span class="chip">CAD</span>
-                        <span class="chip">C# scripting</span>
-                    </div>
-
-                    <span class="section-h">DATA & ANALYTICS</span>
-                    <div class="chip-grid">
-                        <span class="chip">ETL pipelines</span>
-                        <span class="chip">Data warehousing</span>
-                        <span class="chip">Business intelligence</span>
-                        <span class="chip">Data visualization</span>
-                        <span class="chip">Dashboarding</span>
-                        <span class="chip">SQL Server</span>
-                        <span class="chip">MySQL</span>
-                        <span class="chip">NoSQL</span>
-                    </div>
-
-                    <span class="section-h">WORKFLOW</span>
-                    <div class="chip-grid">
-                        <span class="chip">JIRA</span>
-                        <span class="chip">Agile</span>
-                        <span class="chip">Scrum</span>
-                        <span class="chip">Project management</span>
-                    </div>
-
-                    <span class="section-h">LANGUAGES</span>
-                    <div class="chip-grid">
-                        <span class="chip">English (Fluent)</span>
-                        <span class="chip">Hindi (Native)</span>
-                    </div>
-
-                    <span class="section-h">CREDENTIAL</span>
-                    <div class="credly-embed">
-                        <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
-                    </div>
-                `
+                        <span class="chip">Adobe CC</span><span class="chip">Figma</span><span class="chip">Unity</span>
+                    </div>`
             }
         };
 
@@ -3217,8 +2603,10 @@
                     link.rel = 'noopener';
                     link.className = 'itch-link-btn';
                     link.innerText = 'Play on itch.io';
-                    link.dataset.paletteLight = JSON.stringify(game.palette.light);
-                    link.dataset.paletteDark = JSON.stringify(game.palette.dark);
+                    if (game.palette) {
+                        link.dataset.paletteLight = JSON.stringify(game.palette.light);
+                        link.dataset.paletteDark = JSON.stringify(game.palette.dark);
+                    }
                     card.appendChild(link);
                 }
 
@@ -3226,13 +2614,6 @@
                 tagLine.className = 'mini-tags';
                 tagLine.innerText = game.account ? `${game.account}.itch.io` : 'itch.io';
                 card.appendChild(tagLine);
-
-                if (!game.embedId) {
-                    const note = document.createElement('div');
-                    note.className = 'mini-note';
-                    note.innerText = 'Widget slot: add itch embed here';
-                    card.appendChild(note);
-                }
 
                 frag.appendChild(card);
             });
@@ -3256,9 +2637,9 @@
             const links = document.querySelectorAll('.itch-link-btn');
             links.forEach(link => {
                 const pal = isLight ? JSON.parse(link.dataset.paletteLight || '{}') : JSON.parse(link.dataset.paletteDark || '{}');
-                link.style.background = pal.bg || 'var(--bg-panel)';
-                link.style.color = pal.fg || 'var(--text-main)';
-                link.style.borderColor = pal.border || 'var(--line)';
+                if (pal.bg) link.style.background = pal.bg;
+                if (pal.fg) link.style.color = pal.fg;
+                if (pal.border) link.style.borderColor = pal.border;
             });
         }
 
@@ -3534,6 +2915,19 @@
             const modalScroll = document.querySelector('.modal-scroll');
             if (modalScroll) modalScroll.scrollTop = 0;
         }
+
+        // --- PRELOAD SCRIPT FOR PDF PERFORMANCE ---
+        // Fetches heavy PDFs in bg to disk cache so they open instantly
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pdfs = [
+                    "projects/Ankit%20Kumar%20portfolio%20draft.pdf",
+                    "Ankit%20Resume%20Design%20Copy.pdf",
+                    "projects/keybound/KIGI%20KeyBound%20Krafton%20Pitch.pdf"
+                ];
+                pdfs.forEach(url => fetch(url).then(r => r.blob()).catch(e => console.log('Preload skipped', e)));
+            }, 2000); // Delay slightly to prioritize UI load
+        });
     </script>
 </body>
 

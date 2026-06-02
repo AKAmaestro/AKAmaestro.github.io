@@ -13,9 +13,24 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
         rel="stylesheet">
+
+    <!-- PERF: warm up external hosts used by embeds / paper reader -->
+    <link rel="preconnect" href="https://doi.org" crossorigin>
+    <link rel="preconnect" href="https://itch.io" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
+
+    <!-- PERF: prefetch reader PDFs so the in-modal viewer opens instantly when clicked.
+         rel="prefetch" is low-priority and does NOT block first paint. -->
+    <link rel="prefetch" as="document" href="Ankit%20Resume%20Design%20Copy.pdf">
+    <link rel="prefetch" as="document" href="projects/Ankit%20Kumar%20portfolio%20draft.pdf">
+    <link rel="prefetch" as="document" href="projects/keybound/KIGI%20KeyBound%20Krafton%20Pitch.pdf">
+
+    <!-- PERF: preload the only above-the-fold images so the hero paints without a flash. -->
+    <link rel="preload" as="image" href="projects/Ankit/akamaestro.png">
 
     <style>
         /* --- 1. THEME ENGINE --- */
@@ -1125,6 +1140,16 @@
             flex-wrap: wrap;
         }
 
+        /* Buttons inside flex rows shouldn't inherit action-btn's stacked margin-top. */
+        .embed-actions .action-btn {
+            margin-top: 0;
+        }
+
+        .bio-actions {
+            margin-top: 12px;
+            align-items: center;
+        }
+
         .embed-btn {
             padding: 10px 14px;
             border: 1px solid var(--accent);
@@ -1930,13 +1955,6 @@
                         <h2 class="h-title">Mocking Bot</h2><span class="h-sub">BIO-MIMETIC AUDIO</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('xbox')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/xbox-camp/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_03: RESEARCH</span>
-                        <h2 class="h-title">Xbox Camp</h2><span class="h-sub">UXR STRATEGY</span>
-                    </div>
-                </div> -->
                 <div class="work-item hover-trigger" onclick="openModal('retina')">
                     <div class="corner-deco"></div>
                     <img src="projects/retina-ai/1.png" class="work-bg">
@@ -1965,20 +1983,6 @@
                         <h2 class="h-title">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('neura')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/neuranode/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_07: WEB3</span>
-                        <h2 class="h-title">NeuraNode</h2><span class="h-sub">AI + BLOCKCHAIN</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('teqip')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/retina-ai/cover.svg" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_08: GRANT</span>
-                        <h2 class="h-title">Covid CT</h2><span class="h-sub">VOLUMETRIC AI</span>
-                    </div>
-                </div> -->
                 <div class="work-item hover-trigger" onclick="openModal('facially')">
                     <div class="corner-deco"></div>
                     <img src="projects/Facially/Picture18.png" class="work-bg">
@@ -1987,14 +1991,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="work-item hover-trigger" onclick="openModal('atomica')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/Atomica/Atomica Banner GIF.gif" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_10: ACTION</span>
-                        <h2 class="h-title">Atomica</h2><span class="h-sub">ROGUE IMMERSION</span>
-                    </div>
-                </div> -->
-
                 <div class="work-item hover-trigger" onclick="openModal('arts')">
                     <div class="corner-deco"></div>
                     <img src="projects/Arts/Picture20.jpg" class="work-bg">
@@ -2002,28 +1998,6 @@
                         <h2 class="h-title">Arts</h2><span class="h-sub">POSTER LAB</span>
                     </div>
                 </div>
-                <!-- <div class="work-item hover-trigger" onclick="openModal('brubble')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/Brubble/Brubble Title.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_13: MOBILE</span>
-                        <h2 class="h-title">Brubble</h2><span class="h-sub">CASUAL FUN</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('retro')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/RetroBellion/RetroBellion GIF.gif" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_14: ARCADE</span>
-                        <h2 class="h-title">RetroBellion</h2><span class="h-sub">NEO PIXEL</span>
-                    </div>
-                </div> -->
-                <!-- <div class="work-item hover-trigger" onclick="openModal('tilebound')">
-                    <div class="corner-deco"></div>
-                    <img src="projects/TileBound/TileBound Banner.png" class="work-bg">
-                    <div class="work-content"><span class="label">WORK_15: PUZZLE</span>
-                        <h2 class="h-title">TileBound</h2><span class="h-sub">TACTICAL GRID</span>
-                    </div>
-                </div> -->
-
             </div>
 
             <div class="panel area-portfolio hover-trigger" onclick="openModal('portfolio-pdf')"
@@ -2110,17 +2084,16 @@
                 </div>
             </div>
 
-            <!-- Research grid hidden (covered by Career Runway)
             <div class="panel area-rsch hover-trigger" onclick="openModal('rsch')">
                 <span class="label">ARCHIVE <span>+</span></span>
                 <div>
                     <h2 class="h-title">Research Dossier</h2>
-                    <div style="margin-top:15px;"></div>
+                    <span class="h-sub">Publications // medical AI</span>
                 </div>
             </div>
-            -->
 
-            <div class="panel area-void" aria-hidden="true"></div>
+            <div class="panel area-void" aria-hidden="true" style="--grid-col: 5 / span 2; --grid-row: 13 / span 1;">
+            </div>
             <div class="panel area-void" aria-hidden="true" style="--grid-col: 7 / span 2; --grid-row: 13 / span 1;">
             </div>
 
@@ -2244,10 +2217,6 @@
                                 <div class="fact-value">New Delhi, India</div>
                             </div>
                             <div class="fact-card">
-                                <div class="fact-label">Email</div>
-                                <div class="fact-value">akamaestro@outlook.com</div>
-                            </div>
-                            <div class="fact-card">
                                 <div class="fact-label">Phone</div>
                                 <div class="fact-value">+91-9958295598</div>
                             </div>
@@ -2267,10 +2236,11 @@
                             <span class="chip">UX research</span>
                         </div>
 
-                        <div class="embed-actions" style="margin-top:12px;">
-                            <a href="mailto:akamaestro@outlook.com" class="action-btn" style="margin-top:0;">✉ Email</a>
-                            <a href="https://www.linkedin.com/in/akamestro" target="_blank" class="action-btn" style="margin-top:0;"> LinkedIn</a>
-                            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" class="action-btn" style="margin-top:0;"> Instagram</a>
+                        <span class="section-h">Connect</span>
+                        <div class="embed-actions bio-actions">
+                            <a href="mailto:akamaestro@outlook.com" class="action-btn">Email</a>
+                            <a href="https://www.linkedin.com/in/akamestro" target="_blank" rel="noopener" class="action-btn">LinkedIn</a>
+                            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" class="action-btn">Instagram</a>
                         </div>
                     </div>`
             },
@@ -2353,37 +2323,6 @@
                             <div class="ic-desc">Research publication in peer-reviewed journal; National-level robotics competition finalist (4th/7,173 teams); Government research grant recipient for COVID-19 detection system.</div>
                         </div>
                     </div>
-
-                    <span class="section-h">RESEARCH DOSSIER</span>
-                    <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:14px;">Click a publication card to open the paper reader.</p>
-                    <div class="info-grid">
-                        <div class="info-card paper-trigger" data-url="https://doi.org/10.30534/ijeter/2020/155872020" data-title="Diabetic Retinopathy Detection (IJETER, 2020)">
-                            <div class="ic-head"><span class="ic-title">Diabetic Retinopathy Detection</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>First Author.</strong> "Screening of Diabetic Retinopathy and its stages using Deep Neural Networks on Retinal optical Images".<br>
-                                <em>International Journal of Emerging Trends in Engineering Research (IJETER).</em>
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="Diabetic Retinopathy Detection and Grading (Journal of Diabetes Medication & Care)">
-                            <div class="ic-head"><span class="ic-title">DR Detection and Grading</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
-                            </div>
-                        </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
-                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
-                            <div class="ic-desc">
-                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
-                            </div>
-                        </div>
-                    </div>
-
-                    <span class="section-h">RESEARCH IMPACT</span>
-                    <ul>
-                        <li>97.46% accuracy for diabetic retinopathy detection; 73% accuracy for severity grading.</li>
-                        <li>Research cited in subsequent medical AI studies.</li>
-                        <li>Applied ML to real-world diagnostics and clinician workflows.</li>
-                    </ul>
                 `
             },
 
@@ -2450,13 +2389,28 @@
                                 <strong>Author.</strong> Published in <em>Journal of Diabetes Medication & Care</em> (Volume 3, Issue 6). Presented at 5th International Conference on Diabetes and Endocrinology.
                             </div>
                         </div>
-                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 Screening System (TEQIP)">
-                            <div class="ic-head"><span class="ic-title">COVID-19 Screening System</span><span class="ic-date">2020</span></div>
+                        <div class="info-card paper-trigger" data-url="" data-title="COVID-19 CT Screening System (TEQIP Grant)">
+                            <div class="ic-head"><span class="ic-title">COVID-19 CT Screening System</span><span class="ic-date">2020</span></div>
                             <div class="ic-desc">
-                                <strong>Project Venture.</strong> TEQIP-supported CT screening pipeline for rapid COVID-19 detection using deep neural networks.
+                                <strong>Researcher · TEQIP Innovation Grant.</strong> Government-funded CT triage pipeline for rapid COVID-19 detection using deep neural networks — built to flag suspect scans fast for clinicians.
                             </div>
                         </div>
                     </div>
+
+                    <span class="section-h">COVID-19 CT SCREENING — TEQIP GRANT</span>
+                    <p>Rapid COVID-19 CT triage: a TEQIP government grant supported a fast-flagging pipeline that surfaces suspect scans for clinicians, cutting time-to-review during peak load.</p>
+                    <div class="media-grid">
+                        <img src="projects/Covid CT/covid.png" alt="COVID CT slice sample">
+                        <img src="projects/Covid CT/covid2.png" alt="COVID CT detection overlay">
+                        <img src="projects/Covid CT/covid3.png" alt="COVID CT classification heatmap">
+                        <img src="projects/Covid CT/covid4.png" alt="COVID CT pipeline output">
+                        <img src="projects/Covid CT/covid5.png" alt="COVID CT result sample">
+                    </div>
+                    <ul>
+                        <li><strong>Data curation:</strong> Assembled and pre-processed a dataset of anonymised CT slices.</li>
+                        <li><strong>Model design:</strong> Experimented with 2D and 3D CNN architectures for classification and heatmap localisation.</li>
+                        <li><strong>Prototype:</strong> Built a proof-of-concept web interface for clinicians to review flagged scans.</li>
+                    </ul>
 
                     <span class="section-h">RESEARCH IMPACT</span>
                     <ul>
@@ -2611,23 +2565,6 @@
                        <p>During national finals at IIT Bombay, the robot performed live demos, accurately mimicking musicians. Earned 4th place out of 7,173 teams.</p>`
             },
 
-            // 'xbox': {
-            //     title: "XBOX GAME CAMP",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Studio Accelerator Participant</strong></div><div><span class="label">FOCUS</span><strong>UXR + Production</strong></div><div><span class="label">YEAR</span><strong>2024</strong></div></div>
-            //            <span class="section-h">RESPONSIBILITIES</span>
-            //            <div class="media-grid">
-            //                <img src="projects/xbox-camp/cover.svg" alt="Xbox Camp cover">
-            //            </div>
-            //            <ul>
-            //                <li><strong>Ideation:</strong> Collaborated with Xbox mentors on game mechanics, player experience goals, and production frameworks.</li>
-            //                <li><strong>UX Refinement:</strong> Built user flows, onboarding sequences, and interaction diagrams to validate concepts.</li>
-            //                <li><strong>Production:</strong> Scoped features, estimated budgets, and aligned milestones for studio pitches.</li>
-            //                <li><strong>Validation:</strong> Tested market fit with industry veterans; refined pitch deck for publisher conversations.</li>
-            //            </ul>
-            //            <span class="section-h">KEY LEARNINGS</span>
-            //            <p>Learned how to translate messy prototypes into clear marketable pitches and collaborate across global partners. Received direct mentorship on design thinking and production methods.</p>`
-            // },
-
             'retina': {
                 title: "RETINOPATHY AI",
                 body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>First Author</strong></div><div><span class="label">TECH</span><strong>Deep Learning, CNN</strong></div><div><span class="label">DOMAIN</span><strong>Healthcare</strong></div></div>
@@ -2646,36 +2583,6 @@
                        <span class="section-h">RESULTS</span>
                        <p>Achieved 97.46% detection accuracy and 73% severity grading accuracy. Resulted in peer-reviewed publications and subsequent citations.</p>`
             },
-
-            // 'teqip': {
-            //     title: "COVID-19 CT SCREENING",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Researcher</strong></div><div><span class="label">GRANT</span><strong>TEQIP Innovation</strong></div><div><span class="label">YEAR</span><strong>2020</strong></div></div>
-            //            <span class="section-h">MOTIVATION</span>
-            //            <p>Rapid COVID-19 CT triage: TEQIP government grant supported a fast-flagging pipeline for clinicians.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/retina-ai/Picture5.png" alt="CT slice sample">
-            //            </div>
-            //            <span class="section-h">METHODOLOGY</span>
-            //            <ul>
-            //                <li><strong>Data Curation:</strong> Assembled dataset of anonymised CT slices.</li>
-            //                <li><strong>Model Design:</strong> Experimented with 2D and 3D CNN architectures for classification and heatmap localisation.</li>
-            //                <li><strong>Prototype:</strong> Created a proof-of-concept web interface for clinicians.</li>
-            //            </ul>`
-            // },
-
-            // 'neura': {
-            //     title: "NEURANODE",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead Designer</strong></div><div><span class="label">EVENT</span><strong>Avalanche Jam</strong></div><div><span class="label">RESULT</span><strong>Winner ($2,380)</strong></div></div>
-            //            <span class="section-h">CONTEXT</span>
-            //            <p>Game-jam prototypes testing on-chain player agency.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/neuranode/cover.svg" alt="Neuranode cover">
-            //            </div>
-            //            <span class="section-h">APPROACH</span>
-            //            <p>We divided our work into discovery, design, and implementation. Used game engine templates and Avalanche's dev tools to implement core loops within 36 hours.</p>
-            //            <span class="section-h">OUTCOME</span>
-            //            <p>Awarded first place for creative mechanics and technical execution, with a $2,380 prize. Broadened my understanding of decentralized game economies.</p>`
-            // },
 
             'timebound': {
                 title: "TIMEBOUND",
@@ -2730,28 +2637,32 @@
                            <li>Publishing partnerships with Microsoft Xbox and Sony PlayStation.</li>
                            <li>Showcased interactive prototypes at IGDC 2024 to refine game loops.</li>
                        </ul>
+                       <span class="section-h">XBOX GAME CAMP ASIA</span>
+                       <p>Selected as one of the Top 16 Asian studios (4 from India) for Microsoft Xbox's design-led studio accelerator — an intensive program on game ideation, experience design, production frameworks, and pitching.</p>
+                       <div class="media-grid">
+                           <img src="projects/Amnesea/xbox-game-camp-asia-2024-participant.png" alt="Xbox Game Camp Asia 2024 participant badge">
+                       </div>
+                       <ul>
+                           <li>Led UXR and production strategy for the studio prototype and pitch development.</li>
+                           <li>Validated market fit with industry veterans; refined the pitch deck for publisher negotiations.</li>
+                           <li>Collaborated with gaming organizations across five countries.</li>
+                           <li>Received direct mentorship from Xbox Studios experts on design thinking and production methods.</li>
+                       </ul>
+
+                       <span class="section-h">NEURANODE — AVALANCHE GAME JAM</span>
+                       <p>Game-jam venture under the studio testing on-chain player agency and decentralized game economies.</p>
+                       <ul>
+                           <li>Built core loops in under 36 hours using engine templates and Avalanche's dev tools.</li>
+                           <li><strong>Winner</strong> of the Avalanche X Neuranode Game Jam — $2,380 prize for creative mechanics and technical execution.</li>
+                       </ul>
+
                        <span class="section-h">CREDENTIAL</span>
                        <div class="credly-embed">
                            <div class="credly-badge" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
                        </div>
                        <span class="section-h">GAME BUILDS</span>
+                       <p style="font-family:var(--font-code); color:var(--text-dim); margin-bottom:8px;">Playable builds &amp; prototypes — Atomica, TileBound, RetroBellion, TimeBound, KeyBound and more, embedded live from itch.io.</p>
                        <div class="mini-grid" id="amnesea-games"></div>`
-            },
-
-            'atomica': {
-                title: "ATOMICA",
-                body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Director</strong></div><div><span class="label">GENRE</span><strong>Action / Rogue</strong></div><div><span class="label">PLATFORM</span><strong>PC</strong></div></div>
-                       <span class="section-h">HOOK</span>
-                       <p>Fast-paced loop with synthwave aesthetic and chunky VFX.</p>
-                       <div class="media-grid">
-                           <img src="projects/Atomica/Atomica Banner GIF.gif" alt="Atomica banner">
-                       </div>
-                       <span class="section-h">BUILD NOTES</span>
-                       <ul>
-                           <li>Responsive twin-stick controls tuned via player labs.</li>
-                           <li>Modular enemy AI states for emergent encounters.</li>
-                           <li>Shader-driven hits and HUD for readable impact.</li>
-                       </ul>`
             },
 
             'arnft': {
@@ -2788,55 +2699,6 @@
                            <li>Delivered export-ready assets in multi-format specs.</li>
                        </ul>`
             },
-
-            // 'brubble': {
-            //     title: "BRUBBLE",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Game Designer</strong></div><div><span class="label">PLATFORM</span><strong>Mobile</strong></div><div><span class="label">STATE</span><strong>Prototype</strong></div></div>
-            //            <span class="section-h">PITCH</span>
-            //            <p>One-thumb arcade runner with sticky bubble physics.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/Brubble/Brubble Title.png" alt="Brubble title">
-            //            </div>
-            //            <span class="section-h">KEYS</span>
-            //            <ul>
-            //                <li>Juicy collisions and squash-stretch motion curves.</li>
-            //                <li>Difficulty ramps via procedural obstacle seeds.</li>
-            //                <li>Session goals tuned for 60-90 second loops.</li>
-            //            </ul>`
-            // },
-
-            // 'retro': {
-            //     title: "RETRO BELLION",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Lead</strong></div><div><span class="label">GENRE</span><strong>Arcade</strong></div><div><span class="label">VIBE</span><strong>Neon Pixel</strong></div></div>
-            //            <span class="section-h">OVERVIEW</span>
-            //            <p>Modern arcade homage with crunchy sprites and boss rush pacing.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/RetroBellion/RetroBellion GIF.gif" alt="RetroBellion gameplay">
-            //            </div>
-            //            <span class="section-h">FEATURES</span>
-            //            <ul>
-            //                <li>Layered parallax + scanline treatments for depth.</li>
-            //                <li>Boss patterns scripted for readable telegraphs.</li>
-            //                <li>Adaptive music stems that react to combo state.</li>
-            //            </ul>`
-            // },
-
-            // 'tilebound': {
-            //     title: "TILEBOUND",
-            //     body: `<div class="m-meta"><div><span class="label">ROLE</span><strong>Designer</strong></div><div><span class="label">GENRE</span><strong>Grid Puzzle</strong></div><div><span class="label">STATUS</span><strong>Prototype</strong></div></div>
-            //            <span class="section-h">HOOK</span>
-            //            <p>Tile-shift puzzler where routes unlock rhythmically.</p>
-            //            <div class="media-grid">
-            //                <img src="projects/TileBound/TileBound Banner.png" alt="TileBound banner">
-            //                <img src="projects/TileBound/TileBound Screenshot 1 Crop.png" alt="TileBound screenshot">
-            //            </div>
-            //            <span class="section-h">SYSTEM</span>
-            //            <ul>
-            //                <li>Move budget tied to collected sigils; plan 3 steps ahead.</li>
-            //                <li>Dynamic hazards rotate rows/columns every few beats.</li>
-            //                <li>Level editor built for rapid iteration on puzzle seeds.</li>
-            //            </ul>`
-            // },
 
             'facially': {
                 title: "FACIALLY",

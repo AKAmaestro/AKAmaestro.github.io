@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade — Play AKAmaestro's Games</title>
+    <meta name="description" content="14 playable games by Ankit Kumar / Amnesea — arcade shooters, puzzle platformers, RPGs. Play in your browser via itch.io.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/core.css">
+    <style>
+        :root {
+            --accent: #ff2d95;
+            --accent-rgb: 255, 45, 149;
+            --bg: #06000d;
+            --panel: #10041cde;
+            --hover: #1a0a2b;
+            --line: #3b1d5e;
+            --line-dim: #22103a;
+        }
+        body.light-mode {
+            --bg: #f3eefc; --panel: #ffffff; --hover: #f7f2ff;
+            --line: #c9b8e8; --line-dim: #e0d5f2;
+            --accent: #b3005f; --accent-rgb: 179, 0, 95;
+        }
+
+        /* CRT scanlines */
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+        }
+
+        .page-title { font-family: 'Press Start 2P', var(--font-code); font-size: clamp(1.3rem, 4.5vw, 2.6rem); line-height: 1.3; letter-spacing: 0; }
+        .coin { font-family: 'Press Start 2P', var(--font-code); font-size: .6rem; color: var(--accent); animation: blink 1.2s infinite; }
+        @keyframes blink { 50% { opacity: .2; } }
+
+        .cab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 30px; }
+        .cab {
+            background: var(--panel); border: 1px solid var(--line);
+            padding: 18px; display: flex; flex-direction: column; gap: 10px;
+            transition: .25s; position: relative; z-index: 2;
+        }
+        .cab:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(var(--accent-rgb), .25); }
+        .cab .g-name { font-family: 'Press Start 2P', var(--font-code); font-size: .8rem; line-height: 1.5; }
+        .cab .g-tag { color: var(--dim); font-size: .88rem; line-height: 1.5; flex: 1; }
+        .cab .g-meta { font-family: var(--font-code); font-size: .68rem; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+        .cab .slot { border: 1px dashed var(--line); min-height: 175px; display: grid; place-items: center; }
+        .cab .slot iframe { width: 100%; height: 175px; border: none; }
+        .cab .insert-coin {
+            font-family: 'Press Start 2P', var(--font-code); font-size: .6rem;
+            background: none; border: 1px solid var(--accent); color: var(--accent);
+            padding: 12px 14px; cursor: pointer; transition: .2s;
+        }
+        .cab .insert-coin:hover { background: var(--accent); color: #000; }
+        .cab .g-link { font-family: var(--font-code); font-size: .75rem; }
+
+        .clip-row video { width: 100%; border: 1px solid var(--line); }
+    </style>
+</head>
+
+<body data-up="index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="index.html">©AKAmaestro</a> <span>/ ARCADE</span></div>
+        <div class="nav-links">
+            <a href="index.html#works">Work</a>
+            <a href="about.html">About</a>
+            <a href="journey.html">Journey</a>
+            <a href="signals.html">Signals</a>
+            <a href="arcade.html" class="active">Arcade</a>
+            <a href="vault.html" class="vault-link">Vault</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame">
+        <span class="label" style="display:block; margin-top:34px;">PLAYABLE_BUILDS // ESC RETURNS HOME</span>
+        <h1 class="page-title">THE ARCADE</h1>
+        <p class="coin" style="margin-top:14px;">◉ INSERT COIN TO LOAD A CABINET ◉</p>
+        <p style="color:var(--dim); margin-top:16px; max-width:640px; line-height:1.6;">
+            14 games across three itch.io labels — <strong style="color:var(--text);">AKAmaestro</strong>,
+            <strong style="color:var(--text);">Amnesea</strong>, and collaborations. Every cabinet loads a live,
+            playable embed. Best on desktop.
+        </p>
+
+        <div class="cab-grid" id="cab-grid"></div>
+
+        <span class="section-h">ATTRACT MODE — GAMEPLAY CLIPS</span>
+        <div class="media-grid clip-row rv">
+            <video src="projects/Atomica/Atomica%20Gameplay%20GIF%20Optimised.mp4" poster="projects/Atomica/Atomica%20Gameplay%20GIF%20Optimised.poster.webp" autoplay muted loop playsinline></video>
+            <video src="projects/RetroBellion/RetroBellion%20GIF.mp4" poster="projects/RetroBellion/RetroBellion%20GIF.poster.webp" autoplay muted loop playsinline></video>
+            <video src="projects/timebound/TimeBound%20Cover%20Compressed.mp4" poster="projects/timebound/TimeBound%20Cover%20Compressed.poster.webp" autoplay muted loop playsinline></video>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div class="f-links"><a href="index.html">← Back to home</a> <a href="https://akamaestro.itch.io" target="_blank" rel="noopener">itch.io profile ↗</a></div>
+    </footer>
+
+    <script src="assets/js/core.js"></script>
+    <script>
+        const GAMES = [
+            { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", tagline: "Every trace you leave powers your future." },
+            { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!" },
+            { name: "Kinetica", account: "AKAmaestro", url: "https://akamaestro.itch.io/kinetica", embedId: "3013014", tagline: "A bullet-hell where everything you pick up becomes a weapon!" },
+            { name: "Quanta", account: "AKAmaestro", url: "https://akamaestro.itch.io/quanta", embedId: "3374993", tagline: "Blast through the periodic table in this fast-paced arcade shooter." },
+            { name: "Atomica", account: "AKAmaestro", url: "https://akamaestro.itch.io/atomica", embedId: "2848461", tagline: "Chemistry meets chaos! A periodic shooter experiment." },
+            { name: "DogeDash (Touchscreen)", account: "AKAmaestro", url: "https://akamaestro.itch.io/dogedash", embedId: "3472181", tagline: "Much speed. Very dodge. Touch-based survival challenge." },
+            { name: "TrapTile", account: "Amnesea", url: "https://amnesea.itch.io/traptile", embedId: "3370444", tagline: "Strategy · Shifting tiles where every move could be a trap." },
+            { name: "Hop n Drop", account: "Amnesea", url: "https://amnesea.itch.io/hop-n-drop", embedId: "3367884", tagline: "Casual · Fast-paced grid-based vertical platforming." },
+            { name: "TileBound", account: "Collab", url: "https://agrmayank.itch.io/tilebound", embedId: "2989067", tagline: "Experimental · Navigate a shifting playfield of survival." },
+            { name: "ShapeBound", account: "Collab", url: "https://agrmayank.itch.io/shapebound", embedId: "2310807", tagline: "Action · Bound to roll, destined to rebound." },
+            { name: "TimeBound", account: "Collab", url: "https://agrmayank.itch.io/timebound", embedId: "2267076", tagline: "RPG · A genre-shifting legacy of history and manipulation." },
+            { name: "KeyBound", account: "Collab", url: "https://agrmayank.itch.io/keybound", embedId: "2294357", tagline: "Platformer · A journey of reclamation in a locked world." },
+            { name: "RetroBellion", account: "Collab", url: "https://agrmayank.itch.io/retrobellion", embedId: "2275688", tagline: "8-Bit · Classic platforming mechanics with a rebellious twist." },
+            { name: "Bomb the Dead", account: "Collab", url: "https://agrmayank.itch.io/bomb-the-dead", embedId: "3519712", tagline: "Horror · AI-powered survival in the zombie depths." },
+        ];
+
+        const grid = document.getElementById('cab-grid');
+        GAMES.forEach((g, i) => {
+            const cab = document.createElement('div');
+            cab.className = 'cab rv';
+            cab.innerHTML = `
+                <div class="g-meta">CABINET_${String(i + 1).padStart(2, '0')} // ${g.account}</div>
+                <div class="g-name">${g.name}</div>
+                <div class="g-tag">${g.tagline}</div>
+                <div class="slot">
+                    <button class="insert-coin">▶ INSERT COIN</button>
+                </div>
+                <a class="g-link" href="${g.url}" target="_blank" rel="noopener">open on itch.io ↗</a>`;
+            cab.querySelector('.insert-coin').addEventListener('click', () => {
+                const dark = !document.body.classList.contains('light-mode');
+                const p = dark
+                    ? 'bg_color=10041c&fg_color=eee6ff&link_color=ff2d95&border_color=3b1d5e'
+                    : 'bg_color=ffffff&fg_color=222222&link_color=b3005f&border_color=c9b8e8';
+                cab.querySelector('.slot').innerHTML =
+                    `<iframe frameborder="0" src="https://itch.io/embed/${g.embedId}?${p}" title="${g.name}"></iframe>`;
+            });
+            grid.appendChild(cab);
+        });
+    </script>
+</body>
+
+</html>

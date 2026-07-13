@@ -66,8 +66,9 @@
             <div class="lock">🔒</div>
             <h1>RESTRICTED_SECTOR</h1>
             <p>This area is AES-256 encrypted. Content only decrypts in your browser with a valid access key.
-                Different keys reveal different dossiers. Nothing here is readable without one — not even in the
-                source code.</p>
+                Different keys reveal different levels of data — and once unlocked, your access follows you across
+                every page of this site (look for the ACCESS tab). Nothing here is readable without a key — not even
+                in the source code.</p>
             <form id="unlock-form" autocomplete="off">
                 <input type="password" id="pw" placeholder="ENTER ACCESS KEY" autofocus>
                 <button type="submit">UNLOCK</button>
@@ -128,32 +129,43 @@
             return opened;
         }
 
-        document.getElementById('unlock-form').addEventListener('submit', async e => {
-            e.preventDefault();
+        async function attemptUnlock(pw, remember) {
             const msg = document.getElementById('msg');
             msg.className = 'msg';
             msg.textContent = 'DERIVING KEY… (this takes a second — that\'s the security)';
-            const pw = document.getElementById('pw').value;
             try {
                 const opened = await tryUnlock(pw);
                 if (!opened.length) {
                     msg.className = 'msg err';
                     msg.textContent = '✗ ACCESS DENIED — invalid key';
+                    sessionStorage.removeItem('aka-vault-key');
                     return;
                 }
+                if (remember) sessionStorage.setItem('aka-vault-key', pw);
                 msg.className = 'msg ok';
                 msg.textContent = `✓ ${opened.length} DOSSIER(S) DECRYPTED`;
                 const box = document.getElementById('vault-content');
                 box.innerHTML = opened.map(s =>
                     `<div class="v-section"><h2>${s.title}</h2><div class="v-body">${s.html}</div></div>`).join('') +
-                    `<button class="btn lock-again" onclick="location.reload()">🔒 LOCK VAULT</button>`;
+                    `<button class="btn lock-again" onclick="sessionStorage.removeItem('aka-vault-key');location.reload()">🔒 LOCK VAULT</button>`;
                 box.style.display = 'block';
                 document.getElementById('gate').style.display = 'none';
             } catch (err) {
                 msg.className = 'msg err';
-                msg.textContent = '✗ VAULT OFFLINE — ' + err.message;
+                msg.textContent = '✗ VAULT OFFLINE — ' + (location.protocol === 'file:'
+                    ? 'open via a local server or akamaestro.com (file:// blocks vault data)'
+                    : err.message);
             }
+        }
+
+        document.getElementById('unlock-form').addEventListener('submit', e => {
+            e.preventDefault();
+            attemptUnlock(document.getElementById('pw').value, true);
         });
+
+        // key already entered via the site-wide ACCESS tab? unlock immediately
+        const stored = sessionStorage.getItem('aka-vault-key');
+        if (stored) attemptUnlock(stored, false);
     </script>
 </body>
 

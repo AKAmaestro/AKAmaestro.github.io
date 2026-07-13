@@ -92,9 +92,50 @@
         addEventListener('scroll', () => b.classList.toggle('show', scrollY > 500), { passive: true });
     }
 
-    /* ---------- ESC = up one level (old modal-close muscle memory) ---------- */
+    /* ---------- POPUP ENGINE (info briefs, booking, vault) ---------- */
+    let popEl = null;
+
+    function ensurePop() {
+        if (popEl) return popEl;
+        popEl = document.createElement('div');
+        popEl.className = 'pop-overlay';
+        popEl.innerHTML = '<div class="pop-card"><button class="pop-close" aria-label="Close">✕</button><h3></h3><div class="pop-body"></div></div>';
+        document.body.appendChild(popEl);
+        popEl.addEventListener('click', e => { if (e.target === popEl) closePop(); });
+        popEl.querySelector('.pop-close').addEventListener('click', closePop);
+        return popEl;
+    }
+
+    window.openPop = function (title, bodyHTML) {
+        const p = ensurePop();
+        p.querySelector('h3').textContent = title;
+        p.querySelector('.pop-body').innerHTML = bodyHTML;
+        p.classList.add('active');
+        const first = p.querySelector('input, a, button:not(.pop-close)');
+        if (first) first.focus();
+    };
+
+    window.closePop = function () { if (popEl) popEl.classList.remove('active'); };
+    function popActive() { return popEl && popEl.classList.contains('active'); }
+
+    function initPopTriggers() {
+        document.addEventListener('click', e => {
+            const t = e.target.closest('[data-pop]');
+            if (!t) return;
+            if (e.target.closest('a[href]')) return; // real links inside cards still work
+            let body = t.dataset.popBody || '';
+            if (t.dataset.popSrc) {
+                const tpl = document.querySelector(t.dataset.popSrc);
+                if (tpl) body = tpl.innerHTML;
+            }
+            openPop(t.dataset.popTitle || t.dataset.pop || 'INFO', body);
+        });
+    }
+
+    /* ---------- ESC = close popup > lightbox > up one level ---------- */
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
+            if (popActive()) { closePop(); return; }
             if (lbActive()) { closeLB(); return; }
             const up = document.body.dataset.up;
             if (up) location.href = up;
@@ -104,6 +145,81 @@
             openLB(lbIndex);
         }
     });
+
+    /* ---------- SITE-WIDE VAULT ACCESS ---------- */
+    const VAULT_ROOT = location.pathname.includes('/work/') ? '../' : '';
+    const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+    async function vaultDerive(pw, salt, iterations) {
+        const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+        return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations, hash: 'SHA-256' },
+            base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    }
+
+    window.vaultTryUnlock = async function (pw) {
+        const res = await fetch(VAULT_ROOT + 'assets/vault-data.json');
+        if (!res.ok) throw new Error('vault data unreachable');
+        const data = await res.json();
+        const opened = [];
+        for (const sec of data.sections) {
+            for (const w of sec.wraps) {
+                try {
+                    const kek = await vaultDerive(pw, b64d(w.salt), data.kdf.iterations);
+                    const raw = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(w.iv) }, kek, b64d(w.wk));
+                    const ck = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, false, ['decrypt']);
+                    const html = new TextDecoder().decode(
+                        await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(sec.iv) }, ck, b64d(sec.ct)));
+                    opened.push({ id: sec.id, title: sec.title, html });
+                    break;
+                } catch (_) { /* this wrap doesn't match — try next */ }
+            }
+        }
+        return opened;
+    };
+
+    function vaultGranted() { return !!sessionStorage.getItem('aka-vault-key'); }
+
+    function vaultPopBody() {
+        const note = vaultGranted()
+            ? '<p><strong style="color:var(--accent);">● ACCESS ACTIVE</strong> — your key is loaded for this session.</p><div class="pop-actions"><a href="' + VAULT_ROOT + 'vault.html"><span class="big">🗝</span> Open the vault dossiers</a></div><p style="margin-top:12px;"><a href="#" onclick="sessionStorage.removeItem(\'aka-vault-key\');location.reload();return false;">Lock again ↺</a></p>'
+            : '<p>Some content on this site is <strong>AES-256 encrypted</strong>. If you\'ve been given an access key, enter it here — it unlocks that level of data across every page for this session.</p>' +
+            '<div class="vault-pop-input"><input type="password" id="vt-pw" placeholder="ACCESS KEY"><button onclick="vaultSubmit()">UNLOCK</button></div>' +
+            '<div class="vault-pop-msg" id="vt-msg"></div>';
+        openPop('RESTRICTED ACCESS', note);
+        const inp = document.getElementById('vt-pw');
+        if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); vaultSubmit(); } });
+    }
+
+    window.vaultSubmit = async function () {
+        const msg = document.getElementById('vt-msg');
+        const pw = document.getElementById('vt-pw').value;
+        msg.className = 'vault-pop-msg';
+        msg.textContent = 'DERIVING KEY…';
+        try {
+            const opened = await vaultTryUnlock(pw);
+            if (!opened.length) { msg.className = 'vault-pop-msg err'; msg.textContent = '✗ ACCESS DENIED'; return; }
+            sessionStorage.setItem('aka-vault-key', pw);
+            const tab = document.getElementById('vault-tab');
+            if (tab) { tab.classList.add('granted'); tab.textContent = '● ACCESS GRANTED'; }
+            msg.className = 'vault-pop-msg ok';
+            msg.textContent = `✓ ${opened.length} DOSSIER(S) UNLOCKED — opening vault…`;
+            setTimeout(() => { location.href = VAULT_ROOT + 'vault.html'; }, 700);
+        } catch (err) {
+            msg.className = 'vault-pop-msg err';
+            msg.textContent = '✗ ' + (location.protocol === 'file:'
+                ? 'Serve over http(s) to unlock (file:// blocks vault data)' : err.message);
+        }
+    };
+
+    function initVaultTab() {
+        if (document.getElementById('unlock-form')) return; // vault page has its own gate
+        const tab = document.createElement('button');
+        tab.id = 'vault-tab';
+        tab.textContent = vaultGranted() ? '● ACCESS GRANTED' : '⚿ ACCESS';
+        if (vaultGranted()) tab.classList.add('granted');
+        tab.addEventListener('click', vaultPopBody);
+        document.body.appendChild(tab);
+    }
 
     /* ---------- PROTECTION (standard deterrents) ---------- */
     function initProtection() {
@@ -182,5 +298,7 @@
         initGlowCards();
         initMagneticButtons();
         initLocalTime();
+        initPopTriggers();
+        initVaultTab();
     });
 })();

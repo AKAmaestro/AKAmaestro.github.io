@@ -14,13 +14,90 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
-        .bio-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 34px; align-items: start; margin-top: 30px; }
-        .bio-photo img { width: 100%; border: 1px solid var(--line); background: var(--panel); }
+        :root { --font-display: 'Fraunces', serif; }
+
+        .about-hero { margin-top: 44px; }
+        .statement {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5.4vw, 3.8rem);
+            font-weight: 600; line-height: 1.15; letter-spacing: -.5px;
+            max-width: 20ch;
+        }
+        .statement em {
+            font-style: italic; font-weight: 400; color: var(--accent);
+        }
+        .bio-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start; margin-top: 44px; }
         @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
+
+        /* polaroid-style photo */
+        .bio-photo { position: relative; transform: rotate(2.2deg); transition: transform .4s; }
+        .bio-photo:hover { transform: rotate(0deg) scale(1.02); }
+        .bio-photo img {
+            width: 100%; border: 1px solid var(--line); background: var(--panel);
+            padding: 12px 12px 52px; box-shadow: 0 18px 44px rgba(0, 0, 0, .3);
+        }
+        .bio-photo .caption {
+            position: absolute; bottom: 16px; left: 0; right: 0; text-align: center;
+            font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--dim);
+        }
+        .bio-photo .tape {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+            width: 110px; height: 26px; background: rgba(var(--accent-rgb), .28);
+            border: 1px dashed rgba(var(--accent-rgb), .5);
+        }
+
+        /* relocation marquee-ish line */
+        .globe-line {
+            margin: 34px 0 8px; padding: 16px 20px; border: 1px dashed var(--accent);
+            font-family: var(--font-code); font-size: .95rem; color: var(--text);
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+        }
+        .globe-line .spin { display: inline-block; animation: spin 9s linear infinite; font-size: 1.3rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* editorial numbered focus list */
+        .focus-list { counter-reset: focus; margin-top: 8px; }
+        .focus-item {
+            counter-increment: focus; display: flex; align-items: baseline; gap: 20px;
+            padding: 20px 6px; border-bottom: 1px solid var(--line-dim);
+            transition: .25s; cursor: default;
+        }
+        .focus-item:hover { padding-left: 18px; border-color: var(--accent); }
+        .focus-item::before {
+            content: "0" counter(focus); font-family: var(--font-code);
+            color: var(--accent); font-size: .95rem; min-width: 2.2em;
+        }
+        .focus-item .f-name { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 800; text-transform: uppercase; }
+        .focus-item .f-note { font-family: var(--font-code); font-size: .85rem; color: var(--dim); margin-left: auto; text-align: right; }
+        @media (max-width: 640px) { .focus-item .f-note { display: none; } }
+
+        /* combined coordinates + connect */
+        .coords {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 10px;
+        }
+        .coord {
+            background: var(--panel); padding: 20px; text-decoration: none; color: var(--text);
+            display: flex; flex-direction: column; gap: 6px; transition: .25s; position: relative;
+        }
+        a.coord:hover { background: var(--hover); }
+        a.coord::after {
+            content: "↗"; position: absolute; top: 12px; right: 14px;
+            font-family: var(--font-code); color: var(--accent); opacity: 0; transition: .2s;
+        }
+        a.coord:hover::after { opacity: 1; }
+        .coord .c-value { font-size: 1.1rem; font-weight: 700; word-break: break-word; }
+
+        /* toolbelt */
+        .belt-group { margin-top: 22px; }
+        .belt-group .belt-name {
+            font-family: var(--font-code); font-size: .8rem; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block;
+        }
     </style>
 </head>
 
@@ -39,73 +116,118 @@
     </nav>
 
     <div class="frame">
-        <span class="label" style="display:block; margin-top:34px;">IDENTITY_FILE // ESC RETURNS HOME</span>
-        <h1 class="page-title">Ankit Kumar Agrawal <span style="color:var(--accent);">(AKA)</span></h1>
-        <p class="page-sub">creative technologist × design engineer × manager</p>
+        <div class="about-hero">
+            <span class="label" style="display:block; margin-bottom:18px;">IDENTITY_FILE // ANKIT KUMAR AGRAWAL (AKA) // ESC RETURNS HOME</span>
+            <h1 class="statement rv">I build <em>playful machines</em> with an engineer's rigor and an
+                <em>artist's mischief</em>.</h1>
+        </div>
 
         <div class="bio-grid">
             <div class="prose rv">
-                <p><strong>Creative technologist and design engineer</strong> building interactive systems at the
-                    intersection of engineering and human experience.</p>
-                <p>My practice spans AI, robotics, interactive design, and large-scale installation art. I design
-                    interfaces, architect ML-driven systems, and lead cross-functional teams across research labs,
-                    game studios, and early-stage startups.</p>
+                <p><strong>Creative technologist × design engineer × manager.</strong> My practice spans AI, robotics,
+                    interactive design, and large-scale installation art. I design interfaces, architect ML-driven
+                    systems, and turn ambiguous ideas into shipped, felt experiences.</p>
+                <p>I've <strong>led multiple cross-functional teams</strong> — from a 250+ person festival crew and a
+                    300-member art club to matrixed engineering pods at Brillio and my own studio — sitting comfortably
+                    between designers, engineers, researchers, and executives.</p>
                 <p>I bootstrapped <strong>Amnesea Studios</strong> into an Xbox accelerator and publishing agreements
-                    with Microsoft Xbox and Sony PlayStation — while shipping prototypes to 5,000+ players and getting
-                    covered by IGN and the Times of India.</p>
-                <p>Outside work, I'm an avid photographer, gamer, and lifelong learner — always exploring new tools,
-                    techniques, and ideas.</p>
-
-                <span class="section-h">FOCUS AREAS</span>
-                <div class="chip-grid">
-                    <span class="chip">Creative technology</span>
-                    <span class="chip">Interactive systems</span>
-                    <span class="chip">Game design</span>
-                    <span class="chip">Robotics + vision</span>
-                    <span class="chip">ML prototyping</span>
-                    <span class="chip">UX research</span>
-                    <span class="chip">GTM strategy</span>
-                    <span class="chip">Agile leadership</span>
-                </div>
+                    with Microsoft Xbox and Sony PlayStation — shipping prototypes to 5,000+ players, with coverage in
+                    IGN and the Times of India.</p>
+                <p>Outside work: photographer, gamer, museum-lurker, lifelong learner — forever collecting new tools,
+                    techniques, and perspectives.</p>
             </div>
 
             <div class="bio-photo rv">
+                <div class="tape"></div>
                 <img src="projects/Ankit/akamaestro.webp" alt="Ankit Kumar">
+                <div class="caption">aka «maestro» — New Delhi, IN</div>
             </div>
         </div>
 
-        <span class="section-h">COORDINATES</span>
-        <div class="fact-grid rv">
-            <div class="fact-card">
-                <div class="fact-label">Location</div>
-                <div class="fact-value">New Delhi, India</div>
+        <div class="globe-line rv">
+            <span class="spin">🌍</span>
+            <strong>OPEN TO RELOCATE — ANYWHERE ON EARTH.</strong>
+            <span style="color:var(--dim);">I chase cross-cultural experiences; new cities are new design briefs.</span>
+        </div>
+
+        <span class="section-h">FOCUS AREAS</span>
+        <div class="focus-list rv-stagger">
+            <div class="focus-item"><span class="f-name">Creative Technology</span><span class="f-note">installations · expressive tech</span></div>
+            <div class="focus-item"><span class="f-name">Interactive Systems</span><span class="f-note">games · realtime · XR</span></div>
+            <div class="focus-item"><span class="f-name">Game Design</span><span class="f-note">mechanics · narrative · UXR</span></div>
+            <div class="focus-item"><span class="f-name">Robotics + Vision</span><span class="f-note">CV · control · bio-mimetics</span></div>
+            <div class="focus-item"><span class="f-name">ML Prototyping</span><span class="f-note">CNNs · pipelines · agentic AI</span></div>
+            <div class="focus-item"><span class="f-name">Leadership & GTM</span><span class="f-note">cross-functional · strategy · pitch</span></div>
+        </div>
+
+        <span class="section-h">COORDINATES & CONNECT</span>
+        <div class="coords rv-stagger">
+            <div class="coord"><span class="label">Base</span><span class="c-value">New Delhi, India — relocatable 🌐</span></div>
+            <a class="coord" href="mailto:akamaestro@outlook.com"><span class="label">Email</span><span class="c-value">akamaestro@outlook.com</span></a>
+            <a class="coord" href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener"><span class="label">LinkedIn</span><span class="c-value">/in/akamaestro</span></a>
+            <a class="coord" href="https://github.com/AKAmaestro" target="_blank" rel="noopener"><span class="label">GitHub</span><span class="c-value">@AKAmaestro</span></a>
+            <a class="coord" href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener"><span class="label">Instagram</span><span class="c-value">@ankit_tikna_</span></a>
+            <a class="coord" href="https://www.behance.net/akamaestro" target="_blank" rel="noopener"><span class="label">Behance</span><span class="c-value">/akamaestro</span></a>
+            <a class="coord" href="https://amnesea.com" target="_blank" rel="noopener"><span class="label">Studio</span><span class="c-value">amnesea.com</span></a>
+            <a class="coord" href="https://akamaestro.itch.io" target="_blank" rel="noopener"><span class="label">Playables</span><span class="c-value">akamaestro.itch.io</span></a>
+        </div>
+
+        <span class="section-h">TOOLBELT — I'VE SHIPPED ACROSS ALL OF THESE</span>
+        <div class="rv">
+            <div class="belt-group">
+                <span class="belt-name">Programming</span>
+                <div class="chip-grid">
+                    <span class="chip">C</span><span class="chip">C++</span><span class="chip">C#</span>
+                    <span class="chip">Python</span><span class="chip">Solidity</span><span class="chip">T-SQL</span>
+                    <span class="chip">LaTeX</span>
+                </div>
             </div>
-            <div class="fact-card">
-                <div class="fact-label">Email</div>
-                <div class="fact-value">akamaestro@outlook.com</div>
+            <div class="belt-group">
+                <span class="belt-name">ML + AI</span>
+                <div class="chip-grid">
+                    <span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">PyTorch</span>
+                    <span class="chip">Scikit-Learn</span><span class="chip">OpenCV</span><span class="chip">NumPy</span>
+                    <span class="chip">Pandas</span><span class="chip">SciPy</span><span class="chip">PyAudioAnalysis</span>
+                    <span class="chip">CNN / RNN / DNN</span><span class="chip">Computer Vision</span><span class="chip">NLP</span>
+                    <span class="chip">Transfer Learning</span><span class="chip">Agentic AI Workflows</span><span class="chip">Prompt Engineering</span>
+                </div>
             </div>
-            <div class="fact-card">
-                <div class="fact-label">Studio</div>
-                <div class="fact-value">amnesea.com</div>
+            <div class="belt-group">
+                <span class="belt-name">Design & Creative</span>
+                <div class="chip-grid">
+                    <span class="chip">Figma</span><span class="chip">Photoshop</span><span class="chip">Illustrator</span>
+                    <span class="chip">After Effects</span><span class="chip">Premiere Pro</span><span class="chip">Sketch</span>
+                    <span class="chip">Blender</span><span class="chip">Unity Engine</span><span class="chip">CAD</span>
+                    <span class="chip">Linearity</span>
+                </div>
             </div>
-            <div class="fact-card">
-                <div class="fact-label">Portfolio</div>
-                <div class="fact-value">akamaestro.com</div>
+            <div class="belt-group">
+                <span class="belt-name">Data & Cloud</span>
+                <div class="chip-grid">
+                    <span class="chip">Microsoft Azure</span><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span>
+                    <span class="chip">Microsoft SSIS</span><span class="chip">SQL Server</span><span class="chip">MySQL</span>
+                    <span class="chip">NoSQL</span><span class="chip">ETL Pipelines</span><span class="chip">Data Warehousing</span>
+                    <span class="chip">BI & Dashboarding</span><span class="chip">Google Cloud</span>
+                </div>
+            </div>
+            <div class="belt-group">
+                <span class="belt-name">Workflow & Languages</span>
+                <div class="chip-grid">
+                    <span class="chip">Git</span><span class="chip">JIRA</span><span class="chip">Agile / Scrum</span>
+                    <span class="chip">SAFe® 5</span><span class="chip">Project Management</span>
+                    <span class="chip">English (fluent)</span><span class="chip">Hindi (native)</span>
+                </div>
             </div>
         </div>
 
-        <span class="section-h">CONNECT</span>
-        <div class="btn-row rv">
-            <a href="mailto:akamaestro@outlook.com" class="btn solid">✉ EMAIL</a>
-            <a href="https://www.linkedin.com/in/akamestro" target="_blank" rel="noopener" class="btn">LINKEDIN</a>
-            <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" class="btn">GITHUB</a>
-            <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" class="btn">INSTAGRAM</a>
-            <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" class="btn">BEHANCE</a>
+        <div class="btn-row rv" style="margin-top:40px;">
+            <a href="journey.html" class="btn solid">SEE THE FULL JOURNEY →</a>
+            <a href="resume.html" class="btn">RESUME / CV</a>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div>©AKAmaestro — Ankit Kumar Agrawal · <span data-local-time></span></div>
         <div class="f-links"><a href="index.html">← Back to home</a></div>
     </footer>
 

@@ -19,8 +19,46 @@
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
         :root { --accent: #ffc400; --accent-rgb: 255, 196, 0; }
-        body.light-mode { --accent: #9b7700; --accent-rgb: 155, 119, 0; }
+        body.light-mode { --accent: #8a6800; --accent-rgb: 138, 104, 0; }
+
+        /* trophy-wall award tiles */
+        .award-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 10px;
+        }
+        .award {
+            background: var(--panel); padding: 24px 22px 22px; position: relative;
+            min-height: 190px; display: flex; flex-direction: column; transition: .25s;
+        }
+        .award:hover { background: var(--hover); }
+        .award .a-year {
+            font-family: var(--font-code); font-weight: 700;
+            font-size: clamp(2.6rem, 6vw, 3.6rem); line-height: 1;
+            color: transparent; -webkit-text-stroke: 1.5px var(--accent);
+            opacity: .85; margin-bottom: 14px;
+        }
+        .award .a-title { font-size: 1.22rem; font-weight: 800; line-height: 1.25; }
+        .award .a-sub { color: var(--dim); font-size: .98rem; margin-top: 8px; line-height: 1.5; flex: 1; }
+        .award .a-prize { font-family: var(--font-code); color: var(--accent); font-size: .85rem; margin-top: 12px; }
+        .award::after {
+            content: "+ DETAILS"; position: absolute; top: 16px; right: 16px;
+            font-family: var(--font-code); font-size: .68rem; letter-spacing: 1px;
+            color: var(--accent); opacity: 0; transition: .25s;
+        }
+        .award:hover::after { opacity: 1; }
+
+        /* certifications as a compact rail */
+        .cert-rail { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .cert {
+            border: 1px solid var(--line); background: var(--panel); padding: 12px 16px;
+            font-family: var(--font-code); font-size: .85rem; color: var(--text);
+            display: flex; gap: 10px; align-items: center; transition: .2s;
+        }
+        .cert:hover { border-color: var(--accent); }
+        .cert .cy { color: var(--accent); }
+
         .showcase-img { width: 100%; border: 1px solid var(--line); margin: 18px 0; }
+        .mention-card[data-pop]:hover { border-color: var(--accent); }
     </style>
 </head>
 
@@ -38,49 +76,70 @@
         <button class="theme-btn" onclick="toggleTheme()"></button>
     </nav>
 
-    <div class="frame prose">
-        <span class="label" style="display:block; margin-top:34px;">SIGNAL_BOOSTS // ESC RETURNS HOME</span>
-        <h1 class="page-title">Awards, Press & Community</h1>
-        <p class="page-sub">honors // media mentions // impact</p>
+    <div class="frame">
+        <span class="label" style="display:block; margin-top:34px;">SIGNAL_BOOSTS // CLICK ANY TILE FOR THE STORY // ESC RETURNS HOME</span>
+        <h1 class="page-title">Awards, Press<br>& Community</h1>
+        <p class="page-sub">the receipts — honors // media // impact</p>
 
-        <span class="section-h">AWARDS</span>
-        <div class="info-grid rv">
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">Avalanche × Neuranode Game Jam — Winner</span><span class="ic-date">2025</span></div>
-                <div class="ic-desc">1st Place, $2,380 prize for innovative game design and execution.</div>
+        <span class="section-h">TROPHY WALL</span>
+        <div class="award-grid rv-stagger">
+            <div class="award" data-pop data-pop-title="AVALANCHE × NEURANODE GAME JAM — 1ST PLACE"
+                data-pop-body="<p><strong>What happened:</strong> a competitive game jam by Avalanche × Neuranode centered on on-chain player agency.</p><p><strong>What I did:</strong> prototyped and deployed the gameplay loops in Unity, leading design and build end-to-end under jam deadline pressure.</p><p><strong>Result:</strong> 1st place overall — $2,380 prize for innovative game design and execution.</p>">
+                <div class="a-year">'25</div>
+                <div class="a-title">Avalanche × Neuranode Game Jam — Winner</div>
+                <div class="a-sub">1st place for innovative game design and execution.</div>
+                <div class="a-prize">🏆 $2,380</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">Whalepass Blockchain Game Jam — Winner</span><span class="ic-date">2025</span></div>
-                <div class="ic-desc">$500 prize for on-chain economy centered design and gameplay experience.</div>
+            <div class="award" data-pop data-pop-title="WHALEPASS BLOCKCHAIN GAME JAM — WINNER"
+                data-pop-body="<p><strong>What happened:</strong> blockchain game jam focused on on-chain economies.</p><p><strong>What I did:</strong> designed gameplay around an on-chain economy loop — economy design driving the fun, not bolted on.</p><p><strong>Result:</strong> winner — $500 prize.</p>">
+                <div class="a-year">'25</div>
+                <div class="a-title">Whalepass Blockchain Jam — Winner</div>
+                <div class="a-sub">On-chain economy centered design and gameplay.</div>
+                <div class="a-prize">🏆 $500</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">Microsoft Xbox Game Camp Asia</span><span class="ic-date">2024</span></div>
-                <div class="ic-desc">Selected as Top 16 Asian studios (4 from India) for intensive mentorship.</div>
+            <div class="award" data-pop data-pop-title="MICROSOFT XBOX GAME CAMP ASIA — TOP 16"
+                data-pop-body="<p><strong>What happened:</strong> Microsoft's studio accelerator for Asia — thousands of applicants, 16 studios selected across 5 countries (4 from India).</p><p><strong>What I did:</strong> led UX research and GTM strategy for KeyBound; built data-backed pitch decks; drove 12 publisher negotiations with direct Xbox Studios mentorship.</p><p><a href='work/keybound.html'>See KeyBound →</a></p>">
+                <div class="a-year">'24</div>
+                <div class="a-title">Xbox Game Camp Asia — Top 16 Studios</div>
+                <div class="a-sub">Selected among top 16 in Asia (4 from India) for intensive mentorship.</div>
+                <div class="a-prize">🎮 MICROSOFT XBOX</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">India Game Developers Conference (IGDC)</span><span class="ic-date">2024</span></div>
-                <div class="ic-desc">Featured exhibitor and speaker; showcased interactive prototypes.</div>
+            <div class="award" data-pop data-pop-title="IGDC — FEATURED EXHIBITOR & SPEAKER"
+                data-pop-body="<p><strong>What happened:</strong> India Game Developers Conference — the country's biggest gaming event.</p><p><strong>What I did:</strong> exhibited Amnesea's interactive prototypes at sponsored kiosks two years running, speaking with and testing on thousands of players to refine narrative pacing and game loops.</p><p><strong>Result:</strong> 5,000+ players reached; picked up by Games Gossip India's '10 Best Indian Games at IGDC 2024'.</p>">
+                <div class="a-year">'24</div>
+                <div class="a-title">IGDC — Exhibitor & Speaker</div>
+                <div class="a-sub">Showcased interactive prototypes at India's biggest gaming event.</div>
+                <div class="a-prize">🕹 5,000+ PLAYERS</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">Brillio LLC Excellence Awards</span><span class="ic-date">2022</span></div>
-                <div class="ic-desc">Special Achievement Award, Group Excellence Award, and Bringing Smiles Star Volunteer.</div>
+            <div class="award" data-pop data-pop-title="BRILLIO — EXCELLENCE AWARDS"
+                data-pop-body="<p><strong>What happened:</strong> company-wide recognition across my Brillio tenure.</p><p><strong>What I earned:</strong></p><ul><li><strong>Special Achievement Award</strong> — client impact on the NDP platform.</li><li><strong>Group Excellence Award</strong> — team delivery.</li><li><strong>Bringing Smiles Star Volunteer</strong> — 50+ NGO staff trained in digital literacy.</li><li><strong>Star Performer</strong> — near-zero-defect migration delivery.</li></ul>">
+                <div class="a-year">'22</div>
+                <div class="a-title">Brillio Excellence Awards</div>
+                <div class="a-sub">Special Achievement · Group Excellence · Star Volunteer.</div>
+                <div class="a-prize">★ 4 AWARDS</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">TEQIP Government Grant</span><span class="ic-date">2020</span></div>
-                <div class="ic-desc">Innovation Ideas & Research Grant for COVID-19 detection system.</div>
+            <div class="award" data-pop data-pop-title="TEQIP — GOVERNMENT RESEARCH GRANT"
+                data-pop-body="<p><strong>What happened:</strong> India's TEQIP program funds standout student research ventures.</p><p><strong>What I did:</strong> drafted the medical diagnostics proposal and architecture for an automated COVID-19 CT screening pipeline using deep neural networks.</p><p><strong>Result:</strong> Innovation Ideas & Research Grant awarded, 2020.</p>">
+                <div class="a-year">'20</div>
+                <div class="a-title">TEQIP Government Grant</div>
+                <div class="a-sub">Research grant for a COVID-19 AI screening system.</div>
+                <div class="a-prize">🔬 GOVT OF INDIA</div>
             </div>
-            <div class="info-card">
-                <div class="ic-head"><span class="ic-title">National Finalist — E-Yantra Robotics (IIT Bombay)</span><span class="ic-date">2019</span></div>
-                <div class="ic-desc">4th place out of 7,173 teams.</div>
+            <div class="award" data-pop data-pop-title="E-YANTRA ROBOTICS (IIT BOMBAY) — NATIONAL FINALIST"
+                data-pop-body="<p><strong>What happened:</strong> India's largest robotics competition, hosted by IIT Bombay — 7,173 teams entered.</p><p><strong>What I did:</strong> co-designed the Mocking Bot — a robot that listens to music, identifies instruments (92.6% accuracy), and performs them back live with a ~400ms solenoid striker I designed from studying human hand mechanics.</p><p><strong>Result:</strong> 4th place nationally.</p><p><a href='work/mocking-bot.html'>See Mocking Bot →</a></p>">
+                <div class="a-year">'19</div>
+                <div class="a-title">E-Yantra National Finalist — IIT Bombay</div>
+                <div class="a-sub">4th of 7,173 teams with a music-mimicking robot.</div>
+                <div class="a-prize">🤖 4TH / 7,173</div>
             </div>
         </div>
 
         <span class="section-h">CERTIFICATIONS</span>
-        <div class="info-grid rv">
-            <div class="info-card"><div class="ic-head"><span class="ic-title">Xbox Studios Game Camp Asia (Microsoft)</span><span class="ic-date">2024</span></div></div>
-            <div class="info-card"><div class="ic-head"><span class="ic-title">Certified SAFe® 5 Agile Practitioner</span><span class="ic-date">2022</span></div></div>
-            <div class="info-card"><div class="ic-head"><span class="ic-title">Deep Learning Specialization (Coursera)</span><span class="ic-date">2021</span></div></div>
-            <div class="info-card"><div class="ic-head"><span class="ic-title">ROBOTC Engineering (TETRIX & LEGO Mindstorms)</span><span class="ic-date">2019</span></div></div>
+        <div class="cert-rail rv">
+            <div class="cert"><span class="cy">'24</span> Xbox Studios Game Camp Asia — Microsoft</div>
+            <div class="cert"><span class="cy">'22</span> Certified SAFe® 5 Agile Practitioner</div>
+            <div class="cert"><span class="cy">'21</span> Deep Learning Specialization — Coursera</div>
+            <div class="cert"><span class="cy">'19</span> ROBOTC Engineering — TETRIX & LEGO Mindstorms</div>
         </div>
 
         <span class="section-h">MEDIA SHOWCASE</span>
@@ -91,34 +150,40 @@
             <img class="zoomable" src="projects/IGDA/1722239780752.webp" data-full="projects/IGDA/1722239780752.webp" alt="IGDA meetup" loading="lazy">
         </div>
 
-        <span class="section-h">PRESS & MENTIONS</span>
-        <div class="mentions-grid rv">
-            <div class="mention-card">
+        <span class="section-h">PRESS & MENTIONS — CLICK FOR CONTEXT</span>
+        <div class="mentions-grid rv-stagger">
+            <div class="mention-card" data-pop data-pop-title="IGN INDIA — FIRST IMPRESSIONS"
+                data-pop-body="<p>IGN India covered Amnesea's showcase lineup in a first-impressions feature, calling out the games' <strong>'unique concepts with simplistic gameplay'</strong> — exactly the design thesis: one sharp mechanic, zero friction.</p>">
                 <div class="mention-logo"><img src="projects/Media/IGN_India.png" alt="IGN India" loading="lazy"></div>
                 <div class="mention-quote">"Unique concepts with simplistic gameplay."
                     <span class="mention-source">First impressions feature — IGN India</span></div>
             </div>
-            <div class="mention-card">
+            <div class="mention-card" data-pop data-pop-title="THE TIMES OF INDIA — FEATURE"
+                data-pop-body="<p>The Times of India featured the studio in a story on India's new generation of game developers — <strong>'Game development in India: Youngsters are taking lead'</strong> — covering the indie wave Amnesea rides with.</p>">
                 <div class="mention-logo"><img src="projects/Media/TimesOfIndia.png" alt="Times of India" loading="lazy"></div>
                 <div class="mention-quote">"Game development in India: Youngsters are taking lead."
                     <span class="mention-source">Feature — The Times of India</span></div>
             </div>
-            <div class="mention-card">
+            <div class="mention-card" data-pop data-pop-title="XBOX GAME CAMP ASIA — SELECTION"
+                data-pop-body="<p>Chosen among the <strong>Top 4 Indian studios</strong> (16 across Asia) for Xbox Game Camp Asia 2024 — months of direct mentorship from Xbox Studios on design, production, and pitching.</p>">
                 <div class="mention-logo"><img src="projects/Media/Xbox_GameCamp_Asia.png" alt="Xbox Game Camp Asia" loading="lazy"></div>
                 <div class="mention-quote">Chosen among Top 4 Indian studios for Xbox Game Camp Asia 2024.
                     <span class="mention-source">Cohort selection — Xbox Game Camp Asia</span></div>
             </div>
-            <div class="mention-card">
+            <div class="mention-card" data-pop data-pop-title="LUDUM DARE — PLAYER LOVE"
+                data-pop-body="<p>From the world's longest-running game jam community — players fell for the art and collection loop: <strong>'this art was so cute OML… I treasure this.'</strong> Player delight is the metric that matters.</p>">
                 <div class="mention-logo"><img src="projects/Media/ludum_dare.png" alt="Ludum Dare" loading="lazy"></div>
                 <div class="mention-quote">"This art was so cute OML... loved collecting everything; I treasure this."
                     <span class="mention-source">Player praise — Ludum Dare</span></div>
             </div>
-            <div class="mention-card">
+            <div class="mention-card" data-pop data-pop-title="ITCH.IO — COMMUNITY REVIEW"
+                data-pop-body="<p>Community review of KeyBound's core hook: <strong>'concept of getting power by getting keys is nice, it could make a great Metroidvania.'</strong> That thread of feedback helped shape the rogue-vania direction now on Steam.</p><p><a href='work/keybound.html'>KeyBound case study →</a></p>">
                 <div class="mention-logo"><img src="projects/Media/ItchIO.png" alt="itch.io" loading="lazy"></div>
                 <div class="mention-quote">"Concept of getting power by getting keys is nice; it could make a great Metroidvania..."
                     <span class="mention-source">Community review — itch.io</span></div>
             </div>
-            <div class="mention-card">
+            <div class="mention-card" data-pop data-pop-title="GAMES GOSSIP INDIA — IGDC ROUNDUP"
+                data-pop-body="<p>Amnesea made Games Gossip India's <strong>'10 Best Indian Games We Tried At India's Biggest Gaming Event — IGDC 2024'</strong> — picked from hundreds of titles on the show floor.</p>">
                 <div class="mention-logo"><img src="projects/Media/GamesGosipIndia.webp" alt="Games Gossip India" loading="lazy"></div>
                 <div class="mention-quote">"10 Best Indian Games We Tried At India's Biggest Gaming Event | IGDC 2024."
                     <span class="mention-source">Roundup — Games Gossip India</span></div>
@@ -126,51 +191,35 @@
         </div>
 
         <span class="section-h">LEADERSHIP & COMMUNITY</span>
-        <div class="press-summary rv">
-            <div class="press-card">
+        <div class="press-summary rv-stagger">
+            <div class="press-card" data-pop data-pop-title="BRILLIO NGO — BRINGING SMILES"
+                data-pop-body="<p>Designed the curriculum and assessment methods, then trained <strong>50+ NGO staff</strong> in digital literacy — recognized with the Bringing Smiles Star Volunteer award.</p>">
                 <div class="press-meta">CSR Outreach</div>
                 <div class="press-title">Brillio NGO — Bringing Smiles</div>
-                <div class="press-desc">Trained 50+ NGO staff in digital literacy; built curricula and assessment methods.</div>
+                <div class="press-desc">Trained 50+ NGO staff in digital literacy; built curricula and assessments.</div>
             </div>
-            <div class="press-card">
+            <div class="press-card" data-pop data-pop-title="TOASTMASTERS — FOUNDING PRESIDENT"
+                data-pop-body="<p>Founded Brillio's first Toastmasters chapter and served as President — mentored <strong>20+ engineers</strong> in client-facing communication and ran the chapter's speaking contests.</p>">
                 <div class="press-meta">Public Speaking</div>
                 <div class="press-title">Toastmasters (Brillio Chapter)</div>
-                <div class="press-desc">Founded the chapter, mentored 20+ engineers, and ran speaking contests.</div>
+                <div class="press-desc">Founded the chapter, mentored 20+ engineers, ran speaking contests.</div>
             </div>
-            <div class="press-card">
-                <div class="press-meta">Mentorship</div>
-                <div class="press-title">DAA Mentor</div>
-                <div class="press-desc">Tutored juniors in Design & Analysis of Algorithms; reviewed capstone projects.</div>
-            </div>
-            <div class="press-card">
+            <div class="press-card" data-pop data-pop-title="ART CLUB — ANAADYANTA">
                 <div class="press-meta">Fests & Showcases</div>
                 <div class="press-title">Art Club — Anaadyanta</div>
-                <div class="press-desc">Led stage art and immersive installations; managed a 30,000+ audience fest with a 300+ member team.</div>
+                <div class="press-desc">Led stage art and immersive installations; 30,000+ audience fest with a 300+ member team.</div>
             </div>
-        </div>
-
-        <span class="section-h">CREATIVE PURSUITS</span>
-        <div class="press-summary rv">
-            <div class="press-card">
-                <div class="press-meta">Interactive Art</div>
-                <div class="press-title">Large-Scale Installations</div>
-                <div class="press-desc">Immersive art installations blending technology and spatial design.</div>
-            </div>
-            <div class="press-card">
-                <div class="press-meta">Music Tech</div>
-                <div class="press-title">Performance Systems</div>
-                <div class="press-desc">Music-technology interfaces and automated performances.</div>
-            </div>
-            <div class="press-card">
-                <div class="press-meta">STEM Education</div>
-                <div class="press-title">Workshop Facilitator</div>
-                <div class="press-desc">K-12 workshops in robotics and programming; digital literacy for underserved communities.</div>
+            <div class="press-card" data-pop data-pop-title="STEM & MENTORSHIP"
+                data-pop-body="<p>K-12 workshops in robotics and programming, digital literacy programs for underserved communities, DAA tutoring for juniors, and capstone project reviews — teaching is the fastest way to keep learning.</p>">
+                <div class="press-meta">Mentorship</div>
+                <div class="press-title">STEM Education & Mentoring</div>
+                <div class="press-desc">K-12 robotics workshops · DAA tutoring · community digital literacy.</div>
             </div>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div>©AKAmaestro — Ankit Kumar Agrawal · <span data-local-time></span></div>
         <div class="f-links"><a href="journey.html">← Journey</a> <a href="arcade.html">Arcade →</a></div>
     </footer>
 

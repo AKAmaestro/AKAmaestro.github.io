@@ -25,7 +25,7 @@
         "alumniOf": "NITTE Meenakshi Institute of Technology",
         "address": { "@type": "PostalAddress", "addressLocality": "New Delhi", "addressCountry": "IN" },
         "sameAs": [
-            "https://www.linkedin.com/in/akamestro",
+            "https://www.linkedin.com/in/akamaestro",
             "https://github.com/AKAmaestro",
             "https://www.instagram.com/ankit_tikna_",
             "https://www.behance.net/akamaestro",
@@ -75,7 +75,15 @@
             background-size: cover, 22px 22px;
             background-blend-mode: multiply;
         }
-        body.light-mode .hero { background-blend-mode: screen; }
+        /* light mode: wash the dark artwork so text stays readable */
+        body.light-mode .hero {
+            background-image: linear-gradient(rgba(238, 238, 236, .88), rgba(238, 238, 236, .94)),
+                url("projects/hero-bg.webp"), radial-gradient(var(--line) 1px, transparent 1px);
+            background-size: cover, cover, 22px 22px;
+            background-blend-mode: normal;
+        }
+        .status-badge { cursor: pointer; border: 1px solid var(--line); transition: .25s; }
+        .status-badge:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(var(--accent-rgb), .3); }
 
         .hero-name {
             font-size: clamp(3rem, 9vw, 6.5rem);
@@ -219,8 +227,10 @@
 
         <header class="hero">
             <div style="display:flex; justify-content:center; margin-bottom:18px;">
-                <span class="status-badge"><span class="dot"></span> ONLINE — OPEN TO COLLABS <span
-                        style="color:var(--dim);" data-local-time></span></span>
+                <button class="status-badge" data-pop data-pop-title="INITIALIZE_COMMS"
+                    data-pop-body='<p>Fastest ways to reach me — pick your channel:</p><div class="pop-actions"><a href="mailto:akamaestro@outlook.com?subject=Meeting%20request%20via%20akamaestro.com&body=Hi%20Ankit%2C%0A%0AI%27d%20like%20to%20book%20a%20meeting.%20Here%20are%20a%20few%20slots%20that%20work%20for%20me%3A%0A1.%0A2.%0A3.%0A%0AAgenda%3A"><span class="big">📅</span> Book a meeting — propose your slots</a><a href="mailto:akamaestro@outlook.com?subject=Query%20via%20akamaestro.com"><span class="big">✉</span> Mail me for queries / collabs</a><a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener"><span class="big">💼</span> Connect on LinkedIn</a></div>'>
+                    <span class="dot"></span> ONLINE — OPEN TO COLLABS <span style="color:var(--dim);"
+                        data-local-time></span></button>
             </div>
             <span class="label">T-SHAPED FIRST-GEN PROFESSIONAL // NEW DELHI, IN</span>
             <h1 class="hero-name" id="hero-name">ANKIT KUMAR</h1>
@@ -232,6 +242,10 @@
             <div class="btn-row" style="justify-content:center; margin-top:28px;">
                 <a href="#works" class="btn solid">EXPLORE WORK ↓</a>
                 <a href="about.html" class="btn">READ BIO →</a>
+                <a href="vault.html" class="btn">⚿ UNLOCK VAULT ACCESS</a>
+                <a href="arcade.html" class="btn">ARCADE ZONE</a>
+                <a href="journey.html" class="btn">JOURNEY</a>
+                <a href="signals.html" class="btn">SIGNALS</a>
             </div>
             <img class="hero-stamp" src="projects/Ankit/akamaestro.webp" alt="AKA seal">
         </header>
@@ -343,10 +357,6 @@
                 <span class="label">RESTRICTED</span>
                 <div><h3>The Vault</h3><span class="h-sub">Password-gated dossiers</span></div>
             </a>
-            <a class="ex-tile" href="mailto:akamaestro@outlook.com">
-                <span class="label">COMMS</span>
-                <div><h3>Contact</h3><span class="h-sub">akamaestro@outlook.com</span></div>
-            </a>
         </section>
 
         <section class="contact">
@@ -358,7 +368,7 @@
     <footer class="site-footer">
         <div>©AKAmaestro — Ankit Kumar Agrawal<br>New Delhi, India · <span data-local-time></span></div>
         <div class="f-links">
-            <a href="https://www.linkedin.com/in/akamestro" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener">GitHub</a>
             <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener">Instagram</a>
             <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener">Behance</a>

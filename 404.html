@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Signal Lost — AKAmaestro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/core.css">
+    <style>
+        .lost { text-align: center; margin-top: 18vh; }
+        .lost .code { font-family: var(--font-code); font-size: clamp(4rem, 18vw, 9rem); font-weight: 700; color: var(--accent); line-height: 1; }
+        .lost .glitch { animation: gl .9s infinite steps(2); }
+        @keyframes gl { 50% { transform: translateX(3px); opacity: .85; } }
+        .lost p { font-family: var(--font-code); color: var(--dim); margin: 18px 0 30px; }
+    </style>
+</head>
+
+<body data-up="/index.html">
+    <div class="lost">
+        <div class="code glitch">404</div>
+        <p>&gt; SIGNAL_LOST — this sector doesn't exist (or it moved in the revamp)</p>
+        <a href="/index.html" class="btn solid">RETURN TO BASE</a>
+    </div>
+    <script src="/assets/js/core.js"></script>
+</body>
+
+</html>

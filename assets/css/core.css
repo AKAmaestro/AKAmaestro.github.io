@@ -342,3 +342,98 @@ a { color: var(--accent); }
     .t-title { font-size: 1.3rem; }
     .mention-card { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============================================================
+   MODERNIZATION LAYER
+   ============================================================ */
+
+/* cross-document view transitions: pages morph instead of hard-cut */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation-duration: .22s; }
+::view-transition-new(root) { animation-duration: .28s; }
+
+html { color-scheme: dark light; }
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-color: var(--line) var(--bg);
+}
+
+.page-title, .hero-name, h1, h2 { text-wrap: balance; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* film grain — makes flat panels feel physical */
+body::after {
+    content: ""; position: fixed; inset: -50%; z-index: 2000; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: .028; animation: grain 9s steps(10) infinite;
+}
+body.light-mode::after { opacity: .04; }
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-4%, 3%); }
+    40% { transform: translate(3%, -4%); } 60% { transform: translate(-3%, -2%); }
+    80% { transform: translate(4%, 2%); }
+}
+
+/* scroll progress hairline */
+#scroll-progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0;
+    background: var(--accent); z-index: 1001;
+    box-shadow: 0 0 8px rgba(var(--accent-rgb), .8);
+}
+
+/* cursor-tracked glow on cards (JS sets --mx/--my) */
+.glow-card { position: relative; }
+.glow-card::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    opacity: 0; transition: opacity .35s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(var(--accent-rgb), .14), transparent 55%);
+}
+.glow-card:hover::before { opacity: 1; }
+
+/* buttons: shine sweep + spring */
+.btn { position: relative; overflow: hidden; will-change: transform; }
+.btn::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: -80%; width: 40%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .25), transparent);
+    transform: skewX(-20deg); transition: left .45s ease;
+}
+.btn:hover::after { left: 130%; }
+.btn:active { transform: scale(.97); }
+
+/* availability badge */
+.status-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-code); font-size: .7rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 14px; background: var(--panel);
+}
+.status-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), .7); animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    70% { box-shadow: 0 0 0 9px rgba(var(--accent-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+}
+
+/* staggered reveal: children cascade in */
+.rv-stagger > * { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
+.rv-stagger.in > * { opacity: 1; transform: none; }
+.rv-stagger.in > *:nth-child(2) { transition-delay: .07s; }
+.rv-stagger.in > *:nth-child(3) { transition-delay: .14s; }
+.rv-stagger.in > *:nth-child(4) { transition-delay: .21s; }
+.rv-stagger.in > *:nth-child(5) { transition-delay: .28s; }
+.rv-stagger.in > *:nth-child(6) { transition-delay: .35s; }
+.rv-stagger.in > *:nth-child(n+7) { transition-delay: .42s; }
+
+@media (prefers-reduced-motion: reduce) {
+    body::after { animation: none; }
+    .rv-stagger > * { opacity: 1; transform: none; transition: none; }
+    .btn::after { display: none; }
+    .status-badge .dot { animation: none; }
+}

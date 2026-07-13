@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mocking Bot — AKAmaestro</title>
+    <meta name="description" content="Mocking Bot — a bio-mimetic robot that listens to music, identifies instruments, and plays them back live. 4th of 7,173 teams at IIT Bombay E-Yantra.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/core.css">
+    <style>
+        :root {
+            --bg: #041412;
+            --panel: #07211ede;
+            --hover: #0b2d29;
+            --line: #16564d;
+            --line-dim: #0c352f;
+            --accent: #2dd4bf;
+            --accent-rgb: 45, 212, 191;
+        }
+        body.light-mode {
+            --bg: #ecf7f5; --panel: #ffffff; --hover: #f2fbf9;
+            --line: #a3d4cc; --line-dim: #cdeae5;
+            --accent: #0d7d6f; --accent-rgb: 13, 125, 111;
+        }
+        /* waveform divider */
+        .wave {
+            height: 42px; margin: 30px 0 6px;
+            background: repeating-linear-gradient(90deg,
+                var(--accent) 0 2px, transparent 2px 9px);
+            mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+            opacity: .35;
+        }
+        .page-title { font-family: var(--font-code); letter-spacing: -3px; }
+    </style>
+</head>
+
+<body data-up="../index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="../index.html">©AKAmaestro</a> <span>/ WORK / MOCKING_BOT</span></div>
+        <div class="nav-links">
+            <a href="../index.html#works" class="active">Work</a>
+            <a href="../about.html">About</a>
+            <a href="../journey.html">Journey</a>
+            <a href="../signals.html">Signals</a>
+            <a href="../arcade.html">Arcade</a>
+            <a href="../vault.html" class="vault-link">Vault</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame prose">
+        <span class="label" style="display:block; margin-top:34px;">ROBOTICS // BIO-MIMETIC AUDIO // ESC RETURNS HOME</span>
+        <h1 class="page-title">MOCKING_BOT</h1>
+        <p class="page-sub">a robot that listens to music — then plays it back on real instruments</p>
+
+        <div class="wave" aria-hidden="true"></div>
+
+        <div class="m-meta rv">
+            <div><span class="label">ROLE</span><strong>Co-Designer</strong></div>
+            <div><span class="label">TECH</span><strong>Python, Arduino, FFT, ML</strong></div>
+            <div><span class="label">AWARD</span><strong>4th National — IIT Bombay</strong></div>
+        </div>
+
+        <span class="section-h">THE CHALLENGE</span>
+        <p>Could a robot understand music well enough to perform it? For IIT Bombay's E-Yantra finals, our team built
+            a Mocking Bot that listened to audio, identified instruments, and played notes on real instruments.</p>
+
+        <span class="section-h">ORIGIN STORY</span>
+        <p>Curiosity has been my default setting since I was a teenager studying Leonardo da Vinci — not for his
+            sketches, but for his method: find patterns across anatomy, mechanics, and imagination, then build what
+            seems impossible.</p>
+        <p>Wanting the fastest response time, I studied how the human hand prepares before striking. Inspired by
+            that, I designed a solenoid striker and tuned the system to about <strong>400 ms response</strong> with
+            <strong>92.6% instrument detection accuracy</strong>, helping us place 4th out of 7,173 teams. I also
+            added a visual indicator signaling the robot's next strike — because performance is not enough if a
+            system is not legible to humans.</p>
+
+        <span class="section-h">KEY METRICS</span>
+        <div class="fact-grid rv">
+            <div class="fact-card"><div class="fact-label">Accuracy</div><div class="fact-value">92.6% detection</div></div>
+            <div class="fact-card"><div class="fact-label">Latency</div><div class="fact-value">~400 ms response</div></div>
+            <div class="fact-card"><div class="fact-label">Result</div><div class="fact-value">4th / 7,173 teams</div></div>
+            <div class="fact-card"><div class="fact-label">Event</div><div class="fact-value">IIT Bombay E-Yantra Finals</div></div>
+        </div>
+
+        <div class="media-grid rv">
+            <img class="zoomable" src="../projects/mocking-bot/1.thumb.webp" data-full="../projects/mocking-bot/1.webp" alt="Mocking Bot rig" loading="lazy">
+            <img class="zoomable" src="../projects/mocking-bot/2.thumb.webp" data-full="../projects/mocking-bot/2.webp" alt="Mocking Bot array" loading="lazy">
+            <img class="zoomable" src="../projects/mocking-bot/3.thumb.webp" data-full="../projects/mocking-bot/3.webp" alt="Mocking Bot schematic" loading="lazy">
+            <img class="zoomable" src="../projects/mocking-bot/5.thumb.webp" data-full="../projects/mocking-bot/5.webp" alt="Striker mechanism" loading="lazy">
+            <img class="zoomable" src="../projects/mocking-bot/6.thumb.webp" data-full="../projects/mocking-bot/6.webp" alt="Assembly" loading="lazy">
+            <img class="zoomable" src="../projects/mocking-bot/mocking_bot.thumb.webp" data-full="../projects/mocking-bot/mocking_bot.webp" alt="Mocking Bot" loading="lazy">
+        </div>
+
+        <span class="section-h">IMPLEMENTATION</span>
+        <ul>
+            <li><strong>Signal capture:</strong> microphone array + FFT to isolate frequencies in real time.</li>
+            <li><strong>Mechanism:</strong> co-designed a solenoid-driven striking mechanism capable of precise movement (~400ms latency).</li>
+            <li><strong>Integration:</strong> firmware synchronizing ML predictions with solenoid actuation.</li>
+        </ul>
+
+        <span class="section-h">RESULTS</span>
+        <p>During national finals at IIT Bombay, the robot performed live demos, accurately mimicking musicians —
+            earning 4th place out of 7,173 teams.</p>
+
+        <a class="next-project rv" href="balance-bot.html">
+            <span class="label">NEXT_PROJECT // CONTROL THEORY</span>
+            <span class="np-title">Balance Bot</span>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div class="f-links"><a href="../index.html#works">← All work</a></div>
+    </footer>
+
+    <script src="../assets/js/core.js"></script>
+</body>
+
+</html>

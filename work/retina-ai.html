@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retina AI — AKAmaestro</title>
+    <meta name="description" content="Retina AI — deep learning screening for diabetic retinopathy. 97.46% detection accuracy, peer-reviewed first-author publication.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/core.css">
+    <style>
+        :root {
+            --bg: #020a12;
+            --panel: #05121ede;
+            --hover: #081b2c;
+            --line: #103a52;
+            --line-dim: #092536;
+            --accent: #00f3ff;
+            --accent-rgb: 0, 243, 255;
+        }
+        body.light-mode {
+            --bg: #edf6f9; --panel: #ffffff; --hover: #f3fafc;
+            --line: #a5cfdd; --line-dim: #cfe7ef;
+            --accent: #006f8f; --accent-rgb: 0, 111, 143;
+        }
+        /* scan-line pulse on hero image */
+        .scan-wrap { position: relative; border: 1px solid var(--line); margin-top: 26px; overflow: hidden; }
+        .scan-wrap img { display: block; width: 100%; max-height: 440px; object-fit: cover; }
+        .scan-wrap::after {
+            content: ""; position: absolute; left: 0; right: 0; height: 3px;
+            background: var(--accent); box-shadow: 0 0 18px var(--accent);
+            animation: scan 3.2s ease-in-out infinite; opacity: .75;
+        }
+        @keyframes scan { 0%, 100% { top: 4%; } 50% { top: 94%; } }
+        @media (prefers-reduced-motion: reduce) { .scan-wrap::after { animation: none; } }
+    </style>
+</head>
+
+<body data-up="../index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="../index.html">©AKAmaestro</a> <span>/ WORK / RETINA_AI</span></div>
+        <div class="nav-links">
+            <a href="../index.html#works" class="active">Work</a>
+            <a href="../about.html">About</a>
+            <a href="../journey.html">Journey</a>
+            <a href="../signals.html">Signals</a>
+            <a href="../arcade.html">Arcade</a>
+            <a href="../vault.html" class="vault-link">Vault</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame prose">
+        <span class="label" style="display:block; margin-top:34px;">MED-TECH // DIAGNOSTIC AI // ESC RETURNS HOME</span>
+        <h1 class="page-title">Retina AI</h1>
+        <p class="page-sub">automated diabetic retinopathy screening with lightweight CNNs</p>
+
+        <div class="scan-wrap rv">
+            <img src="../projects/retina-ai/1.webp" alt="Retinal scan sample">
+        </div>
+
+        <div class="m-meta rv">
+            <div><span class="label">ROLE</span><strong>First Author</strong></div>
+            <div><span class="label">TECH</span><strong>Deep Learning, CNN</strong></div>
+            <div><span class="label">DOMAIN</span><strong>Healthcare</strong></div>
+        </div>
+
+        <div class="btn-row rv">
+            <a href="https://doi.org/10.30534/ijeter/2020/155872020" target="_blank" rel="noopener" class="btn solid">READ THE PAPER (DOI) ↗</a>
+        </div>
+
+        <span class="section-h">DIAGNOSIS</span>
+        <div class="fact-grid rv">
+            <div class="fact-card"><div class="fact-label">Detection accuracy</div><div class="fact-value">97.46%</div></div>
+            <div class="fact-card"><div class="fact-label">Severity grading</div><div class="fact-value">73%</div></div>
+            <div class="fact-card"><div class="fact-label">Publication</div><div class="fact-value">IJETER — First Author</div></div>
+            <div class="fact-card"><div class="fact-label">Follow-on</div><div class="fact-value">TEQIP COVID-19 grant</div></div>
+        </div>
+
+        <span class="section-h">APPROACH</span>
+        <ul>
+            <li><strong>Dataset:</strong> curated and pre-processed retinal images, balancing class distributions.</li>
+            <li><strong>Model design:</strong> prototyped multiple CNN architectures (ResNet, custom nets) for binary detection and severity grading.</li>
+            <li><strong>Evaluation:</strong> tuned hyperparameters via cross-validation, prioritizing sensitivity for clinical screening.</li>
+        </ul>
+
+        <div class="media-grid rv">
+            <img class="zoomable" src="../projects/retina-ai/retina.thumb.webp" data-full="../projects/retina-ai/retina.webp" alt="Model output" loading="lazy">
+            <img class="zoomable" src="../projects/retina-ai/retina2.thumb.webp" data-full="../projects/retina-ai/retina2.webp" alt="Grading stages" loading="lazy">
+            <img class="zoomable" src="../projects/retina-ai/Picture4.thumb.webp" data-full="../projects/retina-ai/Picture4.webp" alt="Pipeline" loading="lazy">
+        </div>
+
+        <span class="section-h">RESULTS</span>
+        <p>97.46% detection accuracy and 73% severity-grading accuracy — resulting in peer-reviewed publications,
+            subsequent citations, and a presentation at the 5th International Conference on Diabetes and
+            Endocrinology. The methodology later secured a TEQIP Government Research Grant for automated COVID-19
+            CT screening.</p>
+
+        <a class="next-project rv" href="facially.html">
+            <span class="label">NEXT_PROJECT // COMPUTER VISION</span>
+            <span class="np-title">Facially</span>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div class="f-links"><a href="../index.html#works">← All work</a></div>
+    </footer>
+
+    <script src="../assets/js/core.js"></script>
+</body>
+
+</html>

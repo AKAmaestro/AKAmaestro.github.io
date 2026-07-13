@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Bot — AKAmaestro</title>
+    <meta name="description" content="Balance Bot — two-wheel inverted pendulum robot: CAD chassis, IMU fusion, PID control. Hands-on control theory.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/core.css">
+    <style>
+        /* Blueprint: light-first page (dark toggle still works) */
+        :root {
+            --bg: #eef3f8;
+            --panel: #ffffff;
+            --hover: #f4f8fc;
+            --line: #9db8d4;
+            --line-dim: #c9d9ea;
+            --text: #10233c;
+            --dim: #4d6785;
+            --accent: #1d4ed8;
+            --accent-rgb: 29, 78, 216;
+        }
+        body:not(.light-mode) {
+            /* dark toggle = navy blueprint */
+            --bg: #061426; --panel: #0a1f3ade; --hover: #0f2a4d;
+            --line: #1e4470; --line-dim: #12304f;
+            --text: #dbe7f5; --dim: #8aa5c4;
+            --accent: #5b9dff; --accent-rgb: 91, 157, 255;
+        }
+        body {
+            background-image:
+                linear-gradient(var(--line-dim) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .page-title { font-family: var(--font-code); letter-spacing: -2px; }
+        .spec-note { font-family: var(--font-code); font-size: .74rem; color: var(--dim); border: 1px dashed var(--line); padding: 10px 14px; display: inline-block; margin-top: 10px; }
+        .hero-video { border: 1px solid var(--line); margin-top: 26px; }
+        .hero-video video { display: block; width: 100%; }
+    </style>
+</head>
+
+<body class="light-mode" data-up="../index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="../index.html">©AKAmaestro</a> <span>/ WORK / BALANCE_BOT</span></div>
+        <div class="nav-links">
+            <a href="../index.html#works" class="active">Work</a>
+            <a href="../about.html">About</a>
+            <a href="../journey.html">Journey</a>
+            <a href="../signals.html">Signals</a>
+            <a href="../arcade.html">Arcade</a>
+            <a href="../vault.html" class="vault-link">Vault</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame prose">
+        <span class="label" style="display:block; margin-top:34px;">APPLIED SCIENCES // FIG.01 — INVERTED PENDULUM // ESC RETURNS HOME</span>
+        <h1 class="page-title">BALANCE_BOT</h1>
+        <p class="page-sub">two wheels, one impossible posture — control theory you can poke</p>
+        <span class="spec-note">SPEC: IMU + wheel encoders · complementary filter · PID torque control · C++</span>
+
+        <div class="hero-video rv">
+            <video src="../projects/balance/gif2.mp4" poster="../projects/balance/gif2.poster.webp" autoplay muted loop playsinline></video>
+        </div>
+
+        <div class="m-meta rv">
+            <div><span class="label">ROLE</span><strong>Control Designer</strong></div>
+            <div><span class="label">TECH</span><strong>PID, C++, CAD</strong></div>
+            <div><span class="label">TYPE</span><strong>Robotics</strong></div>
+        </div>
+
+        <span class="section-h">CONTEXT</span>
+        <p>A two-wheel inverted pendulum built as a hands-on platform for control theory — the classic "unstable by
+            design" problem, solved with sensor fusion and tight feedback loops.</p>
+
+        <div class="media-grid rv">
+            <img class="zoomable" src="../projects/balance/1.thumb.webp" data-full="../projects/balance/1.webp" alt="Balance bot prototype" loading="lazy">
+            <img class="zoomable" src="../projects/balance/2.thumb.webp" data-full="../projects/balance/2.webp" alt="Balance bot parts" loading="lazy">
+            <img class="zoomable" src="../projects/balance/balance_robot.thumb.webp" data-full="../projects/balance/balance_robot.webp" alt="Balance robot" loading="lazy">
+            <img class="zoomable" src="../projects/balance/biped.thumb.webp" data-full="../projects/balance/biped.webp" alt="Biped experiments" loading="lazy">
+        </div>
+
+        <span class="section-h">DESIGN</span>
+        <ul>
+            <li><strong>Chassis:</strong> CAD-modeled frame to control weight distribution around the axle.</li>
+            <li><strong>Sensor integration:</strong> IMU + wheel encoders fused with complementary filtering.</li>
+            <li><strong>Control:</strong> PID controller computing corrective motor torque each cycle.</li>
+        </ul>
+
+        <span class="section-h">IMPACT</span>
+        <p>Maintained upright posture and navigated obstacles — a tangible platform for experimenting with control
+            theory, later feeding into biped locomotion experiments.</p>
+
+        <a class="next-project rv" href="retina-ai.html">
+            <span class="label">NEXT_PROJECT // MED-TECH</span>
+            <span class="np-title">Retina AI</span>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div class="f-links"><a href="../index.html#works">← All work</a></div>
+    </footer>
+
+    <script src="../assets/js/core.js"></script>
+</body>
+
+</html>

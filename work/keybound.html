@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyBound — AKAmaestro</title>
+    <meta name="description" content="KeyBound — memory-as-mechanic rogue-vania by Amnesea. Xbox Game Camp Asia selection, Steam wishlist live.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Unbounded:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/core.css">
+    <style>
+        :root {
+            --bg: #0a0616;
+            --panel: #140b26de;
+            --hover: #1d1136;
+            --line: #392a5e;
+            --line-dim: #221741;
+            --accent: #a78bfa;
+            --accent-rgb: 167, 139, 250;
+            --font-display: 'Unbounded', var(--font-ui);
+        }
+        body.light-mode {
+            --bg: #efecf7; --panel: #ffffff; --hover: #f6f3fd;
+            --line: #c3b6e4; --line-dim: #ddd5f0;
+            --accent: #6d28d9; --accent-rgb: 109, 40, 217;
+        }
+        .hero-video { position: relative; border: 1px solid var(--line); margin-top: 26px; overflow: hidden; }
+        .hero-video video { display: block; width: 100%; }
+        .hero-video::after {
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, transparent 55%, var(--bg));
+        }
+        .embed-container { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--line); }
+        .embed-container iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+
+<body data-up="../index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="../index.html">©AKAmaestro</a> <span>/ WORK / KEYBOUND</span></div>
+        <div class="nav-links">
+            <a href="../index.html#works" class="active">Work</a>
+            <a href="../about.html">About</a>
+            <a href="../journey.html">Journey</a>
+            <a href="../signals.html">Signals</a>
+            <a href="../arcade.html">Arcade</a>
+            <a href="../vault.html" class="vault-link">Vault</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame prose">
+        <span class="label" style="display:block; margin-top:34px;">GAMING // ROGUE-VANIA // ESC RETURNS HOME</span>
+        <h1 class="page-title">KeyBound</h1>
+        <p class="page-sub">rebuild the world through the keys you collect</p>
+
+        <div class="hero-video rv">
+            <video src="../projects/keybound/KeyBound%20Gameplay%20GIF.mp4"
+                poster="../projects/keybound/KeyBound%20Gameplay%20GIF.poster.webp" autoplay muted loop playsinline></video>
+        </div>
+
+        <div class="m-meta rv">
+            <div><span class="label">ROLE</span><strong>Co-Founder & Design Lead</strong></div>
+            <div><span class="label">TIMELINE</span><strong>2024 — Present</strong></div>
+            <div><span class="label">STACK</span><strong>Unity, C#, Figma</strong></div>
+        </div>
+
+        <div class="btn-row rv">
+            <a href="https://agrmayank.itch.io/keybound" target="_blank" rel="noopener" class="btn solid">PLAY ON ITCH.IO</a>
+            <a href="https://store.steampowered.com/app/3070700/KeyBound/" target="_blank" rel="noopener" class="btn">WISHLIST ON STEAM</a>
+            <a href="https://www.youtube.com/watch?v=tWS2I_Pk3m0" target="_blank" rel="noopener" class="btn">TRAILER</a>
+            <a href="https://amnesea.com/games.html" target="_blank" rel="noopener" class="btn">GAME SITE</a>
+        </div>
+
+        <span class="section-h">TRAILER</span>
+        <div class="embed-container rv">
+            <iframe src="https://www.youtube.com/embed/tWS2I_Pk3m0" title="KeyBound trailer" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <span class="section-h">CONTEXT</span>
+        <p>Memory-as-mechanic puzzle platformer: rebuild the world via fragments of melody and the keys you collect.
+            Selected for <strong>Xbox Game Camp Asia</strong>; in active production with a refined game loop, pitch
+            deck, and public Steam wishlist live.</p>
+
+        <span class="section-h">KEY ART</span>
+        <div class="media-grid rv">
+            <video src="../projects/keybound/KeyBound%20Cover.mp4" poster="../projects/keybound/KeyBound%20Cover.poster.webp" autoplay muted loop playsinline></video>
+            <img class="zoomable" src="../projects/keybound/Keybound%20bg%20light%20background.webp" alt="Background key art" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/KeyBound%20Banner.webp" alt="KeyBound banner" loading="lazy">
+        </div>
+
+        <span class="section-h">GAME FLOW</span>
+        <div class="media-grid rv">
+            <img class="zoomable" src="../projects/keybound/process.svg" alt="Process snapshot" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/ProcessFlow.svg" alt="Game flow" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/gameloop.webp" alt="Game loop" loading="lazy">
+        </div>
+
+        <span class="section-h">AN EARLY GLIMPSE</span>
+        <div class="media-grid rv">
+            <video src="../projects/keybound/Gif/1.mp4" poster="../projects/keybound/Gif/1.poster.webp" autoplay muted loop playsinline></video>
+            <video src="../projects/keybound/Gif/2.mp4" poster="../projects/keybound/Gif/2.poster.webp" autoplay muted loop playsinline></video>
+            <video src="../projects/keybound/Gif/3.mp4" poster="../projects/keybound/Gif/3.poster.webp" autoplay muted loop playsinline></video>
+            <video src="../projects/keybound/Gif/4.mp4" poster="../projects/keybound/Gif/4.poster.webp" autoplay muted loop playsinline></video>
+            <video src="../projects/keybound/Gif/5.mp4" poster="../projects/keybound/Gif/5.poster.webp" autoplay muted loop playsinline></video>
+            <video src="../projects/keybound/Gif/6.mp4" poster="../projects/keybound/Gif/6.poster.webp" autoplay muted loop playsinline></video>
+        </div>
+
+        <span class="section-h">MIND MAPS — DESIGN ARCHAEOLOGY</span>
+        <div class="media-grid rv">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240326_123642.thumb.webp" data-full="../projects/keybound/mindmaps/20240326_123642.webp" alt="Mindmap 1" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240326_150258.thumb.webp" data-full="../projects/keybound/mindmaps/20240326_150258.webp" alt="Mindmap 2" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240326_230449.thumb.webp" data-full="../projects/keybound/mindmaps/20240326_230449.webp" alt="Mindmap 3" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240404_010734.thumb.webp" data-full="../projects/keybound/mindmaps/20240404_010734.webp" alt="Mindmap 4" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240404_012035.thumb.webp" data-full="../projects/keybound/mindmaps/20240404_012035.webp" alt="Mindmap 5" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240413_000023.thumb.webp" data-full="../projects/keybound/mindmaps/20240413_000023.webp" alt="Mindmap 6" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240415_025241.thumb.webp" data-full="../projects/keybound/mindmaps/20240415_025241.webp" alt="Mindmap 7" loading="lazy">
+            <img class="zoomable" src="../projects/keybound/mindmaps/20240416_180247.thumb.webp" data-full="../projects/keybound/mindmaps/20240416_180247.webp" alt="Mindmap 8" loading="lazy">
+        </div>
+
+        <span class="section-h">DESIGN NOTES</span>
+        <ul>
+            <li><strong>Core Loop:</strong> explore, learn patterns, and unlock keys that reshape levels and music.</li>
+            <li><strong>Progression:</strong> modules unlock new traversal verbs; memory fragments retell the story diegetically.</li>
+            <li><strong>UX:</strong> minimal HUD; inputs surfaced through controller glyphs and rhythm cues.</li>
+        </ul>
+
+        <span class="section-h">TITLE PITCH</span>
+        <p style="font-family:var(--font-code); font-size:.85rem;">Scroll the full KeyBound title pitch inline.</p>
+        <div class="pdf-shell protected rv">
+            <iframe src="../projects/keybound/KIGI%20KeyBound%20Krafton%20Pitch.pdf#toolbar=0&navpanes=0" title="KeyBound title pitch"></iframe>
+        </div>
+
+        <a class="next-project rv" href="mocking-bot.html">
+            <span class="label">NEXT_PROJECT // ROBOTICS</span>
+            <span class="np-title">Mocking Bot</span>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div>©AKAmaestro — Ankit Kumar Agrawal</div>
+        <div class="f-links"><a href="../index.html#works">← All work</a></div>
+    </footer>
+
+    <script src="../assets/js/core.js"></script>
+</body>
+
+</html>

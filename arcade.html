@@ -14,7 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Press+Start+2P&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Press+Start+2P&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
@@ -109,32 +109,34 @@
     <script src="assets/js/core.js"></script>
     <script>
         const GAMES = [
-            { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", tagline: "Every trace you leave powers your future." },
-            { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!" },
-            { name: "Kinetica", account: "AKAmaestro", url: "https://akamaestro.itch.io/kinetica", embedId: "3013014", tagline: "A bullet-hell where everything you pick up becomes a weapon!" },
-            { name: "Quanta", account: "AKAmaestro", url: "https://akamaestro.itch.io/quanta", embedId: "3374993", tagline: "Blast through the periodic table in this fast-paced arcade shooter." },
-            { name: "Atomica", account: "AKAmaestro", url: "https://akamaestro.itch.io/atomica", embedId: "2848461", tagline: "Chemistry meets chaos! A periodic shooter experiment." },
-            { name: "DogeDash (Touchscreen)", account: "AKAmaestro", url: "https://akamaestro.itch.io/dogedash", embedId: "3472181", tagline: "Much speed. Very dodge. Touch-based survival challenge." },
-            { name: "TrapTile", account: "Amnesea", url: "https://amnesea.itch.io/traptile", embedId: "3370444", tagline: "Strategy · Shifting tiles where every move could be a trap." },
-            { name: "Hop n Drop", account: "Amnesea", url: "https://amnesea.itch.io/hop-n-drop", embedId: "3367884", tagline: "Casual · Fast-paced grid-based vertical platforming." },
-            { name: "TileBound", account: "Collab", url: "https://agrmayank.itch.io/tilebound", embedId: "2989067", tagline: "Experimental · Navigate a shifting playfield of survival." },
-            { name: "ShapeBound", account: "Collab", url: "https://agrmayank.itch.io/shapebound", embedId: "2310807", tagline: "Action · Bound to roll, destined to rebound." },
-            { name: "TimeBound", account: "Collab", url: "https://agrmayank.itch.io/timebound", embedId: "2267076", tagline: "RPG · A genre-shifting legacy of history and manipulation." },
-            { name: "KeyBound", account: "Collab", url: "https://agrmayank.itch.io/keybound", embedId: "2294357", tagline: "Platformer · A journey of reclamation in a locked world." },
-            { name: "RetroBellion", account: "Collab", url: "https://agrmayank.itch.io/retrobellion", embedId: "2275688", tagline: "8-Bit · Classic platforming mechanics with a rebellious twist." },
-            { name: "Bomb the Dead", account: "Collab", url: "https://agrmayank.itch.io/bomb-the-dead", embedId: "3519712", tagline: "Horror · AI-powered survival in the zombie depths." },
+            { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", c1: "#a085ff", c2: "#1b1230", tagline: "Every trace you leave powers your future." },
+            { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", c1: "#ff007f", c2: "#2a0016", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!" },
+            { name: "Kinetica", account: "AKAmaestro", url: "https://akamaestro.itch.io/kinetica", embedId: "3013014", c1: "#34d399", c2: "#03301f", tagline: "A bullet-hell where everything you pick up becomes a weapon!" },
+            { name: "Quanta", account: "AKAmaestro", url: "https://akamaestro.itch.io/quanta", embedId: "3374993", c1: "#60a5fa", c2: "#0e1c38", tagline: "Blast through the periodic table in this fast-paced arcade shooter." },
+            { name: "Atomica", account: "AKAmaestro", url: "https://akamaestro.itch.io/atomica", embedId: "2848461", c1: "#e879f9", c2: "#390440", tagline: "Chemistry meets chaos! A periodic shooter experiment." },
+            { name: "DogeDash (Touchscreen)", account: "AKAmaestro", url: "https://akamaestro.itch.io/dogedash", embedId: "3472181", c1: "#fb923c", c2: "#2a1206", tagline: "Much speed. Very dodge. Touch-based survival challenge." },
+            { name: "TrapTile", account: "Amnesea", url: "https://amnesea.itch.io/traptile", embedId: "3370444", c1: "#94a3b8", c2: "#151d2b", tagline: "Strategy · Shifting tiles where every move could be a trap." },
+            { name: "Hop n Drop", account: "Amnesea", url: "https://amnesea.itch.io/hop-n-drop", embedId: "3367884", c1: "#22d3ee", c2: "#062e38", tagline: "Casual · Fast-paced grid-based vertical platforming." },
+            { name: "TileBound", account: "Collab", url: "https://agrmayank.itch.io/tilebound", embedId: "2989067", c1: "#fbbf24", c2: "#33200a", tagline: "Experimental · Navigate a shifting playfield of survival." },
+            { name: "ShapeBound", account: "Collab", url: "https://agrmayank.itch.io/shapebound", embedId: "2310807", c1: "#a8a29e", c2: "#211d1a", tagline: "Action · Bound to roll, destined to rebound." },
+            { name: "TimeBound", account: "Collab", url: "https://agrmayank.itch.io/timebound", embedId: "2267076", c1: "#f472b6", c2: "#3a0a22", tagline: "RPG · A genre-shifting legacy of history and manipulation." },
+            { name: "KeyBound", account: "Collab", url: "https://agrmayank.itch.io/keybound", embedId: "2294357", c1: "#a78bfa", c2: "#181438", tagline: "Platformer · A journey of reclamation in a locked world." },
+            { name: "RetroBellion", account: "Collab", url: "https://agrmayank.itch.io/retrobellion", embedId: "2275688", c1: "#ff4444", c2: "#240404", tagline: "8-Bit · Classic platforming mechanics with a rebellious twist." },
+            { name: "Bomb the Dead", account: "Collab", url: "https://agrmayank.itch.io/bomb-the-dead", embedId: "3519712", c1: "#f87171", c2: "#320909", tagline: "Horror · AI-powered survival in the zombie depths." },
         ];
 
         const grid = document.getElementById('cab-grid');
         GAMES.forEach((g, i) => {
             const cab = document.createElement('div');
             cab.className = 'cab rv';
+            cab.style.background = `linear-gradient(165deg, ${g.c2}f0 0%, ${g.c2}66 45%, var(--panel) 100%)`;
+            cab.style.borderTop = `3px solid ${g.c1}`;
             cab.innerHTML = `
                 <div class="g-meta">CABINET_${String(i + 1).padStart(2, '0')} // ${g.account}</div>
-                <div class="g-name">${g.name}</div>
+                <div class="g-name" style="color:${g.c1}">${g.name}</div>
                 <div class="g-tag">${g.tagline}</div>
                 <div class="slot">
-                    <button class="insert-coin">▶ INSERT COIN</button>
+                    <button class="insert-coin" style="border-color:${g.c1}; color:${g.c1}">▶ INSERT COIN</button>
                 </div>
                 <a class="g-link" href="${g.url}" target="_blank" rel="noopener">open on itch.io ↗</a>`;
             cab.querySelector('.insert-coin').addEventListener('click', () => {
@@ -142,6 +144,7 @@
                 const p = dark
                     ? 'bg_color=10041c&fg_color=eee6ff&link_color=ff2d95&border_color=3b1d5e'
                     : 'bg_color=ffffff&fg_color=222222&link_color=b3005f&border_color=c9b8e8';
+                cab.querySelector('.slot').style.borderColor = g.c1;
                 cab.querySelector('.slot').innerHTML =
                     `<iframe frameborder="0" src="https://itch.io/embed/${g.embedId}?${p}" title="${g.name}"></iframe>`;
             });

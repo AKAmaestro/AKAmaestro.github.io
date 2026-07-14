@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amnesea Studios — AKAmaestro</title>
-    <meta name="description" content="Amnesea Studios — indie gaming lab founded by Ankit Kumar. Xbox & PlayStation publishing agreements, 5,000+ players, IGDC showcases.">
+    <meta name="description" content="Amnesea Studios — indie gaming lab founded by Ankit Kumar. Xbox & PlayStation publishing agreements, 5,000+ players, IGDC showcases, IGN + Times of India coverage.">
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
@@ -14,7 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Josefin+Sans:wght@300;600&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/core.css">
     <style>
@@ -32,13 +32,34 @@
             --line: #a8cddd; --line-dim: #cfe6ef;
             --accent: #007399; --accent-rgb: 0, 115, 153;
         }
+        /* Josefin Sans — Amnesea's official wordmark face */
+        .page-title {
+            font-family: 'Josefin Sans', var(--font-ui);
+            font-weight: 300; letter-spacing: .28em; text-transform: uppercase;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+        }
+        .page-title b { font-weight: 600; color: var(--accent); }
+
         .octo-hero {
             border: 1px solid var(--line); margin-top: 26px; position: relative; overflow: hidden;
             background: radial-gradient(ellipse at 70% 20%, rgba(var(--accent-rgb), .18), transparent 55%);
         }
-        .octo-hero img { display: block; width: 100%; max-height: 460px; object-fit: cover; }
-        .logo-strip { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin: 18px 0; }
-        .logo-strip img { max-height: 64px; background: transparent; }
+        .octo-hero img { display: block; width: 100%; max-height: 440px; object-fit: cover; }
+        .octo-hero .depth {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, transparent 55%, var(--bg));
+        }
+        .cred-row {
+            display: flex; gap: 26px; align-items: center; flex-wrap: wrap;
+            border: 1px solid var(--line); background: var(--panel); padding: 18px 22px; margin: 18px 0;
+        }
+        .cred-row img { max-height: 74px; }
+        .cred-row .cred-note { font-family: var(--font-code); font-size: .82rem; color: var(--dim); flex: 1; min-width: 200px; line-height: 1.6; }
+        .milestones { border-left: 2px solid var(--accent); margin: 14px 0 0 6px; padding-left: 22px; display: grid; gap: 14px; }
+        .ms { position: relative; }
+        .ms::before { content: ""; position: absolute; left: -28px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+        .ms .ms-when { font-family: var(--font-code); font-size: .78rem; color: var(--accent); display: block; }
+        .ms .ms-what { font-size: 1.08rem; color: var(--text); }
     </style>
 </head>
 
@@ -57,18 +78,37 @@
     </nav>
 
     <div class="frame prose">
-        <span class="label" style="display:block; margin-top:34px;">ENTREPRENEURSHIP // STUDIO BUILD // ESC RETURNS HOME</span>
-        <h1 class="page-title" style="view-transition-name: vt-amnesea;">Amnesea Studios</h1>
-        <p class="page-sub">an indie lab for narrative-heavy games and expressive tech</p>
+        <span class="label" style="display:block; margin-top:34px;">ENTREPRENEURSHIP // STUDIO CASE STUDY // ESC RETURNS HOME</span>
+        <h1 class="page-title" style="view-transition-name: vt-amnesea;">AMNE<b>SEA</b></h1>
+        <p class="page-sub">an indie lab where narrative, memory & expressive tech go deep</p>
 
         <div class="octo-hero rv">
             <img src="../projects/Amnesea/Octopus.webp" alt="Amnesea octopus">
+            <div class="depth"></div>
         </div>
 
         <div class="m-meta rv">
-            <div><span class="label">ROLE</span><strong>Founder / Creative Director</strong></div>
-            <div><span class="label">SCOPE</span><strong>Studio Build, end-to-end</strong></div>
-            <div><span class="label">STATUS</span><strong>Active — Dec 2023 →</strong></div>
+            <div><span class="label">ROLE</span><strong>Co-Founder & CXO</strong></div>
+            <div><span class="label">FOUNDED</span><strong>Dec 2023 — bootstrapped</strong></div>
+            <div><span class="label">STATUS</span><strong>Active · publishing-partnered</strong></div>
+        </div>
+
+        <span class="section-h">KEY METRICS</span>
+        <div class="fact-grid rv-stagger">
+            <div class="fact-card"><div class="fact-label">Platform partners</div><div class="fact-value">Xbox · PlayStation</div></div>
+            <div class="fact-card"><div class="fact-label">Players reached</div><div class="fact-value">5,000+</div></div>
+            <div class="fact-card"><div class="fact-label">Publisher negotiations</div><div class="fact-value">12</div></div>
+            <div class="fact-card"><div class="fact-label">Shipped / preview builds</div><div class="fact-value">12+</div></div>
+            <div class="fact-card"><div class="fact-label">Jam prizes</div><div class="fact-value">$2,880</div></div>
+            <div class="fact-card"><div class="fact-label">Press</div><div class="fact-value">IGN · Times of India</div></div>
+        </div>
+
+        <span class="section-h">CREDENTIALS</span>
+        <div class="cred-row rv">
+            <div class="credly-badge" data-iframe-width="150" data-iframe-height="270"
+                data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
+            <img src="../projects/Amnesea/xbox-game-camp-asia-2024-participant.webp" alt="Xbox Game Camp Asia 2024 participant">
+            <div class="cred-note">Xbox Game Camp Asia 2024 — selected among the top 16 studios across 5 countries (top 4 from India), with direct mentorship from Xbox Studios on design, production & pitching.</div>
         </div>
 
         <div class="btn-row rv">
@@ -77,42 +117,44 @@
             <a href="../arcade.html" class="btn">PLAY THE GAMES →</a>
         </div>
 
-        <span class="section-h">WHY</span>
-        <p>Games that treat memory, music, and place as first-class mechanics. Amnesea is where engineering rigor
-            meets narrative experimentation — bootstrapped from zero to platform partnerships.</p>
+        <span class="section-h">THE STORY</span>
+        <p><strong>Amnesea treats memory, music, and place as first-class game mechanics.</strong> I bootstrapped the
+            studio from a solo prototype table to a publishing-partnered lab — directing creative and strategy while
+            staying hands-on in Unity, UXR, and the pitch room.</p>
 
-        <div class="logo-strip rv">
-            <img src="../projects/Amnesea/Amnesea%20Name%20LogoT.png" alt="Amnesea logotype">
-            <img src="../projects/Amnesea/xbox-game-camp-asia-2024-participant.webp" alt="Xbox Game Camp Asia 2024 participant">
+        <span class="section-h">MILESTONES</span>
+        <div class="milestones rv-stagger">
+            <div class="ms"><span class="ms-when">DEC 2023</span><span class="ms-what">Studio founded — bootstrapped, zero external capital.</span></div>
+            <div class="ms"><span class="ms-when">2024</span><span class="ms-what">IGDC sponsored kiosk — first 5,000+ players; Games Gossip India "10 best of IGDC".</span></div>
+            <div class="ms"><span class="ms-when">MAR–JUN 2024</span><span class="ms-what">Xbox Game Camp Asia — top 16 studios; 12 publisher negotiations.</span></div>
+            <div class="ms"><span class="ms-when">2024</span><span class="ms-what">IGN first-impressions feature + Times of India coverage.</span></div>
+            <div class="ms"><span class="ms-when">2025</span><span class="ms-what">Double jam winner — Avalanche × Neuranode 1st place ($2,380), Whalepass ($500).</span></div>
+            <div class="ms"><span class="ms-when">2025–26</span><span class="ms-what">Publishing agreements signed with Microsoft Xbox and Sony PlayStation.</span></div>
         </div>
 
-        <span class="section-h">HIGHLIGHTS</span>
-        <ul>
-            <li><strong>12+ shipped/preview builds</strong> across puzzle, RPG, and XR.</li>
-            <li>Bootstrapped end-to-end production with prototypes reaching <strong>5,000+ players</strong>.</li>
-            <li>Selected as <strong>Top 16 Asian studios</strong> (Xbox Game Camp Asia); pitched to global investors.</li>
-            <li>Publishing agreements with <strong>Microsoft Xbox</strong> and <strong>Sony PlayStation</strong>.</li>
-            <li>Exhibited at <strong>IGDC & IGS</strong> (sponsored kiosks, 2 years); coverage in Times of India and IGN.</li>
-            <li>Won 1st Place ($2,380) in the Avalanche × Neuranode Game Jam; $500 at Whalepass Jam.</li>
-        </ul>
-
-        <span class="section-h">KEY METRICS</span>
-        <div class="fact-grid rv">
-            <div class="fact-card"><div class="fact-label">Players reached</div><div class="fact-value">5,000+</div></div>
-            <div class="fact-card"><div class="fact-label">Platform partners</div><div class="fact-value">Xbox · PlayStation</div></div>
-            <div class="fact-card"><div class="fact-label">Publisher negotiations</div><div class="fact-value">12</div></div>
-            <div class="fact-card"><div class="fact-label">Jam prizes</div><div class="fact-value">$2,880</div></div>
+        <div class="gate-zone rv">
+            <div class="gate-veil">
+                <div class="gate-cta">
+                    <span class="gate-lock">⚿</span>
+                    <p><strong>STUDIO INTERNALS — RESTRICTED</strong><br>
+                        Production frameworks, UXR loops, retention telemetry & partnership pipeline live behind access.</p>
+                    <button class="btn solid" onclick="vaultPopBody()">ENTER ACCESS KEY</button>
+                    <span class="gate-hint">No key? <a href="mailto:akamaestro@outlook.com?subject=Access%20request%20—%20Amnesea%20case%20study">Request access →</a></span>
+                </div>
+            </div>
+            <div class="gated">
+                <span class="section-h">HOW THE STUDIO RUNS</span>
+                <ul>
+                    <li><strong>Production:</strong> jam-to-vertical-slice pipeline; AI-assisted scripting to cut core feature build times.</li>
+                    <li><strong>UXR:</strong> show-floor player labs at IGDC/IGS feeding narrative pacing and loop tuning.</li>
+                    <li><strong>Telemetry:</strong> quantitative player telemetry and session retention metrics drive retention-loop redesigns.</li>
+                    <li><strong>Business:</strong> GTM strategy, distributor negotiations, data-backed pitch decks.</li>
+                </ul>
+                <span class="section-h">GAME BUILDS</span>
+                <p>The full playable catalogue — 14 games across three labels — lives in
+                    <a href="../arcade.html">THE ARCADE →</a></p>
+            </div>
         </div>
-
-        <span class="section-h">CREDENTIAL</span>
-        <div class="rv" style="display:flex; gap:18px; align-items:center; flex-wrap:wrap;">
-            <div class="credly-badge" data-iframe-width="150" data-iframe-height="270"
-                data-share-badge-id="8601dedb-ddef-457e-b070-2a9b4e46149f" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-
-        <span class="section-h">GAME BUILDS</span>
-        <p>The full playable catalogue — 14 games across three labels — lives in
-            <a href="../arcade.html">THE ARCADE →</a></p>
 
         <nav class="proj-pager rv" aria-label="Project navigation">
             <a class="pp prev" href="arts.html">

@@ -14,7 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,600;1,400;1,600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
@@ -33,21 +33,21 @@
         .bio-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start; margin-top: 44px; }
         @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
 
-        /* polaroid-style photo */
-        .bio-photo { position: relative; transform: rotate(2.2deg); transition: transform .4s; }
+        /* clean floating photo */
+        .bio-photo { position: relative; transform: rotate(1.6deg); transition: transform .4s; align-self: center; }
         .bio-photo:hover { transform: rotate(0deg) scale(1.02); }
         .bio-photo img {
-            width: 100%; border: 1px solid var(--line); background: var(--panel);
-            padding: 12px 12px 52px; box-shadow: 0 18px 44px rgba(0, 0, 0, .3);
+            width: 100%; border: none; background: none;
+            filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .35));
         }
         .bio-photo .caption {
-            position: absolute; bottom: 16px; left: 0; right: 0; text-align: center;
-            font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--dim);
+            margin-top: 10px; text-align: center;
+            font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--dim);
         }
         .bio-photo .tape {
-            position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg);
-            width: 110px; height: 26px; background: rgba(var(--accent-rgb), .28);
-            border: 1px dashed rgba(var(--accent-rgb), .5);
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+            width: 110px; height: 26px; background: rgba(var(--accent-rgb), .25);
+            border: 1px dashed rgba(var(--accent-rgb), .5); z-index: 2;
         }
 
         /* relocation marquee-ish line */
@@ -59,45 +59,52 @@
         .globe-line .spin { display: inline-block; animation: spin 9s linear infinite; font-size: 1.3rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* editorial numbered focus list */
-        .focus-list { counter-reset: focus; margin-top: 8px; }
-        .focus-item {
-            counter-increment: focus; display: flex; align-items: baseline; gap: 20px;
-            padding: 20px 6px; border-bottom: 1px solid var(--line-dim);
-            transition: .25s; cursor: default;
+        /* focus areas & passions: bubble clouds */
+        .bubble-cloud { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+        .bubble {
+            display: inline-flex; flex-direction: column; gap: 4px;
+            padding: 18px 26px; border: 1.5px solid var(--line); border-radius: 26px;
+            background: var(--panel); transition: .3s; cursor: default;
         }
-        .focus-item:hover { padding-left: 18px; border-color: var(--accent); }
-        .focus-item::before {
-            content: "0" counter(focus); font-family: var(--font-code);
-            color: var(--accent); font-size: .95rem; min-width: 2.2em;
+        .bubble:hover {
+            border-color: var(--accent); transform: translateY(-4px) rotate(-.5deg);
+            box-shadow: 0 14px 34px rgba(var(--accent-rgb), .18);
+            background: color-mix(in srgb, var(--panel) 88%, var(--accent));
         }
-        .focus-item .f-name { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 800; text-transform: uppercase; }
-        .focus-item .f-note { font-family: var(--font-code); font-size: .85rem; color: var(--dim); margin-left: auto; text-align: right; }
-        @media (max-width: 640px) { .focus-item .f-note { display: none; } }
+        .bubble b { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+        .bubble i { font-family: var(--font-code); font-style: normal; font-size: .8rem; color: var(--dim); letter-spacing: .5px; }
+        .bubble.mini { padding: 12px 20px; border-radius: 999px; flex-direction: row; align-items: center; gap: 10px; }
+        .bubble.mini b { font-size: 1.05rem; }
 
-        /* combined coordinates + connect */
-        .coords {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 10px;
-        }
+        /* coordinates + connect: rounded bubble links */
+        .coords { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
         .coord {
-            background: var(--panel); padding: 20px; text-decoration: none; color: var(--text);
-            display: flex; flex-direction: column; gap: 6px; transition: .25s; position: relative;
+            display: inline-flex; flex-direction: column; gap: 3px;
+            padding: 14px 22px; border: 1.5px solid var(--line); border-radius: 20px;
+            background: var(--panel); text-decoration: none; color: var(--text); transition: .3s;
         }
-        a.coord:hover { background: var(--hover); }
-        a.coord::after {
-            content: "↗"; position: absolute; top: 12px; right: 14px;
-            font-family: var(--font-code); color: var(--accent); opacity: 0; transition: .2s;
+        a.coord:hover {
+            border-color: var(--accent); transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(var(--accent-rgb), .18);
         }
-        a.coord:hover::after { opacity: 1; }
-        .coord .c-value { font-size: 1.1rem; font-weight: 700; word-break: break-word; }
+        .coord .c-value { font-size: 1.05rem; font-weight: 700; word-break: break-word; }
 
-        /* toolbelt */
-        .belt-group { margin-top: 22px; }
+        /* toolbelt: tinted chip clusters */
+        .belt-group { margin-top: 24px; --tint: var(--accent); --tint-rgb: var(--accent-rgb); }
+        .belt-group:nth-of-type(2) { --tint: #6ecbff; --tint-rgb: 110, 203, 255; }
+        .belt-group:nth-of-type(3) { --tint: #ff5f6d; --tint-rgb: 255, 95, 109; }
+        .belt-group:nth-of-type(4) { --tint: #ffc400; --tint-rgb: 255, 196, 0; }
+        .belt-group:nth-of-type(5) { --tint: #a78bfa; --tint-rgb: 167, 139, 250; }
         .belt-group .belt-name {
-            font-family: var(--font-code); font-size: .8rem; color: var(--accent);
+            font-family: var(--font-code); font-size: .82rem; color: var(--tint);
             text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block;
         }
+        .belt-group .chip {
+            border-color: color-mix(in srgb, var(--tint) 45%, transparent);
+            background: color-mix(in srgb, var(--tint) 7%, transparent);
+            color: var(--text); font-size: .86rem; padding: 8px 15px;
+        }
+        .belt-group .chip:hover { border-color: var(--tint); color: var(--tint); transform: translateY(-2px); }
     </style>
 </head>
 
@@ -120,6 +127,11 @@
             <span class="label" style="display:block; margin-bottom:18px;">IDENTITY_FILE // ANKIT KUMAR AGRAWAL (AKA) // ESC RETURNS HOME</span>
             <h1 class="statement rv">I build <em>playful machines</em> with an engineer's rigor and an
                 <em>artist's mischief</em>.</h1>
+            <div class="btn-row rv" style="margin-top:24px;">
+                <a href="resume.html" class="btn solid">RESUME / CV</a>
+                <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="btn">DOWNLOAD PDF ⤓</a>
+                <a href="mailto:akamaestro@outlook.com" class="btn">✉ SAY HELLO</a>
+            </div>
         </div>
 
         <div class="bio-grid">
@@ -140,7 +152,7 @@
             <div class="bio-photo rv">
                 <div class="tape"></div>
                 <img src="projects/Ankit/akamaestro.webp" alt="Ankit Kumar">
-                <div class="caption">aka «maestro» — New Delhi, IN</div>
+                <div class="caption">aka «maestro»</div>
             </div>
         </div>
 
@@ -151,18 +163,28 @@
         </div>
 
         <span class="section-h">FOCUS AREAS</span>
-        <div class="focus-list rv-stagger">
-            <div class="focus-item"><span class="f-name">Creative Technology</span><span class="f-note">installations · expressive tech</span></div>
-            <div class="focus-item"><span class="f-name">Interactive Systems</span><span class="f-note">games · realtime · XR</span></div>
-            <div class="focus-item"><span class="f-name">Game Design</span><span class="f-note">mechanics · narrative · UXR</span></div>
-            <div class="focus-item"><span class="f-name">Robotics + Vision</span><span class="f-note">CV · control · bio-mimetics</span></div>
-            <div class="focus-item"><span class="f-name">ML Prototyping</span><span class="f-note">CNNs · pipelines · agentic AI</span></div>
-            <div class="focus-item"><span class="f-name">Leadership & GTM</span><span class="f-note">cross-functional · strategy · pitch</span></div>
+        <div class="bubble-cloud rv-stagger">
+            <span class="bubble"><b>Creative Technology</b><i>installations · expressive tech</i></span>
+            <span class="bubble"><b>Interactive Systems</b><i>games · realtime · XR</i></span>
+            <span class="bubble"><b>Game Design</b><i>mechanics · narrative · UXR</i></span>
+            <span class="bubble"><b>Robotics + Vision</b><i>CV · control · bio-mimetics</i></span>
+            <span class="bubble"><b>ML Prototyping</b><i>CNNs · pipelines · agentic AI</i></span>
+            <span class="bubble"><b>Leadership & GTM</b><i>cross-functional · strategy · pitch</i></span>
+        </div>
+
+        <span class="section-h">OFF THE CLOCK — PASSIONS & CURRENTLY</span>
+        <div class="bubble-cloud rv-stagger">
+            <span class="bubble mini"><b>📷 Photography</b><i>always carrying a camera</i></span>
+            <span class="bubble mini"><b>🎮 Gaming</b><i>player first, designer second</i></span>
+            <span class="bubble mini"><b>🖼 Art & museums</b><i>gallery-lurker, poster collector</i></span>
+            <span class="bubble mini"><b>🌏 Travel</b><i>cultural research disguised as wandering</i></span>
+            <span class="bubble mini"><b>🎛 Music tech</b><i>automated performance systems</i></span>
+            <span class="bubble mini"><b>⚡ Game jams</b><i>weekend-sized ideas, shipped</i></span>
+            <span class="bubble mini"><b>🧪 Currently</b><i>building Amnesea · exploring agentic AI · grad school '26 prep</i></span>
         </div>
 
         <span class="section-h">COORDINATES & CONNECT</span>
         <div class="coords rv-stagger">
-            <div class="coord"><span class="label">Base</span><span class="c-value">New Delhi, India — relocatable 🌐</span></div>
             <a class="coord" href="mailto:akamaestro@outlook.com"><span class="label">Email</span><span class="c-value">akamaestro@outlook.com</span></a>
             <a class="coord" href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener"><span class="label">LinkedIn</span><span class="c-value">/in/akamaestro</span></a>
             <a class="coord" href="https://github.com/AKAmaestro" target="_blank" rel="noopener"><span class="label">GitHub</span><span class="c-value">@AKAmaestro</span></a>
@@ -222,7 +244,7 @@
 
         <div class="btn-row rv" style="margin-top:40px;">
             <a href="journey.html" class="btn solid">SEE THE FULL JOURNEY →</a>
-            <a href="resume.html" class="btn">RESUME / CV</a>
+            <a href="signals.html" class="btn">AWARDS & PRESS</a>
         </div>
     </div>
 

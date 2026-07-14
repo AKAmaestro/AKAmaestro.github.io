@@ -23,7 +23,7 @@
         "jobTitle": "Creative Technologist & Design Engineer",
         "worksFor": { "@type": "Organization", "name": "Amnesea Studios", "url": "https://amnesea.com" },
         "alumniOf": "NITTE Meenakshi Institute of Technology",
-        "address": { "@type": "PostalAddress", "addressLocality": "New Delhi", "addressCountry": "IN" },
+        "address": { "@type": "PostalAddress", "addressCountry": "IN" },
         "sameAs": [
             "https://www.linkedin.com/in/akamaestro",
             "https://github.com/AKAmaestro",
@@ -41,7 +41,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
 
@@ -106,26 +106,19 @@
 
         .hero-tag { margin: 20px auto 0; max-width: 640px; color: var(--dim); font-size: .95rem; line-height: 1.6; }
 
-        .hero-stamp {
-            position: absolute; left: -20px; top: 52%; width: 170px;
-            transform: translateY(-50%); opacity: .8; pointer-events: none;
-            mix-blend-mode: screen;
-        }
-        body.light-mode .hero-stamp { mix-blend-mode: multiply; opacity: .9; }
-        @media (max-width: 800px) { .hero-stamp { display: none; } }
 
         /* ---------- TICKER ---------- */
         .ticker {
             border: 1px solid var(--line); border-top: none;
             overflow: hidden; white-space: nowrap;
-            font-family: var(--font-code); font-size: .72rem;
-            color: var(--dim); text-transform: uppercase; letter-spacing: 1px;
-            padding: 10px 0;
+            font-family: var(--font-code); font-size: 1.02rem;
+            color: var(--text); text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 16px 0;
             -webkit-user-select: none; user-select: none;
         }
         .ticker-track { display: inline-block; animation: tick 40s linear infinite; }
         .ticker:hover .ticker-track { animation-play-state: paused; }
-        .ticker b { color: var(--accent); font-weight: 400; }
+        .ticker b { color: var(--accent); font-weight: 700; }
         @keyframes tick { to { transform: translateX(-50%); } }
 
         /* ---------- WORKS GRID ---------- */
@@ -163,28 +156,6 @@
         }
         .work-item:hover .go { opacity: 1; }
 
-        /* ---------- EXPLORE TILES ---------- */
-        .explore {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1px; background: var(--line);
-            border: 1px solid var(--line); border-top: none;
-        }
-        .ex-tile {
-            background: var(--panel); padding: 26px 22px; min-height: 150px;
-            display: flex; flex-direction: column; justify-content: space-between;
-            text-decoration: none; color: var(--text); position: relative; overflow: hidden;
-            transition: .25s;
-        }
-        .ex-tile:hover { background: var(--hover); }
-        .ex-tile h3 { font-size: 1.25rem; font-weight: 800; text-transform: uppercase; margin-top: 16px; }
-        .ex-tile .h-sub { font-family: var(--font-code); font-size: .72rem; color: var(--accent); margin-top: 4px; }
-        .ex-tile::after {
-            content: "↗"; position: absolute; top: 10px; right: 12px;
-            font-family: var(--font-code); color: var(--accent); opacity: 0; transition: .25s;
-        }
-        .ex-tile:hover::after { opacity: 1; }
-        .ex-tile.locked h3::before { content: "🔒 "; font-size: 1rem; }
 
         /* ---------- CONTACT ---------- */
         .contact {
@@ -232,7 +203,7 @@
                     <span class="dot"></span> ONLINE — OPEN TO COLLABS <span style="color:var(--dim);"
                         data-local-time></span></button>
             </div>
-            <span class="label">T-SHAPED FIRST-GEN PROFESSIONAL // NEW DELHI, IN</span>
+            <span class="label">T-SHAPED FIRST-GEN PROFESSIONAL // INDIA</span>
             <h1 class="hero-name" id="hero-name">ANKIT KUMAR</h1>
             <div class="typewriter">&gt; <span id="typewriter"></span><span class="caret">_</span></div>
             <p class="hero-tag">
@@ -243,11 +214,14 @@
                 <a href="#works" class="btn solid">EXPLORE WORK ↓</a>
                 <a href="about.html" class="btn">READ BIO →</a>
                 <a href="vault.html" class="btn">⚿ UNLOCK VAULT ACCESS</a>
+            </div>
+            <div class="btn-row" style="justify-content:center; margin-top:2px;">
                 <a href="arcade.html" class="btn">ARCADE ZONE</a>
                 <a href="journey.html" class="btn">JOURNEY</a>
                 <a href="signals.html" class="btn">SIGNALS</a>
+                <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="btn">RESUME ⤓</a>
+                <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="btn">SHOWREEL ⤓</a>
             </div>
-            <img class="hero-stamp" src="projects/Ankit/akamaestro.webp" alt="AKA seal">
         </header>
 
         <div class="ticker" aria-hidden="true">
@@ -328,36 +302,6 @@
             </a>
         </main>
 
-        <section class="explore rv-stagger">
-            <a class="ex-tile" href="about.html">
-                <span class="label">IDENTITY</span>
-                <div><h3>About</h3><span class="h-sub">Bio // focus // socials</span></div>
-            </a>
-            <a class="ex-tile" href="journey.html">
-                <span class="label">JOURNEY_LOG</span>
-                <div><h3>Career Runway</h3><span class="h-sub">Roles // education // research</span></div>
-            </a>
-            <a class="ex-tile" href="signals.html">
-                <span class="label">SIGNAL_BOOSTS</span>
-                <div><h3>Awards & Press</h3><span class="h-sub">Honors // media // community</span></div>
-            </a>
-            <a class="ex-tile" href="arcade.html">
-                <span class="label">PLAYABLE</span>
-                <div><h3>Arcade</h3><span class="h-sub">14 games // play in browser</span></div>
-            </a>
-            <a class="ex-tile" href="showreel.html">
-                <span class="label">PORTFOLIO_DECK</span>
-                <div><h3>Showreel</h3><span class="h-sub">Clickable PDF deck</span></div>
-            </a>
-            <a class="ex-tile" href="resume.html">
-                <span class="label">RESUME_DROP</span>
-                <div><h3>Resume / CV</h3><span class="h-sub">Hire-ready</span></div>
-            </a>
-            <a class="ex-tile locked" href="vault.html">
-                <span class="label">RESTRICTED</span>
-                <div><h3>The Vault</h3><span class="h-sub">Password-gated dossiers</span></div>
-            </a>
-        </section>
 
         <section class="contact">
             <span class="label">INITIALIZE_COMMS_PROTOCOL</span><br><br>
@@ -366,7 +310,7 @@
     </div>
 
     <footer class="site-footer">
-        <div>©AKAmaestro — Ankit Kumar Agrawal<br>New Delhi, India · <span data-local-time></span></div>
+        <div>©AKAmaestro — Ankit Kumar Agrawal<br>India · <span data-local-time></span></div>
         <div class="f-links">
             <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener">GitHub</a>

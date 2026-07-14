@@ -179,7 +179,7 @@
 
     function vaultGranted() { return !!sessionStorage.getItem('aka-vault-key'); }
 
-    function vaultPopBody() {
+    window.vaultPopBody = function () {
         const note = vaultGranted()
             ? '<p><strong style="color:var(--accent);">● ACCESS ACTIVE</strong> — your key is loaded for this session.</p><div class="pop-actions"><a href="' + VAULT_ROOT + 'vault.html"><span class="big">🗝</span> Open the vault dossiers</a></div><p style="margin-top:12px;"><a href="#" onclick="sessionStorage.removeItem(\'aka-vault-key\');location.reload();return false;">Lock again ↺</a></p>'
             : '<p>Some content on this site is <strong>AES-256 encrypted</strong>. If you\'ve been given an access key, enter it here — it unlocks that level of data across every page for this session.</p>' +
@@ -188,7 +188,7 @@
         openPop('RESTRICTED ACCESS', note);
         const inp = document.getElementById('vt-pw');
         if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); vaultSubmit(); } });
-    }
+    };
 
     window.vaultSubmit = async function () {
         const msg = document.getElementById('vt-msg');
@@ -202,8 +202,14 @@
             const tab = document.getElementById('vault-tab');
             if (tab) { tab.classList.add('granted'); tab.textContent = '● ACCESS GRANTED'; }
             msg.className = 'vault-pop-msg ok';
-            msg.textContent = `✓ ${opened.length} DOSSIER(S) UNLOCKED — opening vault…`;
-            setTimeout(() => { location.href = VAULT_ROOT + 'vault.html'; }, 700);
+            if (document.querySelector('.gate-zone')) {
+                document.body.classList.add('vault-open');
+                msg.textContent = '✓ ACCESS GRANTED — this page is now unlocked';
+                setTimeout(closePop, 900);
+            } else {
+                msg.textContent = `✓ ${opened.length} DOSSIER(S) UNLOCKED — opening vault…`;
+                setTimeout(() => { location.href = VAULT_ROOT + 'vault.html'; }, 700);
+            }
         } catch (err) {
             msg.className = 'vault-pop-msg err';
             msg.textContent = '✗ ' + (location.protocol === 'file:'
@@ -212,6 +218,7 @@
     };
 
     function initVaultTab() {
+        if (vaultGranted()) document.body.classList.add('vault-open');
         if (document.getElementById('unlock-form')) return; // vault page has its own gate
         const tab = document.createElement('button');
         tab.id = 'vault-tab';
@@ -239,7 +246,7 @@
     function initScrollProgress() {
         const bar = document.createElement('div');
         bar.id = 'scroll-progress';
-        document.body.appendChild(bar);
+        (document.querySelector('.site-nav') || document.body).appendChild(bar);
         const update = () => {
             const max = document.documentElement.scrollHeight - innerHeight;
             bar.style.width = max > 0 ? (scrollY / max * 100) + '%' : '0';

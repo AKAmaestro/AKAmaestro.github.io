@@ -14,7 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
@@ -57,7 +57,8 @@
         .cert:hover { border-color: var(--accent); }
         .cert .cy { color: var(--accent); }
 
-        .showcase-img { width: 100%; border: 1px solid var(--line); margin: 18px 0; }
+        .hscroll.mentions-grid { display: flex; margin: 6px 0 10px; }
+        .hscroll .mention-card { border-radius: 16px; }
         .mention-card[data-pop]:hover { border-color: var(--accent); }
     </style>
 </head>
@@ -142,16 +143,18 @@
             <div class="cert"><span class="cy">'19</span> ROBOTC Engineering — TETRIX & LEGO Mindstorms</div>
         </div>
 
-        <span class="section-h">MEDIA SHOWCASE</span>
-        <img class="showcase-img zoomable rv" src="projects/Media%20mentions.webp" alt="Media mentions collage">
-        <div class="media-grid rv">
+        <span class="section-h">SHOWCASE IMAGES</span>
+        <div class="hs-note">from the show floors — IGDC, meetups, exhibitions</div>
+        <div class="hscroll rv">
             <img class="zoomable" src="projects/IGDA/1722239781936.webp" data-full="projects/IGDA/1722239781936.webp" alt="IGDC showcase" loading="lazy">
             <img class="zoomable" src="projects/IGDA/20240720_150324.webp" data-full="projects/IGDA/20240720_150324.webp" alt="Community event" loading="lazy">
             <img class="zoomable" src="projects/IGDA/1722239780752.webp" data-full="projects/IGDA/1722239780752.webp" alt="IGDA meetup" loading="lazy">
+            <img class="zoomable" src="projects/IGDA/1722239780049.webp" data-full="projects/IGDA/1722239780049.webp" alt="IGDA session" loading="lazy">
         </div>
 
         <span class="section-h">PRESS & MENTIONS — CLICK FOR CONTEXT</span>
-        <div class="mentions-grid rv-stagger">
+        <div class="hs-note">the newsfeed — more clippings landing here</div>
+        <div class="hscroll mentions-grid rv">
             <div class="mention-card" data-pop data-pop-title="IGN INDIA — FIRST IMPRESSIONS"
                 data-pop-body="<p>IGN India covered Amnesea's showcase lineup in a first-impressions feature, calling out the games' <strong>'unique concepts with simplistic gameplay'</strong> — exactly the design thesis: one sharp mechanic, zero friction.</p>">
                 <div class="mention-logo"><img src="projects/Media/IGN_India.png" alt="IGN India" loading="lazy"></div>

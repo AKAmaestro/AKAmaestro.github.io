@@ -14,6 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
@@ -40,6 +41,22 @@
             border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px;
         }
         .lane-chip i { width: 22px; height: 8px; border-radius: 999px; display: inline-block; }
+
+        /* A/B view switcher: vertical log vs horizontal map */
+        .view-switch {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin: 22px 14px 0 0; padding: 6px;
+            border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+        }
+        .view-switch .vs-label { font-family: var(--font-code); font-size: .62rem; color: var(--dim); letter-spacing: 1.5px; padding: 0 6px 0 12px; }
+        .view-switch a {
+            font-family: var(--font-ui); font-weight: 600; font-size: .76rem; letter-spacing: 1px;
+            text-decoration: none; color: var(--dim); padding: 9px 16px; border-radius: 999px; transition: .2s;
+            white-space: nowrap;
+        }
+        .view-switch a.active { background: var(--accent); color: #000; }
+        .view-switch a:not(.active):hover { color: var(--accent); }
+        .view-switch sup { font-size: .55em; }
 
         .tap-hint {
             display: inline-flex; align-items: center; gap: 10px;
@@ -143,6 +160,11 @@
         <span class="label" style="display:block; margin-top:34px;">JOURNEY_LOG // $ git log --graph --all // ESC RETURNS HOME</span>
         <h1 class="page-title">One decade,<br><em>many branches.</em></h1>
         <p class="page-sub">what ran in parallel with what — newest on top, roots at the bottom</p>
+        <div class="view-switch rv">
+            <span class="vs-label">VIEW AS</span>
+            <a class="active" href="journey.html">⇅ VERTICAL LOG</a>
+            <a href="journey-h.html">⇆ HORIZONTAL MAP <sup>β</sup></a>
+        </div>
         <div class="tap-hint">👆 TAP ANY CARD — EVERY NODE OPENS ITS FULL STORY</div>
         <div class="lane-legend rv">
             <span class="lane-chip"><i style="background:var(--c-main);"></i> main — career</span>

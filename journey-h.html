@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey — Horizontal Map — AKAmaestro</title>
+    <meta name="description" content="Career of Ankit Kumar as a horizontal transit map — parallel lanes for career, games, research and education, scrubbed left to right through a decade.">
+    <meta name="robots" content="noindex">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/core.css">
+    <style>
+        :root {
+            --c-main: #00ff41;
+            --c-games: #a78bfa;
+            --c-rsch: #00f3ff;
+            --c-edu: #ffc400;
+        }
+        body.light-mode {
+            --c-main: #00922a; --c-games: #6d28d9; --c-rsch: #006f8f; --c-edu: #8a6800;
+        }
+        body {
+            background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+
+        /* A/B view switcher (same as journey.html) */
+        .view-switch {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin: 22px 14px 0 0; padding: 6px;
+            border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+        }
+        .view-switch .vs-label { font-family: var(--font-code); font-size: .62rem; color: var(--dim); letter-spacing: 1.5px; padding: 0 6px 0 12px; }
+        .view-switch a {
+            font-family: var(--font-ui); font-weight: 600; font-size: .76rem; letter-spacing: 1px;
+            text-decoration: none; color: var(--dim); padding: 9px 16px; border-radius: 999px; transition: .2s;
+            white-space: nowrap;
+        }
+        .view-switch a.active { background: var(--accent); color: #000; }
+        .view-switch a:not(.active):hover { color: var(--accent); }
+        .view-switch sup { font-size: .55em; }
+
+        .tap-hint {
+            display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 22px; padding: 12px 20px;
+            border: 1.5px dashed var(--accent); border-radius: 999px;
+            font-family: var(--font-code); font-size: .88rem; color: var(--accent);
+            animation: hintpulse 2.6s ease-in-out infinite;
+        }
+        @keyframes hintpulse { 50% { box-shadow: 0 0 22px rgba(var(--accent-rgb), .35); } }
+
+        .lane-legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 0; }
+        .lane-chip {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-code); font-size: .74rem; color: var(--dim);
+            border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px;
+        }
+        .lane-chip i { width: 22px; height: 8px; border-radius: 999px; display: inline-block; }
+
+        /* ---------- THE MAP ---------- */
+        .jmap-wrap { position: relative; margin-top: 28px; }
+        .jmap {
+            overflow-x: auto; overflow-y: hidden;
+            border: 1px solid var(--line); background: var(--panel);
+            cursor: grab; overscroll-behavior-x: contain;
+            scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+        }
+        .jmap.grabbing { cursor: grabbing; }
+        .jmap-canvas { position: relative; /* height set by the renderer */ }
+
+        /* year ruler + hairlines */
+        .yr-label {
+            position: absolute; top: 12px; transform: translateX(-50%);
+            font-family: var(--font-code); font-size: .72rem; color: var(--dim); letter-spacing: 1px;
+        }
+        .yr-line { position: absolute; top: 46px; bottom: 0; width: 1px; background: var(--line-dim); }
+
+        /* giant ghost years for depth (parallax layer) */
+        .jm-ghost { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
+        .jm-ghost b {
+            position: absolute; top: 46%; transform: translate(-50%, -50%);
+            font-family: var(--font-display); font-style: italic; font-weight: 600;
+            font-size: 128px; line-height: 1; color: var(--text); opacity: .045; white-space: nowrap;
+        }
+
+        /* lane bands */
+        .lane-band {
+            position: absolute; left: 0; right: 0; height: var(--laneH);
+            border-bottom: 1px dashed var(--line-dim);
+            background: linear-gradient(90deg, color-mix(in srgb, var(--lc) 6%, transparent), transparent 26%);
+        }
+        .lane-tag {
+            position: sticky; left: 10px; top: 8px;
+            display: inline-flex; align-items: center; gap: 7px; margin: 8px 0 0 10px;
+            font-family: var(--font-code); font-size: .64rem; letter-spacing: 1.5px;
+            color: var(--lc); border: 1px solid color-mix(in srgb, var(--lc) 45%, transparent);
+            background: color-mix(in srgb, var(--bg) 82%, transparent);
+            border-radius: 999px; padding: 4px 11px; z-index: 6; width: max-content;
+        }
+        .lane-tag i { width: 14px; height: 6px; border-radius: 999px; background: var(--lc); display: inline-block; }
+
+        /* connectors */
+        .jm-svg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+        .jm-svg path { fill: none; stroke-linecap: round; }
+
+        /* ribbon bars */
+        .jbar { position: absolute; z-index: 3; cursor: pointer; }
+        .jbar .jb-info { margin-bottom: 7px; white-space: nowrap; }
+        .jbar .jb-title {
+            font-family: var(--font-ui); font-weight: 700; font-size: .95rem;
+            letter-spacing: .2px; color: var(--text); transition: .2s;
+        }
+        .jbar .jb-sub { display: block; font-family: var(--font-code); font-size: .62rem; margin-top: 3px; }
+        .jbar .jb-sub b { color: var(--lc); font-weight: 400; }
+        .jbar .jb-sub span { color: var(--dim); }
+        .jbar .jb-tube {
+            position: relative; height: 20px; border-radius: 999px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, .3), transparent 40%, rgba(0, 0, 0, .42)),
+                var(--lc);
+            box-shadow: 0 0 20px color-mix(in srgb, var(--lc) 40%, transparent), 0 6px 16px rgba(0, 0, 0, .35);
+            transition: .25s;
+        }
+        .jbar:hover .jb-tube { box-shadow: 0 0 34px color-mix(in srgb, var(--lc) 70%, transparent), 0 8px 20px rgba(0, 0, 0, .4); }
+        .jbar:hover .jb-title { color: var(--lc); }
+        .jbar .jb-story {
+            position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+            font-family: var(--font-code); font-size: .56rem; letter-spacing: 1px; color: #000;
+            background: rgba(255, 255, 255, .35); border-radius: 999px; padding: 2px 8px;
+            opacity: 0; transition: .2s;
+        }
+        .jbar:hover .jb-story { opacity: 1; }
+        /* live pulse on the ongoing bar */
+        .jbar.live .jb-tube::after {
+            content: ""; position: absolute; right: -5px; top: 50%; margin-top: -7px;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, #fff, var(--lc) 45%);
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--lc) 70%, transparent);
+            animation: nowpulse 2s infinite;
+        }
+        @keyframes nowpulse { 70% { box-shadow: 0 0 0 12px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+        /* milestone markers */
+        .jmark { position: absolute; z-index: 4; transform: translateX(-50%); pointer-events: none; }
+        .jmark i {
+            display: block; margin: 0 auto; width: 13px; height: 13px; border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .9), var(--lc) 48%, color-mix(in srgb, var(--lc) 55%, #000));
+            box-shadow: 0 0 12px color-mix(in srgb, var(--lc) 65%, transparent);
+        }
+        .jmark span {
+            display: block; margin-top: 6px; max-width: 118px;
+            font-family: var(--font-code); font-size: .56rem; line-height: 1.45;
+            color: var(--dim); text-align: center;
+        }
+        .jmark span b { color: var(--lc); font-weight: 400; }
+
+        /* NOW line */
+        .now-line { position: absolute; top: 46px; bottom: 0; width: 2px; z-index: 2; background: repeating-linear-gradient(180deg, var(--accent) 0 7px, transparent 7px 14px); opacity: .7; }
+        .now-chip {
+            position: absolute; top: 8px; transform: translateX(-50%); z-index: 5;
+            font-family: var(--font-code); font-size: .62rem; letter-spacing: 1.5px; color: #000;
+            background: var(--accent); border-radius: 999px; padding: 4px 11px;
+        }
+
+        /* map controls */
+        .jm-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 8;
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 1px solid var(--accent); background: color-mix(in srgb, var(--bg) 85%, transparent);
+            color: var(--accent); font-size: 1.05rem; cursor: pointer;
+            display: grid; place-items: center; transition: .2s;
+        }
+        .jm-arrow:hover { background: var(--accent); color: #000; }
+        .jm-arrow.left { left: -10px; }
+        .jm-arrow.right { right: -10px; }
+        .jm-arrow[disabled] { opacity: 0; pointer-events: none; }
+        .jm-now-btn {
+            position: absolute; right: 14px; top: -18px; z-index: 8;
+            font-family: var(--font-code); font-size: .68rem; letter-spacing: 1.5px;
+            background: var(--panel); border: 1px solid var(--accent); border-radius: 999px;
+            color: var(--accent); padding: 8px 16px; cursor: pointer; transition: .2s;
+        }
+        .jm-now-btn:hover { background: var(--accent); color: #000; }
+
+        @media (max-width: 720px) {
+            .jm-ghost b { font-size: 88px; }
+            .jbar .jb-title { font-size: .82rem; }
+            .jm-arrow { display: none; }
+        }
+    </style>
+</head>
+
+<body data-up="journey.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="index.html">©AKAmaestro</a> <span>/ JOURNEY / MAP</span></div>
+        <div class="nav-links">
+            <a href="index.html#works">Work</a>
+            <a href="about.html">About</a>
+            <a href="journey.html" class="active">Journey</a>
+            <a href="signals.html">Signals</a>
+            <a href="arcade.html">Arcade</a>
+            <a href="blog.html">Blog</a>
+            <a href="vault.html" class="vault-link">Vault</a>
+            <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="dl">CV ⤓</a>
+            <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="dl">PORTFOLIO ⤓</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame">
+        <span class="label" style="display:block; margin-top:34px;">JOURNEY_MAP // $ git log --graph --reverse // ESC RETURNS TO THE LOG</span>
+        <h1 class="page-title">One decade,<br><em>laid flat.</em></h1>
+        <p class="page-sub">same journey, horizontal cut — time flows left → right, lanes run in parallel</p>
+        <div class="view-switch rv">
+            <span class="vs-label">VIEW AS</span>
+            <a href="journey.html">⇅ VERTICAL LOG</a>
+            <a class="active" href="journey-h.html">⇆ HORIZONTAL MAP <sup>β</sup></a>
+        </div>
+        <div class="tap-hint">⟵ SCRUB BACK THROUGH TIME · TAP ANY BAR FOR THE FULL STORY</div>
+        <div class="lane-legend rv">
+            <span class="lane-chip"><i style="background:var(--c-main);"></i> main — career</span>
+            <span class="lane-chip"><i style="background:var(--c-games);"></i> feat/games</span>
+            <span class="lane-chip"><i style="background:var(--c-rsch);"></i> lab/research</span>
+            <span class="lane-chip"><i style="background:var(--c-edu);"></i> root — education</span>
+        </div>
+
+        <div class="jmap-wrap rv">
+            <button class="jm-now-btn" id="jm-now">⇥ JUMP TO NOW</button>
+            <div class="jmap" id="jmap">
+                <div class="jmap-canvas" id="jmap-canvas"></div>
+            </div>
+            <button class="jm-arrow left" id="jm-left" aria-label="Scroll back in time">←</button>
+            <button class="jm-arrow right" id="jm-right" aria-label="Scroll toward now">→</button>
+        </div>
+    </div>
+
+    <!-- COMMIT DETAIL POPUPS (same dossiers as the vertical log) -->
+    <template id="pop-amnesea">
+        <ul>
+            <li><strong>Studio direction:</strong> creative + strategic lead for experiential, narrative-driven games.</li>
+            <li><strong>Product:</strong> bootstrapped end-to-end development; prototypes reached 5,000+ players.</li>
+            <li><strong>Partnerships:</strong> publishing agreements with Microsoft Xbox and Sony PlayStation.</li>
+            <li><strong>Showcases:</strong> IGDC & IGS sponsored kiosks two years running; Times of India + IGN coverage.</li>
+            <li><strong>Wins:</strong> 1st place ($2,380) Avalanche × Neuranode Jam; $500 Whalepass Jam.</li>
+        </ul>
+        <p><a href="work/amnesea.html">Open the Amnesea case study →</a></p>
+    </template>
+    <template id="pop-xbox">
+        <ul>
+            <li>Led UX research & GTM strategy for KeyBound inside Xbox Game Camp Asia.</li>
+            <li>Selected among the top 16 studios from 5 countries (top 4 from India).</li>
+            <li>Built data-backed pitch decks; drove 12 publisher negotiations.</li>
+            <li>Direct mentorship from Xbox Studios experts on design thinking and production.</li>
+        </ul>
+        <p><a href="work/keybound.html">See what we built — KeyBound →</a></p>
+    </template>
+    <template id="pop-brillio-sr">
+        <ul>
+            <li>Promoted to Senior in under 2 years for client impact and technical leadership.</li>
+            <li>Cut file lifecycle time 58% on Azure NDP — ETL pipelines, raw-data standardization, workflow optimization.</li>
+            <li>Led ETL validation, data-quality checks, and pipeline performance analysis platform-wide.</li>
+            <li>Reverse-audited quality metrics across Forecast Plus data and ML scoring outputs.</li>
+            <li>Founded & presided over the company's first Toastmasters chapter; mentored 20+ engineers.</li>
+        </ul>
+    </template>
+    <template id="pop-brillio-de">
+        <ul>
+            <li>Redeveloped legacy ETL with Microsoft SSIS + SQL Server — compute times down 29% (24h → 17h).</li>
+            <li>Data-integrity validations during migrations — "Star Performer" for near-zero-defect delivery.</li>
+            <li>Directed technology workshops for 50+ NGO personnel, scaling partner digital literacy.</li>
+        </ul>
+    </template>
+    <template id="pop-nmit">
+        <ul>
+            <li>Deep-learning computer vision for image processing and autonomous robotic intelligence (DRDO mentorship).</li>
+            <li>Real-time audio-feature + instrument classification robot — National Finalist, 4th of 7,173 teams, IIT-Bombay E-Yantra.</li>
+            <li>First-author IJETER publication: diabetic retinopathy screening at 97.46% accuracy.</li>
+            <li>TEQIP Government Research Grant for automated COVID-19 AI screening.</li>
+        </ul>
+        <p><a href="work/retina-ai.html">Retina AI case study →</a> · <a href="work/mocking-bot.html">Mocking Bot →</a></p>
+    </template>
+    <template id="pop-nitte">
+        <ul>
+            <li>B.E. Information Science & Engineering — GPA 8.52/10, First Class with Distinction, Distinguished Passout.</li>
+            <li>Coursework: ML & deep learning, computer vision & DIP, robotic systems & design, HCI, DSA, statistical pattern recognition.</li>
+            <li>Head of Cultural Core Committee — led 250+ people, logistics and operations for a 30,000+ attendee festival.</li>
+            <li>National robotics finalist, batch ambassador.</li>
+        </ul>
+    </template>
+
+    <footer class="site-footer">
+        <div class="f-brand">
+            <div class="f-mark">©AKAmaestro</div>
+            <div class="f-tag">creative technologist × design engineer × manager</div>
+            <div class="f-meta">India · open to relocate 🌍<br><span data-local-time></span> · akamaestro@outlook.com</div>
+        </div>
+        <div>
+            <div class="f-head">Connect</div>
+            <div class="f-icons">
+                <a href="mailto:akamaestro@outlook.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7L22 7"/></svg></a>
+                <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+                <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io">itch</a>
+            </div>
+        </div>
+        <div>
+            <div class="f-head">Map</div>
+            <div class="f-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="journey.html">Journey</a>
+                <a href="signals.html">Signals</a>
+                <a href="arcade.html">Arcade</a>
+                <a href="blog.html">Blog</a>
+                <a href="vault.html">Vault</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/core.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            /* ---- timeline geometry: decimal years -> px ---- */
+            const Y0 = 2016, Y1 = 2027, PX = 210, PAD = 70;
+            const X = t => Math.round((t - Y0) * PX) + PAD;
+            const now = new Date();
+            const NOW = now.getFullYear() + (now.getMonth()) / 12;
+            const RULER = 46, LANE_H = 122, CANVAS_H = RULER + 4 * 122 + 24;
+
+            const LANES = [
+                { id: 'main', name: 'main — career', c: 'var(--c-main)' },
+                { id: 'games', name: 'feat/games', c: 'var(--c-games)' },
+                { id: 'rsch', name: 'lab/research', c: 'var(--c-rsch)' },
+                { id: 'edu', name: 'root — education', c: 'var(--c-edu)' },
+            ];
+            const BARS = [
+                { lane: 'main', t0: 2023.92, t1: NOW, live: true, title: 'Amnesea Studios — Co-Founder & CXO', org: 'zero → Xbox & PlayStation partner', dates: "DEC '23 — NOW", pop: 'AMNESEA STUDIOS — CO-FOUNDER & CXO', src: '#pop-amnesea' },
+                { lane: 'main', t0: 2022.25, t1: 2023.08, title: 'Senior Data Engineer', org: 'Brillio LLC', dates: "APR '22 — FEB '23", pop: 'BRILLIO — SENIOR DATA ENGINEER', src: '#pop-brillio-sr' },
+                { lane: 'main', t0: 2020.67, t1: 2022.17, title: 'Data Engineer', org: 'Brillio LLC', dates: "SEP '20 — MAR '22", pop: 'BRILLIO — DATA ENGINEER', src: '#pop-brillio-de' },
+                { lane: 'games', t0: 2024.17, t1: 2024.5, min: 110, title: 'Xbox Game Camp Asia', org: 'Microsoft Xbox Studios', dates: "MAR — JUN '24", pop: 'MICROSOFT XBOX — GAME CAMP ASIA', src: '#pop-xbox' },
+                { lane: 'rsch', t0: 2019.25, t1: 2020.58, title: 'Research Intern — Robotics & DL', org: 'Centre for Robotics Research, NMIT', dates: "APR '19 — AUG '20", pop: 'CENTRE FOR ROBOTICS RESEARCH, NMIT', src: '#pop-nmit' },
+                { lane: 'edu', t0: 2016.5, t1: 2020.58, title: 'init: B.E. Information Science & Engg', org: 'NITTE Meenakshi Inst. of Technology', dates: "JUL '16 — AUG '20", pop: 'B.E. — NITTE MEENAKSHI INSTITUTE OF TECHNOLOGY', src: '#pop-nitte' },
+            ];
+            const MARKS = [
+                { lane: 'rsch', t: 2019.2, html: '<b>4th / 7,173</b> IIT-B e-Yantra' },
+                { lane: 'rsch', t: 2020.25, html: '<b>IJETER</b> first-author · TEQIP grant' },
+                { lane: 'edu', t: 2020.58, html: '<b>8.52 GPA</b> — distinction' },
+                { lane: 'main', t: 2022.25, html: '<b>promoted</b> in &lt; 2 yrs' },
+                { lane: 'main', t: 2024.85, html: '<b>IGDC</b> — 5,000+ players' },
+                { lane: 'main', t: 2025.4, html: '<b>2 jam wins</b> — $2,880' },
+                { lane: 'edu', t: 2026.0, html: "<b>admits '26</b> Harvard GSD · Parsons · ArtCenter" },
+            ];
+            /* branch curves: [fromLane, toLane, t, style] */
+            const LINKS = [
+                { from: 'edu', to: 'rsch', t: 2019.25, c: 'var(--c-rsch)' },
+                { from: 'rsch', to: 'edu', t: 2020.58, c: 'var(--c-rsch)' },
+                { from: 'edu', to: 'main', t: 2020.62, c: 'var(--c-main)' },
+                { from: 'main', to: 'games', t: 2024.17, c: 'var(--c-games)' },
+                { from: 'games', to: 'main', t: 2024.5, c: 'var(--c-games)' },
+                { from: 'main', to: 'edu', t: 2026.0, c: 'var(--c-edu)', dashed: true },
+            ];
+
+            const laneIdx = id => LANES.findIndex(l => l.id === id);
+            const tubeY = id => RULER + laneIdx(id) * LANE_H + 70; // vertical center of a lane's tube
+            const canvas = document.getElementById('jmap-canvas');
+            const W = X(Y1) + 30;
+            canvas.style.width = W + 'px';
+            canvas.style.height = CANVAS_H + 'px';
+            canvas.style.setProperty('--laneH', LANE_H + 'px');
+
+            /* ghost years (parallax depth layer) */
+            const ghost = document.createElement('div');
+            ghost.className = 'jm-ghost';
+            for (let y = Y0; y <= Y1 - 1; y++) {
+                const b = document.createElement('b');
+                b.textContent = y;
+                b.style.left = (X(y + 0.5)) + 'px';
+                ghost.appendChild(b);
+            }
+            canvas.appendChild(ghost);
+
+            /* lane bands + sticky tags */
+            LANES.forEach((l, i) => {
+                const band = document.createElement('div');
+                band.className = 'lane-band';
+                band.style.top = (RULER + i * LANE_H) + 'px';
+                band.style.setProperty('--lc', l.c);
+                band.innerHTML = `<span class="lane-tag" style="--lc:${l.c}"><i></i>${l.name}</span>`;
+                canvas.appendChild(band);
+            });
+
+            /* year ruler */
+            for (let y = Y0; y <= Y1; y++) {
+                const lab = document.createElement('span');
+                lab.className = 'yr-label'; lab.textContent = y; lab.style.left = X(y) + 'px';
+                canvas.appendChild(lab);
+                const ln = document.createElement('i');
+                ln.className = 'yr-line'; ln.style.left = X(y) + 'px';
+                canvas.appendChild(ln);
+            }
+
+            /* branch connectors */
+            const NS = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(NS, 'svg');
+            svg.setAttribute('class', 'jm-svg');
+            svg.setAttribute('width', W); svg.setAttribute('height', CANVAS_H);
+            LINKS.forEach(k => {
+                const x = X(k.t), y1 = tubeY(k.from), y2 = tubeY(k.to);
+                const sweep = 64 * (y2 > y1 ? 1 : -1);
+                const mk = (w, col, dash, op) => {
+                    const p = document.createElementNS(NS, 'path');
+                    p.setAttribute('d', `M ${x} ${y1} C ${x + 46} ${y1}, ${x + 46} ${y1 + sweep}, ${x + 46} ${(y1 + y2) / 2} S ${x} ${y2 - sweep / 4}, ${x} ${y2}`);
+                    p.setAttribute('stroke', col); p.setAttribute('stroke-width', w);
+                    p.setAttribute('opacity', op);
+                    if (dash) p.setAttribute('stroke-dasharray', '3 9');
+                    svg.appendChild(p);
+                };
+                mk(11, k.c, k.dashed, .5);
+                if (!k.dashed) mk(4, `color-mix(in srgb, ${k.c} 55%, #000)`, false, .8);
+            });
+            canvas.appendChild(svg);
+
+            /* ribbon bars */
+            BARS.forEach(b => {
+                const x0 = X(b.t0);
+                const w = Math.max(X(b.t1) - x0, b.min || 130);
+                const el = document.createElement('div');
+                el.className = 'jbar' + (b.live ? ' live' : '');
+                el.style.cssText = `left:${x0}px; width:${w}px; top:${RULER + laneIdx(b.lane) * LANE_H + 22}px; --lc:${LANES[laneIdx(b.lane)].c};`;
+                el.setAttribute('data-pop', '');
+                el.dataset.popTitle = b.pop; el.dataset.popSrc = b.src;
+                el.innerHTML = `<div class="jb-info"><span class="jb-title">${b.title}</span>` +
+                    `<span class="jb-sub"><b>${b.org}</b> <span>· ${b.dates}</span></span></div>` +
+                    `<div class="jb-tube"><span class="jb-story">+ STORY</span></div>`;
+                canvas.appendChild(el);
+            });
+
+            /* milestone markers (below the tubes) */
+            MARKS.forEach(m => {
+                const el = document.createElement('div');
+                el.className = 'jmark';
+                el.style.cssText = `left:${X(m.t)}px; top:${tubeY(m.lane) - 6}px; --lc:${LANES[laneIdx(m.lane)].c};`;
+                el.innerHTML = `<i></i><span>${m.html}</span>`;
+                canvas.appendChild(el);
+            });
+
+            /* NOW line */
+            const nl = document.createElement('div');
+            nl.className = 'now-line'; nl.style.left = X(NOW) + 'px';
+            canvas.appendChild(nl);
+            const nc = document.createElement('div');
+            nc.className = 'now-chip'; nc.textContent = '● NOW'; nc.style.left = X(NOW) + 'px';
+            canvas.appendChild(nc);
+
+            /* ---- interactions ---- */
+            const map = document.getElementById('jmap');
+            /* start at NOW (story unwinds backwards, like the log) */
+            requestAnimationFrame(() => { map.scrollLeft = map.scrollWidth; });
+
+            /* vertical wheel scrubs horizontally */
+            map.addEventListener('wheel', e => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { map.scrollLeft += e.deltaY; e.preventDefault(); }
+            }, { passive: false });
+
+            /* drag to pan (mouse); suppress the click that follows a real drag */
+            let down = false, sx = 0, sl = 0, moved = 0;
+            map.addEventListener('pointerdown', e => {
+                if (e.pointerType === 'touch') return;
+                down = true; moved = 0; sx = e.clientX; sl = map.scrollLeft;
+                map.classList.add('grabbing');
+            });
+            addEventListener('pointermove', e => {
+                if (!down) return;
+                const dx = e.clientX - sx;
+                moved = Math.max(moved, Math.abs(dx));
+                map.scrollLeft = sl - dx;
+            });
+            addEventListener('pointerup', () => { down = false; map.classList.remove('grabbing'); });
+            map.addEventListener('click', e => {
+                if (moved > 8) { e.stopPropagation(); e.preventDefault(); moved = 0; }
+            }, true);
+
+            /* parallax ghosts */
+            map.addEventListener('scroll', () => {
+                ghost.style.transform = `translateX(${map.scrollLeft * 0.12}px)`;
+                sync();
+            }, { passive: true });
+
+            /* arrows + jump-to-now */
+            const L = document.getElementById('jm-left'), R = document.getElementById('jm-right');
+            L.addEventListener('click', () => map.scrollBy({ left: -map.clientWidth * 0.7, behavior: 'smooth' }));
+            R.addEventListener('click', () => map.scrollBy({ left: map.clientWidth * 0.7, behavior: 'smooth' }));
+            document.getElementById('jm-now').addEventListener('click', () =>
+                map.scrollTo({ left: map.scrollWidth, behavior: 'smooth' }));
+            const sync = () => {
+                L.toggleAttribute('disabled', map.scrollLeft < 10);
+                R.toggleAttribute('disabled', map.scrollLeft > map.scrollWidth - map.clientWidth - 10);
+            };
+            addEventListener('resize', sync);
+            requestAnimationFrame(sync);
+        })();
+    </script>
+</body>
+
+</html>

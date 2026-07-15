@@ -15,7 +15,8 @@
     --accent: #00ff41;
     --accent-rgb: 0, 255, 65;
     --alert: #ff3300;
-    --font-ui: 'Manrope', sans-serif;
+    --font-ui: 'Space Grotesk', 'Manrope', sans-serif;
+    --font-body: 'Manrope', sans-serif;
     --font-code: 'JetBrains Mono', monospace;
     --font-display: 'Fraunces', Georgia, serif;
     --hatch: repeating-linear-gradient(45deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 5px);
@@ -78,7 +79,8 @@ a { color: var(--accent); }
     font-family: var(--font-code);
 }
 
-.site-nav .crumb { font-weight: 700; font-size: .95rem; letter-spacing: -.3px; white-space: nowrap; }
+.site-nav { font-family: var(--font-ui); }
+.site-nav .crumb { font-weight: 700; font-size: 1.05rem; letter-spacing: -.3px; white-space: nowrap; }
 .site-nav .crumb a { color: var(--accent); text-decoration: none; }
 .site-nav .crumb a:hover { text-shadow: 0 0 14px rgba(var(--accent-rgb), .8); }
 .site-nav .crumb span { color: var(--dim); font-size: .78rem; font-weight: 400; }
@@ -97,14 +99,21 @@ a { color: var(--accent); }
     color: var(--dim);
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-size: .8rem;
-    font-weight: 700;
+    letter-spacing: 1.8px;
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 600;
     padding: 6px 0;
     white-space: nowrap;
     position: relative;
     transition: color .2s;
 }
+.nav-links a.dl {
+    border: 1px solid var(--accent); border-radius: 999px;
+    color: var(--accent); padding: 6px 14px; font-size: .78rem;
+}
+.nav-links a.dl::after { display: none; }
+.nav-links a.dl:hover { background: var(--accent); color: #000; }
 .nav-links a::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
     background: var(--accent);
@@ -127,7 +136,7 @@ a { color: var(--accent); }
     border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--text);
-    font-family: var(--font-code);
+    font-family: var(--font-ui);
     font-size: .78rem;
     padding: 8px 16px;
     cursor: pointer;
@@ -175,9 +184,9 @@ a { color: var(--accent); }
 
 .page-sub { font-family: var(--font-code); color: var(--accent); font-size: 1.05rem; }
 
-.prose p { margin-bottom: 18px; line-height: 1.75; color: var(--dim); font-size: 1.12rem; }
+.prose p { font-family: var(--font-body); margin-bottom: 18px; line-height: 1.75; color: var(--dim); font-size: 1.12rem; }
 .prose strong { color: var(--text); }
-.prose ul { margin: 0 0 18px 20px; color: var(--dim); list-style: square; line-height: 1.7; font-size: 1.06rem; }
+.prose ul { font-family: var(--font-body); margin: 0 0 18px 20px; color: var(--dim); list-style: square; line-height: 1.7; font-size: 1.06rem; }
 .prose li { margin-bottom: 8px; }
 
 /* meta row under a page title */
@@ -198,8 +207,10 @@ a { color: var(--accent); }
     background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
-    font-family: var(--font-code);
-    font-size: .92rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    letter-spacing: .8px;
+    font-size: .95rem;
     text-decoration: none;
     cursor: pointer;
     transition: .25s;
@@ -282,23 +293,38 @@ a { color: var(--accent); }
     font-family: var(--font-code); font-weight: 800; cursor: pointer;
 }
 
-/* ---------- FOOTER ---------- */
+/* ---------- FOOTER (standardized, iconed) ---------- */
 .site-footer {
     border-top: 1px solid var(--line);
     margin-top: 70px;
-    padding: 40px clamp(14px, 3vw, 32px) 90px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: space-between;
-    align-items: flex-start;
+    padding: 46px clamp(14px, 3vw, 32px) 90px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 30px;
     font-family: var(--font-code);
-    font-size: .86rem;
+    font-size: .84rem;
     color: var(--dim);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.site-footer .f-links { display: flex; gap: 14px; flex-wrap: wrap; }
-.site-footer a { color: var(--dim); text-decoration: none; transition: .2s; }
-.site-footer a:hover { color: var(--accent); }
+.site-footer .f-mark { font-family: var(--font-ui); font-weight: 700; font-size: 1.25rem; color: var(--text); letter-spacing: -.3px; }
+.site-footer .f-tag { font-family: var(--font-display); font-style: italic; font-size: 1.02rem; margin-top: 8px; }
+.site-footer .f-meta { margin-top: 12px; line-height: 1.8; }
+.site-footer .f-head { font-family: var(--font-ui); font-weight: 600; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text); margin-bottom: 14px; }
+.f-icons { display: flex; flex-wrap: wrap; gap: 10px; }
+.f-icons a {
+    width: 42px; height: 42px; display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 12px;
+    color: var(--dim); text-decoration: none; transition: .25s;
+    font-family: var(--font-ui); font-weight: 700; font-size: .8rem;
+}
+.f-icons a svg { width: 19px; height: 19px; fill: currentColor; }
+.f-icons a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 22px rgba(var(--accent-rgb), .2); }
+.f-nav { display: flex; flex-direction: column; gap: 9px; }
+.f-nav a { color: var(--dim); text-decoration: none; transition: .2s; font-family: var(--font-ui); font-size: .9rem; }
+.f-nav a:hover { color: var(--accent); }
+@media (max-width: 760px) { .site-footer { grid-template-columns: 1fr; gap: 26px; } }
 
 /* next-project ribbon on work pages */
 .next-project {
@@ -581,3 +607,15 @@ body.vault-open .gate-veil { display: none; }
 .hscroll .mention-card { width: min(400px, 82vw); }
 .hs-note { font-family: var(--font-code); font-size: .74rem; color: var(--dim); margin: 4px 0 8px; }
 .hs-note::after { content: " ⟶ scroll"; color: var(--accent); }
+.hscroll-wrap { position: relative; }
+.hs-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--accent); background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(6px); color: var(--accent);
+    font-size: 1rem; cursor: pointer; display: grid; place-items: center; transition: .2s;
+}
+.hs-arrow:hover { background: var(--accent); color: #000; }
+.hs-arrow.left { left: -8px; }
+.hs-arrow.right { right: -8px; }
+.hs-arrow[disabled] { opacity: 0; pointer-events: none; }

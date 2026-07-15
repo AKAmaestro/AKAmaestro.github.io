@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume — AKAmaestro</title>
-    <meta name="description" content="Resume / CV of Ankit Kumar — creative technologist, design engineer, Amnesea founder.">
+    <title>Blog — Reflections — AKAmaestro</title>
+    <meta name="description" content="Field notes and reflections by Ankit Kumar — on creative technology, game design, studios, and cross-cultural building.">
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
@@ -18,21 +18,34 @@
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
-        :root { --accent: #6ecbff; --accent-rgb: 110, 203, 255; }
-        body.light-mode { --accent: #1d6fa5; --accent-rgb: 29, 111, 165; }
+        body {
+            background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+        .draft {
+            border: 1px dashed var(--line); background: var(--panel);
+            padding: 26px; margin-top: 16px; position: relative;
+        }
+        .draft::before {
+            content: "DRAFTING"; position: absolute; top: -1px; right: -1px;
+            font-family: var(--font-code); font-size: .62rem; letter-spacing: 2px;
+            background: var(--line); color: var(--text); padding: 4px 10px;
+        }
+        .draft h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; }
+        .draft p { color: var(--dim); margin-top: 8px; line-height: 1.7; font-family: var(--font-body); }
     </style>
 </head>
 
 <body data-up="index.html">
     <nav class="site-nav">
-        <div class="crumb"><a href="index.html">©AKAmaestro</a> <span>/ RESUME</span></div>
+        <div class="crumb"><a href="index.html">©AKAmaestro</a> <span>/ BLOG</span></div>
         <div class="nav-links">
             <a href="index.html#works">Work</a>
             <a href="about.html">About</a>
             <a href="journey.html">Journey</a>
             <a href="signals.html">Signals</a>
             <a href="arcade.html">Arcade</a>
-            <a href="blog.html">Blog</a>
+            <a href="blog.html" class="active">Blog</a>
             <a href="vault.html" class="vault-link">Vault</a>
             <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="dl">CV ⤓</a>
             <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="dl">PORTFOLIO ⤓</a>
@@ -41,16 +54,26 @@
     </nav>
 
     <div class="frame">
-        <span class="label" style="display:block; margin-top:34px;">RESUME_DROP // ESC RETURNS HOME</span>
-        <h1 class="page-title">Resume / CV</h1>
-        <p class="page-sub">view inline — for a copy, <a href="mailto:akamaestro@outlook.com?subject=Resume%20request">email me</a></p>
+        <span class="label" style="display:block; margin-top:34px;">REFLECTIONS // FIELD NOTES // ESC RETURNS HOME</span>
+        <h1 class="page-title">Notes from the <em>workbench.</em></h1>
+        <p class="page-sub">reflections on building playful machines — first entries brewing</p>
 
-        <div class="pdf-shell protected" style="margin-top:26px;">
-            <iframe src="Ankit%20Resume%20Design%20Copy.pdf#toolbar=0&navpanes=0" title="Resume PDF"></iframe>
+        <div class="draft rv">
+            <h3>What a 30,000-person festival taught me about shipping games</h3>
+            <p>Cross-functional chaos, creative logistics, and why stage art is systems design.</p>
         </div>
-        <p style="font-family:var(--font-code); color:var(--dim); font-size:.78rem; margin-top:12px;">
-            Prefer the full journey? See the <a href="journey.html">Career Runway</a>.
-        </p>
+        <div class="draft rv">
+            <h3>From ETL pipelines to game loops</h3>
+            <p>The unreasonable overlap between data engineering and level design.</p>
+        </div>
+        <div class="draft rv">
+            <h3>Pitching to publishers as a first-gen founder</h3>
+            <p>Twelve negotiations, one octopus, and what actually moved the room.</p>
+        </div>
+
+        <div class="btn-row rv" style="margin-top:34px;">
+            <a href="mailto:akamaestro@outlook.com?subject=Notify%20me%20when%20the%20blog%20drops" class="btn solid">✉ GET NOTIFIED WHEN THESE DROP</a>
+        </div>
     </div>
 
     <footer class="site-footer">

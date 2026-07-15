@@ -14,7 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
@@ -29,6 +29,17 @@
             --c-main: #00922a; --c-games: #6d28d9; --c-rsch: #006f8f;
             --c-edu: #8a6800; --c-hon: #b35a12;
         }
+        body {
+            background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+        .lane-legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 0; }
+        .lane-chip {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-code); font-size: .74rem; color: var(--dim);
+            border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px;
+        }
+        .lane-chip i { width: 22px; height: 8px; border-radius: 999px; display: inline-block; }
 
         .tap-hint {
             display: inline-flex; align-items: center; gap: 10px;
@@ -39,21 +50,6 @@
         }
         @keyframes hintpulse { 50% { box-shadow: 0 0 22px rgba(var(--accent-rgb), .35); } }
 
-        /* ---------- AT A GLANCE — swimlanes ---------- */
-        .gantt-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); padding: 22px 18px; margin-top: 14px; }
-        .gantt { display: grid; grid-template-columns: 86px repeat(22, 1fr); grid-auto-rows: 34px; row-gap: 8px; align-items: center; min-width: 780px; }
-        .g-year { font-family: var(--font-code); font-size: .72rem; color: var(--dim); border-left: 1px solid var(--line-dim); padding-left: 6px; align-self: end; }
-        .g-lane { grid-column: 1; font-family: var(--font-code); font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; text-align: right; padding-right: 12px; }
-        .g-bar {
-            height: 22px; border-radius: 999px; display: flex; align-items: center;
-            padding: 0 10px; font-family: var(--font-code); font-size: .64rem; font-weight: 700;
-            letter-spacing: .5px; color: #000; white-space: nowrap; overflow: hidden;
-            text-decoration: none; transition: .2s; box-shadow: 0 0 14px transparent;
-        }
-        .g-bar:hover { transform: translateY(-2px); filter: brightness(1.15); }
-        .g-dot { width: 13px; height: 13px; border-radius: 50%; justify-self: center; cursor: pointer; transition: .2s; }
-        .g-dot:hover { transform: scale(1.5); }
-        .gantt-note { font-family: var(--font-code); font-size: .74rem; color: var(--dim); margin-top: 12px; }
 
         /* ---------- COMMIT LOG ---------- */
         .repo-log { margin-top: 40px; }
@@ -67,17 +63,32 @@
         .when .mo { font-family: var(--font-code); font-size: .68rem; color: var(--dim); letter-spacing: .5px; display: block; margin-top: 5px; }
 
         .graph { position: relative; }
-        .graph::before { content: ""; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--c-main); opacity: .5; }
-        .commit.head .graph::before { top: 26px; }
-        .commit.root .graph::before { bottom: auto; height: 26px; }
-        .dot {
-            position: absolute; left: 7px; top: 17px; width: 12px; height: 12px;
-            border-radius: 50%; background: var(--bg); border: 3px solid var(--lane); z-index: 2;
-            box-shadow: 0 0 12px color-mix(in srgb, var(--lane) 60%, transparent);
+        /* main trunk: thick tube with depth */
+        .graph::before {
+            content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 14px;
+            border-radius: 999px;
+            background:
+                linear-gradient(90deg, rgba(0,0,0,.45), transparent 42%, rgba(255,255,255,.14) 55%, rgba(0,0,0,.35)),
+                var(--c-main);
+            box-shadow: 0 0 22px color-mix(in srgb, var(--c-main) 30%, transparent);
         }
-        .commit.branch .dot { left: 43px; top: 50%; margin-top: -9px; }
+        .commit.head .graph::before { top: 22px; }
+        .commit.root .graph::before { bottom: auto; height: 30px; }
+        /* orbs */
+        .dot {
+            position: absolute; left: 4px; top: 12px; width: 22px; height: 22px;
+            border-radius: 50%; z-index: 2; border: none;
+            background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.85), var(--lane) 42%, color-mix(in srgb, var(--lane) 55%, #000));
+            box-shadow: 0 0 18px color-mix(in srgb, var(--lane) 70%, transparent),
+                        0 4px 10px rgba(0,0,0,.4);
+        }
+        .commit.branch .dot { left: 37px; top: 50%; margin-top: -11px; }
         .branch-svg { position: absolute; inset: 0; width: 74px; height: 100%; z-index: 1; }
-        .branch-svg path { fill: none; stroke: var(--lane); stroke-width: 2; opacity: .8; }
+        .branch-svg path {
+            fill: none; stroke: var(--lane); stroke-width: 13; stroke-linecap: round; opacity: .9;
+            filter: drop-shadow(0 0 10px color-mix(in srgb, var(--lane) 45%, transparent));
+        }
+        .branch-svg path.core { stroke: color-mix(in srgb, var(--lane) 55%, #000); stroke-width: 5; filter: none; }
 
         .c-card {
             border: 1px solid var(--line); background: var(--panel);
@@ -120,7 +131,10 @@
             <a href="journey.html" class="active">Journey</a>
             <a href="signals.html">Signals</a>
             <a href="arcade.html">Arcade</a>
+            <a href="blog.html">Blog</a>
             <a href="vault.html" class="vault-link">Vault</a>
+            <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="dl">CV ⤓</a>
+            <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="dl">PORTFOLIO ⤓</a>
         </div>
         <button class="theme-btn" onclick="toggleTheme()"></button>
     </nav>
@@ -129,43 +143,14 @@
         <span class="label" style="display:block; margin-top:34px;">JOURNEY_LOG // $ git log --graph --all // ESC RETURNS HOME</span>
         <h1 class="page-title">One decade,<br><em>many branches.</em></h1>
         <p class="page-sub">what ran in parallel with what — newest on top, roots at the bottom</p>
-        <div class="tap-hint">👆 TAP ANY BAR OR CARD — EVERY NODE OPENS ITS FULL STORY</div>
-
-        <span class="section-h">AT A GLANCE — THE SWIMLANES</span>
-        <div class="gantt-wrap rv">
-            <div class="gantt">
-                <!-- year ruler -->
-                <span class="g-year" style="grid-column:2/4; grid-row:1;">2016</span>
-                <span class="g-year" style="grid-column:6/8; grid-row:1;">2018</span>
-                <span class="g-year" style="grid-column:10/12; grid-row:1;">2020</span>
-                <span class="g-year" style="grid-column:14/16; grid-row:1;">2022</span>
-                <span class="g-year" style="grid-column:18/20; grid-row:1;">2024</span>
-                <span class="g-year" style="grid-column:22/24; grid-row:1;">2026</span>
-
-                <span class="g-lane" style="grid-row:2; color:var(--c-edu);">Education</span>
-                <a class="g-bar" href="#c-nitte" style="grid-column:3/12; grid-row:2; background:var(--c-edu);">B.E. IS&E — NITTE</a>
-
-                <span class="g-lane" style="grid-row:3; color:var(--c-rsch);">Research</span>
-                <a class="g-bar" href="#c-nmit" style="grid-column:8/12; grid-row:3; background:var(--c-rsch);">ROBOTICS LAB + PAPERS</a>
-
-                <span class="g-lane" style="grid-row:4; color:var(--c-main);">Career</span>
-                <a class="g-bar" href="#c-brillio-de" style="grid-column:11/17; grid-row:4; background:var(--c-main);">BRILLIO — DATA ENG → SR</a>
-                <a class="g-bar" href="#c-amnesea" style="grid-column:17/24; grid-row:4; background:var(--c-main);">AMNESEA — CXO</a>
-
-                <span class="g-lane" style="grid-row:5; color:var(--c-games);">Games</span>
-                <a class="g-bar" href="#c-xbox" style="grid-column:18/20; grid-row:5; background:var(--c-games);">XBOX CAMP</a>
-                <a class="g-bar" href="#c-amnesea" style="grid-column:20/22; grid-row:5; background:var(--c-games);">JAM WINS ×2</a>
-
-                <span class="g-lane" style="grid-row:6; color:var(--c-hon);">Honors</span>
-                <span class="g-dot" style="grid-column:9; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2019 — E-YANTRA NATIONAL FINALIST" data-pop-body="<p>4th of 7,173 teams at IIT Bombay with the music-mimicking <a href='work/mocking-bot.html'>Mocking Bot</a>.</p>"></span>
-                <span class="g-dot" style="grid-column:10; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2020 — TEQIP GRANT + PUBLICATIONS" data-pop-body="<p>Government research grant for COVID-19 AI screening; first-author IJETER paper on <a href='work/retina-ai.html'>diabetic retinopathy detection</a> (97.46%).</p>"></span>
-                <span class="g-dot" style="grid-column:14; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2022 — BRILLIO EXCELLENCE" data-pop-body="<p>Special Achievement Award, Group Excellence Award, Star Performer, and Bringing Smiles Star Volunteer.</p>"></span>
-                <span class="g-dot" style="grid-column:18; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2024 — TOP 16 + IGDC" data-pop-body="<p>Top 16 studios at Xbox Game Camp Asia; featured exhibitor & speaker at IGDC with 5,000+ players reached; IGN + Times of India coverage.</p>"></span>
-                <span class="g-dot" style="grid-column:20; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2025 — DOUBLE JAM WINNER" data-pop-body="<p>1st place ($2,380) at the Avalanche × Neuranode Game Jam and $500 at the Whalepass Jam.</p>"></span>
-                <span class="g-dot" style="grid-column:22; grid-row:6; background:var(--c-hon);" data-pop data-pop-title="2026 — GRAD ADMITS" data-pop-body="<p>Admitted to Harvard GSD (MDE), Parsons (DT), and ArtCenter (MDP).</p>"></span>
-            </div>
-            <div class="gantt-note">lanes = parallel lives · dots = honors · tap anything (month-level detail coming as the log grows)</div>
+        <div class="tap-hint">👆 TAP ANY CARD — EVERY NODE OPENS ITS FULL STORY</div>
+        <div class="lane-legend rv">
+            <span class="lane-chip"><i style="background:var(--c-main);"></i> main — career</span>
+            <span class="lane-chip"><i style="background:var(--c-games);"></i> feat/games</span>
+            <span class="lane-chip"><i style="background:var(--c-rsch);"></i> lab/research</span>
+            <span class="lane-chip"><i style="background:var(--c-edu);"></i> root — education</span>
         </div>
+
 
         <span class="section-h">THE COMMIT LOG</span>
         <div class="repo-log">
@@ -199,7 +184,7 @@
                 <div class="when"><span class="yr">2024</span><span class="mo">MAR – JUN</span></div>
                 <div class="graph">
                     <svg class="branch-svg" viewBox="0 0 74 120" preserveAspectRatio="none" aria-hidden="true">
-                        <path d="M16,0 C16,32 49,26 49,60 C49,94 16,88 16,120" />
+                        <path d="M15,0 C15,32 48,26 48,60 C48,94 15,88 15,120" /><path class="core" d="M15,0 C15,32 48,26 48,60 C48,94 15,88 15,120" />
                     </svg>
                     <span class="dot"></span>
                 </div>
@@ -208,6 +193,7 @@
                     <span class="c-org">Microsoft Xbox Studios — feat/xbox-game-camp</span>
                     <div class="c-brief">Top-16 Asia accelerator. UXR + GTM for KeyBound; 12 publisher negotiations.</div>
                     <div class="c-para">⇄ <b>ran in parallel</b> with building Amnesea (main)</div>
+                    <div class="c-tags"><span class="c-tag">cert: xbox-game-camp-asia</span></div>
                     <span class="story-chip">+ THE FULL STORY</span>
                 </div>
             </div>
@@ -219,7 +205,7 @@
                     <div class="c-title">Senior Data Engineer</div>
                     <span class="c-org">Brillio LLC</span>
                     <div class="c-brief">Promoted in under 2 years. −58% file lifecycle on Azure NDP. Mentored 20+ engineers.</div>
-                    <div class="c-tags"><span class="c-tag">tag: toastmasters-president</span></div>
+                    <div class="c-tags"><span class="c-tag">tag: toastmasters-president</span><span class="c-tag">cert: safe®-5-practitioner</span></div>
                     <span class="story-chip">+ THE FULL STORY</span>
                 </div>
             </div>
@@ -231,7 +217,7 @@
                     <div class="c-title">Data Engineer</div>
                     <span class="c-org">Brillio LLC</span>
                     <div class="c-brief">Legacy ETL rebuilt: 24h → 17h (−29%). Near-zero-defect migrations.</div>
-                    <div class="c-tags"><span class="c-tag">tag: star-performer</span></div>
+                    <div class="c-tags"><span class="c-tag">tag: star-performer</span><span class="c-tag">cert: deep-learning-specialization</span></div>
                     <span class="story-chip">+ THE FULL STORY</span>
                 </div>
             </div>
@@ -240,7 +226,7 @@
                 <div class="when"><span class="yr">2019</span><span class="mo">APR '19 – AUG '20</span></div>
                 <div class="graph">
                     <svg class="branch-svg" viewBox="0 0 74 120" preserveAspectRatio="none" aria-hidden="true">
-                        <path d="M16,0 C16,32 49,26 49,60 C49,94 16,88 16,120" />
+                        <path d="M15,0 C15,32 48,26 48,60 C48,94 15,88 15,120" /><path class="core" d="M15,0 C15,32 48,26 48,60 C48,94 15,88 15,120" />
                     </svg>
                     <span class="dot"></span>
                 </div>
@@ -261,7 +247,7 @@
                     <div class="c-title">init: B.E. Information Science & Engineering</div>
                     <span class="c-org">NITTE Meenakshi Institute of Technology, Bangalore</span>
                     <div class="c-brief">8.52 GPA, First Class with Distinction. Led a 250+ crew for a 30,000-attendee fest.</div>
-                    <div class="c-tags"><span class="c-tag">tag: distinguished-passout</span><span class="c-tag">tag: batch-ambassador</span></div>
+                    <div class="c-tags"><span class="c-tag">tag: distinguished-passout</span><span class="c-tag">tag: batch-ambassador</span><span class="c-tag">cert: robotc-engineering</span></div>
                     <span class="story-chip">+ THE FULL STORY</span>
                 </div>
             </div>
@@ -329,8 +315,34 @@
     </template>
 
     <footer class="site-footer">
-        <div>©AKAmaestro — Ankit Kumar Agrawal · <span data-local-time></span></div>
-        <div class="f-links"><a href="index.html">← Back to home</a> <a href="signals.html">Awards & Press →</a></div>
+        <div class="f-brand">
+            <div class="f-mark">©AKAmaestro</div>
+            <div class="f-tag">creative technologist × design engineer × manager</div>
+            <div class="f-meta">India · open to relocate 🌍<br><span data-local-time></span> · akamaestro@outlook.com</div>
+        </div>
+        <div>
+            <div class="f-head">Connect</div>
+            <div class="f-icons">
+                <a href="mailto:akamaestro@outlook.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7L22 7"/></svg></a>
+                <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+                <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io">itch</a>
+            </div>
+        </div>
+        <div>
+            <div class="f-head">Map</div>
+            <div class="f-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="journey.html">Journey</a>
+                <a href="signals.html">Signals</a>
+                <a href="arcade.html">Arcade</a>
+                <a href="blog.html">Blog</a>
+                <a href="vault.html">Vault</a>
+            </div>
+        </div>
     </footer>
 
     <script src="assets/js/core.js"></script>

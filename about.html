@@ -14,11 +14,15 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
         :root { --font-display: 'Fraunces', serif; }
+        body {
+            background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
 
         .about-hero { margin-top: 44px; }
         .statement {
@@ -30,24 +34,21 @@
         .statement em {
             font-style: italic; font-weight: 400; color: var(--accent);
         }
-        .bio-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start; margin-top: 44px; }
+        .bio-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: center; margin-top: 44px; }
         @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
 
         /* clean floating photo */
-        .bio-photo { position: relative; transform: rotate(1.6deg); transition: transform .4s; align-self: center; }
-        .bio-photo:hover { transform: rotate(0deg) scale(1.02); }
+        .bio-photo { align-self: center; justify-self: center; max-width: 340px; width: 100%; }
         .bio-photo img {
-            width: 100%; border: none; background: none;
+            width: 100%; border: none; background:
+                radial-gradient(ellipse at 50% 88%, rgba(var(--accent-rgb), .22), transparent 62%);
             filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .35));
+            transition: transform .4s;
         }
+        .bio-photo:hover img { transform: scale(1.03); }
         .bio-photo .caption {
-            margin-top: 10px; text-align: center;
+            margin-top: 6px; text-align: center;
             font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--dim);
-        }
-        .bio-photo .tape {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg);
-            width: 110px; height: 26px; background: rgba(var(--accent-rgb), .25);
-            border: 1px dashed rgba(var(--accent-rgb), .5); z-index: 2;
         }
 
         /* relocation marquee-ish line */
@@ -58,6 +59,57 @@
         }
         .globe-line .spin { display: inline-block; animation: spin 9s linear infinite; font-size: 1.3rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* venn smart-art: three overlapping circles */
+        .venn {
+            position: relative; max-width: 680px; aspect-ratio: 1.05;
+            margin: 24px auto 10px;
+        }
+        .v-circle {
+            position: absolute; width: 60%; aspect-ratio: 1; border-radius: 50%;
+            border: 2px solid; transition: .3s;
+        }
+        .v-circle:hover { box-shadow: 0 0 44px rgba(var(--accent-rgb), .15); }
+        .v-eng { top: 0; left: 0; border-color: #00ff41; background: rgba(0, 255, 65, .06); }
+        .v-des { top: 0; right: 0; border-color: #a78bfa; background: rgba(167, 139, 250, .07); }
+        .v-mgt { bottom: 0; left: 20%; border-color: #ffc400; background: rgba(255, 196, 0, .06); }
+        body.light-mode .v-eng { border-color: #00922a; background: rgba(0, 146, 42, .07); }
+        body.light-mode .v-des { border-color: #6d28d9; background: rgba(109, 40, 217, .07); }
+        body.light-mode .v-mgt { border-color: #8a6800; background: rgba(138, 104, 0, .08); }
+        .v-name {
+            position: absolute; font-family: var(--font-ui); font-weight: 700;
+            font-size: clamp(.72rem, 1.8vw, .95rem); letter-spacing: 2.5px;
+        }
+        .v-eng .v-name { top: 9%; left: 50%; transform: translateX(-50%); color: #00ff41; }
+        .v-des .v-name { top: 9%; left: 50%; transform: translateX(-50%); color: #a78bfa; }
+        .v-mgt .v-name { bottom: 8%; left: 50%; transform: translateX(-50%); color: #ffc400; }
+        body.light-mode .v-eng .v-name { color: #00922a; }
+        body.light-mode .v-des .v-name { color: #6d28d9; }
+        body.light-mode .v-mgt .v-name { color: #8a6800; }
+        .v-item {
+            position: absolute; font-family: var(--font-code);
+            font-size: clamp(.58rem, 1.5vw, .78rem); color: var(--text);
+            text-align: center; line-height: 1.5; letter-spacing: .3px;
+        }
+        .v-core {
+            font-weight: 700; color: var(--accent);
+            border: 1px dashed var(--accent); border-radius: 12px;
+            padding: 8px 12px; background: color-mix(in srgb, var(--bg) 78%, transparent);
+        }
+        .v-skill {
+            position: absolute; font-family: var(--font-code);
+            font-size: clamp(.5rem, 1.2vw, .68rem); color: var(--dim);
+            text-align: center; line-height: 1.75; letter-spacing: .4px;
+            opacity: .8; transition: .3s;
+        }
+        .venn:hover .v-skill { opacity: 1; color: var(--text); }
+        @media (max-width: 540px) {
+            .venn { aspect-ratio: auto; display: flex; flex-direction: column; gap: 12px; }
+            .v-circle { position: static; width: 100%; aspect-ratio: auto; border-radius: 20px; padding: 16px; }
+            .v-name { position: static; display: block; margin-bottom: 6px; }
+            .v-item, .v-skill { position: static; display: inline-block; margin: 4px 8px 0 0; text-align: left; transform: none !important; width: auto !important; }
+            .v-core { display: block; margin-top: 8px; }
+        }
 
         /* focus areas & passions: bubble clouds */
         .bubble-cloud { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
@@ -117,7 +169,10 @@
             <a href="journey.html">Journey</a>
             <a href="signals.html">Signals</a>
             <a href="arcade.html">Arcade</a>
+            <a href="blog.html">Blog</a>
             <a href="vault.html" class="vault-link">Vault</a>
+            <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="dl">CV ⤓</a>
+            <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="dl">PORTFOLIO ⤓</a>
         </div>
         <button class="theme-btn" onclick="toggleTheme()"></button>
     </nav>
@@ -136,21 +191,14 @@
 
         <div class="bio-grid">
             <div class="prose rv">
-                <p><strong>Creative technologist × design engineer × manager.</strong> My practice spans AI, robotics,
-                    interactive design, and large-scale installation art. I design interfaces, architect ML-driven
-                    systems, and turn ambiguous ideas into shipped, felt experiences.</p>
-                <p>I've <strong>led multiple cross-functional teams</strong> — from a 250+ person festival crew and a
-                    300-member art club to matrixed engineering pods at Brillio and my own studio — sitting comfortably
-                    between designers, engineers, researchers, and executives.</p>
+                <p>My practice spans AI, robotics, interactive design, and large-scale installation art — I turn
+                    ambiguous ideas into shipped, felt experiences, and I've <strong>led cross-functional teams</strong>
+                    from a 250+ person festival crew to matrixed engineering pods.</p>
                 <p>I bootstrapped <strong>Amnesea Studios</strong> into an Xbox accelerator and publishing agreements
-                    with Microsoft Xbox and Sony PlayStation — shipping prototypes to 5,000+ players, with coverage in
-                    IGN and the Times of India.</p>
-                <p>Outside work: photographer, gamer, museum-lurker, lifelong learner — forever collecting new tools,
-                    techniques, and perspectives.</p>
+                    with Microsoft Xbox and Sony PlayStation — 5,000+ players, IGN and Times of India coverage.</p>
             </div>
 
             <div class="bio-photo rv">
-                <div class="tape"></div>
                 <img src="projects/Ankit/akamaestro.webp" alt="Ankit Kumar">
                 <div class="caption">aka «maestro»</div>
             </div>
@@ -162,14 +210,23 @@
             <span style="color:var(--dim);">I chase cross-cultural experiences; new cities are new design briefs.</span>
         </div>
 
-        <span class="section-h">FOCUS AREAS</span>
-        <div class="bubble-cloud rv-stagger">
-            <span class="bubble"><b>Creative Technology</b><i>installations · expressive tech</i></span>
-            <span class="bubble"><b>Interactive Systems</b><i>games · realtime · XR</i></span>
-            <span class="bubble"><b>Game Design</b><i>mechanics · narrative · UXR</i></span>
-            <span class="bubble"><b>Robotics + Vision</b><i>CV · control · bio-mimetics</i></span>
-            <span class="bubble"><b>ML Prototyping</b><i>CNNs · pipelines · agentic AI</i></span>
-            <span class="bubble"><b>Leadership & GTM</b><i>cross-functional · strategy · pitch</i></span>
+        <span class="section-h">FOCUS AREAS — WHERE THE THREE CIRCLES OVERLAP</span>
+        <div class="venn rv">
+            <div class="v-circle v-eng"><span class="v-name">ENGINEERING</span></div>
+            <div class="v-circle v-des"><span class="v-name">DESIGN</span></div>
+            <div class="v-circle v-mgt"><span class="v-name">MANAGEMENT</span></div>
+            <span class="v-skill" style="top:45%; left:5%; width:24%;">Python · C++ · C#<br>TensorFlow · OpenCV<br>Unity · Arduino · SQL</span>
+            <span class="v-skill" style="top:45%; right:5%; width:24%;">Figma · Blender<br>Photoshop · Illustrator<br>After Effects</span>
+            <span class="v-skill" style="bottom:20%; left:50%; transform:translateX(-50%); width:46%;">JIRA · Agile / Scrum · SAFe® 5 · GTM · Toastmasters</span>
+            <span class="v-item" style="top:24%; left:13%;">Robotics + Vision</span>
+            <span class="v-item" style="top:36%; left:9%;">ML Prototyping</span>
+            <span class="v-item" style="top:24%; right:13%;">Arts & Visual Craft</span>
+            <span class="v-item" style="top:36%; right:8%;">Interaction Design</span>
+            <span class="v-item" style="top:27%; left:50%; transform:translateX(-50%);">Creative Technology<br>Interactive Systems</span>
+            <span class="v-item" style="bottom:30%; left:22%;">Data Pipelines</span>
+            <span class="v-item" style="bottom:30%; right:20%;">UX Research · GTM</span>
+            <span class="v-item" style="bottom:13%; left:50%; transform:translateX(-50%);">Agile Leadership<br>Strategy & Pitch</span>
+            <span class="v-item v-core" style="top:46%; left:50%; transform:translateX(-50%);">★ GAME DESIGN<br>& STUDIO CRAFT</span>
         </div>
 
         <span class="section-h">OFF THE CLOCK — PASSIONS & CURRENTLY</span>
@@ -249,8 +306,34 @@
     </div>
 
     <footer class="site-footer">
-        <div>©AKAmaestro — Ankit Kumar Agrawal · <span data-local-time></span></div>
-        <div class="f-links"><a href="index.html">← Back to home</a></div>
+        <div class="f-brand">
+            <div class="f-mark">©AKAmaestro</div>
+            <div class="f-tag">creative technologist × design engineer × manager</div>
+            <div class="f-meta">India · open to relocate 🌍<br><span data-local-time></span> · akamaestro@outlook.com</div>
+        </div>
+        <div>
+            <div class="f-head">Connect</div>
+            <div class="f-icons">
+                <a href="mailto:akamaestro@outlook.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7L22 7"/></svg></a>
+                <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+                <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io">itch</a>
+            </div>
+        </div>
+        <div>
+            <div class="f-head">Map</div>
+            <div class="f-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="journey.html">Journey</a>
+                <a href="signals.html">Signals</a>
+                <a href="arcade.html">Arcade</a>
+                <a href="blog.html">Blog</a>
+                <a href="vault.html">Vault</a>
+            </div>
+        </div>
     </footer>
 
     <script src="assets/js/core.js"></script>

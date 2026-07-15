@@ -282,6 +282,34 @@
         });
     }
 
+    /* ---------- HORIZONTAL STRIPS: arrow indicators ---------- */
+    function initHScroll() {
+        document.querySelectorAll('.hscroll').forEach(strip => {
+            const wrap = document.createElement('div');
+            wrap.className = 'hscroll-wrap';
+            strip.parentNode.insertBefore(wrap, strip);
+            wrap.appendChild(strip);
+            const mk = dir => {
+                const b = document.createElement('button');
+                b.className = 'hs-arrow ' + (dir < 0 ? 'left' : 'right');
+                b.innerHTML = dir < 0 ? '←' : '→';
+                b.setAttribute('aria-label', dir < 0 ? 'Scroll left' : 'Scroll right');
+                b.addEventListener('click', () =>
+                    strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: 'smooth' }));
+                wrap.appendChild(b);
+                return b;
+            };
+            const L = mk(-1), R = mk(1);
+            const sync = () => {
+                L.toggleAttribute('disabled', strip.scrollLeft < 10);
+                R.toggleAttribute('disabled', strip.scrollLeft > strip.scrollWidth - strip.clientWidth - 10);
+            };
+            strip.addEventListener('scroll', sync, { passive: true });
+            addEventListener('resize', sync);
+            sync();
+        });
+    }
+
     function initLocalTime() {
         const els = document.querySelectorAll('[data-local-time]');
         if (!els.length) return;
@@ -307,5 +335,6 @@
         initLocalTime();
         initPopTriggers();
         initVaultTab();
+        initHScroll();
     });
 })();

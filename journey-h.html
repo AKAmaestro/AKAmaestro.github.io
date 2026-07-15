@@ -85,14 +85,6 @@
         }
         .yr-line { position: absolute; top: 46px; bottom: 0; width: 1px; background: var(--line-dim); }
 
-        /* giant ghost years for depth (parallax layer) */
-        .jm-ghost { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
-        .jm-ghost b {
-            position: absolute; top: 46%; transform: translate(-50%, -50%);
-            font-family: var(--font-display); font-style: italic; font-weight: 600;
-            font-size: 128px; line-height: 1; color: var(--text); opacity: .045; white-space: nowrap;
-        }
-
         /* lane bands */
         .lane-band {
             position: absolute; left: 0; right: 0; height: var(--laneH);
@@ -193,7 +185,6 @@
         .jm-now-btn:hover { background: var(--accent); color: #000; }
 
         @media (max-width: 720px) {
-            .jm-ghost b { font-size: 88px; }
             .jbar .jb-title { font-size: .82rem; }
             .jm-arrow { display: none; }
         }
@@ -381,17 +372,6 @@
             canvas.style.height = CANVAS_H + 'px';
             canvas.style.setProperty('--laneH', LANE_H + 'px');
 
-            /* ghost years (parallax depth layer) */
-            const ghost = document.createElement('div');
-            ghost.className = 'jm-ghost';
-            for (let y = Y0; y <= Y1 - 1; y++) {
-                const b = document.createElement('b');
-                b.textContent = y;
-                b.style.left = (X(y + 0.5)) + 'px';
-                ghost.appendChild(b);
-            }
-            canvas.appendChild(ghost);
-
             /* lane bands + sticky tags */
             LANES.forEach((l, i) => {
                 const band = document.createElement('div');
@@ -493,11 +473,7 @@
                 if (moved > 8) { e.stopPropagation(); e.preventDefault(); moved = 0; }
             }, true);
 
-            /* parallax ghosts */
-            map.addEventListener('scroll', () => {
-                ghost.style.transform = `translateX(${map.scrollLeft * 0.12}px)`;
-                sync();
-            }, { passive: true });
+            map.addEventListener('scroll', () => sync(), { passive: true });
 
             /* arrows + jump-to-now */
             const L = document.getElementById('jm-left'), R = document.getElementById('jm-right');

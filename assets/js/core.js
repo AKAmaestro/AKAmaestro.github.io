@@ -132,11 +132,53 @@
         });
     }
 
-    /* ---------- ESC = close popup > lightbox > up one level ---------- */
+    /* ---------- MOBILE NAV (burger + dropdown sheet) ---------- */
+    function initMobileNav() {
+        const nav = document.querySelector('.site-nav');
+        const links = nav && nav.querySelector('.nav-links');
+        if (!nav || !links) return;
+        const btn = document.createElement('button');
+        btn.className = 'nav-burger';
+        btn.setAttribute('aria-label', 'Menu');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.addEventListener('click', () => {
+            const open = document.body.classList.toggle('nav-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.insertBefore(btn, nav.querySelector('.theme-btn'));
+        links.addEventListener('click', e => { if (e.target.closest('a')) closeMobileNav(); });
+        document.addEventListener('click', e => {
+            if (document.body.classList.contains('nav-open') && !e.target.closest('.site-nav')) closeMobileNav();
+        });
+    }
+    function closeMobileNav() {
+        document.body.classList.remove('nav-open');
+        const b = document.querySelector('.nav-burger');
+        if (b) b.setAttribute('aria-expanded', 'false');
+    }
+    function mobileNavOpen() { return document.body.classList.contains('nav-open'); }
+
+    /* ---------- LAZY VIDEO: fetch/decode only near the viewport ---------- */
+    function initLazyVideo() {
+        const vids = document.querySelectorAll('video[data-lazy]');
+        if (!vids.length) return;
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(en => {
+                const v = en.target;
+                if (en.isIntersecting) v.play().catch(() => { });
+                else v.pause();
+            });
+        }, { rootMargin: '220px 0px' });
+        vids.forEach(v => io.observe(v));
+    }
+
+    /* ---------- ESC = close popup > lightbox > nav sheet > up one level ---------- */
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             if (popActive()) { closePop(); return; }
             if (lbActive()) { closeLB(); return; }
+            if (mobileNavOpen()) { closeMobileNav(); return; }
             const up = document.body.dataset.up;
             if (up) location.href = up;
         }
@@ -256,6 +298,7 @@
     }
 
     function initGlowCards() {
+        if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         const cards = document.querySelectorAll(
             '.work-item, .ex-tile, .info-card, .fact-card, .press-card, .mention-card, .cab, .next-project');
         cards.forEach(c => {
@@ -325,6 +368,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         syncThemeBtn();
         initCursor();
+        initMobileNav();
+        initLazyVideo();
         initLightbox();
         initReveal();
         initToTop();

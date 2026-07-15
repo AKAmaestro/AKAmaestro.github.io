@@ -14,6 +14,7 @@
         })(window, document, "clarity", "script", "ulyyygs3ix");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/core.css">
@@ -52,8 +53,26 @@
             background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
             background-size: 26px 26px;
         }
-        .press-strip .mention-card { width: min(430px, 84vw); border-radius: 16px; height: 100%; }
-        .mention-card[data-pop]:hover { border-color: var(--accent); }
+        /* press & mentions: fixed tile wall — borderless, gradient-tinted */
+        .press-tiles {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px; margin-top: 14px;
+        }
+        .press-tiles .mention-card {
+            border: none; border-radius: 18px; height: 100%;
+            background: linear-gradient(165deg, rgba(var(--accent-rgb), .18), rgba(var(--accent-rgb), .05) 45%, var(--panel) 80%);
+            transition: .25s;
+        }
+        .press-tiles .mention-card:nth-child(3n+2) {
+            background: linear-gradient(205deg, rgba(var(--accent-rgb), .16), rgba(var(--accent-rgb), .04) 50%, var(--panel) 82%);
+        }
+        .press-tiles .mention-card:nth-child(3n) {
+            background: linear-gradient(130deg, rgba(var(--accent-rgb), .2), rgba(var(--accent-rgb), .06) 40%, var(--panel) 75%);
+        }
+        .press-tiles .mention-card[data-pop]:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 44px rgba(0, 0, 0, .32), 0 0 0 1px rgba(var(--accent-rgb), .35) inset;
+        }
     </style>
 </head>
 
@@ -133,8 +152,7 @@
         </div>
 
         <span class="section-h">PRESS & MENTIONS — CLICK FOR CONTEXT</span>
-        <div class="hs-note">the newsfeed — more clippings landing here</div>
-        <div class="hscroll press-strip rv">
+        <div class="press-tiles rv-stagger">
             <div class="mention-card" data-pop data-pop-title="IGN INDIA — FIRST IMPRESSIONS"
                 data-pop-body="<p>IGN India covered Amnesea's showcase lineup in a first-impressions feature, calling out the games' <strong>'unique concepts with simplistic gameplay'</strong> — exactly the design thesis: one sharp mechanic, zero friction.</p>">
                 <div class="mention-logo"><img src="projects/Media/IGN_India.png" alt="IGN India" loading="lazy"></div>

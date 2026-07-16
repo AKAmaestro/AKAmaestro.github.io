@@ -83,8 +83,8 @@
             background-size: cover, cover, 22px 22px;
             background-blend-mode: normal;
         }
-        .status-badge { cursor: pointer; border: 1px solid var(--line); transition: .25s; }
-        .status-badge:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(var(--accent-rgb), .3); }
+        .status-badge { cursor: pointer; transition: .25s; }
+        .status-badge:hover { box-shadow: 0 0 18px rgba(var(--accent-rgb), .35); }
 
         .hero-name {
             font-size: clamp(3rem, 9vw, 6.5rem);
@@ -169,8 +169,8 @@
         .work-item .go {
             position: absolute; top: 10px; right: 10px; z-index: 2;
             font-family: var(--font-code); font-size: .75rem; color: var(--accent);
-            border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.4);
-            padding: 4px 7px; opacity: 0; transition: .25s;
+            background: rgba(0,0,0,.55); border-radius: 6px;
+            padding: 4px 8px; opacity: 0; transition: .25s;
         }
         .work-item:hover .go { opacity: 1; }
 

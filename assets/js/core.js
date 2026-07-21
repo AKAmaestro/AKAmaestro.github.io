@@ -201,7 +201,20 @@
         ).join('') + `<a class="wd-all" href="${root}index.html#works">See all work →</a>`;
         wrap.appendChild(panel);
 
+        const isMobileNav = () => matchMedia('(max-width: 1020px)').matches;
+
+        // the panel is position:fixed (to escape the nav's overflow clip), so
+        // its coordinates have to be set from the trigger's live rect. On the
+        // mobile sheet it's a static accordion instead, so clear any inline
+        // coords there or they'd override the stylesheet.
+        const position = () => {
+            if (isMobileNav()) { panel.style.top = panel.style.left = ''; return; }
+            const r = trigger.getBoundingClientRect();
+            panel.style.top = (r.bottom + 10) + 'px';
+            panel.style.left = r.left + 'px';
+        };
         const setOpen = open => {
+            if (open) position();
             wrap.classList.toggle('open', open);
             trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
         };
@@ -214,14 +227,17 @@
             if (!wrap.classList.contains('open')) { e.preventDefault(); setOpen(true); }
         });
         document.addEventListener('click', e => {
-            if (wrap.classList.contains('open') && !e.target.closest('.nav-work')) setOpen(false);
+            if (wrap.classList.contains('open') && !e.target.closest('.nav-work') && !e.target.closest('.work-dropdown')) setOpen(false);
         });
         panel.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
         // desktop hover still needs aria-expanded kept honest for assistive tech
-        wrap.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) setOpen(true); });
-        wrap.addEventListener('mouseleave', () => { if (matchMedia('(hover: hover)').matches) setOpen(false); });
+        wrap.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches && !isMobileNav()) setOpen(true); });
+        wrap.addEventListener('mouseleave', () => { if (matchMedia('(hover: hover)').matches && !isMobileNav()) setOpen(false); });
         wrap.addEventListener('focusin', () => setOpen(true));
-        wrap.addEventListener('focusout', e => { if (!wrap.contains(e.relatedTarget)) setOpen(false); });
+        wrap.addEventListener('focusout', e => { if (!wrap.contains(e.relatedTarget) && !panel.contains(e.relatedTarget)) setOpen(false); });
+        // keep the fixed panel aligned to its (sticky) trigger
+        addEventListener('resize', () => { if (wrap.classList.contains('open')) position(); });
+        addEventListener('scroll', () => { if (wrap.classList.contains('open') && !isMobileNav()) position(); }, { passive: true });
     }
     function closeWorkDropdown() {
         const w = document.querySelector('.nav-work.open');

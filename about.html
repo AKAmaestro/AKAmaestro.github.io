@@ -232,6 +232,46 @@
             color: var(--text); font-size: .86rem; padding: 8px 15px;
         }
         .belt-group .chip:hover { background: color-mix(in srgb, var(--tint) 20%, transparent); color: var(--tint); transform: translateY(-2px); }
+
+        /* ---------- FOCUS MAP VIEW SWITCH (overlap venn ⇄ depth radar) ---------- */
+        .focus-switch { display: inline-flex; gap: 4px; margin: 14px 0 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--text) 6%, transparent); }
+        .focus-switch button {
+            font-family: var(--font-code); font-size: .72rem; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--dim); background: none; border: none; border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: .2s;
+        }
+        .focus-switch button.active { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+        .focus-switch button:hover:not(.active) { color: var(--text); }
+
+        .radar-wrap { display: none; }
+        .focus-views[data-view="radar"] .venn { display: none; }
+        .focus-views[data-view="radar"] .venn-cards { display: none !important; }
+        .focus-views[data-view="radar"] .radar-wrap { display: block; }
+        .radar-box { max-width: 640px; margin: 20px auto 4px; }
+        .radar-box svg { width: 100%; height: auto; overflow: visible; }
+        .radar-axis-label { font-family: var(--font-code); font-size: 11px; fill: var(--text); }
+        .radar-axis-val { font-family: var(--font-code); font-size: 9px; fill: var(--dim); }
+        .radar-grid { fill: none; stroke: var(--line); stroke-width: 1; }
+        .radar-spoke { stroke: var(--line-dim); stroke-width: 1; }
+        .radar-area { fill: color-mix(in srgb, var(--accent) 20%, transparent); stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; transition: .5s ease; }
+        .radar-dot { fill: var(--accent); }
+        .radar-legend { text-align: center; font-family: var(--font-code); font-size: .78rem; color: var(--dim); margin-top: 4px; }
+
+        /* ---------- SKILL NETWORK GRAPH ---------- */
+        .netgraph-wrap { position: relative; margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--panel) 60%, transparent); overflow: hidden; }
+        .netgraph-wrap svg { display: block; width: 100%; height: auto; touch-action: none; }
+        .ng-edge { stroke: var(--line); stroke-width: 1.2; transition: stroke .2s, stroke-width .2s, opacity .2s; }
+        .ng-node circle { cursor: grab; transition: opacity .2s; }
+        .ng-node.dragging circle { cursor: grabbing; }
+        .ng-node text { font-family: var(--font-code); font-size: 10px; fill: var(--text); pointer-events: none; transition: opacity .2s; }
+        .ng-node.hub text { font-family: var(--font-ui); font-weight: 700; font-size: 13px; }
+        .netgraph-wrap.has-focus .ng-node.dim circle,
+        .netgraph-wrap.has-focus .ng-node.dim text { opacity: .18; }
+        .netgraph-wrap.has-focus .ng-edge.dim { opacity: .08; }
+        .netgraph-wrap.has-focus .ng-edge.lit { stroke: var(--accent); stroke-width: 2; }
+        .ng-legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 12px 16px; font-family: var(--font-code); font-size: .74rem; color: var(--dim); border-top: 1px solid var(--line-dim); }
+        .ng-legend span { display: inline-flex; align-items: center; gap: 7px; }
+        .ng-legend i { width: 11px; height: 11px; border-radius: 50%; }
+        .ng-hint { position: absolute; top: 12px; right: 14px; font-family: var(--font-code); font-size: .68rem; color: var(--dim); pointer-events: none; }
     </style>
 </head>
 
@@ -288,6 +328,12 @@
         <span class="section-h">FOCUS MAP — E × D × M, EVERY OVERLAP IS A SHIPPED THING</span>
         <p class="venn-note rv">engineering, design, management — and a slot reserved for whatever comes next</p>
 
+        <div class="focus-switch rv" role="tablist" aria-label="Focus map view">
+            <button type="button" data-view="venn" class="active" role="tab" aria-selected="true">◑ Overlap map</button>
+            <button type="button" data-view="radar" role="tab" aria-selected="false">◈ Depth radar</button>
+        </div>
+
+        <div class="focus-views" data-view="venn">
         <div class="venn rv" aria-hidden="true">
             <div class="v-circle v-eng" data-l="E"></div>
             <div class="v-circle v-des" data-l="D"></div>
@@ -358,6 +404,27 @@
             </div>
             <div class="vcard vc-o"><div class="vc-head"><b>O</b><i>next domain — loading…</i></div>
                 <div class="vc-items"><span>reserved for the next circle</span></div>
+            </div>
+        </div>
+
+        <!-- depth view: same person, plotted on more axes than E/D/M -->
+        <div class="radar-wrap rv">
+            <div class="radar-box"><svg id="radar" viewBox="0 0 460 420" role="img"
+                aria-label="Depth radar across six dimensions: Engineering, Design, Management, Research, Leadership, Craft"></svg></div>
+            <p class="radar-legend">self-assessed depth across six working dimensions — hover an axis for the note</p>
+        </div>
+        </div><!-- /.focus-views -->
+
+        <span class="section-h">SKILL NETWORK — WHAT CONNECTS TO WHAT</span>
+        <p class="venn-note rv">drag a node · hover to isolate a skill and everything it touches</p>
+        <div class="netgraph-wrap rv" id="netgraph">
+            <span class="ng-hint">drag · hover</span>
+            <svg viewBox="0 0 900 520" role="img" aria-label="Network graph of skills grouped by Engineering, Design and Management domains"></svg>
+            <div class="ng-legend">
+                <span><i style="background:var(--vE)"></i>Engineering</span>
+                <span><i style="background:var(--vD)"></i>Design</span>
+                <span><i style="background:var(--vM)"></i>Management</span>
+                <span><i style="background:var(--accent)"></i>cross-domain / core</span>
             </div>
         </div>
 
@@ -469,6 +536,245 @@
     </footer>
 
     <script src="assets/js/core.js"></script>
+    <script>
+    /* ========== FOCUS MAP: overlap (venn) ⇄ depth (radar) ========== */
+    (function () {
+        const views = document.querySelector('.focus-views');
+        const sw = document.querySelector('.focus-switch');
+        if (!views || !sw) return;
+        let radarDrawn = false;
+        sw.addEventListener('click', e => {
+            const b = e.target.closest('button[data-view]');
+            if (!b) return;
+            const v = b.dataset.view;
+            views.dataset.view = v;
+            sw.querySelectorAll('button').forEach(x => {
+                const on = x === b;
+                x.classList.toggle('active', on);
+                x.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            if (v === 'radar' && !radarDrawn) { radarDrawn = true; animateRadar(); }
+        });
+
+        /* ----- RADAR (6-axis depth) ----- */
+        const svg = document.getElementById('radar');
+        const NS = 'http://www.w3.org/2000/svg';
+        const cx = 230, cy = 200, R = 140, MAX = 10;
+        const AX = [
+            { label: 'Engineering', v: 9, note: 'ML, computer vision, data platforms, robotics firmware' },
+            { label: 'Design', v: 8, note: 'game design, motion, 3D, editorial & stage art' },
+            { label: 'Management', v: 7, note: 'Agile/SAFe delivery, GTM, org leadership' },
+            { label: 'Research', v: 7, note: 'published first-author; medical AI, HCI methods' },
+            { label: 'Leadership', v: 8, note: 'studio founder, team leads, Toastmasters president' },
+            { label: 'Craft', v: 8, note: 'shipping polish — 14 games, exhibited builds' },
+        ];
+        const N = AX.length;
+        const ang = i => -Math.PI / 2 + i * 2 * Math.PI / N;
+        const pt = (i, r) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))];
+        const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
+
+        if (svg) {
+            for (let g = 1; g <= 4; g++) {
+                let d = '';
+                for (let i = 0; i < N; i++) { const [x, y] = pt(i, R * g / 4); d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' '; }
+                mk('path', { d: d + 'Z', class: 'radar-grid' });
+            }
+            AX.forEach((a, i) => {
+                const [x, y] = pt(i, R);
+                mk('line', { x1: cx, y1: cy, x2: x.toFixed(1), y2: y.toFixed(1), class: 'radar-spoke' });
+                const [lx, ly] = pt(i, R + 24);
+                const t = mk('text', { x: lx.toFixed(1), y: ly.toFixed(1), class: 'radar-axis-label',
+                    'text-anchor': lx > cx + 6 ? 'start' : (lx < cx - 6 ? 'end' : 'middle'), 'dominant-baseline': 'middle' });
+                t.textContent = a.label;
+                t.style.cursor = 'default';
+                t.appendChild(mk('title', {}, t)).textContent = a.v + '/10 — ' + a.note;
+            });
+        }
+        const area = svg ? mk('path', { class: 'radar-area', d: '' }) : null;
+        const dots = svg ? AX.map(() => mk('circle', { r: 3.5, class: 'radar-dot', cx, cy })) : [];
+        function radarAt(p) {
+            let d = '';
+            AX.forEach((a, i) => {
+                const [x, y] = pt(i, R * (a.v / MAX) * p);
+                d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+                dots[i].setAttribute('cx', x.toFixed(1)); dots[i].setAttribute('cy', y.toFixed(1));
+            });
+            if (area) area.setAttribute('d', d + 'Z');
+        }
+        function animateRadar() {
+            if (!area) return;
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) { radarAt(1); return; }
+            const t0 = performance.now(), dur = 520;
+            (function step(t) {
+                const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+                radarAt(e);
+                if (p < 1) requestAnimationFrame(step);
+            })(t0);
+        }
+        radarAt(0);
+    })();
+
+    /* ========== SKILL NETWORK GRAPH (vanilla force-directed) ========== */
+    (function () {
+        const wrap = document.getElementById('netgraph');
+        const svg = wrap && wrap.querySelector('svg');
+        if (!svg) return;
+        const NS = 'http://www.w3.org/2000/svg';
+        const W = 900, H = 520;
+        const css = getComputedStyle(document.documentElement);
+        const col = { E: '--vE', D: '--vD', M: '--vM', X: '--accent', C: '--accent' };
+        const colorOf = g => `var(${col[g] || '--accent'})`;
+
+        const NODES = [
+            { id: 'E', hub: 1, g: 'E', label: 'Engineering', ax: 250, ay: 175 },
+            { id: 'D', hub: 1, g: 'D', label: 'Design', ax: 650, ay: 175 },
+            { id: 'M', hub: 1, g: 'M', label: 'Management', ax: 450, ay: 420 },
+            { id: 'py', g: 'E', label: 'Python' }, { id: 'ml', g: 'E', label: 'ML / DL' },
+            { id: 'cv', g: 'E', label: 'Comp. Vision' }, { id: 'cloud', g: 'E', label: 'Azure · ETL' },
+            { id: 'cpp', g: 'E', label: 'C / C++' },
+            { id: 'figma', g: 'D', label: 'Figma' }, { id: 'blender', g: 'D', label: 'Blender · 3D' },
+            { id: 'motion', g: 'D', label: 'Motion · AE' }, { id: 'photo', g: 'D', label: 'Photography' },
+            { id: 'gamedes', g: 'D', label: 'Game Design' },
+            { id: 'agile', g: 'M', label: 'Agile · SAFe' }, { id: 'jira', g: 'M', label: 'JIRA' },
+            { id: 'gtm', g: 'M', label: 'GTM' }, { id: 'speak', g: 'M', label: 'Toastmasters' },
+            { id: 'robotics', g: 'X', label: 'Robotics' }, { id: 'creativetech', g: 'X', label: 'Creative Tech' },
+            { id: 'dataLead', g: 'X', label: 'Data Leadership' }, { id: 'studioOps', g: 'X', label: 'Studio Ops' },
+            { id: 'amnesea', g: 'C', label: 'AMNESEA', core: 1 },
+        ];
+        const LINKS = [
+            ['E', 'py'], ['E', 'ml'], ['E', 'cv'], ['E', 'cloud'], ['E', 'cpp'],
+            ['D', 'figma'], ['D', 'blender'], ['D', 'motion'], ['D', 'photo'], ['D', 'gamedes'],
+            ['M', 'agile'], ['M', 'jira'], ['M', 'gtm'], ['M', 'speak'],
+            ['robotics', 'E'], ['robotics', 'D'], ['creativetech', 'E'], ['creativetech', 'D'],
+            ['dataLead', 'E'], ['dataLead', 'M'], ['studioOps', 'D'], ['studioOps', 'M'],
+            ['amnesea', 'E'], ['amnesea', 'D'], ['amnesea', 'M'],
+            ['ml', 'cv'], ['gamedes', 'robotics'], ['cloud', 'dataLead'],
+        ];
+        const byId = {}; NODES.forEach(n => byId[n.id] = n);
+        const radius = n => n.hub ? 27 : n.core ? 22 : (n.g === 'X' ? 14 : 11);
+        const neigh = {}; NODES.forEach(n => neigh[n.id] = new Set([n.id]));
+        LINKS.forEach(([a, b]) => { neigh[a].add(b); neigh[b].add(a); });
+
+        // deterministic seed positions
+        let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+        NODES.forEach(n => {
+            n.x = n.ax || (W / 2 + (rnd() - .5) * 260);
+            n.y = n.ay || (H / 2 + (rnd() - .5) * 200);
+            n.vx = 0; n.vy = 0;
+        });
+
+        // build DOM
+        const gEdges = mk('g', {}), gNodes = mk('g', {});
+        function mk(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+        const edgeEls = LINKS.map(([a, b]) => { const l = mk('line', { class: 'ng-edge' }, gEdges); l._a = a; l._b = b; return l; });
+        const nodeEls = NODES.map(n => {
+            const g = mk('g', { class: 'ng-node' + (n.hub ? ' hub' : ''), 'data-id': n.id }, gNodes);
+            const c = mk('circle', { r: radius(n) }, g);
+            // colors via style so CSS var() resolves (and follows theme changes);
+            // var() does NOT resolve when set as a plain presentation attribute
+            c.style.fill = colorOf(n.g);
+            c.style.stroke = colorOf(n.g);
+            c.style.fillOpacity = n.hub ? '.92' : (n.core ? '.8' : '.5');
+            c.style.strokeWidth = n.hub ? '0' : '1.2';
+            // every label sits below its node — sidesteps text-on-fill contrast
+            // problems across light/dark themes entirely
+            const t = mk('text', { 'text-anchor': 'middle', y: radius(n) + (n.hub ? 15 : 12) }, g);
+            t.textContent = n.label;
+            g._n = n; g._circle = c; g._text = t;
+            return g;
+        });
+
+        // ---- force simulation ----
+        let alpha = 1, running = true, dragging = null;
+        function tick() {
+            // repulsion
+            for (let i = 0; i < NODES.length; i++) {
+                for (let j = i + 1; j < NODES.length; j++) {
+                    const a = NODES[i], b = NODES[j];
+                    let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || 0.01;
+                    const f = 2700 / d2, d = Math.sqrt(d2);
+                    const fx = f * dx / d, fy = f * dy / d;
+                    a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+                }
+            }
+            // links
+            LINKS.forEach(([ai, bi]) => {
+                const a = byId[ai], b = byId[bi];
+                const L = (a.core || b.core) ? 150 : (a.g === 'X' || b.g === 'X') ? 118 : 92;
+                let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.01;
+                const f = (d - L) * 0.018, fx = f * dx / d, fy = f * dy / d;
+                a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+            });
+            // hub anchoring + gentle centering
+            NODES.forEach(n => {
+                if (n.ax != null) { n.vx += (n.ax - n.x) * 0.045; n.vy += (n.ay - n.y) * 0.045; }
+                else { n.vx += (W / 2 - n.x) * 0.006; n.vy += (H / 2 - n.y) * 0.006; }
+            });
+            // integrate
+            NODES.forEach(n => {
+                if (n === dragging) { n.vx = n.vy = 0; return; }
+                n.vx *= 0.82; n.vy *= 0.82;
+                n.x += n.vx * alpha; n.y += n.vy * alpha;
+                const r = radius(n) + 6;
+                n.x = Math.max(r, Math.min(W - r, n.x));
+                n.y = Math.max(r, Math.min(H - r, n.y));
+            });
+        }
+        function render() {
+            edgeEls.forEach(l => { const a = byId[l._a], b = byId[l._b]; l.setAttribute('x1', a.x.toFixed(1)); l.setAttribute('y1', a.y.toFixed(1)); l.setAttribute('x2', b.x.toFixed(1)); l.setAttribute('y2', b.y.toFixed(1)); });
+            nodeEls.forEach(g => { g.setAttribute('transform', `translate(${g._n.x.toFixed(1)} ${g._n.y.toFixed(1)})`); });
+        }
+        function loop() {
+            if (running) { tick(); alpha = Math.max(0.02, alpha * 0.985); }
+            render();
+            if (running && alpha <= 0.021 && !dragging) running = false;
+            requestAnimationFrame(loop);
+        }
+        // run only once visible, to save CPU
+        const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { running = true; if (alpha < 0.1) alpha = 0.5; } }); }, { threshold: 0.05 });
+        io.observe(wrap);
+        requestAnimationFrame(loop);
+
+        // ---- hover isolate ----
+        function focus(id) {
+            wrap.classList.add('has-focus');
+            const near = neigh[id];
+            nodeEls.forEach(g => g.classList.toggle('dim', !near.has(g._n.id)));
+            edgeEls.forEach(l => {
+                const lit = (l._a === id || l._b === id);
+                l.classList.toggle('lit', lit); l.classList.toggle('dim', !lit);
+            });
+        }
+        function unfocus() {
+            wrap.classList.remove('has-focus');
+            nodeEls.forEach(g => g.classList.remove('dim'));
+            edgeEls.forEach(l => l.classList.remove('lit', 'dim'));
+        }
+        nodeEls.forEach(g => {
+            g.addEventListener('mouseenter', () => { if (!dragging) focus(g._n.id); });
+            g.addEventListener('mouseleave', () => { if (!dragging) unfocus(); });
+        });
+
+        // ---- drag ----
+        function toSvg(ev) { const r = svg.getBoundingClientRect(); return [(ev.clientX - r.left) * (W / r.width), (ev.clientY - r.top) * (H / r.height)]; }
+        nodeEls.forEach(g => {
+            g.addEventListener('pointerdown', ev => {
+                ev.preventDefault();
+                dragging = g._n; g.classList.add('dragging');
+                running = true; alpha = Math.max(alpha, 0.4);
+                g.setPointerCapture(ev.pointerId);
+                unfocus();
+            });
+            g.addEventListener('pointermove', ev => {
+                if (dragging !== g._n) return;
+                const [x, y] = toSvg(ev); g._n.x = x; g._n.y = y;
+            });
+            const end = () => { if (dragging === g._n) { dragging = null; g.classList.remove('dragging'); alpha = Math.max(alpha, 0.25); running = true; } };
+            g.addEventListener('pointerup', end);
+            g.addEventListener('pointercancel', end);
+        });
+    })();
+    </script>
 </body>
 
 </html>

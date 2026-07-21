@@ -16,6 +16,12 @@
         .lost .glitch { animation: gl .9s infinite steps(2); }
         @keyframes gl { 50% { transform: translateX(3px); opacity: .85; } }
         .lost p { font-family: var(--font-code); color: var(--dim); margin: 18px 0 30px; }
+        .lost .recover { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
+        .lost .recover a {
+            font-family: var(--font-code); font-size: .82rem; text-decoration: none; color: var(--text);
+            background: color-mix(in srgb, var(--text) 7%, transparent); border-radius: 999px; padding: 9px 16px; transition: .2s;
+        }
+        .lost .recover a:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
     </style>
 </head>
 
@@ -24,6 +30,13 @@
         <div class="code glitch">404</div>
         <p>&gt; SIGNAL_LOST — this sector doesn't exist (or it moved in the revamp)</p>
         <a href="/index.html" class="btn solid">RETURN TO BASE</a>
+        <nav class="recover" aria-label="Quick links">
+            <a href="/index.html#works">Work</a>
+            <a href="/about.html">About</a>
+            <a href="/journey.html">Journey</a>
+            <a href="/signals.html">Signals</a>
+            <a href="/arcade.html">Arcade</a>
+        </nav>
     </div>
     <script src="/assets/js/core.js"></script>
 </body>

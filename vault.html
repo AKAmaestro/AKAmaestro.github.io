@@ -17,7 +17,12 @@
             max-width: 560px; margin: 12vh auto 0; border: 1px solid var(--line);
             background: var(--panel); padding: 40px 34px; text-align: center;
         }
-        .gate .lock { font-size: 2.6rem; }
+        /* masked SVG lock — same glyph language as the nav .vault-link, not an emoji */
+        .gate .lock {
+            width: 46px; height: 52px; margin: 0 auto; background: var(--accent);
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 10V7a6 6 0 1 1 12 0v3h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1zm2 0h8V7a4 4 0 1 0-8 0v3z'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 10V7a6 6 0 1 1 12 0v3h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1zm2 0h8V7a4 4 0 1 0-8 0v3z'/%3E%3C/svg%3E") center/contain no-repeat;
+        }
         .gate h1 { font-family: var(--font-code); font-size: 1.2rem; margin: 14px 0 6px; letter-spacing: 2px; }
         .gate p { color: var(--dim); font-size: .88rem; line-height: 1.6; }
         .gate form { display: flex; gap: 8px; margin-top: 22px; }
@@ -67,7 +72,7 @@
 
     <div class="frame">
         <div class="gate" id="gate">
-            <div class="lock">🔒</div>
+            <div class="lock" aria-hidden="true"></div>
             <h1>RESTRICTED_SECTOR</h1>
             <p>This area is AES-256 encrypted. Content only decrypts in your browser with a valid access key.
                 Different keys reveal different levels of data — and once unlocked, your access follows you across

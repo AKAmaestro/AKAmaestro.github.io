@@ -163,7 +163,12 @@
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
         nav.insertBefore(btn, nav.querySelector('.theme-btn'));
-        links.addEventListener('click', e => { if (e.target.closest('a')) closeMobileNav(); });
+        // close the sheet when a link is tapped — EXCEPT the Work trigger, whose
+        // first tap opens its in-sheet accordion (closing the sheet would undo it)
+        links.addEventListener('click', e => {
+            const a = e.target.closest('a');
+            if (a && !a.classList.contains('nav-work-trigger')) closeMobileNav();
+        });
         document.addEventListener('click', e => {
             if (document.body.classList.contains('nav-open') && !e.target.closest('.site-nav')) closeMobileNav();
         });
@@ -210,8 +215,10 @@
         const position = () => {
             if (isMobileNav()) { panel.style.top = panel.style.left = ''; return; }
             const r = trigger.getBoundingClientRect();
+            const pw = panel.offsetWidth || 260;
             panel.style.top = (r.bottom + 10) + 'px';
-            panel.style.left = r.left + 'px';
+            // clamp so the panel never runs off the right edge of the viewport
+            panel.style.left = Math.max(8, Math.min(r.left, innerWidth - pw - 10)) + 'px';
         };
         const setOpen = open => {
             if (open) position();
@@ -219,11 +226,13 @@
             trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
         };
 
-        // touch/no-hover devices: tapping the trigger toggles the panel instead
-        // of navigating straight through — the "See all work" row is the
-        // explicit way back to the overview once the panel is open.
+        // FIRST tap/click opens the panel instead of navigating; once it's open
+        // (desktop already opened it on hover, or this is a second tap) the link
+        // works normally. Device-agnostic on purpose — do NOT gate on
+        // (hover:none): hybrid touch laptops and some in-app webviews report
+        // (hover:hover) yet have no real hover, which is exactly why tapping
+        // Work used to jump straight to the homepage.
         trigger.addEventListener('click', e => {
-            if (!matchMedia('(hover: none)').matches) return;
             if (!wrap.classList.contains('open')) { e.preventDefault(); setOpen(true); }
         });
         document.addEventListener('click', e => {
@@ -244,6 +253,40 @@
         if (w) { w.classList.remove('open'); const t = w.querySelector('.nav-work-trigger'); if (t) t.setAttribute('aria-expanded', 'false'); }
     }
     function workDropdownOpen() { return !!document.querySelector('.nav-work.open'); }
+
+    /* ---------- NAVIGATION LOADING BAR ----------
+       The old page stays on screen while the next one loads, so without any
+       indicator a slow next page (spotty in-app browser) reads as "frozen".
+       This shows a top progress bar the instant an internal link is tapped;
+       it creeps toward the end and is simply replaced when the new document
+       paints. It can never get stuck because it lives on the outgoing page. */
+    function initNavProgress() {
+        const bar = document.createElement('div');
+        bar.id = 'nav-loading';
+        document.body.appendChild(bar);
+        let active = false;
+        const start = () => {
+            if (active) return; active = true;
+            bar.style.transition = 'none'; bar.style.width = '0'; bar.style.opacity = '1';
+            void bar.offsetWidth;                       // commit the reset before animating
+            bar.style.transition = 'width 8s cubic-bezier(.15,.85,.5,1)';
+            bar.style.width = '90%';
+        };
+        const reset = () => { active = false; bar.style.transition = 'none'; bar.style.width = '0'; bar.style.opacity = '0'; };
+        document.addEventListener('click', e => {
+            const a = e.target.closest('a[href]');
+            if (!a || a.target === '_blank' || a.hasAttribute('download') || e.defaultPrevented) return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;   // open-in-new-tab
+            let url; try { url = new URL(a.href, location.href); } catch (_) { return; }
+            if (url.origin !== location.origin) return;                           // external
+            if (url.pathname === location.pathname && url.hash) return;           // same-page anchor
+            const proto = (a.getAttribute('href') || '');
+            if (proto.startsWith('mailto:') || proto.startsWith('tel:')) return;
+            start();
+        }, true);
+        // restored from back/forward cache — clear any leftover bar
+        addEventListener('pageshow', reset);
+    }
 
     /* ---------- LAZY VIDEO: fetch/decode only near the viewport ---------- */
     function initLazyVideo() {
@@ -457,6 +500,7 @@
         initCursor();
         initMobileNav();
         initWorkDropdown();
+        initNavProgress();
         initLazyVideo();
         initLightbox();
         initReveal();

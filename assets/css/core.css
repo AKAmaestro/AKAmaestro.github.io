@@ -539,10 +539,21 @@ a { color: var(--accent); }
    MODERNIZATION LAYER
    ============================================================ */
 
-/* cross-document view transitions: pages morph instead of hard-cut */
-@view-transition { navigation: auto; }
-::view-transition-old(root) { animation-duration: .22s; }
-::view-transition-new(root) { animation-duration: .28s; }
+/* NOTE: cross-document view transitions (@view-transition navigation:auto)
+   were REMOVED. In Chromium in-app webviews (Instagram/FB/LinkedIn browsers)
+   they hold a snapshot of the OLD page on-screen while the NEW page finishes
+   loading — so a slow-loading next page reads as "frozen / crashed" with no
+   feedback. Navigation is now a plain hard-cut plus the #nav-loading bar
+   below, which is instant and can't get stuck. */
+
+/* top-of-page navigation loading bar — gives feedback the moment an internal
+   link is tapped (the old page persists during load, so this bar is the only
+   signal that something is happening). Driven by initNavProgress() in core.js. */
+#nav-loading {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 2500;
+    background: var(--accent); box-shadow: 0 0 10px rgba(var(--accent-rgb), .9);
+    opacity: 0; pointer-events: none;
+}
 
 html { color-scheme: dark light; }
 

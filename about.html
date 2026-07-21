@@ -16,7 +16,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"></noscript>
     <link rel="stylesheet" href="assets/css/core.css">
     <style>
         :root { --font-display: 'Fraunces', serif; }
@@ -321,6 +322,47 @@
         <span class="section-h">FOCUS FIELD — SKILLS × DOMAINS, ONE MAP</span>
         <p class="venn-note rv">engineering × design × management — every skill sits where it actually lives; the overlaps hold the cross-domain work and the centre is the studio. drag a node · hover to trace what it connects to · the dashed ring is the domain still loading.</p>
 
+        <!-- ============================================================
+             FOCUS FIELD — HOW TO CUSTOMISE  (read me before editing)
+             ============================================================
+             The whole chart is data-driven from three arrays in the
+             <script> at the BOTTOM of this file. You almost never touch the
+             drawing/physics code — you edit data. Everything auto-lays-out.
+
+             ---- ADD A SKILL (most common) ----
+             In the NODES array add one line:
+                 { id:'unique-id', z:'E', label:'New Skill' },
+             • id    = any unique string (used internally only)
+             • z     = which ZONE it lives in (see below)
+             • label = the text shown under the dot
+             Size is automatic from the zone. That's it — reload.
+
+             ---- THE ZONES (z:) ----
+             Single-domain (sit inside one field):
+                 'E' Engineering   'D' Design   'M' Management
+             Overlaps (sit in the lens between two fields):
+                 'ED' Eng×Design   'EM' Eng×Mgmt   'DM' Design×Mgmt
+             Core (glows in the centre, the studio):
+                 'C'  — also add  core:1  to the node, e.g.
+                 { id:'x', z:'C', label:'New Studio Thing', core:1 },
+
+             ---- MOVE / RE-BALANCE A REGION ----
+             ZONE[zone] = {x,y} is the point that region's nodes gravitate to
+             (svg coords, canvas is 960×620). Nudge those to shift a cluster.
+             FIELD[E|D|M] = {x,y} are the gradient-circle centres; ZONE anchors
+             should sit roughly inside/between them.
+
+             ---- COLOURS ----
+             Domain colours are the CSS vars --vE / --vD / --vM defined in the
+             <style> :root above (and re-defined for light mode). Change them
+             there and the fields, nodes, edges and legend all follow.
+
+             ---- ADD A WHOLE NEW DOMAIN (the dashed "O" slot) ----
+             Bigger job, touch 5 spots in the script: FIELD (add its circle),
+             ZONE (anchor), ZDOM (which domains a zone links to), dcol (colour),
+             and add its gradient stop + a legend <span> in the markup below.
+             ============================================================ -->
+
         <!-- one unified visual: euler gradient domain fields + radar rings +
              force-directed skill nodes, merged. desktop only; phones get cards. -->
         <div class="field-wrap rv" id="focusfield">
@@ -481,36 +523,53 @@
         const svg = wrap && wrap.querySelector('svg');
         if (!svg) return;
         const NS = 'http://www.w3.org/2000/svg';
-        const W = 960, H = 620;
+        const W = 960, H = 620;                         // svg coordinate space (all x/y below are in these units)
+        // domain colours — pull from the CSS vars so both themes + the fields,
+        // nodes, edges and legend all stay in sync. Edit the vars, not here.
         const dcol = { E: 'var(--vE)', D: 'var(--vD)', M: 'var(--vM)' };
 
-        // euler domain fields (overlapping soft circles)
+        // FIELD = centre of each soft gradient "domain circle" (euler blobs)
         const FIELD = { E: { x: 335, y: 258 }, D: { x: 625, y: 258 }, M: { x: 480, y: 452 } };
-        const FR = 212;
-        // where a node of each zone wants to live
+        const FR = 212;                                 // field radius
+        // ZONE = the point each zone's nodes are pulled toward. Single-domain
+        // zones sit inside a field; overlap zones (ED/EM/DM) sit in the lens
+        // between two fields; C (core) sits dead centre. Nudge these to move a
+        // whole cluster.
         const ZONE = {
             E:  { x: 250, y: 240 }, D: { x: 710, y: 240 }, M: { x: 480, y: 512 },
             ED: { x: 480, y: 200 }, EM: { x: 352, y: 378 }, DM: { x: 608, y: 378 },
             C:  { x: 480, y: 332 },
         };
+        // ZDOM = which domain field(s) each zone links to (draws the edges +
+        // decides node colour for overlaps). Don't usually need to touch this.
         const ZDOM = { E:['E'], D:['D'], M:['M'], ED:['E','D'], EM:['E','M'], DM:['D','M'], C:['E','D','M'] };
 
+        // ---- THE DATA: add / edit skills here (see the manual comment in the
+        // markup above). One object per skill: { id, z:zone, label[, core:1] }. ----
         const NODES = [
+            // Engineering (z:'E')
             { id:'py', z:'E', label:'Python' }, { id:'ml', z:'E', label:'ML / DL' },
             { id:'cv', z:'E', label:'Computer Vision' }, { id:'cloud', z:'E', label:'Azure · ETL' },
             { id:'cpp', z:'E', label:'C / C++' },
+            // Design (z:'D')
             { id:'figma', z:'D', label:'Figma' }, { id:'blender', z:'D', label:'Blender · 3D' },
             { id:'motion', z:'D', label:'Motion · AE' }, { id:'photo', z:'D', label:'Photography' },
             { id:'stage', z:'D', label:'Poster · Stage Art' },
+            // Management (z:'M')
             { id:'agile', z:'M', label:'Agile · SAFe' }, { id:'jira', z:'M', label:'JIRA' },
             { id:'speak', z:'M', label:'Toastmasters' }, { id:'mentor', z:'M', label:'Mentorship' },
+            // Engineering × Design overlap (z:'ED')
             { id:'robotics', z:'ED', label:'Robotics' }, { id:'gamedes', z:'ED', label:'Game Design' },
             { id:'ctech', z:'ED', label:'Creative Tech' }, { id:'interact', z:'ED', label:'Interactive Sys' },
+            // Engineering × Management overlap (z:'EM')
             { id:'dataplat', z:'EM', label:'Data-Platform Lead' }, { id:'dataacc', z:'EM', label:'Data Accuracy' },
+            // Design × Management overlap (z:'DM')
             { id:'gtm', z:'DM', label:'GTM' }, { id:'anaad', z:'DM', label:'Anaadyanta' },
             { id:'artorg', z:'DM', label:'Art-Org Lead' }, { id:'studioops', z:'DM', label:'Studio Ops' },
+            // Core — all three (z:'C', core:1 makes it glow bigger at the centre)
             { id:'amnesea', z:'C', label:'AMNESEA', core:1 }, { id:'eyantra', z:'C', label:'eYantra Lead', core:1 },
         ];
+        // dot radius: core biggest, then overlap nodes (2-char zone), then single-domain
         const radOf = n => n.core ? 15 : (n.z.length === 2 ? 11 : 9);
 
         function mk(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }

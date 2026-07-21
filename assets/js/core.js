@@ -201,7 +201,7 @@
         ).join('') + `<a class="wd-all" href="${root}index.html#works">See all work →</a>`;
         wrap.appendChild(panel);
 
-        const isMobileNav = () => matchMedia('(max-width: 1020px)').matches;
+        const isMobileNav = () => matchMedia('(max-width: 1200px)').matches;
 
         // the panel is position:fixed (to escape the nav's overflow clip), so
         // its coordinates have to be set from the trigger's live rect. On the

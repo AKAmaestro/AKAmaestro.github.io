@@ -107,7 +107,7 @@ a { color: var(--accent); }
 
 .nav-links {
     display: flex;
-    gap: 22px;
+    gap: 17px;
     margin-left: auto;
     overflow-x: auto;
     scrollbar-width: none;
@@ -119,9 +119,9 @@ a { color: var(--accent); }
     color: var(--dim);
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.3px;
     font-family: var(--font-ui);
-    font-size: .92rem;
+    font-size: .9rem;
     font-weight: 600;
     padding: 6px 0;
     white-space: nowrap;
@@ -210,9 +210,13 @@ a { color: var(--accent); }
 }
 .theme-btn:hover { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
 
-/* ---------- MOBILE / TABLET NAV (burger injected by core.js) ---------- */
+/* ---------- MOBILE / TABLET NAV (burger injected by core.js) ----------
+   breakpoint at 1200px: the full horizontal nav needs ~1197px to fit its
+   crumb + 7 links + 2 download chips + theme toggle, so below that it
+   collapses to the burger sheet rather than clipping (was 1020px, which
+   left a 1020–1200 dead zone where PORTFOLIO/theme got cut off) */
 .nav-burger { display: none; }
-@media (max-width: 1020px) {
+@media (max-width: 1200px) {
     .site-nav { gap: 10px; padding: 10px 14px; flex-wrap: nowrap; }
     .nav-burger {
         display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;

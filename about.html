@@ -179,6 +179,7 @@
         }
         @media (max-width: 720px) {
             .venn { display: none; }
+            .field-wrap { display: none; }
             .venn-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
         }
 
@@ -233,45 +234,37 @@
         }
         .belt-group .chip:hover { background: color-mix(in srgb, var(--tint) 20%, transparent); color: var(--tint); transform: translateY(-2px); }
 
-        /* ---------- FOCUS MAP VIEW SWITCH (overlap venn ⇄ depth radar) ---------- */
-        .focus-switch { display: inline-flex; gap: 4px; margin: 14px 0 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--text) 6%, transparent); }
-        .focus-switch button {
-            font-family: var(--font-code); font-size: .72rem; letter-spacing: 1px; text-transform: uppercase;
-            color: var(--dim); background: none; border: none; border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: .2s;
+        /* ---------- FOCUS FIELD: one map = euler gradient domains + radar rings
+             + force-directed skill nodes. skills sit where they actually live;
+             the overlaps hold the cross-domain work; the centre is the studio. */
+        .field-wrap {
+            position: relative; margin-top: 18px; border: 1px solid var(--line); border-radius: 18px;
+            overflow: hidden; background: radial-gradient(130% 120% at 50% 38%, color-mix(in srgb, var(--panel) 72%, transparent), var(--bg));
         }
-        .focus-switch button.active { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
-        .focus-switch button:hover:not(.active) { color: var(--text); }
-
-        .radar-wrap { display: none; }
-        .focus-views[data-view="radar"] .venn { display: none; }
-        .focus-views[data-view="radar"] .venn-cards { display: none !important; }
-        .focus-views[data-view="radar"] .radar-wrap { display: block; }
-        .radar-box { max-width: 640px; margin: 20px auto 4px; }
-        .radar-box svg { width: 100%; height: auto; overflow: visible; }
-        .radar-axis-label { font-family: var(--font-code); font-size: 11px; fill: var(--text); }
-        .radar-axis-val { font-family: var(--font-code); font-size: 9px; fill: var(--dim); }
-        .radar-grid { fill: none; stroke: var(--line); stroke-width: 1; }
-        .radar-spoke { stroke: var(--line-dim); stroke-width: 1; }
-        .radar-area { fill: color-mix(in srgb, var(--accent) 20%, transparent); stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; transition: .5s ease; }
-        .radar-dot { fill: var(--accent); }
-        .radar-legend { text-align: center; font-family: var(--font-code); font-size: .78rem; color: var(--dim); margin-top: 4px; }
-
-        /* ---------- SKILL NETWORK GRAPH ---------- */
-        .netgraph-wrap { position: relative; margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--panel) 60%, transparent); overflow: hidden; }
-        .netgraph-wrap svg { display: block; width: 100%; height: auto; touch-action: none; }
-        .ng-edge { stroke: var(--line); stroke-width: 1.2; transition: stroke .2s, stroke-width .2s, opacity .2s; }
-        .ng-node circle { cursor: grab; transition: opacity .2s; }
-        .ng-node.dragging circle { cursor: grabbing; }
-        .ng-node text { font-family: var(--font-code); font-size: 10px; fill: var(--text); pointer-events: none; transition: opacity .2s; }
-        .ng-node.hub text { font-family: var(--font-ui); font-weight: 700; font-size: 13px; }
-        .netgraph-wrap.has-focus .ng-node.dim circle,
-        .netgraph-wrap.has-focus .ng-node.dim text { opacity: .18; }
-        .netgraph-wrap.has-focus .ng-edge.dim { opacity: .08; }
-        .netgraph-wrap.has-focus .ng-edge.lit { stroke: var(--accent); stroke-width: 2; }
-        .ng-legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 12px 16px; font-family: var(--font-code); font-size: .74rem; color: var(--dim); border-top: 1px solid var(--line-dim); }
-        .ng-legend span { display: inline-flex; align-items: center; gap: 7px; }
-        .ng-legend i { width: 11px; height: 11px; border-radius: 50%; }
-        .ng-hint { position: absolute; top: 12px; right: 14px; font-family: var(--font-code); font-size: .68rem; color: var(--dim); pointer-events: none; }
+        .field-wrap svg { display: block; width: 100%; height: auto; touch-action: none; }
+        .ff-hint { position: absolute; top: 12px; right: 15px; z-index: 3; font-family: var(--font-code); font-size: .68rem; color: var(--dim); pointer-events: none; }
+        .ff-ring { fill: none; stroke: var(--line-dim); stroke-width: 1; }
+        .ff-dlabel { font-family: var(--font-display); font-style: italic; font-weight: 600; }
+        .ff-edge { stroke-width: 1; fill: none; transition: stroke-width .25s, opacity .25s; }
+        .ff-node circle { cursor: grab; transition: opacity .25s; }
+        .ff-node.dragging circle { cursor: grabbing; }
+        .ff-node text {
+            font-family: var(--font-code); font-size: 11px; fill: var(--text); pointer-events: none;
+            transition: opacity .25s; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round;
+        }
+        .ff-node.core text { font-family: var(--font-ui); font-weight: 700; font-size: 12.5px; }
+        .field-wrap.has-focus .ff-node.dim circle, .field-wrap.has-focus .ff-node.dim text { opacity: .13; }
+        .field-wrap.has-focus .ff-edge.dim { opacity: .04; }
+        .field-wrap.has-focus .ff-edge.lit { stroke-width: 2.4; }
+        .ff-legend {
+            display: flex; flex-wrap: wrap; gap: 12px 18px; padding: 13px 18px; position: relative; z-index: 2;
+            font-family: var(--font-code); font-size: .72rem; color: var(--dim);
+            border-top: 1px solid var(--line-dim); background: color-mix(in srgb, var(--bg) 55%, transparent);
+        }
+        .ff-legend span { display: inline-flex; align-items: center; gap: 7px; }
+        .ff-legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .ff-legend i.cross { background: linear-gradient(90deg, var(--vE), var(--vD)); }
+        .ff-legend i.core { background: var(--accent); box-shadow: 0 0 9px var(--accent); }
     </style>
 </head>
 
@@ -325,57 +318,20 @@
             <span style="color:var(--dim);">I chase cross-cultural experiences; new cities are new design briefs.</span>
         </div>
 
-        <span class="section-h">FOCUS MAP — E × D × M, EVERY OVERLAP IS A SHIPPED THING</span>
-        <p class="venn-note rv">engineering, design, management — and a slot reserved for whatever comes next</p>
+        <span class="section-h">FOCUS FIELD — SKILLS × DOMAINS, ONE MAP</span>
+        <p class="venn-note rv">engineering × design × management — every skill sits where it actually lives; the overlaps hold the cross-domain work and the centre is the studio. drag a node · hover to trace what it connects to · the dashed ring is the domain still loading.</p>
 
-        <div class="focus-switch rv" role="tablist" aria-label="Focus map view">
-            <button type="button" data-view="venn" class="active" role="tab" aria-selected="true">◑ Overlap map</button>
-            <button type="button" data-view="radar" role="tab" aria-selected="false">◈ Depth radar</button>
-        </div>
-
-        <div class="focus-views" data-view="venn">
-        <div class="venn rv" aria-hidden="true">
-            <div class="v-circle v-eng" data-l="E"></div>
-            <div class="v-circle v-des" data-l="D"></div>
-            <div class="v-circle v-mgt" data-l="M"></div>
-            <div class="v-ghost">O<span>next domain<br>loading…</span></div>
-
-            <div class="vz vz-e"><b class="vz-tag tag-e">Engineering</b>
-                <span class="t">Python</span><span class="t">C++</span><span class="t">SQL</span>
-                <span class="t">ML & Deep Learning</span>
-                <span class="t">Computer Vision</span>
-                <span class="t">Azure Data</span><span class="t">ETL</span>
-            </div>
-            <div class="vz vz-d"><b class="vz-tag tag-d">Design</b>
-                <span class="t">Figma</span><span class="t">Blender</span>
-                <span class="t">Illustration</span><span class="t">Motion</span>
-                <span class="t">Photography</span>
-                <span class="t">Poster & Stage Art</span>
-            </div>
-            <div class="vz vz-m"><b class="vz-tag tag-m">Management</b>
-                <span class="t">Agile · Scrum</span><span class="t">SAFe® 5</span><span class="t">JIRA</span>
-                <span class="t">Toastmasters</span><span class="t">Mentorship</span>
-            </div>
-            <div class="vz vz-ed"><b class="vz-tag tag-ed">E × D</b>
-                <span class="t">Robotics</span>
-                <span class="t">Game Design</span>
-                <span class="t">Creative Tech</span>
-                <span class="t">Interactive Systems</span>
-            </div>
-            <div class="vz vz-em"><b class="vz-tag tag-em">E × M</b>
-                <span class="t">Data-Platform Leadership</span>
-                <span class="t">Data-Accuracy Programs</span>
-            </div>
-            <div class="vz vz-dm"><b class="vz-tag tag-dm">D × M</b>
-                <span class="t">GTM Strategy</span>
-                <span class="t">Anaadyanta Fest</span>
-                <span class="t">Art & Student Orgs</span>
-                <span class="t">Studio-Craft Ops</span>
-            </div>
-            <div class="vz vz-core">
-                <b class="vz-tag">★ E × D × M</b>
-                <span class="t">AMNESEA — indie studio</span>
-                <span class="t">eYantra Robotics Lead</span>
+        <!-- one unified visual: euler gradient domain fields + radar rings +
+             force-directed skill nodes, merged. desktop only; phones get cards. -->
+        <div class="field-wrap rv" id="focusfield">
+            <span class="ff-hint">drag · hover</span>
+            <svg viewBox="0 0 960 620" role="img" aria-label="Focus field — skills plotted across Engineering, Design and Management domains, with cross-domain skills in the overlaps and the studio at the core"></svg>
+            <div class="ff-legend">
+                <span><i style="background:var(--vE)"></i>Engineering</span>
+                <span><i style="background:var(--vD)"></i>Design</span>
+                <span><i style="background:var(--vM)"></i>Management</span>
+                <span><i class="cross"></i>overlap · cross-domain</span>
+                <span><i class="core"></i>core · the studio</span>
             </div>
         </div>
 
@@ -404,27 +360,6 @@
             </div>
             <div class="vcard vc-o"><div class="vc-head"><b>O</b><i>next domain — loading…</i></div>
                 <div class="vc-items"><span>reserved for the next circle</span></div>
-            </div>
-        </div>
-
-        <!-- depth view: same person, plotted on more axes than E/D/M -->
-        <div class="radar-wrap rv">
-            <div class="radar-box"><svg id="radar" viewBox="0 0 460 420" role="img"
-                aria-label="Depth radar across six dimensions: Engineering, Design, Management, Research, Leadership, Craft"></svg></div>
-            <p class="radar-legend">self-assessed depth across six working dimensions — hover an axis for the note</p>
-        </div>
-        </div><!-- /.focus-views -->
-
-        <span class="section-h">SKILL NETWORK — WHAT CONNECTS TO WHAT</span>
-        <p class="venn-note rv">drag a node · hover to isolate a skill and everything it touches</p>
-        <div class="netgraph-wrap rv" id="netgraph">
-            <span class="ng-hint">drag · hover</span>
-            <svg viewBox="0 0 900 520" role="img" aria-label="Network graph of skills grouped by Engineering, Design and Management domains"></svg>
-            <div class="ng-legend">
-                <span><i style="background:var(--vE)"></i>Engineering</span>
-                <span><i style="background:var(--vD)"></i>Design</span>
-                <span><i style="background:var(--vM)"></i>Management</span>
-                <span><i style="background:var(--accent)"></i>cross-domain / core</span>
             </div>
         </div>
 
@@ -517,8 +452,8 @@
                 <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
                 <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
                 <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
-                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
-                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io">itch</a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance"><svg viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.481 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg></a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><svg viewBox="0 0 24 24"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.19c0 1.507 1.407 2.834 2.687 2.834 1.542 0 2.82-1.264 2.82-2.784 0 1.52 1.24 2.784 2.782 2.784 1.542 0 2.712-1.264 2.712-2.784 0 1.52 1.32 2.784 2.86 2.784h.028c1.542 0 2.86-1.264 2.86-2.784 0 1.52 1.17 2.784 2.712 2.784 1.542 0 2.782-1.264 2.782-2.784 0 1.52 1.278 2.784 2.82 2.784 1.28 0 2.687-1.327 2.687-2.834V4.95c-.02-.622-2.08-2.99-3.13-3.612C18.72 1.24 15.622 1.05 12 1.05c-3.622 0-6.72.19-8.87.288zm6.256 6.729c.526.827 1.396 1.385 2.395 1.385.999 0 1.87-.558 2.396-1.385.526.827 1.396 1.385 2.395 1.385a2.84 2.84 0 0 0 1.759-.607l-.002 6.542v2.606a.921.921 0 0 1-.922.921H5.474a.921.921 0 0 1-.922-.921v-2.606l-.002-6.542a2.84 2.84 0 0 0 1.76.607c.998 0 1.868-.558 2.394-1.385zm2.61 2.677c-.61.006-1.805.017-2.81.017-.49 0-.757.292-.809.557l-.552 3.328c-.111.673.371 1.295 1.066 1.295.561 0 1.044-.408 1.12-.957l.164-1.187s.097-.534 1.052-.534c.955 0 1.052.534 1.052.534l.164 1.187c.076.549.559.957 1.12.957.695 0 1.177-.622 1.066-1.295l-.552-3.328c-.052-.265-.319-.557-.809-.557z"/></svg></a>
             </div>
         </div>
         <div>
@@ -537,241 +472,150 @@
 
     <script src="assets/js/core.js"></script>
     <script>
-    /* ========== FOCUS MAP: overlap (venn) ⇄ depth (radar) ========== */
+    /* ========== FOCUS FIELD — one map: euler gradient domains + radar rings
+       + force-directed skill nodes. Skills settle into their domain; the
+       cross-domain skills settle into the overlaps; the studio sits at the
+       centre. Vanilla SVG, no library. ========== */
     (function () {
-        const views = document.querySelector('.focus-views');
-        const sw = document.querySelector('.focus-switch');
-        if (!views || !sw) return;
-        let radarDrawn = false;
-        sw.addEventListener('click', e => {
-            const b = e.target.closest('button[data-view]');
-            if (!b) return;
-            const v = b.dataset.view;
-            views.dataset.view = v;
-            sw.querySelectorAll('button').forEach(x => {
-                const on = x === b;
-                x.classList.toggle('active', on);
-                x.setAttribute('aria-selected', on ? 'true' : 'false');
-            });
-            if (v === 'radar' && !radarDrawn) { radarDrawn = true; animateRadar(); }
-        });
-
-        /* ----- RADAR (6-axis depth) ----- */
-        const svg = document.getElementById('radar');
-        const NS = 'http://www.w3.org/2000/svg';
-        const cx = 230, cy = 200, R = 140, MAX = 10;
-        const AX = [
-            { label: 'Engineering', v: 9, note: 'ML, computer vision, data platforms, robotics firmware' },
-            { label: 'Design', v: 8, note: 'game design, motion, 3D, editorial & stage art' },
-            { label: 'Management', v: 7, note: 'Agile/SAFe delivery, GTM, org leadership' },
-            { label: 'Research', v: 7, note: 'published first-author; medical AI, HCI methods' },
-            { label: 'Leadership', v: 8, note: 'studio founder, team leads, Toastmasters president' },
-            { label: 'Craft', v: 8, note: 'shipping polish — 14 games, exhibited builds' },
-        ];
-        const N = AX.length;
-        const ang = i => -Math.PI / 2 + i * 2 * Math.PI / N;
-        const pt = (i, r) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))];
-        const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
-
-        if (svg) {
-            for (let g = 1; g <= 4; g++) {
-                let d = '';
-                for (let i = 0; i < N; i++) { const [x, y] = pt(i, R * g / 4); d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' '; }
-                mk('path', { d: d + 'Z', class: 'radar-grid' });
-            }
-            AX.forEach((a, i) => {
-                const [x, y] = pt(i, R);
-                mk('line', { x1: cx, y1: cy, x2: x.toFixed(1), y2: y.toFixed(1), class: 'radar-spoke' });
-                const [lx, ly] = pt(i, R + 24);
-                const t = mk('text', { x: lx.toFixed(1), y: ly.toFixed(1), class: 'radar-axis-label',
-                    'text-anchor': lx > cx + 6 ? 'start' : (lx < cx - 6 ? 'end' : 'middle'), 'dominant-baseline': 'middle' });
-                t.textContent = a.label;
-                t.style.cursor = 'default';
-                t.appendChild(mk('title', {}, t)).textContent = a.v + '/10 — ' + a.note;
-            });
-        }
-        const area = svg ? mk('path', { class: 'radar-area', d: '' }) : null;
-        const dots = svg ? AX.map(() => mk('circle', { r: 3.5, class: 'radar-dot', cx, cy })) : [];
-        function radarAt(p) {
-            let d = '';
-            AX.forEach((a, i) => {
-                const [x, y] = pt(i, R * (a.v / MAX) * p);
-                d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
-                dots[i].setAttribute('cx', x.toFixed(1)); dots[i].setAttribute('cy', y.toFixed(1));
-            });
-            if (area) area.setAttribute('d', d + 'Z');
-        }
-        function animateRadar() {
-            if (!area) return;
-            if (matchMedia('(prefers-reduced-motion: reduce)').matches) { radarAt(1); return; }
-            const t0 = performance.now(), dur = 520;
-            (function step(t) {
-                const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-                radarAt(e);
-                if (p < 1) requestAnimationFrame(step);
-            })(t0);
-        }
-        radarAt(0);
-    })();
-
-    /* ========== SKILL NETWORK GRAPH (vanilla force-directed) ========== */
-    (function () {
-        const wrap = document.getElementById('netgraph');
+        const wrap = document.getElementById('focusfield');
         const svg = wrap && wrap.querySelector('svg');
         if (!svg) return;
         const NS = 'http://www.w3.org/2000/svg';
-        const W = 900, H = 520;
-        const css = getComputedStyle(document.documentElement);
-        const col = { E: '--vE', D: '--vD', M: '--vM', X: '--accent', C: '--accent' };
-        const colorOf = g => `var(${col[g] || '--accent'})`;
+        const W = 960, H = 620;
+        const dcol = { E: 'var(--vE)', D: 'var(--vD)', M: 'var(--vM)' };
+
+        // euler domain fields (overlapping soft circles)
+        const FIELD = { E: { x: 335, y: 258 }, D: { x: 625, y: 258 }, M: { x: 480, y: 452 } };
+        const FR = 212;
+        // where a node of each zone wants to live
+        const ZONE = {
+            E:  { x: 250, y: 240 }, D: { x: 710, y: 240 }, M: { x: 480, y: 512 },
+            ED: { x: 480, y: 200 }, EM: { x: 352, y: 378 }, DM: { x: 608, y: 378 },
+            C:  { x: 480, y: 332 },
+        };
+        const ZDOM = { E:['E'], D:['D'], M:['M'], ED:['E','D'], EM:['E','M'], DM:['D','M'], C:['E','D','M'] };
 
         const NODES = [
-            { id: 'E', hub: 1, g: 'E', label: 'Engineering', ax: 250, ay: 175 },
-            { id: 'D', hub: 1, g: 'D', label: 'Design', ax: 650, ay: 175 },
-            { id: 'M', hub: 1, g: 'M', label: 'Management', ax: 450, ay: 420 },
-            { id: 'py', g: 'E', label: 'Python' }, { id: 'ml', g: 'E', label: 'ML / DL' },
-            { id: 'cv', g: 'E', label: 'Comp. Vision' }, { id: 'cloud', g: 'E', label: 'Azure · ETL' },
-            { id: 'cpp', g: 'E', label: 'C / C++' },
-            { id: 'figma', g: 'D', label: 'Figma' }, { id: 'blender', g: 'D', label: 'Blender · 3D' },
-            { id: 'motion', g: 'D', label: 'Motion · AE' }, { id: 'photo', g: 'D', label: 'Photography' },
-            { id: 'gamedes', g: 'D', label: 'Game Design' },
-            { id: 'agile', g: 'M', label: 'Agile · SAFe' }, { id: 'jira', g: 'M', label: 'JIRA' },
-            { id: 'gtm', g: 'M', label: 'GTM' }, { id: 'speak', g: 'M', label: 'Toastmasters' },
-            { id: 'robotics', g: 'X', label: 'Robotics' }, { id: 'creativetech', g: 'X', label: 'Creative Tech' },
-            { id: 'dataLead', g: 'X', label: 'Data Leadership' }, { id: 'studioOps', g: 'X', label: 'Studio Ops' },
-            { id: 'amnesea', g: 'C', label: 'AMNESEA', core: 1 },
+            { id:'py', z:'E', label:'Python' }, { id:'ml', z:'E', label:'ML / DL' },
+            { id:'cv', z:'E', label:'Computer Vision' }, { id:'cloud', z:'E', label:'Azure · ETL' },
+            { id:'cpp', z:'E', label:'C / C++' },
+            { id:'figma', z:'D', label:'Figma' }, { id:'blender', z:'D', label:'Blender · 3D' },
+            { id:'motion', z:'D', label:'Motion · AE' }, { id:'photo', z:'D', label:'Photography' },
+            { id:'stage', z:'D', label:'Poster · Stage Art' },
+            { id:'agile', z:'M', label:'Agile · SAFe' }, { id:'jira', z:'M', label:'JIRA' },
+            { id:'speak', z:'M', label:'Toastmasters' }, { id:'mentor', z:'M', label:'Mentorship' },
+            { id:'robotics', z:'ED', label:'Robotics' }, { id:'gamedes', z:'ED', label:'Game Design' },
+            { id:'ctech', z:'ED', label:'Creative Tech' }, { id:'interact', z:'ED', label:'Interactive Sys' },
+            { id:'dataplat', z:'EM', label:'Data-Platform Lead' }, { id:'dataacc', z:'EM', label:'Data Accuracy' },
+            { id:'gtm', z:'DM', label:'GTM' }, { id:'anaad', z:'DM', label:'Anaadyanta' },
+            { id:'artorg', z:'DM', label:'Art-Org Lead' }, { id:'studioops', z:'DM', label:'Studio Ops' },
+            { id:'amnesea', z:'C', label:'AMNESEA', core:1 }, { id:'eyantra', z:'C', label:'eYantra Lead', core:1 },
         ];
-        const LINKS = [
-            ['E', 'py'], ['E', 'ml'], ['E', 'cv'], ['E', 'cloud'], ['E', 'cpp'],
-            ['D', 'figma'], ['D', 'blender'], ['D', 'motion'], ['D', 'photo'], ['D', 'gamedes'],
-            ['M', 'agile'], ['M', 'jira'], ['M', 'gtm'], ['M', 'speak'],
-            ['robotics', 'E'], ['robotics', 'D'], ['creativetech', 'E'], ['creativetech', 'D'],
-            ['dataLead', 'E'], ['dataLead', 'M'], ['studioOps', 'D'], ['studioOps', 'M'],
-            ['amnesea', 'E'], ['amnesea', 'D'], ['amnesea', 'M'],
-            ['ml', 'cv'], ['gamedes', 'robotics'], ['cloud', 'dataLead'],
-        ];
-        const byId = {}; NODES.forEach(n => byId[n.id] = n);
-        const radius = n => n.hub ? 27 : n.core ? 22 : (n.g === 'X' ? 14 : 11);
-        const neigh = {}; NODES.forEach(n => neigh[n.id] = new Set([n.id]));
-        LINKS.forEach(([a, b]) => { neigh[a].add(b); neigh[b].add(a); });
+        const radOf = n => n.core ? 15 : (n.z.length === 2 ? 11 : 9);
 
-        // deterministic seed positions
-        let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-        NODES.forEach(n => {
-            n.x = n.ax || (W / 2 + (rnd() - .5) * 260);
-            n.y = n.ay || (H / 2 + (rnd() - .5) * 200);
-            n.vx = 0; n.vy = 0;
-        });
-
-        // build DOM
-        const gEdges = mk('g', {}), gNodes = mk('g', {});
         function mk(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
-        const edgeEls = LINKS.map(([a, b]) => { const l = mk('line', { class: 'ng-edge' }, gEdges); l._a = a; l._b = b; return l; });
+
+        // ---- defs: field radial gradients, cross-domain linear gradients, blur ----
+        const defs = mk('defs');
+        ['E', 'D', 'M'].forEach(k => {
+            const g = mk('radialGradient', { id: 'ff-field-' + k, cx: '50%', cy: '50%', r: '50%' }, defs);
+            const s0 = mk('stop', { offset: '0%', 'stop-opacity': '.5' }, g); s0.style.stopColor = dcol[k];
+            const s1 = mk('stop', { offset: '68%', 'stop-opacity': '.13' }, g); s1.style.stopColor = dcol[k];
+            const s2 = mk('stop', { offset: '100%', 'stop-opacity': '0' }, g); s2.style.stopColor = dcol[k];
+        });
+        [['ED', 'E', 'D'], ['EM', 'E', 'M'], ['DM', 'D', 'M']].forEach(([id, a, b]) => {
+            const g = mk('linearGradient', { id: 'ff-gg-' + id, x1: '0', y1: '0', x2: '1', y2: '1' }, defs);
+            const s0 = mk('stop', { offset: '0%' }, g); s0.style.stopColor = dcol[a];
+            const s1 = mk('stop', { offset: '100%' }, g); s1.style.stopColor = dcol[b];
+        });
+        const flt = mk('filter', { id: 'ff-soft', x: '-25%', y: '-25%', width: '150%', height: '150%' }, defs);
+        mk('feGaussianBlur', { stdDeviation: '7' }, flt);
+
+        // ---- layers (back to front) ----
+        const gRings = mk('g'), gFields = mk('g', { filter: 'url(#ff-soft)' }), gGhost = mk('g'), gEdges = mk('g'), gNodes = mk('g');
+
+        // radar rings backdrop, centred on the tri-domain centroid
+        const cX = 480, cY = 335;
+        [95, 158, 221, 284].forEach(r => mk('circle', { class: 'ff-ring', cx: cX, cy: cY, r }, gRings));
+
+        // euler fields
+        ['E', 'D', 'M'].forEach(k => mk('circle', { cx: FIELD[k].x, cy: FIELD[k].y, r: FR, fill: 'url(#ff-field-' + k + ')' }, gFields));
+
+        // ghost domain letters + dashed "next domain" ring
+        [['E', 250, 200], ['D', 710, 200], ['M', 480, 560]].forEach(([k, x, y]) => {
+            const t = mk('text', { x, y, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 78, 'fill-opacity': .16 }, gGhost);
+            t.style.fill = dcol[k]; t.textContent = k;
+        });
+        mk('circle', { cx: 852, cy: 512, r: 40, fill: 'none', stroke: 'var(--line)', 'stroke-width': 2, 'stroke-dasharray': '5 6' }, gGhost);
+        const ot = mk('text', { x: 852, y: 508, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 26, fill: 'var(--dim)' }, gGhost); ot.textContent = 'O';
+        const ol = mk('text', { x: 852, y: 528, 'text-anchor': 'middle', 'font-family': 'var(--font-code)', 'font-size': 8, fill: 'var(--dim)' }, gGhost); ol.textContent = 'next domain';
+
+        // ---- nodes + edges to their domain field centres ----
+        NODES.forEach(n => { const a = ZONE[n.z]; n.x = a.x + (Math.random() - .5) * 40; n.y = a.y + (Math.random() - .5) * 40; n.vx = 0; n.vy = 0; });
+        const edges = [];
+        NODES.forEach(n => ZDOM[n.z].forEach(d => {
+            const el = mk('line', { class: 'ff-edge' }, gEdges);
+            el.style.stroke = dcol[d]; el.setAttribute('stroke-opacity', '.2');
+            edges.push({ n, fx: FIELD[d].x, fy: FIELD[d].y, el });
+        }));
         const nodeEls = NODES.map(n => {
-            const g = mk('g', { class: 'ng-node' + (n.hub ? ' hub' : ''), 'data-id': n.id }, gNodes);
-            const c = mk('circle', { r: radius(n) }, g);
-            // colors via style so CSS var() resolves (and follows theme changes);
-            // var() does NOT resolve when set as a plain presentation attribute
-            c.style.fill = colorOf(n.g);
-            c.style.stroke = colorOf(n.g);
-            c.style.fillOpacity = n.hub ? '.92' : (n.core ? '.8' : '.5');
-            c.style.strokeWidth = n.hub ? '0' : '1.2';
-            // every label sits below its node — sidesteps text-on-fill contrast
-            // problems across light/dark themes entirely
-            const t = mk('text', { 'text-anchor': 'middle', y: radius(n) + (n.hub ? 15 : 12) }, g);
-            t.textContent = n.label;
-            g._n = n; g._circle = c; g._text = t;
-            return g;
+            const g = mk('g', { class: 'ff-node' + (n.core ? ' core' : ''), 'data-id': n.id }, gNodes);
+            const c = mk('circle', { r: radOf(n) }, g);
+            if (n.z.length === 2) { c.setAttribute('fill', 'url(#ff-gg-' + n.z + ')'); c.style.stroke = 'var(--bg)'; c.style.strokeWidth = '1'; }
+            else if (n.core) { c.style.fill = 'var(--accent)'; c.style.stroke = 'var(--text)'; c.style.strokeWidth = '2.5'; c.style.filter = 'drop-shadow(0 0 7px var(--accent))'; }
+            else { c.style.fill = dcol[n.z]; c.style.fillOpacity = '.85'; }
+            const t = mk('text', { 'text-anchor': 'middle', y: radOf(n) + 12 }, g); t.textContent = n.label;
+            g._n = n; return g;
         });
 
-        // ---- force simulation ----
+        // ---- force sim ----
         let alpha = 1, running = true, dragging = null;
         function tick() {
-            // repulsion
-            for (let i = 0; i < NODES.length; i++) {
+            for (let i = 0; i < NODES.length; i++)
                 for (let j = i + 1; j < NODES.length; j++) {
                     const a = NODES[i], b = NODES[j];
-                    let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || 0.01;
-                    const f = 2700 / d2, d = Math.sqrt(d2);
-                    const fx = f * dx / d, fy = f * dy / d;
+                    let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || .01, d = Math.sqrt(d2);
+                    const f = 2050 / d2, fx = f * dx / d, fy = f * dy / d;
                     a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
                 }
-            }
-            // links
-            LINKS.forEach(([ai, bi]) => {
-                const a = byId[ai], b = byId[bi];
-                const L = (a.core || b.core) ? 150 : (a.g === 'X' || b.g === 'X') ? 118 : 92;
-                let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.01;
-                const f = (d - L) * 0.018, fx = f * dx / d, fy = f * dy / d;
-                a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
-            });
-            // hub anchoring + gentle centering
-            NODES.forEach(n => {
-                if (n.ax != null) { n.vx += (n.ax - n.x) * 0.045; n.vy += (n.ay - n.y) * 0.045; }
-                else { n.vx += (W / 2 - n.x) * 0.006; n.vy += (H / 2 - n.y) * 0.006; }
-            });
-            // integrate
+            NODES.forEach(n => { const a = ZONE[n.z]; n.vx += (a.x - n.x) * .032; n.vy += (a.y - n.y) * .032; });
             NODES.forEach(n => {
                 if (n === dragging) { n.vx = n.vy = 0; return; }
-                n.vx *= 0.82; n.vy *= 0.82;
-                n.x += n.vx * alpha; n.y += n.vy * alpha;
-                const r = radius(n) + 6;
-                n.x = Math.max(r, Math.min(W - r, n.x));
-                n.y = Math.max(r, Math.min(H - r, n.y));
+                n.vx *= .8; n.vy *= .8; n.x += n.vx * alpha; n.y += n.vy * alpha;
+                const r = radOf(n) + 8; n.x = Math.max(r, Math.min(W - r, n.x)); n.y = Math.max(r, Math.min(H - 26, n.y));
             });
         }
         function render() {
-            edgeEls.forEach(l => { const a = byId[l._a], b = byId[l._b]; l.setAttribute('x1', a.x.toFixed(1)); l.setAttribute('y1', a.y.toFixed(1)); l.setAttribute('x2', b.x.toFixed(1)); l.setAttribute('y2', b.y.toFixed(1)); });
-            nodeEls.forEach(g => { g.setAttribute('transform', `translate(${g._n.x.toFixed(1)} ${g._n.y.toFixed(1)})`); });
+            edges.forEach(e => { e.el.setAttribute('x1', e.n.x.toFixed(1)); e.el.setAttribute('y1', e.n.y.toFixed(1)); e.el.setAttribute('x2', e.fx); e.el.setAttribute('y2', e.fy); });
+            nodeEls.forEach(g => g.setAttribute('transform', 'translate(' + g._n.x.toFixed(1) + ' ' + g._n.y.toFixed(1) + ')'));
         }
         function loop() {
-            if (running) { tick(); alpha = Math.max(0.02, alpha * 0.985); }
-            render();
-            if (running && alpha <= 0.021 && !dragging) running = false;
-            requestAnimationFrame(loop);
+            if (running) { tick(); alpha = Math.max(.02, alpha * .986); if (alpha <= .021 && !dragging) running = false; }
+            render(); requestAnimationFrame(loop);
         }
-        // run only once visible, to save CPU
-        const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { running = true; if (alpha < 0.1) alpha = 0.5; } }); }, { threshold: 0.05 });
+        const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { running = true; if (alpha < .1) alpha = .5; } }), { threshold: .04 });
         io.observe(wrap);
         requestAnimationFrame(loop);
 
-        // ---- hover isolate ----
+        // ---- hover isolate: trace a skill to the domains it connects to ----
         function focus(id) {
             wrap.classList.add('has-focus');
-            const near = neigh[id];
-            nodeEls.forEach(g => g.classList.toggle('dim', !near.has(g._n.id)));
-            edgeEls.forEach(l => {
-                const lit = (l._a === id || l._b === id);
-                l.classList.toggle('lit', lit); l.classList.toggle('dim', !lit);
-            });
+            nodeEls.forEach(g => g.classList.toggle('dim', g._n.id !== id));
+            edges.forEach(e => { const lit = e.n.id === id; e.el.classList.toggle('lit', lit); e.el.classList.toggle('dim', !lit); });
         }
-        function unfocus() {
-            wrap.classList.remove('has-focus');
-            nodeEls.forEach(g => g.classList.remove('dim'));
-            edgeEls.forEach(l => l.classList.remove('lit', 'dim'));
-        }
+        function unfocus() { wrap.classList.remove('has-focus'); nodeEls.forEach(g => g.classList.remove('dim')); edges.forEach(e => e.el.classList.remove('lit', 'dim')); }
         nodeEls.forEach(g => {
             g.addEventListener('mouseenter', () => { if (!dragging) focus(g._n.id); });
             g.addEventListener('mouseleave', () => { if (!dragging) unfocus(); });
         });
 
         // ---- drag ----
-        function toSvg(ev) { const r = svg.getBoundingClientRect(); return [(ev.clientX - r.left) * (W / r.width), (ev.clientY - r.top) * (H / r.height)]; }
+        const toSvg = ev => { const r = svg.getBoundingClientRect(); return [(ev.clientX - r.left) * (W / r.width), (ev.clientY - r.top) * (H / r.height)]; };
         nodeEls.forEach(g => {
-            g.addEventListener('pointerdown', ev => {
-                ev.preventDefault();
-                dragging = g._n; g.classList.add('dragging');
-                running = true; alpha = Math.max(alpha, 0.4);
-                g.setPointerCapture(ev.pointerId);
-                unfocus();
-            });
-            g.addEventListener('pointermove', ev => {
-                if (dragging !== g._n) return;
-                const [x, y] = toSvg(ev); g._n.x = x; g._n.y = y;
-            });
-            const end = () => { if (dragging === g._n) { dragging = null; g.classList.remove('dragging'); alpha = Math.max(alpha, 0.25); running = true; } };
-            g.addEventListener('pointerup', end);
-            g.addEventListener('pointercancel', end);
+            g.addEventListener('pointerdown', ev => { ev.preventDefault(); dragging = g._n; g.classList.add('dragging'); running = true; alpha = Math.max(alpha, .4); g.setPointerCapture(ev.pointerId); unfocus(); });
+            g.addEventListener('pointermove', ev => { if (dragging !== g._n) return; const [x, y] = toSvg(ev); g._n.x = x; g._n.y = y; });
+            const end = () => { if (dragging === g._n) { dragging = null; g.classList.remove('dragging'); alpha = Math.max(alpha, .25); running = true; } };
+            g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
         });
     })();
     </script>

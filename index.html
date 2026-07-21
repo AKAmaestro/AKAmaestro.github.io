@@ -148,36 +148,38 @@
         .ticker b { color: var(--accent); font-weight: 700; }
         @keyframes tick { to { transform: translateX(-50%); } }
 
-        /* ---------- WORKS GRID ----------
-           A real 12-column grid, not a chart: every tile stays a genuine <a>
-           (new-tab / screen-reader / crawler all keep working). Size comes
-           from data-size and is chosen so each row's spans sum to 12 —
-           lg(6)+lg(6)=12, md(4)+md(4)+md(4)=12, sm(3)×4=12 — so there are
-           no empty cells by construction, not by hoping auto-flow:dense
-           finds a fit. 3/4/6 all divide 12 cleanly, so most future
-           additions will still tile; dense is kept as a fallback. */
+        /* ---------- WORKS TREEMAP ----------
+           A squarified treemap (JS-computed in initWorksTreemap below), but
+           every tile is still a real <a> — new-tab / middle-click / crawler
+           all keep working, unlike a canvas/SVG charting-library treemap.
+           Tile area = data-weight, so flagship work reads bigger and new
+           projects slot in by appending a tile with a weight. On phones the
+           treemap goes too thin, so ≤700px falls back to a 1-col stack. */
         .works {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-flow: dense;
-            gap: 3px; background: transparent;
+            position: relative;
             border: 1px solid var(--line); border-top: none;
-            padding: 3px;
+            background: var(--line);
+            width: 100%;
+            /* JS sets an explicit pixel height for the treemap; this is the
+               pre-JS / no-JS fallback aspect */
+            aspect-ratio: 16 / 10;
         }
         .work-item {
-            position: relative; display: flex; flex-direction: column; justify-content: flex-end;
-            grid-column: span 4; height: 300px; padding: 20px; text-decoration: none; color: #f5f5f5;
+            position: absolute; display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 18px; text-decoration: none; color: #f5f5f5;
             background: #0a0a0a; overflow: hidden;
         }
-        .work-item[data-size="lg"] { grid-column: span 6; height: 380px; }
-        .work-item[data-size="sm"] { grid-column: span 3; }
-        @media (max-width: 900px) {
-            .works { grid-template-columns: repeat(6, 1fr); }
-            .work-item, .work-item[data-size="lg"], .work-item[data-size="sm"] { grid-column: span 2; height: 260px; }
+        .works.no-treemap {
+            position: static; display: grid; grid-template-columns: 1fr; gap: 2px;
+            aspect-ratio: auto; padding: 2px;
         }
-        @media (max-width: 560px) {
-            .works { grid-template-columns: 1fr; }
-            .work-item, .work-item[data-size="lg"], .work-item[data-size="sm"] { grid-column: span 1; height: 240px; }
+        .works.no-treemap .work-item {
+            position: relative; inset: auto; width: auto !important;
+            height: auto !important; left: auto !important; top: auto !important;
+            min-height: 220px; outline: none;
+        }
+        @media (min-width: 560px) and (max-width: 700px) {
+            .works.no-treemap { grid-template-columns: 1fr 1fr; }
         }
         .work-item .bg {
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
@@ -278,14 +280,14 @@
         </div>
 
         <main class="works" id="works">
-            <a class="work-item" data-size="lg" href="work/amnesea.html">
+            <a class="work-item" data-weight="30" href="work/amnesea.html">
                 <img class="bg" src="projects/Amnesea/Octopus.thumb.webp" alt="" loading="lazy" decoding="async">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Entrepreneurship</span>
                     <h2 style="view-transition-name: vt-amnesea;">Amnesea</h2><span class="h-sub">INDIE GAMING LAB</span>
                 </div>
             </a>
-            <a class="work-item" data-size="lg" href="work/keybound.html">
+            <a class="work-item" data-weight="22" href="work/keybound.html">
                 <video class="bg" src="projects/keybound/KeyBound%20Gameplay%20GIF.mp4"
                     poster="projects/keybound/KeyBound%20Gameplay%20GIF.poster.webp" data-lazy preload="none" muted loop playsinline></video>
                 <span class="go">OPEN ↗</span>
@@ -293,21 +295,21 @@
                     <h2 style="view-transition-name: vt-keybound;">KeyBound</h2><span class="h-sub">ROGUE-VANIA</span>
                 </div>
             </a>
-            <a class="work-item" href="work/mocking-bot.html">
+            <a class="work-item" data-weight="13" href="work/mocking-bot.html">
                 <img class="bg" src="projects/mocking-bot/1.thumb.webp" alt="" loading="lazy" decoding="async">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Robotics</span>
                     <h2 style="view-transition-name: vt-mocking-bot;">Mocking Bot</h2><span class="h-sub">BIO-MIMETIC AUDIO</span>
                 </div>
             </a>
-            <a class="work-item" href="work/retina-ai.html">
+            <a class="work-item" data-weight="13" href="work/retina-ai.html">
                 <img class="bg" src="projects/retina-ai/1.thumb.webp" alt="" loading="lazy" decoding="async">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Med-Tech</span>
                     <h2 style="view-transition-name: vt-retina-ai;">Retina AI</h2><span class="h-sub">DEEP LEARNING</span>
                 </div>
             </a>
-            <a class="work-item" href="work/timebound.html">
+            <a class="work-item" data-weight="9" href="work/timebound.html">
                 <video class="bg" src="projects/timebound/TimeBound%20Gameplay%20GIF.mp4"
                     poster="projects/timebound/TimeBound%20Gameplay%20GIF.poster.webp" data-lazy preload="none" muted loop playsinline></video>
                 <span class="go">OPEN ↗</span>
@@ -315,7 +317,7 @@
                     <h2 style="view-transition-name: vt-timebound;">TimeBound</h2><span class="h-sub">RPG MECHANICS</span>
                 </div>
             </a>
-            <a class="work-item" data-size="sm" href="work/balance-bot.html">
+            <a class="work-item" data-weight="7" href="work/balance-bot.html">
                 <video class="bg" src="projects/balance/gif2.mp4"
                     poster="projects/balance/gif2.poster.webp" data-lazy preload="none" muted loop playsinline></video>
                 <span class="go">OPEN ↗</span>
@@ -323,21 +325,21 @@
                     <h2 style="view-transition-name: vt-balance-bot;">Balance Bot</h2><span class="h-sub">INVERTED PENDULUM</span>
                 </div>
             </a>
-            <a class="work-item" data-size="sm" href="work/ar-nft.html">
+            <a class="work-item" data-weight="6" href="work/ar-nft.html">
                 <img class="bg" src="projects/AR%20NFT/Picture19.jpg" alt="" loading="lazy">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Blockchain / Crypto</span>
                     <h2 style="view-transition-name: vt-ar-nft;">AR NFT</h2><span class="h-sub">PHYGITAL DROP</span>
                 </div>
             </a>
-            <a class="work-item" data-size="sm" href="work/facially.html">
+            <a class="work-item" data-weight="6" href="work/facially.html">
                 <img class="bg" src="projects/Facially/Picture18.webp" alt="" loading="lazy">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Web3 / CV</span>
                     <h2 style="view-transition-name: vt-facially;">Facially</h2><span class="h-sub">EXPRESSION AI</span>
                 </div>
             </a>
-            <a class="work-item" data-size="sm" href="work/arts.html">
+            <a class="work-item" data-weight="10" href="work/arts.html">
                 <img class="bg" src="projects/Arts/Picture20.thumb.webp" alt="" loading="lazy" decoding="async">
                 <span class="go">OPEN ↗</span>
                 <div class="wc"><span class="label">Visuals & Sculptures</span>
@@ -366,8 +368,8 @@
                 <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
                 <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
                 <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
-                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
-                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io">itch</a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance"><svg viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.481 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg></a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><svg viewBox="0 0 24 24"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.19c0 1.507 1.407 2.834 2.687 2.834 1.542 0 2.82-1.264 2.82-2.784 0 1.52 1.24 2.784 2.782 2.784 1.542 0 2.712-1.264 2.712-2.784 0 1.52 1.32 2.784 2.86 2.784h.028c1.542 0 2.86-1.264 2.86-2.784 0 1.52 1.17 2.784 2.712 2.784 1.542 0 2.782-1.264 2.782-2.784 0 1.52 1.278 2.784 2.82 2.784 1.28 0 2.687-1.327 2.687-2.834V4.95c-.02-.622-2.08-2.99-3.13-3.612C18.72 1.24 15.622 1.05 12 1.05c-3.622 0-6.72.19-8.87.288zm6.256 6.729c.526.827 1.396 1.385 2.395 1.385.999 0 1.87-.558 2.396-1.385.526.827 1.396 1.385 2.395 1.385a2.84 2.84 0 0 0 1.759-.607l-.002 6.542v2.606a.921.921 0 0 1-.922.921H5.474a.921.921 0 0 1-.922-.921v-2.606l-.002-6.542a2.84 2.84 0 0 0 1.76.607c.998 0 1.868-.558 2.394-1.385zm2.61 2.677c-.61.006-1.805.017-2.81.017-.49 0-.757.292-.809.557l-.552 3.328c-.111.673.371 1.295 1.066 1.295.561 0 1.044-.408 1.12-.957l.164-1.187s.097-.534 1.052-.534c.955 0 1.052.534 1.052.534l.164 1.187c.076.549.559.957 1.12.957.695 0 1.177-.622 1.066-1.295l-.552-3.328c-.052-.265-.319-.557-.809-.557z"/></svg></a>
             </div>
         </div>
         <div>
@@ -436,6 +438,73 @@
         (function () {
             const tr = document.getElementById('ticker-track');
             tr.innerHTML += tr.innerHTML;
+        })();
+
+        // WORKS TREEMAP — squarified layout over the real <a> tiles; tile area
+        // = data-weight. Every tile stays a genuine link (this is a layout, not
+        // a charting-library canvas), so new work is "append a tile + weight".
+        (function () {
+            const box = document.getElementById('works');
+            if (!box) return;
+            const tiles = Array.from(box.querySelectorAll('.work-item'));
+            if (!tiles.length) return;
+            const GAP = 2;
+
+            const sum = row => row.reduce((s, r) => s + r.area, 0);
+            function worst(row, length) {
+                const s = sum(row), s2 = s * s, l2 = length * length;
+                let mx = -Infinity, mn = Infinity;
+                for (const r of row) { if (r.area > mx) mx = r.area; if (r.area < mn) mn = r.area; }
+                return Math.max((l2 * mx) / s2, s2 / (l2 * mn));
+            }
+            // classic squarified treemap: pack rows into the shorter side,
+            // growing each row while its worst aspect ratio keeps improving
+            function layout(items, x, y, w, h, out) {
+                let rx = x, ry = y, rw = w, rh = h, rest = items.slice();
+                while (rest.length) {
+                    const length = Math.min(rw, rh);
+                    let row = [rest[0]], k = 1;
+                    while (k < rest.length) {
+                        if (worst(row, length) >= worst(row.concat([rest[k]]), length)) { row.push(rest[k]); k++; }
+                        else break;
+                    }
+                    const rowArea = sum(row);
+                    if (rw >= rh) {
+                        const stripW = rowArea / rh; let cy = ry;
+                        for (const r of row) { const ch = r.area / stripW; out.push({ el: r.el, x: rx, y: cy, w: stripW, h: ch }); cy += ch; }
+                        rx += stripW; rw -= stripW;
+                    } else {
+                        const stripH = rowArea / rw; let cx = rx;
+                        for (const r of row) { const cw = r.area / stripH; out.push({ el: r.el, x: cx, y: ry, w: cw, h: stripH }); cx += cw; }
+                        ry += stripH; rh -= stripH;
+                    }
+                    rest = rest.slice(row.length);
+                }
+            }
+            function render() {
+                if (window.innerWidth <= 700) {
+                    box.classList.add('no-treemap'); box.style.height = '';
+                    tiles.forEach(t => { t.style.left = t.style.top = t.style.width = t.style.height = ''; });
+                    return;
+                }
+                box.classList.remove('no-treemap');
+                const W = box.clientWidth, H = Math.round(W * 0.56);
+                box.style.height = H + 'px';
+                const totalW = tiles.reduce((s, t) => s + (parseFloat(t.dataset.weight) || 1), 0);
+                const scale = (W * H) / totalW;
+                const items = tiles
+                    .map(t => ({ el: t, area: (parseFloat(t.dataset.weight) || 1) * scale }))
+                    .sort((a, b) => b.area - a.area);
+                const out = [];
+                layout(items, 0, 0, W, H, out);
+                out.forEach(r => {
+                    const s = r.el.style;
+                    s.left = (r.x + GAP / 2) + 'px'; s.top = (r.y + GAP / 2) + 'px';
+                    s.width = Math.max(0, r.w - GAP) + 'px'; s.height = Math.max(0, r.h - GAP) + 'px';
+                });
+            }
+            render();
+            let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 120); });
         })();
     </script>
 </body>

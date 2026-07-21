@@ -128,12 +128,19 @@
         }
         .vz .t:nth-child(odd) { transform: rotate(-1.5deg); }
         .vz .t:nth-child(3n) { transform: rotate(1.6deg); }
-        .vz-e   { --zc: var(--vE); left: 1%;  top: 8%; width: 30%; }
-        .vz-d   { --zc: var(--vD); right: 1%; top: 8%; width: 30%; }
-        .vz-m   { --zc: var(--vM); left: 50%; transform: translateX(-50%); bottom: 2%; width: 46%; }
-        .vz-ed  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vD)); left: 50%; transform: translateX(-50%); top: 2.5%; width: 25%; }
-        .vz-em  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vM)); left: 16%; top: 48%; width: 28%; }
-        .vz-dm  { --zc: color-mix(in srgb, var(--vD) 50%, var(--vM)); right: 16%; top: 48%; width: 28%; }
+        /* each zone box now claims a min-height reaching toward its actual
+           lens's vertical extent — before this, width was set but height
+           was left to auto-size to content, so short chip lists sat in a
+           short box near the top offset and the rest of the region (which
+           genuinely had nothing positioned in it, not just misaligned
+           content) read as empty. min-height (not height) so a zone can
+           still grow past it if it ever holds more chips than fit. */
+        .vz-e   { --zc: var(--vE); left: 1%;  top: 9%; width: 30%; min-height: 62%; }
+        .vz-d   { --zc: var(--vD); right: 1%; top: 9%; width: 30%; min-height: 62%; }
+        .vz-m   { --zc: var(--vM); left: 50%; transform: translateX(-50%); bottom: 6%; width: 42%; min-height: 46%; }
+        .vz-ed  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vD)); left: 50%; transform: translateX(-50%); top: 3%; width: 25%; min-height: 26%; }
+        .vz-em  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vM)); left: 16%; top: 46%; width: 28%; min-height: 32%; }
+        .vz-dm  { --zc: color-mix(in srgb, var(--vD) 50%, var(--vM)); right: 16%; top: 46%; width: 28%; min-height: 32%; }
         .vz-core {
             --zc: var(--accent);
             left: 50%; transform: translateX(-50%); top: 33%; width: 27%;

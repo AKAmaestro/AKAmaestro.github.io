@@ -2,6 +2,21 @@
 (function () {
     'use strict';
 
+    /* the 9 case studies, in the same order as the Home works grid —
+       single source of truth reused by the nav Work dropdown so every
+       page is 2 actions from any project (hover/tap Work, then click) */
+    const WORKS = [
+        { title: 'Amnesea', tag: 'Entrepreneurship', href: 'work/amnesea.html' },
+        { title: 'KeyBound', tag: 'Gaming', href: 'work/keybound.html' },
+        { title: 'Mocking Bot', tag: 'Robotics', href: 'work/mocking-bot.html' },
+        { title: 'Retina AI', tag: 'Med-Tech', href: 'work/retina-ai.html' },
+        { title: 'TimeBound', tag: 'Gaming', href: 'work/timebound.html' },
+        { title: 'Balance Bot', tag: 'Applied Sciences', href: 'work/balance-bot.html' },
+        { title: 'AR NFT', tag: 'Blockchain / Crypto', href: 'work/ar-nft.html' },
+        { title: 'Facially', tag: 'Web3 / CV', href: 'work/facially.html' },
+        { title: 'Arts', tag: 'Visuals & Sculptures', href: 'work/arts.html' },
+    ];
+
     /* ---------- THEME (saved choice wins; else follow the OS) ---------- */
     const saved = localStorage.getItem('aka-theme');
     if (saved === 'light') document.body.classList.add('light-mode');
@@ -143,6 +158,7 @@
         btn.setAttribute('aria-expanded', 'false');
         btn.innerHTML = '<span></span><span></span><span></span>';
         btn.addEventListener('click', () => {
+            closeWorkDropdown();
             const open = document.body.classList.toggle('nav-open');
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
@@ -158,6 +174,60 @@
         if (b) b.setAttribute('aria-expanded', 'false');
     }
     function mobileNavOpen() { return document.body.classList.contains('nav-open'); }
+
+    /* ---------- WORK DROPDOWN (hover on desktop, tap on touch/keyboard) ----------
+       Reaching any of the 9 case studies used to mean: land on Home, scroll to
+       the grid, click. This makes it 1 hover/tap + 1 click, from every page. */
+    function initWorkDropdown() {
+        const nav = document.querySelector('.site-nav');
+        const links = nav && nav.querySelector('.nav-links');
+        if (!nav || !links) return;
+        const trigger = Array.from(links.querySelectorAll('a')).find(a => /index\.html#works$/.test(a.getAttribute('href') || ''));
+        if (!trigger) return;
+
+        const root = location.pathname.includes('/work/') ? '../' : '';
+        const wrap = document.createElement('div');
+        wrap.className = 'nav-work';
+        trigger.parentNode.insertBefore(wrap, trigger);
+        wrap.appendChild(trigger);
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.classList.add('nav-work-trigger');
+
+        const panel = document.createElement('div');
+        panel.className = 'work-dropdown';
+        panel.innerHTML = WORKS.map(w =>
+            `<a href="${root}${w.href}"><span class="wd-title">${w.title}</span><span class="wd-tag">${w.tag}</span></a>`
+        ).join('') + `<a class="wd-all" href="${root}index.html#works">See all work →</a>`;
+        wrap.appendChild(panel);
+
+        const setOpen = open => {
+            wrap.classList.toggle('open', open);
+            trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+
+        // touch/no-hover devices: tapping the trigger toggles the panel instead
+        // of navigating straight through — the "See all work" row is the
+        // explicit way back to the overview once the panel is open.
+        trigger.addEventListener('click', e => {
+            if (!matchMedia('(hover: none)').matches) return;
+            if (!wrap.classList.contains('open')) { e.preventDefault(); setOpen(true); }
+        });
+        document.addEventListener('click', e => {
+            if (wrap.classList.contains('open') && !e.target.closest('.nav-work')) setOpen(false);
+        });
+        panel.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+        // desktop hover still needs aria-expanded kept honest for assistive tech
+        wrap.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) setOpen(true); });
+        wrap.addEventListener('mouseleave', () => { if (matchMedia('(hover: hover)').matches) setOpen(false); });
+        wrap.addEventListener('focusin', () => setOpen(true));
+        wrap.addEventListener('focusout', e => { if (!wrap.contains(e.relatedTarget)) setOpen(false); });
+    }
+    function closeWorkDropdown() {
+        const w = document.querySelector('.nav-work.open');
+        if (w) { w.classList.remove('open'); const t = w.querySelector('.nav-work-trigger'); if (t) t.setAttribute('aria-expanded', 'false'); }
+    }
+    function workDropdownOpen() { return !!document.querySelector('.nav-work.open'); }
 
     /* ---------- LAZY VIDEO: fetch/decode only near the viewport ---------- */
     function initLazyVideo() {
@@ -178,6 +248,7 @@
         if (e.key === 'Escape') {
             if (popActive()) { closePop(); return; }
             if (lbActive()) { closeLB(); return; }
+            if (workDropdownOpen()) { closeWorkDropdown(); return; }
             if (mobileNavOpen()) { closeMobileNav(); return; }
             const up = document.body.dataset.up;
             if (up) location.href = up;
@@ -369,6 +440,7 @@
         syncThemeBtn();
         initCursor();
         initMobileNav();
+        initWorkDropdown();
         initLazyVideo();
         initLightbox();
         initReveal();

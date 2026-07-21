@@ -22,10 +22,24 @@
         :root { --accent: #ffc400; --accent-rgb: 255, 196, 0; }
         body.light-mode { --accent: #8a6800; --accent-rgb: 138, 104, 0; }
 
-        /* trophy-wall award tiles */
+        /* trophy-wall award tiles — same 12-col modular grid as the Home works
+           grid (see index.html): spans chosen to sum to 12 per row so there
+           are no empty cells at 7 items, real elements throughout. */
         .award-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 10px;
+            display: grid; grid-template-columns: repeat(12, 1fr);
+            grid-auto-flow: dense;
+            gap: 3px; background: transparent; border: 1px solid var(--line); margin-top: 10px; padding: 3px;
+        }
+        .award { grid-column: span 6; }
+        .award[data-size="sm"] { grid-column: span 3; }
+        .award[data-size="full"] { grid-column: span 12; }
+        @media (max-width: 900px) {
+            .award-grid { grid-template-columns: repeat(6, 1fr); }
+            .award, .award[data-size="sm"], .award[data-size="full"] { grid-column: span 3; }
+        }
+        @media (max-width: 560px) {
+            .award-grid { grid-template-columns: 1fr; }
+            .award, .award[data-size="sm"], .award[data-size="full"] { grid-column: span 1; }
         }
         .award {
             background: var(--panel); padding: 24px 22px 22px; position: relative;
@@ -100,14 +114,14 @@
 
         <span class="section-h">TROPHY WALL</span>
         <div class="award-grid rv-stagger">
-            <div class="award" data-pop data-pop-title="AVALANCHE × NEURANODE GAME JAM — 1ST PLACE"
+            <div class="award" data-size="sm" data-pop data-pop-title="AVALANCHE × NEURANODE GAME JAM — 1ST PLACE"
                 data-pop-body="<p><strong>What happened:</strong> a competitive game jam by Avalanche × Neuranode centered on on-chain player agency.</p><p><strong>What I did:</strong> prototyped and deployed the gameplay loops in Unity, leading design and build end-to-end under jam deadline pressure.</p><p><strong>Result:</strong> 1st place overall — $2,380 prize for innovative game design and execution.</p>">
                 <div class="a-year">'25</div>
                 <div class="a-title">Avalanche × Neuranode Game Jam — Winner</div>
                 <div class="a-sub">1st place for innovative game design and execution.</div>
                 <div class="a-prize">🏆 $2,380</div>
             </div>
-            <div class="award" data-pop data-pop-title="WHALEPASS BLOCKCHAIN GAME JAM — WINNER"
+            <div class="award" data-size="sm" data-pop data-pop-title="WHALEPASS BLOCKCHAIN GAME JAM — WINNER"
                 data-pop-body="<p><strong>What happened:</strong> blockchain game jam focused on on-chain economies.</p><p><strong>What I did:</strong> designed gameplay around an on-chain economy loop — economy design driving the fun, not bolted on.</p><p><strong>Result:</strong> winner — $500 prize.</p>">
                 <div class="a-year">'25</div>
                 <div class="a-title">Whalepass Blockchain Jam — Winner</div>
@@ -121,21 +135,21 @@
                 <div class="a-sub">Selected among top 16 in Asia (4 from India) for intensive mentorship.</div>
                 <div class="a-prize">🎮 MICROSOFT XBOX</div>
             </div>
-            <div class="award" data-pop data-pop-title="IGDC — FEATURED EXHIBITOR & SPEAKER"
+            <div class="award" data-size="full" data-pop data-pop-title="IGDC — FEATURED EXHIBITOR & SPEAKER"
                 data-pop-body="<p><strong>What happened:</strong> India Game Developers Conference — the country's biggest gaming event.</p><p><strong>What I did:</strong> exhibited Amnesea's interactive prototypes at sponsored kiosks two years running, speaking with and testing on thousands of players to refine narrative pacing and game loops.</p><p><strong>Result:</strong> 5,000+ players reached; picked up by Games Gossip India's '10 Best Indian Games at IGDC 2024'.</p>">
                 <div class="a-year">'24</div>
                 <div class="a-title">IGDC — Exhibitor & Speaker</div>
                 <div class="a-sub">Showcased interactive prototypes at India's biggest gaming event.</div>
                 <div class="a-prize">🕹 5,000+ PLAYERS</div>
             </div>
-            <div class="award" data-pop data-pop-title="BRILLIO — EXCELLENCE AWARDS"
+            <div class="award" data-size="sm" data-pop data-pop-title="BRILLIO — EXCELLENCE AWARDS"
                 data-pop-body="<p><strong>What happened:</strong> company-wide recognition across my Brillio tenure.</p><p><strong>What I earned:</strong></p><ul><li><strong>Special Achievement Award</strong> — client impact on the NDP platform.</li><li><strong>Group Excellence Award</strong> — team delivery.</li><li><strong>Bringing Smiles Star Volunteer</strong> — 50+ NGO staff trained in digital literacy.</li><li><strong>Star Performer</strong> — near-zero-defect migration delivery.</li></ul>">
                 <div class="a-year">'22</div>
                 <div class="a-title">Brillio Excellence Awards</div>
                 <div class="a-sub">Special Achievement · Group Excellence · Star Volunteer.</div>
                 <div class="a-prize">★ 4 AWARDS</div>
             </div>
-            <div class="award" data-pop data-pop-title="TEQIP — GOVERNMENT RESEARCH GRANT"
+            <div class="award" data-size="sm" data-pop data-pop-title="TEQIP — GOVERNMENT RESEARCH GRANT"
                 data-pop-body="<p><strong>What happened:</strong> India's TEQIP program funds standout student research ventures.</p><p><strong>What I did:</strong> drafted the medical diagnostics proposal and architecture for an automated COVID-19 CT screening pipeline using deep neural networks.</p><p><strong>Result:</strong> Innovation Ideas & Research Grant awarded, 2020.</p>">
                 <div class="a-year">'20</div>
                 <div class="a-title">TEQIP Government Grant</div>

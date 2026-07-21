@@ -54,14 +54,23 @@
         .cab .g-name { font-family: 'Press Start 2P', var(--font-code); font-size: .8rem; line-height: 1.5; }
         .cab .g-tag { color: var(--dim); font-size: .88rem; line-height: 1.5; flex: 1; }
         .cab .g-meta { font-family: var(--font-code); font-size: .68rem; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
-        .cab .slot { border: 1px dashed var(--line); min-height: 175px; display: grid; place-items: center; }
-        .cab .slot iframe { width: 100%; height: 175px; border: none; }
-        .cab .insert-coin {
-            font-family: 'Press Start 2P', var(--font-code); font-size: .6rem;
-            background: color-mix(in srgb, var(--accent) 14%, transparent); border: none; color: var(--accent);
-            padding: 12px 14px; cursor: pointer; transition: .2s;
+        /* the slot always shows the game's itch.io cover art + title at rest —
+           itch.io's own embed renders that with zero interaction, so there's
+           no reason to gate it behind a click. INSERT COIN is now flavor
+           chrome, not a gate: a small corner badge, not the whole card. */
+        .cab .slot { border: 1px solid var(--line); min-height: 175px; position: relative; overflow: hidden; background: #000; }
+        .cab .slot iframe { width: 100%; height: 175px; border: none; display: block; }
+        /* the badge is a loading/attract-mode cue, not permanent chrome — it
+           fades out once the cabinet's embed has actually loaded, so it
+           never fights the itch.io widget's own UI once content is live */
+        .cab .coin-badge {
+            position: absolute; top: 8px; right: 8px; z-index: 2; pointer-events: none;
+            font-family: 'Press Start 2P', var(--font-code); font-size: .52rem;
+            background: rgba(0, 0, 0, .68); border-radius: 6px; padding: 6px 9px;
+            animation: blink 1.4s infinite;
+            opacity: 1; transition: opacity .4s ease;
         }
-        .cab .insert-coin:hover { background: var(--accent); color: #000; }
+        .cab .slot.is-live .coin-badge { opacity: 0; }
         .cab .g-link { font-family: var(--font-code); font-size: .75rem; }
 
         .clip-row video { width: 100%; border: 1px solid var(--line); }
@@ -88,7 +97,7 @@
     <div class="frame">
         <span class="label" style="display:block; margin-top:34px;">PLAYABLE_BUILDS // ESC RETURNS HOME</span>
         <h1 class="page-title">THE ARCADE</h1>
-        <p class="coin" style="margin-top:14px;">◉ INSERT COIN TO LOAD A CABINET ◉</p>
+        <p class="coin" style="margin-top:14px;">◉ 14 LIVE CABINETS — SCROLL TO LOAD & PLAY ◉</p>
         <p style="color:var(--dim); margin-top:16px; max-width:640px; line-height:1.6;">
             14 games across three itch.io labels — <strong style="color:var(--text);">AKAmaestro</strong>,
             <strong style="color:var(--text);">Amnesea</strong>, and collaborations. Every cabinet loads a live,
@@ -156,6 +165,26 @@
         ];
 
         const grid = document.getElementById('cab-grid');
+        const dark = !document.body.classList.contains('light-mode');
+        const params = dark
+            ? 'bg_color=10041c&fg_color=eee6ff&link_color=ff2d95&border_color=3b1d5e'
+            : 'bg_color=ffffff&fg_color=222222&link_color=b3005f&border_color=c9b8e8';
+
+        // load each embed only once its cabinet nears the viewport — 14
+        // itch.io iframes is real weight, so this stays lazy like the
+        // gameplay-clip videos elsewhere on the site.
+        const slotIO = new IntersectionObserver(entries => {
+            entries.forEach(en => {
+                if (!en.isIntersecting) return;
+                const ifr = en.target.querySelector('iframe[data-src]');
+                if (ifr) {
+                    ifr.src = ifr.dataset.src; ifr.removeAttribute('data-src');
+                    ifr.addEventListener('load', () => en.target.classList.add('is-live'), { once: true });
+                }
+                slotIO.unobserve(en.target);
+            });
+        }, { rootMargin: '400px 0px' });
+
         GAMES.forEach((g, i) => {
             const cab = document.createElement('div');
             cab.className = 'cab rv';
@@ -165,20 +194,13 @@
                 <div class="g-meta">CABINET_${String(i + 1).padStart(2, '0')} // ${g.account}</div>
                 <div class="g-name" style="color:${g.c1}">${g.name}</div>
                 <div class="g-tag">${g.tagline}</div>
-                <div class="slot">
-                    <button class="insert-coin" style="border-color:${g.c1}; color:${g.c1}">▶ INSERT COIN</button>
+                <div class="slot" style="border-color:${g.c1}55">
+                    <span class="coin-badge" style="color:${g.c1}">◉ INSERT COIN</span>
+                    <iframe data-src="https://itch.io/embed/${g.embedId}?${params}" title="${g.name}" loading="lazy" frameborder="0"></iframe>
                 </div>
                 <a class="g-link" href="${g.url}" target="_blank" rel="noopener">open on itch.io ↗</a>`;
-            cab.querySelector('.insert-coin').addEventListener('click', () => {
-                const dark = !document.body.classList.contains('light-mode');
-                const p = dark
-                    ? 'bg_color=10041c&fg_color=eee6ff&link_color=ff2d95&border_color=3b1d5e'
-                    : 'bg_color=ffffff&fg_color=222222&link_color=b3005f&border_color=c9b8e8';
-                cab.querySelector('.slot').style.borderColor = g.c1;
-                cab.querySelector('.slot').innerHTML =
-                    `<iframe frameborder="0" src="https://itch.io/embed/${g.embedId}?${p}" title="${g.name}"></iframe>`;
-            });
             grid.appendChild(cab);
+            slotIO.observe(cab.querySelector('.slot'));
         });
     </script>
 </body>

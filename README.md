@@ -3,6 +3,10 @@
 Portfolio & personal reflection site of Ankit Kumar Agrawal (AKAmaestro).
 Plain static multi-page site on GitHub Pages — no build step.
 
+> **Editing the site? Read [`MANUAL.md`](MANUAL.md)** — an in-depth, page-by-page
+> guide to changing content, colours, the charts, and everything else. Every
+> editable spot in the source is also flagged with an `EDIT HERE` comment.
+
 ## Structure
 
 | Path | What |

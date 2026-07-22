@@ -337,6 +337,23 @@
             const NOW = now.getFullYear() + (now.getMonth()) / 12;
             const RULER = 46, LANE_H = 122, CANVAS_H = RULER + 4 * 122 + 24;
 
+            /* ============================================================
+               EDIT HERE — the horizontal timeline is drawn entirely from the
+               four arrays below. All times are DECIMAL YEARS (2024.5 = mid-2024;
+               use NOW for "ongoing"). X() converts year → pixels automatically.
+               See MANUAL.md → Journey for the full guide.
+
+               LANES  the 4 horizontal tracks (id, label, colour var)
+               BARS   a role/experience bar on a lane:
+                        { lane, t0:start, t1:end, title, org, dates, pop, src }
+                        live:true = pulsing "NOW" cap · min:110 = min bar width px
+                        pop/src   = popup heading + which <template> to show
+               MARKS  milestone dots with a tiny caption: { lane, t, html }
+               LINKS  branch curves between lanes: { from, to, t, c[, dashed] }
+
+               To ADD a role: append to BARS (+ a matching <template> if it has
+               a "full story" popup). To ADD a milestone: append to MARKS.
+               ============================================================ */
             const LANES = [
                 { id: 'main', name: 'main — career', c: 'var(--c-main)' },
                 { id: 'games', name: 'feat/games', c: 'var(--c-games)' },

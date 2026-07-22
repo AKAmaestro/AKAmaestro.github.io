@@ -122,6 +122,17 @@
 
     <script src="assets/js/core.js"></script>
     <script>
+        // ============================================================
+        // VAULT GATE. You do NOT edit this decryptor to change the content —
+        // the passwords + secret HTML live OUTSIDE the repo in
+        // tools/vault.config.json (gitignored). To change what's inside or the
+        // keys: edit that file, run  tools/encrypt_vault.py, and commit only
+        // the regenerated assets/vault-data.json (ciphertext). This page just
+        // PBKDF2-derives a key from what you type and tries to decrypt it in
+        // your browser — nothing readable is ever in the source.
+        // See MANUAL.md → Vault and tools/README.md.
+        // ============================================================
+
         // MAX deterrents on this page only
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {

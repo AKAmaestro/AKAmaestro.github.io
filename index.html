@@ -259,6 +259,9 @@
             <div class="hero-hint">[ CLICK ANYWHERE IN THIS PANEL FOR THE FULL BIO → ]</div>
         </header>
 
+        <!-- SCROLLING TICKER — edit the highlights below (wrap a phrase in
+             <b>…</b> to accent it in green). The JS duplicates this content
+             once so the marquee loops seamlessly; write each item only once. -->
         <div class="ticker" aria-hidden="true">
             <div class="ticker-track" id="ticker-track">
                 <b>XBOX + PLAYSTATION</b> PUBLISHING AGREEMENTS · TOP 16 STUDIOS <b>XBOX GAME CAMP ASIA</b> ·
@@ -401,7 +404,8 @@
             });
         })();
 
-        // TYPEWRITER
+        // TYPEWRITER — the rotating "> role_" line under the name.
+        // EDIT the roles list to change / add / reorder the titles it cycles.
         (function () {
             const roles = ["Creative Technologist", "Design Engineer", "Game Designer", "UX Researcher",
                 "Roboticist", "Studio Founder", "Data Engineer", "Photographer"];

@@ -600,10 +600,12 @@
         // euler fields
         ['E', 'D', 'M'].forEach(k => mk('circle', { cx: FIELD[k].x, cy: FIELD[k].y, r: FR, fill: 'url(#ff-field-' + k + ')' }, gFields));
 
-        // ghost domain letters + dashed "next domain" ring
-        [['E', 250, 200], ['D', 710, 200], ['M', 480, 560]].forEach(([k, x, y]) => {
-            const t = mk('text', { x, y, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 78, 'fill-opacity': .16 }, gGhost);
-            t.style.fill = dcol[k]; t.textContent = k;
+        // ghost domain TITLES (spelled out, watermarked into each field) —
+        // [colour-key, full name, x, y]. Full words instead of single letters
+        // so the domains read plainly; sized/faded to sit behind the nodes.
+        [['E', 'Engineering', 262, 168], ['D', 'Design', 706, 168], ['M', 'Management', 480, 592]].forEach(([k, word, x, y]) => {
+            const t = mk('text', { x, y, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 31, 'fill-opacity': .24 }, gGhost);
+            t.style.fill = dcol[k]; t.textContent = word;
         });
         mk('circle', { cx: 852, cy: 512, r: 40, fill: 'none', stroke: 'var(--line)', 'stroke-width': 2, 'stroke-dasharray': '5 6' }, gGhost);
         const ot = mk('text', { x: 852, y: 508, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 26, fill: 'var(--dim)' }, gGhost); ot.textContent = 'O';

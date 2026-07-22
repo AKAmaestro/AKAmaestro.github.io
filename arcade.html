@@ -148,6 +148,19 @@
 
     <script src="assets/js/core.js"></script>
     <script>
+        /* ============================================================
+           EDIT HERE — the arcade cabinets are built from this array.
+           To ADD a game: append one object. To reorder: move objects.
+             name     display title
+             account  which itch.io label (AKAmaestro / Amnesea / Collab) — shown in CABINET_NN meta
+             url      the game's itch.io page (the "open on itch.io" link)
+             embedId  itch.io embed id — on your game's itch dashboard use
+                      "Embed" → the number in https://itch.io/embed/<THIS>
+             c1, c2   accent + deep colour for the cabinet gradient/border
+             tagline  one-line hook shown under the title
+           The live playable widget loads itself (lazily) from embedId — no
+           other work needed. See MANUAL.md → Arcade.
+           ============================================================ */
         const GAMES = [
             { name: "PhantomTrace: Grid Surge", account: "AKAmaestro", url: "https://akamaestro.itch.io/phantomtrace", embedId: "3793588", c1: "#a085ff", c2: "#1b1230", tagline: "Every trace you leave powers your future." },
             { name: "Reactron", account: "AKAmaestro", url: "https://akamaestro.itch.io/reactron", embedId: "3373147", c1: "#ff007f", c2: "#2a0016", tagline: "A neon-fueled arcade shooter where small actions spark cosmic chaos!" },

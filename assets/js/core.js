@@ -1,4 +1,31 @@
-/* AKAMAESTRO core runtime: theme, cursor, lightbox, reveal, nav, protection. */
+/* ============================================================================
+   AKAMAESTRO CORE RUNTIME  (loaded by every page as the last <script>)
+   ----------------------------------------------------------------------------
+   One IIFE. Each feature is a small init* function; they're all wired up in the
+   DOMContentLoaded handler at the very bottom — comment a line out there to
+   disable a feature site-wide. Nothing here needs configuration for normal use;
+   the map below is so you know where to look. See MANUAL.md → Global runtime.
+
+     THEME            saved-choice-wins-then-OS dark/light; toggleTheme() (global,
+                      called by the .theme-btn onclick in every nav)
+     WORKS array      the 9 case studies, single source of truth for the nav
+                      "Work" dropdown — EDIT here to add/rename a project link
+     initCursor       custom cursor (desktop pointer only)
+     initLightbox     click-to-zoom for any <img class="zoomable">
+     initReveal       fade-in on scroll for .rv / .rv-stagger
+     initToTop        the ↑ TOP button
+     openPop/initPopTriggers   popup engine — any [data-pop] element opens a
+                      card; body from data-pop-body or a <template> via data-pop-src
+     initMobileNav    injects the burger + turns .nav-links into a sheet ≤1200px
+     initWorkDropdown builds the hover/tap "Work" mega-menu from WORKS
+     initNavProgress  the top #nav-loading bar shown on internal navigation
+     initLazyVideo    plays <video data-lazy> only near the viewport (perf)
+     vault*           client-side AES-256 gate (keys never in the page); the
+                      ACCESS tab + gated case-study blur all run off this
+     initProtection   standard right-click/drag/save deterrents on media
+     initScrollProgress / initGlowCards / initMagneticButtons / initHScroll /
+     initLocalTime    ambient polish (all no-config)
+   ============================================================================ */
 (function () {
     'use strict';
 

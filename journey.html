@@ -179,6 +179,21 @@
 
 
         <span class="section-h">THE COMMIT LOG</span>
+        <!-- ============================================================
+             EDIT HERE — this vertical timeline is plain HTML, one .commit
+             block per entry, newest first. To ADD an entry, copy a .commit
+             block and change:
+               style="--lane:var(--c-main)"   lane colour: main/games/rsch/edu
+               .when  .yr = year, .mo = month range
+               .c-title / .c-org / .c-brief = the text
+               .c-tag = git-style tags (tag:… or cert:…)
+             For a "+ THE FULL STORY" popup: add data-pop
+             data-pop-title="…" data-pop-src="#pop-ID" to the .commit, add a
+             .story-chip inside, and add a matching <template id="pop-ID"> at
+             the bottom of the page. Add class "branch" for a lane-branch curve.
+             (The horizontal view journey-h.html is data-driven instead — keep
+             the two in sync when you add an entry.) See MANUAL.md → Journey.
+             ============================================================ -->
         <div class="repo-log">
 
             <div class="commit head rv" style="--lane:var(--c-main);">

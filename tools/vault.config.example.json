@@ -1,0 +1,22 @@
+{
+  "_note": "Copy to tools/vault.config.json (gitignored), set real passwords, add sections, then run: tools/.venv/bin/python tools/encrypt_vault.py tools/vault.config.json",
+  "master_password": "CHANGE-ME-master",
+  "audiences": {
+    "recruiters": "CHANGE-ME-recruiters",
+    "publishers": "CHANGE-ME-publishers"
+  },
+  "sections": [
+    {
+      "id": "contact",
+      "title": "DIRECT_LINE // Private Contact",
+      "html": "<p>Phone: <strong>+91 XXXXX XXXXX</strong> · Personal email: <strong>you@example.com</strong></p>",
+      "audiences": ["recruiters", "publishers"]
+    },
+    {
+      "id": "decks",
+      "title": "PITCH_DECKS // Confidential",
+      "html": "<p><a href='https://example.com/deck' target='_blank' rel='noopener'>Publisher deck ↗</a></p>",
+      "audiences": ["publishers"]
+    }
+  ]
+}

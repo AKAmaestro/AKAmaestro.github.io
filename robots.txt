@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /vault.html
+Disallow: /Archive/
+Sitemap: https://akamaestro.com/sitemap.xml

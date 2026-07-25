@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — AKAmaestro</title>
+    <meta name="description" content="Ankit Kumar Agrawal (AKA) — creative technologist and design engineer building interactive systems at the intersection of engineering and human experience.">
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ulyyygs3ix");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;600;800&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap"></noscript>
+    <link rel="stylesheet" href="assets/css/core.css">
+    <style>
+        :root { --font-display: 'Fraunces', serif; }
+        body {
+            background-image: radial-gradient(var(--line-dim) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+
+        .about-hero { margin-top: 44px; }
+        .statement {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5.4vw, 3.8rem);
+            font-weight: 600; line-height: 1.15; letter-spacing: -.5px;
+            max-width: 20ch;
+        }
+        .statement em {
+            font-style: italic; font-weight: 400; color: var(--accent);
+        }
+        .bio-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 40px; align-items: center; margin-top: 22px; }
+        @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
+        /* editorial voice for the bio copy — Fraunces lead, not generic sans */
+        .bio-grid .prose p {
+            font-family: var(--font-display); font-weight: 400;
+            font-size: clamp(1.18rem, 2.3vw, 1.52rem); line-height: 1.6; color: var(--text);
+        }
+        .bio-grid .prose p strong { color: var(--accent); font-weight: 600; }
+        .bio-grid .prose p + p { font-size: clamp(1.02rem, 1.9vw, 1.26rem); color: var(--dim); }
+        .bio-grid .prose p + p strong { color: var(--text); }
+
+        /* clean floating photo */
+        .bio-photo { align-self: center; justify-self: center; max-width: 300px; width: 100%; }
+        .bio-photo img {
+            width: 100%; border: none; background:
+                radial-gradient(ellipse at 50% 88%, rgba(var(--accent-rgb), .22), transparent 62%);
+            filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .35));
+            transition: transform .4s;
+        }
+        .bio-photo:hover img { transform: scale(1.03); }
+        .bio-photo .caption {
+            margin-top: 6px; text-align: center;
+            font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--dim);
+        }
+
+        /* relocation marquee-ish line */
+        .globe-line {
+            margin: 22px 0 8px; padding: 16px 20px; border-radius: 12px;
+            background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 14%, transparent), color-mix(in srgb, var(--accent) 3%, transparent) 65%, transparent);
+            font-family: var(--font-code); font-size: .95rem; color: var(--text);
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+        }
+        .globe-line .spin { display: inline-block; animation: spin 9s linear infinite; font-size: 1.3rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ---------- FOCUS MAP: E × D × M venn (v3) ----------
+           desktop = true overlap diagram; phones get the same map
+           re-rendered as readable region cards (.venn-cards) */
+        :root { --vE: #00ff41; --vD: #a78bfa; --vM: #ffc400; }
+        body.light-mode { --vE: #00922a; --vD: #6d28d9; --vM: #8a6800; }
+
+        .venn-note { font-family: var(--font-code); font-size: .8rem; color: var(--dim); margin: 4px 0 0; }
+        /* wide ellipse venn — every item is its own chip, regions read as a
+           tag-cloud chart instead of paragraph stacks; no dead vertical space */
+        .venn {
+            position: relative; max-width: 1060px; aspect-ratio: 1.5;
+            margin: 26px auto 8px;
+        }
+        .v-circle {
+            position: absolute; width: 62%; height: 80%; border-radius: 50%;
+            border: 2px solid; transition: .3s;
+        }
+        .v-circle:hover { box-shadow: 0 0 54px rgba(var(--accent-rgb), .16); }
+        .v-eng { top: 0; left: 0; border-color: var(--vE); background: color-mix(in srgb, var(--vE) 6%, transparent); }
+        .v-des { top: 0; right: 0; border-color: var(--vD); background: color-mix(in srgb, var(--vD) 7%, transparent); }
+        .v-mgt { bottom: 0; left: 19%; border-color: var(--vM); background: color-mix(in srgb, var(--vM) 6%, transparent); }
+        /* ghost letter anchors */
+        .v-circle::before {
+            content: attr(data-l); position: absolute;
+            font-family: var(--font-display); font-style: italic; font-weight: 600;
+            font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1; opacity: .15;
+        }
+        .v-eng::before { top: 12%; left: 12%; color: var(--vE); }
+        .v-des::before { top: 12%; right: 12%; color: var(--vD); }
+        .v-mgt::before { bottom: 9%; left: 50%; transform: translateX(-50%); color: var(--vM); }
+        /* future-domain slot */
+        .v-ghost {
+            position: absolute; right: 0; bottom: 0; width: 13%; aspect-ratio: 1;
+            border: 2px dashed var(--line); border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+            color: var(--dim); font-family: var(--font-display); font-style: italic; font-size: 1.5rem;
+            transition: .3s;
+        }
+        .v-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .v-ghost span { font-family: var(--font-code); font-style: normal; font-size: .5rem; letter-spacing: .5px; text-align: center; max-width: 88%; line-height: 1.5; }
+        /* region zones: chip clouds */
+        .vz {
+            position: absolute; display: flex; flex-wrap: wrap; gap: 7px 6px;
+            justify-content: center; align-content: center; pointer-events: none;
+        }
+        .vz .vz-tag {
+            width: 100%; text-align: center; margin-bottom: 4px;
+            font-family: var(--font-display); font-style: italic; font-weight: 600;
+            font-size: clamp(.95rem, 1.9vw, 1.3rem); letter-spacing: .4px;
+        }
+        .vz .t {
+            font-family: var(--font-code); font-size: clamp(.62rem, 1.25vw, .84rem);
+            color: var(--text); line-height: 1.25; white-space: nowrap;
+            background: color-mix(in srgb, var(--zc, var(--accent)) 16%, transparent);
+            border-radius: 999px; padding: 6px 13px;
+        }
+        .vz .t:nth-child(odd) { transform: rotate(-1.5deg); }
+        .vz .t:nth-child(3n) { transform: rotate(1.6deg); }
+        /* each zone box now claims a min-height reaching toward its actual
+           lens's vertical extent — before this, width was set but height
+           was left to auto-size to content, so short chip lists sat in a
+           short box near the top offset and the rest of the region (which
+           genuinely had nothing positioned in it, not just misaligned
+           content) read as empty. min-height (not height) so a zone can
+           still grow past it if it ever holds more chips than fit. */
+        .vz-e   { --zc: var(--vE); left: 1%;  top: 9%; width: 30%; min-height: 62%; }
+        .vz-d   { --zc: var(--vD); right: 1%; top: 9%; width: 30%; min-height: 62%; }
+        .vz-m   { --zc: var(--vM); left: 50%; transform: translateX(-50%); bottom: 6%; width: 42%; min-height: 46%; }
+        .vz-ed  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vD)); left: 50%; transform: translateX(-50%); top: 3%; width: 25%; min-height: 26%; }
+        .vz-em  { --zc: color-mix(in srgb, var(--vE) 50%, var(--vM)); left: 16%; top: 46%; width: 28%; min-height: 32%; }
+        .vz-dm  { --zc: color-mix(in srgb, var(--vD) 50%, var(--vM)); right: 16%; top: 46%; width: 28%; min-height: 32%; }
+        .vz-core {
+            --zc: var(--accent);
+            left: 50%; transform: translateX(-50%); top: 33%; width: 27%;
+            border-radius: 16px; padding: 13px 11px;
+            background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+            box-shadow: 0 14px 36px rgba(0, 0, 0, .35);
+        }
+        .vz-core .vz-tag { color: var(--accent); }
+        .tag-e { color: var(--vE); } .tag-d { color: var(--vD); } .tag-m { color: var(--vM); }
+        .tag-ed { color: color-mix(in srgb, var(--vE) 50%, var(--vD)); }
+        .tag-em { color: color-mix(in srgb, var(--vE) 50%, var(--vM)); }
+        .tag-dm { color: color-mix(in srgb, var(--vD) 50%, var(--vM)); }
+
+        /* phone rendering: region cards, one per zone */
+        .venn-cards { display: none; }
+        .vcard {
+            border-radius: 16px; padding: 16px 18px; border-left: 3px solid var(--rc, var(--accent));
+            background: linear-gradient(150deg,
+                color-mix(in srgb, var(--rc, var(--accent)) 15%, transparent),
+                color-mix(in srgb, var(--rc, var(--accent)) 4%, transparent) 55%, var(--panel));
+        }
+        .vcard.vc-e { --rc: var(--vE); } .vcard.vc-d { --rc: var(--vD); } .vcard.vc-m { --rc: var(--vM); }
+        .vcard.vc-ed { --rc: color-mix(in srgb, var(--vE) 50%, var(--vD)); }
+        .vcard.vc-em { --rc: color-mix(in srgb, var(--vE) 50%, var(--vM)); }
+        .vcard.vc-dm { --rc: color-mix(in srgb, var(--vD) 50%, var(--vM)); }
+        .vcard.vc-core { --rc: var(--accent); }
+        .vcard.vc-o { --rc: var(--dim); border: 1.5px dashed var(--line); background: transparent; }
+        .vcard .vc-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+        .vcard .vc-head b { font-family: var(--font-display); font-style: italic; font-size: 1.45rem; color: var(--rc, var(--accent)); }
+        .vcard .vc-head i { font-family: var(--font-code); font-style: normal; font-size: .66rem; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; }
+        .vcard .vc-items { display: flex; flex-wrap: wrap; gap: 7px; }
+        .vcard .vc-items span {
+            font-family: var(--font-ui); font-weight: 600; font-size: .82rem; color: var(--text);
+            border-radius: 999px; padding: 6px 12px;
+            background: color-mix(in srgb, var(--rc, var(--accent)) 13%, transparent);
+        }
+        @media (max-width: 720px) {
+            .venn { display: none; }
+            .field-wrap { display: none; }
+            .venn-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+        }
+
+        /* focus areas & passions: bubble clouds */
+        .bubble-cloud { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+        .bubble {
+            display: inline-flex; flex-direction: column; gap: 4px;
+            padding: 18px 26px; border-radius: 26px;
+            background: color-mix(in srgb, var(--text) 6%, var(--panel));
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+            transition: .3s; cursor: default;
+        }
+        .bubble:hover {
+            transform: translateY(-4px) rotate(-.5deg);
+            box-shadow: 0 14px 34px rgba(var(--accent-rgb), .18);
+            background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+        }
+        .bubble b { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+        .bubble i { font-family: var(--font-code); font-style: normal; font-size: .8rem; color: var(--dim); letter-spacing: .5px; }
+        .bubble.mini { padding: 12px 20px; border-radius: 999px; flex-direction: row; align-items: center; gap: 10px; }
+        .bubble.mini b { font-size: 1.05rem; }
+
+        /* coordinates + connect: rounded bubble links */
+        .coords { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+        .coord {
+            display: inline-flex; flex-direction: column; gap: 3px;
+            padding: 14px 22px; border-radius: 20px;
+            background: color-mix(in srgb, var(--text) 6%, var(--panel));
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+            text-decoration: none; color: var(--text); transition: .3s;
+        }
+        a.coord:hover {
+            transform: translateY(-3px);
+            background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+            box-shadow: 0 12px 28px rgba(var(--accent-rgb), .18);
+        }
+        .coord .c-value { font-size: 1.05rem; font-weight: 700; word-break: break-word; }
+
+        /* toolbelt: tinted chip clusters */
+        .belt-group { margin-top: 24px; --tint: var(--accent); --tint-rgb: var(--accent-rgb); }
+        .belt-group:nth-of-type(2) { --tint: #6ecbff; --tint-rgb: 110, 203, 255; }
+        .belt-group:nth-of-type(3) { --tint: #ff5f6d; --tint-rgb: 255, 95, 109; }
+        .belt-group:nth-of-type(4) { --tint: #ffc400; --tint-rgb: 255, 196, 0; }
+        .belt-group:nth-of-type(5) { --tint: #a78bfa; --tint-rgb: 167, 139, 250; }
+        .belt-group .belt-name {
+            font-family: var(--font-code); font-size: .82rem; color: var(--tint);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block;
+        }
+        .belt-group .chip {
+            background: color-mix(in srgb, var(--tint) 11%, transparent);
+            color: var(--text); font-size: .86rem; padding: 8px 15px;
+        }
+        .belt-group .chip:hover { background: color-mix(in srgb, var(--tint) 20%, transparent); color: var(--tint); transform: translateY(-2px); }
+
+        /* ---------- FOCUS FIELD: one map = euler gradient domains + radar rings
+             + force-directed skill nodes. skills sit where they actually live;
+             the overlaps hold the cross-domain work; the centre is the studio. */
+        .field-wrap {
+            position: relative; margin-top: 18px; border: 1px solid var(--line); border-radius: 18px;
+            overflow: hidden; background: radial-gradient(130% 120% at 50% 38%, color-mix(in srgb, var(--panel) 72%, transparent), var(--bg));
+        }
+        .field-wrap svg { display: block; width: 100%; height: auto; touch-action: none; }
+        .ff-hint { position: absolute; top: 12px; right: 15px; z-index: 3; font-family: var(--font-code); font-size: .68rem; color: var(--dim); pointer-events: none; }
+        .ff-ring { fill: none; stroke: var(--line-dim); stroke-width: 1; }
+        .ff-dlabel { font-family: var(--font-display); font-style: italic; font-weight: 600; }
+        .ff-edge { stroke-width: 1; fill: none; transition: stroke-width .25s, opacity .25s; }
+        .ff-node circle { cursor: grab; transition: opacity .25s; }
+        .ff-node.dragging circle { cursor: grabbing; }
+        .ff-node text {
+            font-family: var(--font-code); font-size: 11px; fill: var(--text); pointer-events: none;
+            transition: opacity .25s; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round;
+        }
+        .ff-node.core text { font-family: var(--font-ui); font-weight: 700; font-size: 12.5px; }
+        .field-wrap.has-focus .ff-node.dim circle, .field-wrap.has-focus .ff-node.dim text { opacity: .13; }
+        .field-wrap.has-focus .ff-edge.dim { opacity: .04; }
+        .field-wrap.has-focus .ff-edge.lit { stroke-width: 2.4; }
+        .ff-legend {
+            display: flex; flex-wrap: wrap; gap: 12px 18px; padding: 13px 18px; position: relative; z-index: 2;
+            font-family: var(--font-code); font-size: .72rem; color: var(--dim);
+            border-top: 1px solid var(--line-dim); background: color-mix(in srgb, var(--bg) 55%, transparent);
+        }
+        .ff-legend span { display: inline-flex; align-items: center; gap: 7px; }
+        .ff-legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .ff-legend i.cross { background: linear-gradient(90deg, var(--vE), var(--vD)); }
+        .ff-legend i.core { background: var(--accent); box-shadow: 0 0 9px var(--accent); }
+    </style>
+</head>
+
+<body data-up="index.html">
+    <nav class="site-nav">
+        <div class="crumb"><a href="index.html">©AKAmaestro</a> <span>/ ABOUT</span></div>
+        <div class="nav-links">
+            <a href="index.html#works">Work</a>
+            <a href="about.html" class="active">About</a>
+            <a href="journey.html">Journey</a>
+            <a href="signals.html">Signals</a>
+            <a href="arcade.html">Arcade</a>
+            <a href="blog.html">Blog</a>
+            <a href="vault.html" class="vault-link">Vault</a>
+            <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="dl">CV ⤓</a>
+            <a href="projects/Ankit%20Kumar%20portfolio%20draft.pdf" download class="dl">PORTFOLIO ⤓</a>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="frame">
+        <div class="about-hero">
+            <span class="label" style="display:block; margin-bottom:18px;">IDENTITY_FILE // ANKIT KUMAR AGRAWAL (AKA) // ESC RETURNS HOME</span>
+            <h1 class="statement rv">I build <em>playful machines</em> with an engineer's rigor and an
+                <em>artist's mischief</em>.</h1>
+            <div class="btn-row rv" style="margin-top:24px;">
+                <a href="resume.html" class="btn solid">RESUME / CV</a>
+                <a href="Ankit%20Resume%20Design%20Copy.pdf" download class="btn">DOWNLOAD PDF ⤓</a>
+                <a href="mailto:akamaestro@outlook.com" class="btn">✉ SAY HELLO</a>
+            </div>
+        </div>
+
+        <div class="bio-grid">
+            <div class="prose rv">
+                <p>My practice spans AI, robotics, interactive design, and large-scale installation art — I turn
+                    ambiguous ideas into shipped, felt experiences, and I've <strong>led cross-functional teams</strong>
+                    from a 250+ person festival crew to matrixed engineering pods.</p>
+                <p>I bootstrapped <strong>Amnesea Studios</strong> into an Xbox accelerator and publishing agreements
+                    with Microsoft Xbox and Sony PlayStation — 5,000+ players, IGN and Times of India coverage.</p>
+            </div>
+
+            <div class="bio-photo rv">
+                <img src="projects/Ankit/akamaestro.webp" alt="Ankit Kumar">
+                <div class="caption">aka «maestro»</div>
+            </div>
+        </div>
+
+        <div class="globe-line rv">
+            <span class="spin">🌍</span>
+            <strong>OPEN TO RELOCATE — ANYWHERE ON EARTH.</strong>
+            <span style="color:var(--dim);">I chase cross-cultural experiences; new cities are new design briefs.</span>
+        </div>
+
+        <span class="section-h">FOCUS FIELD — SKILLS × DOMAINS, ONE MAP</span>
+        <p class="venn-note rv">engineering × design × management — every skill sits where it actually lives; the overlaps hold the cross-domain work and the centre is the studio. drag a node · hover to trace what it connects to · the dashed ring is the domain still loading.</p>
+
+        <!-- ============================================================
+             FOCUS FIELD — HOW TO CUSTOMISE  (read me before editing)
+             ============================================================
+             The whole chart is data-driven from three arrays in the
+             <script> at the BOTTOM of this file. You almost never touch the
+             drawing/physics code — you edit data. Everything auto-lays-out.
+
+             ---- ADD A SKILL (most common) ----
+             In the NODES array add one line:
+                 { id:'unique-id', z:'E', label:'New Skill' },
+             • id    = any unique string (used internally only)
+             • z     = which ZONE it lives in (see below)
+             • label = the text shown under the dot
+             Size is automatic from the zone. That's it — reload.
+
+             ---- THE ZONES (z:) ----
+             Single-domain (sit inside one field):
+                 'E' Engineering   'D' Design   'M' Management
+             Overlaps (sit in the lens between two fields):
+                 'ED' Eng×Design   'EM' Eng×Mgmt   'DM' Design×Mgmt
+             Core (glows in the centre, the studio):
+                 'C'  — also add  core:1  to the node, e.g.
+                 { id:'x', z:'C', label:'New Studio Thing', core:1 },
+
+             ---- MOVE / RE-BALANCE A REGION ----
+             ZONE[zone] = {x,y} is the point that region's nodes gravitate to
+             (svg coords, canvas is 960×620). Nudge those to shift a cluster.
+             FIELD[E|D|M] = {x,y} are the gradient-circle centres; ZONE anchors
+             should sit roughly inside/between them.
+
+             ---- COLOURS ----
+             Domain colours are the CSS vars --vE / --vD / --vM defined in the
+             <style> :root above (and re-defined for light mode). Change them
+             there and the fields, nodes, edges and legend all follow.
+
+             ---- ADD A WHOLE NEW DOMAIN (the dashed "O" slot) ----
+             Bigger job, touch 5 spots in the script: FIELD (add its circle),
+             ZONE (anchor), ZDOM (which domains a zone links to), dcol (colour),
+             and add its gradient stop + a legend <span> in the markup below.
+             ============================================================ -->
+
+        <!-- one unified visual: euler gradient domain fields + radar rings +
+             force-directed skill nodes, merged. desktop only; phones get cards. -->
+        <div class="field-wrap rv" id="focusfield">
+            <span class="ff-hint">drag · hover</span>
+            <svg viewBox="0 0 960 620" role="img" aria-label="Focus field — skills plotted across Engineering, Design and Management domains, with cross-domain skills in the overlaps and the studio at the core"></svg>
+            <div class="ff-legend">
+                <span><i style="background:var(--vE)"></i>Engineering</span>
+                <span><i style="background:var(--vD)"></i>Design</span>
+                <span><i style="background:var(--vM)"></i>Management</span>
+                <span><i class="cross"></i>overlap · cross-domain</span>
+                <span><i class="core"></i>core · the studio</span>
+            </div>
+        </div>
+
+        <!-- phones read the same map as cards -->
+        <div class="venn-cards rv-stagger">
+            <div class="vcard vc-e"><div class="vc-head"><b>E</b><i>Engineering</i></div>
+                <div class="vc-items"><span>Python · C++ · SQL</span><span>ML & Deep Learning</span><span>Computer Vision</span><span>Azure Data · ETL</span></div>
+            </div>
+            <div class="vcard vc-d"><div class="vc-head"><b>D</b><i>Design</i></div>
+                <div class="vc-items"><span>Figma · Blender</span><span>Illustration · Motion</span><span>Photography</span><span>Poster & Stage Art</span></div>
+            </div>
+            <div class="vcard vc-m"><div class="vc-head"><b>M</b><i>Management</i></div>
+                <div class="vc-items"><span>Agile · Scrum · SAFe® 5</span><span>JIRA</span><span>Toastmasters</span><span>Mentorship</span></div>
+            </div>
+            <div class="vcard vc-ed"><div class="vc-head"><b>E×D</b><i>build × craft</i></div>
+                <div class="vc-items"><span>Robotics</span><span>Game Design</span><span>Creative Tech</span><span>Interactive Systems</span></div>
+            </div>
+            <div class="vcard vc-em"><div class="vc-head"><b>E×M</b><i>build × lead</i></div>
+                <div class="vc-items"><span>Data-Platform Leadership</span><span>Data-Accuracy Programs</span></div>
+            </div>
+            <div class="vcard vc-dm"><div class="vc-head"><b>D×M</b><i>craft × lead</i></div>
+                <div class="vc-items"><span>GTM Strategy</span><span>Anaadyanta — Stage Art</span><span>Art & Student-Org Lead</span><span>Studio-Craft Ops</span></div>
+            </div>
+            <div class="vcard vc-core"><div class="vc-head"><b>★ E×D×M</b><i>the center</i></div>
+                <div class="vc-items"><span>AMNESEA — indie game studio</span><span>eYantra Robotics Team Lead</span></div>
+            </div>
+            <div class="vcard vc-o"><div class="vc-head"><b>O</b><i>next domain — loading…</i></div>
+                <div class="vc-items"><span>reserved for the next circle</span></div>
+            </div>
+        </div>
+
+        <span class="section-h">OFF THE CLOCK — PASSIONS & CURRENTLY</span>
+        <div class="bubble-cloud rv-stagger">
+            <span class="bubble mini"><b>📷 Photography</b><i>always carrying a camera</i></span>
+            <span class="bubble mini"><b>🎮 Gaming</b><i>player first, designer second</i></span>
+            <span class="bubble mini"><b>🖼 Art & museums</b><i>gallery-lurker, poster collector</i></span>
+            <span class="bubble mini"><b>🌏 Travel</b><i>cultural research disguised as wandering</i></span>
+            <span class="bubble mini"><b>🎛 Music tech</b><i>automated performance systems</i></span>
+            <span class="bubble mini"><b>⚡ Game jams</b><i>weekend-sized ideas, shipped</i></span>
+            <span class="bubble mini"><b>🧪 Currently</b><i>building Amnesea · exploring agentic AI · grad school '26 prep</i></span>
+        </div>
+
+        <span class="section-h">TOOLBELT — I'VE SHIPPED ACROSS ALL OF THESE</span>
+        <div class="rv">
+            <div class="belt-group">
+                <span class="belt-name">Programming</span>
+                <div class="chip-grid">
+                    <span class="chip">C</span><span class="chip">C++</span><span class="chip">C#</span>
+                    <span class="chip">Python</span><span class="chip">Solidity</span><span class="chip">T-SQL</span>
+                    <span class="chip">LaTeX</span>
+                </div>
+            </div>
+            <div class="belt-group">
+                <span class="belt-name">ML + AI</span>
+                <div class="chip-grid">
+                    <span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">PyTorch</span>
+                    <span class="chip">Scikit-Learn</span><span class="chip">OpenCV</span><span class="chip">NumPy</span>
+                    <span class="chip">Pandas</span><span class="chip">SciPy</span><span class="chip">PyAudioAnalysis</span>
+                    <span class="chip">CNN / RNN / DNN</span><span class="chip">Computer Vision</span><span class="chip">NLP</span>
+                    <span class="chip">Transfer Learning</span><span class="chip">Agentic AI Workflows</span><span class="chip">Prompt Engineering</span>
+                </div>
+            </div>
+            <div class="belt-group">
+                <span class="belt-name">Design & Creative</span>
+                <div class="chip-grid">
+                    <span class="chip">Figma</span><span class="chip">Photoshop</span><span class="chip">Illustrator</span>
+                    <span class="chip">After Effects</span><span class="chip">Premiere Pro</span><span class="chip">Sketch</span>
+                    <span class="chip">Blender</span><span class="chip">Unity Engine</span><span class="chip">CAD</span>
+                    <span class="chip">Linearity</span>
+                </div>
+            </div>
+            <div class="belt-group">
+                <span class="belt-name">Data & Cloud</span>
+                <div class="chip-grid">
+                    <span class="chip">Microsoft Azure</span><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span>
+                    <span class="chip">Microsoft SSIS</span><span class="chip">SQL Server</span><span class="chip">MySQL</span>
+                    <span class="chip">NoSQL</span><span class="chip">ETL Pipelines</span><span class="chip">Data Warehousing</span>
+                    <span class="chip">BI & Dashboarding</span><span class="chip">Google Cloud</span>
+                </div>
+            </div>
+            <div class="belt-group">
+                <span class="belt-name">Workflow & Languages</span>
+                <div class="chip-grid">
+                    <span class="chip">Git</span><span class="chip">JIRA</span><span class="chip">Agile / Scrum</span>
+                    <span class="chip">SAFe® 5</span><span class="chip">Project Management</span>
+                    <span class="chip">English (fluent)</span><span class="chip">Hindi (native)</span>
+                </div>
+            </div>
+        </div>
+
+        <span class="section-h">COORDINATES & CONNECT</span>
+        <div class="coords rv-stagger">
+            <a class="coord" href="mailto:akamaestro@outlook.com"><span class="label">Email</span><span class="c-value">akamaestro@outlook.com</span></a>
+            <a class="coord" href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener"><span class="label">LinkedIn</span><span class="c-value">/in/akamaestro</span></a>
+            <a class="coord" href="https://github.com/AKAmaestro" target="_blank" rel="noopener"><span class="label">GitHub</span><span class="c-value">@AKAmaestro</span></a>
+            <a class="coord" href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener"><span class="label">Instagram</span><span class="c-value">@ankit_tikna_</span></a>
+            <a class="coord" href="https://www.behance.net/akamaestro" target="_blank" rel="noopener"><span class="label">Behance</span><span class="c-value">/akamaestro</span></a>
+            <a class="coord" href="https://amnesea.com" target="_blank" rel="noopener"><span class="label">Studio</span><span class="c-value">amnesea.com</span></a>
+            <a class="coord" href="https://akamaestro.itch.io" target="_blank" rel="noopener"><span class="label">Playables</span><span class="c-value">akamaestro.itch.io</span></a>
+        </div>
+
+        <div class="btn-row rv" style="margin-top:40px;">
+            <a href="journey.html" class="btn solid">SEE THE FULL JOURNEY →</a>
+            <a href="signals.html" class="btn">AWARDS & PRESS</a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="f-brand">
+            <div class="f-mark">©AKAmaestro</div>
+            <div class="f-tag">creative technologist × design engineer × manager</div>
+            <div class="f-meta">India · open to relocate 🌍<br><span data-local-time></span> · akamaestro@outlook.com</div>
+        </div>
+        <div>
+            <div class="f-head">Connect</div>
+            <div class="f-icons">
+                <a href="mailto:akamaestro@outlook.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7L22 7"/></svg></a>
+                <a href="https://www.linkedin.com/in/akamaestro" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+                <a href="https://github.com/AKAmaestro" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://www.instagram.com/ankit_tikna_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+                <a href="https://www.behance.net/akamaestro" target="_blank" rel="noopener" aria-label="Behance"><svg viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.481 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg></a>
+                <a href="https://akamaestro.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><svg viewBox="0 0 24 24"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.19c0 1.507 1.407 2.834 2.687 2.834 1.542 0 2.82-1.264 2.82-2.784 0 1.52 1.24 2.784 2.782 2.784 1.542 0 2.712-1.264 2.712-2.784 0 1.52 1.32 2.784 2.86 2.784h.028c1.542 0 2.86-1.264 2.86-2.784 0 1.52 1.17 2.784 2.712 2.784 1.542 0 2.782-1.264 2.782-2.784 0 1.52 1.278 2.784 2.82 2.784 1.28 0 2.687-1.327 2.687-2.834V4.95c-.02-.622-2.08-2.99-3.13-3.612C18.72 1.24 15.622 1.05 12 1.05c-3.622 0-6.72.19-8.87.288zm6.256 6.729c.526.827 1.396 1.385 2.395 1.385.999 0 1.87-.558 2.396-1.385.526.827 1.396 1.385 2.395 1.385a2.84 2.84 0 0 0 1.759-.607l-.002 6.542v2.606a.921.921 0 0 1-.922.921H5.474a.921.921 0 0 1-.922-.921v-2.606l-.002-6.542a2.84 2.84 0 0 0 1.76.607c.998 0 1.868-.558 2.394-1.385zm2.61 2.677c-.61.006-1.805.017-2.81.017-.49 0-.757.292-.809.557l-.552 3.328c-.111.673.371 1.295 1.066 1.295.561 0 1.044-.408 1.12-.957l.164-1.187s.097-.534 1.052-.534c.955 0 1.052.534 1.052.534l.164 1.187c.076.549.559.957 1.12.957.695 0 1.177-.622 1.066-1.295l-.552-3.328c-.052-.265-.319-.557-.809-.557z"/></svg></a>
+            </div>
+        </div>
+        <div>
+            <div class="f-head">Map</div>
+            <div class="f-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="journey.html">Journey</a>
+                <a href="signals.html">Signals</a>
+                <a href="arcade.html">Arcade</a>
+                <a href="blog.html">Blog</a>
+                <a href="vault.html">Vault</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/core.js"></script>
+    <script>
+    /* ========== FOCUS FIELD — one map: euler gradient domains + radar rings
+       + force-directed skill nodes. Skills settle into their domain; the
+       cross-domain skills settle into the overlaps; the studio sits at the
+       centre. Vanilla SVG, no library. ========== */
+    (function () {
+        const wrap = document.getElementById('focusfield');
+        const svg = wrap && wrap.querySelector('svg');
+        if (!svg) return;
+        const NS = 'http://www.w3.org/2000/svg';
+        const W = 960, H = 620;                         // svg coordinate space (all x/y below are in these units)
+        // domain colours — pull from the CSS vars so both themes + the fields,
+        // nodes, edges and legend all stay in sync. Edit the vars, not here.
+        const dcol = { E: 'var(--vE)', D: 'var(--vD)', M: 'var(--vM)' };
+
+        // FIELD = centre of each soft gradient "domain circle" (euler blobs)
+        const FIELD = { E: { x: 335, y: 258 }, D: { x: 625, y: 258 }, M: { x: 480, y: 452 } };
+        const FR = 212;                                 // field radius
+        // ZONE = the point each zone's nodes are pulled toward. Single-domain
+        // zones sit inside a field; overlap zones (ED/EM/DM) sit in the lens
+        // between two fields; C (core) sits dead centre. Nudge these to move a
+        // whole cluster.
+        const ZONE = {
+            E:  { x: 250, y: 240 }, D: { x: 710, y: 240 }, M: { x: 480, y: 512 },
+            ED: { x: 480, y: 200 }, EM: { x: 352, y: 378 }, DM: { x: 608, y: 378 },
+            C:  { x: 480, y: 332 },
+        };
+        // ZDOM = which domain field(s) each zone links to (draws the edges +
+        // decides node colour for overlaps). Don't usually need to touch this.
+        const ZDOM = { E:['E'], D:['D'], M:['M'], ED:['E','D'], EM:['E','M'], DM:['D','M'], C:['E','D','M'] };
+
+        // ---- THE DATA: add / edit skills here (see the manual comment in the
+        // markup above). One object per skill: { id, z:zone, label[, core:1] }. ----
+        const NODES = [
+            // Engineering (z:'E')
+            { id:'py', z:'E', label:'Python' }, { id:'ml', z:'E', label:'ML / DL' },
+            { id:'cv', z:'E', label:'Computer Vision' }, { id:'cloud', z:'E', label:'Azure · ETL' },
+            { id:'cpp', z:'E', label:'C / C++' },
+            // Design (z:'D')
+            { id:'figma', z:'D', label:'Figma' }, { id:'blender', z:'D', label:'Blender · 3D' },
+            { id:'motion', z:'D', label:'Motion · AE' }, { id:'photo', z:'D', label:'Photography' },
+            { id:'stage', z:'D', label:'Poster · Stage Art' },
+            // Management (z:'M')
+            { id:'agile', z:'M', label:'Agile · SAFe' }, { id:'jira', z:'M', label:'JIRA' },
+            { id:'speak', z:'M', label:'Toastmasters' }, { id:'mentor', z:'M', label:'Mentorship' },
+            // Engineering × Design overlap (z:'ED')
+            { id:'robotics', z:'ED', label:'Robotics' }, { id:'gamedes', z:'ED', label:'Game Design' },
+            { id:'ctech', z:'ED', label:'Creative Tech' }, { id:'interact', z:'ED', label:'Interactive Sys' },
+            // Engineering × Management overlap (z:'EM')
+            { id:'dataplat', z:'EM', label:'Data-Platform Lead' }, { id:'dataacc', z:'EM', label:'Data Accuracy' },
+            // Design × Management overlap (z:'DM')
+            { id:'gtm', z:'DM', label:'GTM' }, { id:'anaad', z:'DM', label:'Anaadyanta' },
+            { id:'artorg', z:'DM', label:'Art-Org Lead' }, { id:'studioops', z:'DM', label:'Studio Ops' },
+            // Core — all three (z:'C', core:1 makes it glow bigger at the centre)
+            { id:'amnesea', z:'C', label:'AMNESEA', core:1 }, { id:'eyantra', z:'C', label:'eYantra Lead', core:1 },
+        ];
+        // dot radius: core biggest, then overlap nodes (2-char zone), then single-domain
+        const radOf = n => n.core ? 15 : (n.z.length === 2 ? 11 : 9);
+
+        function mk(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+
+        // ---- defs: field radial gradients, cross-domain linear gradients, blur ----
+        const defs = mk('defs');
+        ['E', 'D', 'M'].forEach(k => {
+            const g = mk('radialGradient', { id: 'ff-field-' + k, cx: '50%', cy: '50%', r: '50%' }, defs);
+            const s0 = mk('stop', { offset: '0%', 'stop-opacity': '.5' }, g); s0.style.stopColor = dcol[k];
+            const s1 = mk('stop', { offset: '68%', 'stop-opacity': '.13' }, g); s1.style.stopColor = dcol[k];
+            const s2 = mk('stop', { offset: '100%', 'stop-opacity': '0' }, g); s2.style.stopColor = dcol[k];
+        });
+        [['ED', 'E', 'D'], ['EM', 'E', 'M'], ['DM', 'D', 'M']].forEach(([id, a, b]) => {
+            const g = mk('linearGradient', { id: 'ff-gg-' + id, x1: '0', y1: '0', x2: '1', y2: '1' }, defs);
+            const s0 = mk('stop', { offset: '0%' }, g); s0.style.stopColor = dcol[a];
+            const s1 = mk('stop', { offset: '100%' }, g); s1.style.stopColor = dcol[b];
+        });
+        const flt = mk('filter', { id: 'ff-soft', x: '-25%', y: '-25%', width: '150%', height: '150%' }, defs);
+        mk('feGaussianBlur', { stdDeviation: '7' }, flt);
+
+        // ---- layers (back to front) ----
+        const gRings = mk('g'), gFields = mk('g', { filter: 'url(#ff-soft)' }), gGhost = mk('g'), gEdges = mk('g'), gNodes = mk('g');
+
+        // radar rings backdrop, centred on the tri-domain centroid
+        const cX = 480, cY = 335;
+        [95, 158, 221, 284].forEach(r => mk('circle', { class: 'ff-ring', cx: cX, cy: cY, r }, gRings));
+
+        // euler fields
+        ['E', 'D', 'M'].forEach(k => mk('circle', { cx: FIELD[k].x, cy: FIELD[k].y, r: FR, fill: 'url(#ff-field-' + k + ')' }, gFields));
+
+        // ghost domain TITLES (spelled out, watermarked into each field) —
+        // [colour-key, full name, x, y]. Full words instead of single letters
+        // so the domains read plainly; sized/faded to sit behind the nodes.
+        [['E', 'Engineering', 262, 168], ['D', 'Design', 706, 168], ['M', 'Management', 480, 592]].forEach(([k, word, x, y]) => {
+            const t = mk('text', { x, y, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 31, 'fill-opacity': .24 }, gGhost);
+            t.style.fill = dcol[k]; t.textContent = word;
+        });
+        mk('circle', { cx: 852, cy: 512, r: 40, fill: 'none', stroke: 'var(--line)', 'stroke-width': 2, 'stroke-dasharray': '5 6' }, gGhost);
+        const ot = mk('text', { x: 852, y: 508, 'text-anchor': 'middle', class: 'ff-dlabel', 'font-size': 26, fill: 'var(--dim)' }, gGhost); ot.textContent = 'O';
+        const ol = mk('text', { x: 852, y: 528, 'text-anchor': 'middle', 'font-family': 'var(--font-code)', 'font-size': 8, fill: 'var(--dim)' }, gGhost); ol.textContent = 'next domain';
+
+        // ---- nodes + edges to their domain field centres ----
+        NODES.forEach(n => { const a = ZONE[n.z]; n.x = a.x + (Math.random() - .5) * 40; n.y = a.y + (Math.random() - .5) * 40; n.vx = 0; n.vy = 0; });
+        const edges = [];
+        NODES.forEach(n => ZDOM[n.z].forEach(d => {
+            const el = mk('line', { class: 'ff-edge' }, gEdges);
+            el.style.stroke = dcol[d]; el.setAttribute('stroke-opacity', '.2');
+            edges.push({ n, fx: FIELD[d].x, fy: FIELD[d].y, el });
+        }));
+        const nodeEls = NODES.map(n => {
+            const g = mk('g', { class: 'ff-node' + (n.core ? ' core' : ''), 'data-id': n.id }, gNodes);
+            const c = mk('circle', { r: radOf(n) }, g);
+            if (n.z.length === 2) { c.setAttribute('fill', 'url(#ff-gg-' + n.z + ')'); c.style.stroke = 'var(--bg)'; c.style.strokeWidth = '1'; }
+            else if (n.core) { c.style.fill = 'var(--accent)'; c.style.stroke = 'var(--text)'; c.style.strokeWidth = '2.5'; c.style.filter = 'drop-shadow(0 0 7px var(--accent))'; }
+            else { c.style.fill = dcol[n.z]; c.style.fillOpacity = '.85'; }
+            const t = mk('text', { 'text-anchor': 'middle', y: radOf(n) + 12 }, g); t.textContent = n.label;
+            g._n = n; return g;
+        });
+
+        // ---- force sim ----
+        let alpha = 1, running = true, dragging = null;
+        function tick() {
+            for (let i = 0; i < NODES.length; i++)
+                for (let j = i + 1; j < NODES.length; j++) {
+                    const a = NODES[i], b = NODES[j];
+                    let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || .01, d = Math.sqrt(d2);
+                    const f = 2050 / d2, fx = f * dx / d, fy = f * dy / d;
+                    a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+                }
+            NODES.forEach(n => { const a = ZONE[n.z]; n.vx += (a.x - n.x) * .032; n.vy += (a.y - n.y) * .032; });
+            NODES.forEach(n => {
+                if (n === dragging) { n.vx = n.vy = 0; return; }
+                n.vx *= .8; n.vy *= .8; n.x += n.vx * alpha; n.y += n.vy * alpha;
+                const r = radOf(n) + 8; n.x = Math.max(r, Math.min(W - r, n.x)); n.y = Math.max(r, Math.min(H - 26, n.y));
+            });
+        }
+        function render() {
+            edges.forEach(e => { e.el.setAttribute('x1', e.n.x.toFixed(1)); e.el.setAttribute('y1', e.n.y.toFixed(1)); e.el.setAttribute('x2', e.fx); e.el.setAttribute('y2', e.fy); });
+            nodeEls.forEach(g => g.setAttribute('transform', 'translate(' + g._n.x.toFixed(1) + ' ' + g._n.y.toFixed(1) + ')'));
+        }
+        function loop() {
+            if (running) { tick(); alpha = Math.max(.02, alpha * .986); if (alpha <= .021 && !dragging) running = false; }
+            render(); requestAnimationFrame(loop);
+        }
+        const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { running = true; if (alpha < .1) alpha = .5; } }), { threshold: .04 });
+        io.observe(wrap);
+        requestAnimationFrame(loop);
+
+        // ---- hover isolate: trace a skill to the domains it connects to ----
+        function focus(id) {
+            wrap.classList.add('has-focus');
+            nodeEls.forEach(g => g.classList.toggle('dim', g._n.id !== id));
+            edges.forEach(e => { const lit = e.n.id === id; e.el.classList.toggle('lit', lit); e.el.classList.toggle('dim', !lit); });
+        }
+        function unfocus() { wrap.classList.remove('has-focus'); nodeEls.forEach(g => g.classList.remove('dim')); edges.forEach(e => e.el.classList.remove('lit', 'dim')); }
+        nodeEls.forEach(g => {
+            g.addEventListener('mouseenter', () => { if (!dragging) focus(g._n.id); });
+            g.addEventListener('mouseleave', () => { if (!dragging) unfocus(); });
+        });
+
+        // ---- drag ----
+        const toSvg = ev => { const r = svg.getBoundingClientRect(); return [(ev.clientX - r.left) * (W / r.width), (ev.clientY - r.top) * (H / r.height)]; };
+        nodeEls.forEach(g => {
+            g.addEventListener('pointerdown', ev => { ev.preventDefault(); dragging = g._n; g.classList.add('dragging'); running = true; alpha = Math.max(alpha, .4); g.setPointerCapture(ev.pointerId); unfocus(); });
+            g.addEventListener('pointermove', ev => { if (dragging !== g._n) return; const [x, y] = toSvg(ev); g._n.x = x; g._n.y = y; });
+            const end = () => { if (dragging === g._n) { dragging = null; g.classList.remove('dragging'); alpha = Math.max(alpha, .25); running = true; } };
+            g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+        });
+    })();
+    </script>
+</body>
+
+</html>

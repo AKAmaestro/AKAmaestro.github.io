@@ -1,0 +1,7 @@
+.DS_Store
+tools/.venv/
+__pycache__/
+
+# vault secrets — passwords and plaintext content must never be committed
+tools/vault.config.json
+tools/vault-content/
